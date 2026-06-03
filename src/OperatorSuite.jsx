@@ -1,10 +1,12 @@
 // ═══════════════════════════════════════════════════════════════
 // AURORA DIGITAL FOUNDRY — OPERATOR SUITE v2
-// Build: LOCKED 2026-06-01
+// Build: LOCKED 2026-06-03 (Phase 1 Reconnect — Spine v2.0)
 // Brand: Sierra Teal Light
-// Modules: 10 (Snapshot, Leads, Pipeline, FollowUps, CRM,
-//           Bookings, Marketing, Reviews, AI Console, Settings)
-// Spine: Google Apps Script adapter — read/append/update
+// Spine: ADF DATA SPINE v2.0 — Asset-Centric Model
+//   Primary : ARCHETYPES · PROTOTYPES · INFRASTRUCTURE_GALLERY
+//             SEO_CLUSTERS · PATTERN_LIBRARY · OPERATOR_SUITE_MODULES
+//   Secondary: PROSPECTS · CLIENTS · REVENUE · ACTIVITY_LOG
+// Hydration: Reusable adapter → mapper → module pattern
 // Deploy: Vite + viteSingleFile → single index.html
 // ═══════════════════════════════════════════════════════════════
 
@@ -81,44 +83,43 @@ const fmt     = n => "₱" + Number(n).toLocaleString();
 
 // ── SEED DATA ─────────────────────────────────────────────────
 // ── FALLBACK SEED DATA ────────────────────────────────────────
-// Emergency fallback only. Shown when Leads tab cannot be read.
-// Real prospect names intentionally removed. Real records live in Google Sheets Leads tab.
-// Patch v1.2 — 2026-06-03: Hydration target corrected to Leads.
+// Emergency fallback. Shown when PROSPECTS tab cannot be read.
+// Spine v2.0 schema — no real names, no real data.
+// Patch v1.3 — 2026-06-03: Reconnected to Spine v2.0 PROSPECTS.
 const SEED_LEADS = [
-  { id:"P-XXX", name:"Demo Tourism Prospect",    vertical:"Tourism",         location:"Aurora Province", status:"Prototype",  priority:"HIGH",   contact:"—", fee:17500, action:"Connect to spine — Leads tab offline", due:"—", notes:"Fallback mock record.", reconStatus:"—", prototypeUrl:"" },
-  { id:"P-XXX", name:"Demo Energy Prospect",     vertical:"Energy Retail",   location:"Aurora Province", status:"Prototype",  priority:"HIGH",   contact:"—", fee:40000, action:"Connect to spine — Leads tab offline", due:"—", notes:"Fallback mock record.", reconStatus:"—", prototypeUrl:"" },
-  { id:"P-XXX", name:"Demo Restaurant Prospect", vertical:"Food",            location:"Aurora Province", status:"New Lead",   priority:"MEDIUM", contact:"—", fee:20000, action:"Connect to spine — Leads tab offline", due:"—", notes:"Fallback mock record.", reconStatus:"—", prototypeUrl:"" },
+  { id:"pros-XXX", name:"Demo Tourism Prospect",    vertical:"Tourism",       location:"Aurora Province", territory:"Baler/Aurora",    status:"Prototype", priority:"HIGH",   contact:"—", source:"—", fee:0, setupFee:0, monthlyRetainer:0, probability:0, action:"Spine offline — connect PROSPECTS tab", due:"—", cadence:"NONE", notes:"Fallback record.", recordState:"DEMO" },
+  { id:"pros-XXX", name:"Demo Food Prospect",       vertical:"Food",          location:"Quezon Province", territory:"Lucena/Quezon",   status:"New Lead",  priority:"MEDIUM", contact:"—", source:"—", fee:0, setupFee:0, monthlyRetainer:0, probability:0, action:"Spine offline — connect PROSPECTS tab", due:"—", cadence:"NONE", notes:"Fallback record.", recordState:"DEMO" },
 ];
 
 const SEED_PIPELINE = [
-  { id:"D-XXX", name:"Demo Hospitality Prospect",  stage:"Proposal",  value:24000, prob:70, due:"—", next:"Connect to spine — Leads tab offline" },
-  { id:"D-XXX", name:"Demo Food Prospect",          stage:"Proposal",  value:17500, prob:80, due:"—", next:"Connect to spine — Leads tab offline" },
-  { id:"D-XXX", name:"Demo Tourism Prospect",       stage:"Prototype", value:17500, prob:60, due:"—", next:"Connect to spine — Leads tab offline" },
+  { id:"D-XXX", name:"Demo Prospect A", stage:"Proposal",  value:0, prob:0, due:"—", next:"Spine offline" },
 ];
-
 const SEED_FOLLOWUPS = [
-  { id:"FU-XXX", lead:"Demo Prospect A", type:"72HR",  due:"—", action:"Connect to spine — Leads tab offline", status:"PENDING" },
-  { id:"FU-XXX", lead:"Demo Prospect B", type:"7DAY",  due:"—", action:"Connect to spine — Leads tab offline", status:"PENDING" },
+  { id:"FU-XXX", lead:"Demo Prospect A", type:"72HR", due:"—", action:"Spine offline — connect PROSPECTS tab", status:"PENDING" },
 ];
-
-const SEED_BOOKINGS = [
-  { id:"J-XXX", client:"Demo Client A", type:"Standard Build", status:"Pending", value:0, notes:"Fallback mock record — spine offline." },
-];
-
+const SEED_BOOKINGS  = [{ id:"J-XXX", client:"Demo Client", type:"Standard Build", status:"Pending", value:0, notes:"Spine offline." }];
 const SEED_MARKETING = [
   { id:"M-001", ch:"GBP",      task:"Create ADF Google Business Profile listing", status:"Open", due:"2026-06-07" },
   { id:"M-002", ch:"Facebook", task:"Foundry — first proof-of-work post",          status:"Open", due:"2026-06-10" },
 ];
+const SEED_REVIEWS   = [{ id:"R-XXX", client:"Demo Client", platform:"Google", status:"Not Sent", notes:"Spine offline." }];
 
-const SEED_REVIEWS = [
-  { id:"R-XXX", client:"Demo Client A", platform:"Google", status:"Not Sent", notes:"Fallback mock record — spine offline." },
-];
+// ── ASSET LEDGER FALLBACK SEEDS ───────────────────────────────
+// Used by Snapshot when primary ledger reads fail.
+const SEED_ASSETS = {
+  archetypes:  [],
+  prototypes:  [],
+  gallery:     [],
+  seoClusters: [],
+  patterns:    [],
+  osModules:   [],
+};
 
 // ── SHARED COMPONENTS ─────────────────────────────────────────
 const TAG_COLOR = {
-  // Legacy frontend status values (fallback mock only)
+  // Legacy status values kept for backward compat
   DEMO:"teal", PITCH:"green", QUEUED:"blue", PROSPECT:"dim", STRATEGIC:"dim",
-  // Canonical PROSPECTS stage values (live spine)
+  // Spine v2.0 canonical stage values
   "New Lead":"dim", "Qualified":"blue", "Prototype":"teal",
   "Presentation":"teal", "Proposal":"green", "Conversion":"green",
   "Production":"green", "Maintenance":"teal", "Lost":"red", "Parked":"dim", "Archived":"dim",
@@ -227,105 +228,278 @@ const SaveBtn = ({ label, onClick }) => (
   }}>{label}</button>
 );
 
-// ── LEADS MAPPING LAYER ──────────────────────────────────────
-// Maps live Leads tab rows (ADF DATA SPINE V1.1 / Code.gs) to frontend shape.
-// Patch v1.2 — 2026-06-03: Corrected to match actual spine schema.
+// ══════════════════════════════════════════════════════════════
+// HYDRATION LAYER — Spine v2.0
+// Pattern: Sheet → adapter.read(tabName) → mapper(row) → module state
 //
-// Real Leads tab columns (Code.gs HEADERS.Leads):
-//   lead_id, created_at, name, vertical, location,
-//   status, stage, priority, contact, source,
-//   estimated_fee, next_action, follow_up_date, notes, updated_at
+// Each ledger has:
+//   adapter.read(TAB_NAME)  — fetches raw rows from Google Sheets
+//   map[TabName](row)       — transforms raw row to frontend shape
 //
-// Code.gs doGet returns object-keyed rows (header names as keys).
-// Positional array path kept as safety fallback.
+// Adding a new ledger = add one read call + one mapper function.
+// No custom fetch logic. No repeated boilerplate.
+//
+// PRIMARY LEDGERS (asset-centric):
+//   ARCHETYPES, PROTOTYPES, INFRASTRUCTURE_GALLERY,
+//   SEO_CLUSTERS, PATTERN_LIBRARY, OPERATOR_SUITE_MODULES
+//
+// SECONDARY LEDGERS (sales):
+//   PROSPECTS, CLIENTS, REVENUE, ACTIVITY_LOG
+// ══════════════════════════════════════════════════════════════
 
-function mapProspectRow(row) {
-  if (Array.isArray(row)) {
-    // Positional fallback — column order matches Code.gs HEADERS.Leads
-    // idx: 0=lead_id, 1=created_at, 2=name, 3=vertical, 4=location,
-    //      5=status, 6=stage, 7=priority, 8=contact, 9=source,
-    //      10=estimated_fee, 11=next_action, 12=follow_up_date, 13=notes, 14=updated_at
-    return {
-      id:          row[0]  || "",
-      created_at:  row[1]  || "",
-      name:        row[2]  || "",
-      vertical:    row[3]  || "",
-      location:    row[4]  || "",
-      status:      row[6]  || row[5] || "New Lead",  // stage (idx 6) preferred over status (idx 5)
-      priority:    row[7]  || "MEDIUM",
-      contact:     row[8]  || "",
-      source:      row[9]  || "",
-      fee:         Number(row[10]) || 0,
-      action:      row[11] || "",
-      due:         row[12] || "",
-      notes:       row[13] || "",
-      updated_at:  row[14] || "",
-      reconStatus: "",
-      prototypeUrl:"",
-    };
-  }
-  // Object-keyed row — normal path from Code.gs doGet
+// ── MAPPER: PROSPECTS (Spine v2.0 schema) ────────────────────
+// Tab: PROSPECTS
+// Columns: prospect_id, business_name, industry, location, territory,
+//          source, linked_archetype_id, linked_gallery_item_id,
+//          stage, record_state, priority, template_family,
+//          setup_fee, monthly_retainer, probability_pct,
+//          next_action, follow_up_date, follow_up_cadence,
+//          notes, created_at, updated_at
+
+function mapProspect(row) {
+  const r = Array.isArray(row)
+    ? {
+        prospect_id: row[0], business_name: row[1], industry: row[2],
+        location: row[3], territory: row[4], source: row[5],
+        linked_archetype_id: row[6], linked_gallery_item_id: row[7],
+        stage: row[8], record_state: row[9], priority: row[10],
+        template_family: row[11], setup_fee: row[12], monthly_retainer: row[13],
+        probability_pct: row[14], next_action: row[15], follow_up_date: row[16],
+        follow_up_cadence: row[17], notes: row[18], created_at: row[19], updated_at: row[20],
+      }
+    : row;
+
+  const setupFee      = Number(r.setup_fee)       || 0;
+  const retainer      = Number(r.monthly_retainer) || 0;
+  const probability   = Number(r.probability_pct)  || 0;
+  const estValue      = setupFee + (retainer * 3);
+  const weighted      = Math.round(estValue * probability / 100);
+
   return {
-    id:          row.lead_id       || "",
-    created_at:  row.created_at    || "",
-    name:        row.name          || "",
-    vertical:    row.vertical      || "",
-    location:    row.location      || "",
-    status:      row.stage         || row.status  || "New Lead",
-    priority:    row.priority      || "MEDIUM",
-    contact:     row.contact       || "",
-    source:      row.source        || "",
-    fee:         Number(row.estimated_fee) || 0,
-    action:      row.next_action   || "",
-    due:         row.follow_up_date|| "",
-    notes:       row.notes         || "",
-    updated_at:  row.updated_at    || "",
-    reconStatus: "",
-    prototypeUrl:"",
+    id:             r.prospect_id        || "",
+    name:           r.business_name      || "",
+    vertical:       r.industry           || "",
+    location:       r.location           || "",
+    territory:      r.territory          || "",
+    source:         r.source             || "",
+    archetypeId:    r.linked_archetype_id|| "",
+    galleryId:      r.linked_gallery_item_id || "",
+    status:         r.stage              || "New Lead",    // stage is the single lifecycle field
+    recordState:    r.record_state       || "ACTIVE",
+    priority:       r.priority           || "MEDIUM",
+    templateFamily: r.template_family    || "",
+    setupFee,
+    monthlyRetainer: retainer,
+    fee:            setupFee,                              // backward compat for card display
+    probability,
+    estValue,
+    weighted,
+    action:         r.next_action        || "",
+    due:            r.follow_up_date     || "",
+    cadence:        r.follow_up_cadence  || "NONE",
+    notes:          r.notes              || "",
+    contact:        "",                                    // not in v2.0 PROSPECTS schema
+    reconStatus:    "",
+    prototypeUrl:   "",
   };
 }
 
-// ── AI CONTEXT ────────────────────────────────────────────────
-const buildContext = (leads, pipeline, followups) => {
-  const overdue = followups.filter(f => f.status === "OVERDUE").map(f => f.lead).join(", ");
-  const weighted = pipeline.reduce((a, d) => a + d.value * (d.prob / 100), 0);
-  return `You are the AI action console for Aurora Digital Foundry — a business infrastructure agency in Aurora Province, Philippines, operated by Hirro Kuizon. Be direct, operator-grade, zero filler. Produce usable artifacts: draft messages, ranked lists, action plans, scripts. Use PHP for currency.
+// ── MAPPER: ARCHETYPES ────────────────────────────────────────
+function mapArchetype(row) {
+  const r = Array.isArray(row)
+    ? { archetype_id:row[0], name:row[1], template_family:row[2], target_industry:row[3],
+        target_market:row[4], search_gravity_score:row[5], commercial_gravity_score:row[6],
+        pattern_reuse_score:row[7], backend_richness_score:row[8], strategic_fit_score:row[9],
+        total_score:row[10], classification:row[11], lifecycle_state:row[12], priority:row[13],
+        prototype_id:row[14], gallery_item_id:row[15], seo_cluster_id:row[16],
+        frontend_demo_url:row[18], notes:row[20] }
+    : row;
+  return {
+    id:            r.archetype_id       || "",
+    name:          r.name               || "",
+    family:        r.template_family    || "",
+    industry:      r.target_industry    || "",
+    market:        r.target_market      || "",
+    score:         Number(r.total_score) || 0,
+    classification:r.classification     || "",
+    lifecycle:     r.lifecycle_state    || "Candidate",
+    priority:      r.priority           || "MEDIUM",
+    demoUrl:       r.frontend_demo_url  || "",
+    notes:         r.notes              || "",
+  };
+}
 
-Current ops snapshot:
-- Prospects: ${leads.length} | Demos live: ${leads.filter(l => l.status === "DEMO").length} | In pitch: ${leads.filter(l => l.status === "PITCH").length}
-- Overdue follow-ups: ${followups.filter(f => f.status === "OVERDUE").length} (${overdue || "none"})
-- Weighted pipeline value: PHP ${Math.round(weighted).toLocaleString()}
-- 8-week targets: PHP 100,000 setup revenue · PHP 25,000 MRR
-- Week 1 of 8. Zero closes so far. First conversion is the priority.`;
+// ── MAPPER: PROTOTYPES ────────────────────────────────────────
+function mapPrototype(row) {
+  const r = Array.isArray(row)
+    ? { prototype_id:row[0], archetype_id:row[1], name:row[3], template_family:row[4],
+        ownership:row[5], live_url:row[7], build_stage:row[9], page_count:row[10] }
+    : row;
+  return {
+    id:         r.prototype_id  || "",
+    archetypeId:r.archetype_id  || "",
+    name:       r.name          || "",
+    family:     r.template_family || "",
+    ownership:  r.ownership     || "FOUNDRY",
+    liveUrl:    r.live_url      || "",
+    stage:      r.build_stage   || "",
+    pages:      Number(r.page_count) || 0,
+  };
+}
+
+// ── MAPPER: INFRASTRUCTURE_GALLERY ───────────────────────────
+function mapGalleryItem(row) {
+  const r = Array.isArray(row)
+    ? { gallery_item_id:row[0], archetype_id:row[1], public_title:row[2],
+        template_family:row[3], target_industry:row[4], business_problem_demonstrated:row[5],
+        frontend_demo_url:row[6], published_status:row[10] }
+    : row;
+  return {
+    id:          r.gallery_item_id    || "",
+    archetypeId: r.archetype_id       || "",
+    title:       r.public_title       || "",
+    family:      r.template_family    || "",
+    industry:    r.target_industry    || "",
+    problem:     r.business_problem_demonstrated || "",
+    demoUrl:     r.frontend_demo_url  || "",
+    published:   r.published_status === "Published",
+  };
+}
+
+// ── MAPPER: SEO_CLUSTERS ──────────────────────────────────────
+function mapSEOCluster(row) {
+  const r = Array.isArray(row)
+    ? { seo_cluster_id:row[0], vertical:row[2], territory:row[3],
+        primary_keyword:row[4], status:row[11] }
+    : row;
+  return {
+    id:       r.seo_cluster_id  || "",
+    vertical: r.vertical        || "",
+    territory:r.territory       || "",
+    keyword:  r.primary_keyword || "",
+    status:   r.status          || "",
+  };
+}
+
+// ── MAPPER: PATTERN_LIBRARY ───────────────────────────────────
+function mapPattern(row) {
+  const r = Array.isArray(row)
+    ? { pattern_id:row[0], name:row[1], pattern_family:row[2],
+        reuse_count:row[7], promotion_status:row[8], status:row[10] }
+    : row;
+  return {
+    id:        r.pattern_id       || "",
+    name:      r.name             || "",
+    family:    r.pattern_family   || "",
+    reuse:     Number(r.reuse_count) || 0,
+    status:    r.promotion_status || "",
+  };
+}
+
+// ── HYDRATION HELPER ──────────────────────────────────────────
+// Generic: reads a tab, maps rows, filters empties.
+// Usage: hydrateTab("ARCHETYPES", mapArchetype, setArchetypes)
+async function hydrateTab(tabName, mapFn, setter) {
+  try {
+    const raw = await adapter.read(tabName);
+    if (raw && Array.isArray(raw) && raw.length > 0) {
+      const mapped = raw.map(mapFn).filter(r => r.id);
+      if (mapped.length > 0) { setter(mapped); return true; }
+    }
+  } catch(_) {}
+  return false;
+}
+
+// ── AI CONTEXT ────────────────────────────────────────────────
+const buildContext = (leads, pipeline, followups, assets) => {
+  const overdue = leads.filter(l => l.due && l.due !== "—" && new Date(l.due) < new Date() && !["Conversion","Production","Maintenance","Lost","Archived"].includes(l.status));
+  const weighted = leads.filter(l => l.recordState === "ACTIVE").reduce((a,l) => a + (l.weighted || 0), 0);
+  const archetypesDeployed = (assets?.archetypes || []).filter(a => ["Deployed","Enhanced"].includes(a.lifecycle)).length;
+  const prototypesLive     = (assets?.prototypes || []).filter(p => p.stage === "Live").length;
+  const galleryPublished   = (assets?.gallery || []).filter(g => g.published).length;
+
+  return `You are the AI console for Aurora Digital Foundry — an asset-centric business infrastructure manufacturer in Aurora Province, Philippines, operated by Hirro Kuizon.
+
+Business model: Keyword Research → Archetype → Prototype → Infrastructure Gallery → SEO → Traffic → Lead → Client
+Prospects are downstream of archetypes. Assets generate revenue. Revenue funds more assets.
+
+Current manufacturing snapshot:
+- Archetypes deployed: ${archetypesDeployed}
+- Prototypes live: ${prototypesLive}
+- Gallery items published: ${galleryPublished}
+- Active prospects: ${leads.filter(l => l.recordState === "ACTIVE").length}
+- Overdue follow-ups: ${overdue.length}
+- Weighted pipeline: PHP ${weighted.toLocaleString()}
+- 8-week targets: PHP 100,000 setup · PHP 25,000 MRR
+- Week 1 of 8. Zero closes.
+
+Be direct, operator-grade, zero filler. Use PHP for currency.`;
 };
 
 // ══════════════════════════════════════════════════════════════
 // MODULES
 // ══════════════════════════════════════════════════════════════
 
-function Snapshot({ leads, pipeline, followups, nav }) {
-  const ov = followups.filter(f => f.status === "OVERDUE").length;
-  const wt = pipeline.reduce((a, d) => a + d.value * (d.prob / 100), 0);
+function Snapshot({ leads, assets, nav }) {
+  const active   = leads.filter(l => l.recordState === "ACTIVE" || !l.recordState);
+  const overdue  = active.filter(l => l.due && l.due !== "—" && new Date(l.due) < new Date() && !["Conversion","Production","Maintenance","Lost","Archived"].includes(l.status));
+  const weighted = active.reduce((a,l) => a + (l.weighted || 0), 0);
+
+  const archs     = assets?.archetypes  || [];
+  const protos    = assets?.prototypes  || [];
+  const gallery   = assets?.gallery     || [];
+  const clusters  = assets?.seoClusters || [];
+  const patterns  = assets?.patterns    || [];
+
+  const archsDeployed  = archs.filter(a => ["Deployed","Enhanced"].includes(a.lifecycle)).length;
+  const protosLive     = protos.filter(p => p.stage === "Live").length;
+  const galleryLive    = gallery.filter(g => g.published).length;
+  const clustersActive = clusters.filter(c => c.status === "Active").length;
+  const patternReuse   = patterns.reduce((a,p) => a + p.reuse, 0);
+  const hasAssets      = archs.length > 0;
+
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-      <SLabel>Today's Snapshot</SLabel>
+      <SLabel>Foundry Manufacturing Cockpit</SLabel>
 
-      {ov > 0 && (
+      {overdue.length > 0 && (
         <div style={{ background:B.rbg, border:`1px solid rgba(204,34,34,.3)`, borderRadius:10, padding:12,
           display:"flex", alignItems:"center", gap:10 }}>
           <div style={{ width:6, height:6, borderRadius:"50%", background:B.red, flexShrink:0 }} />
           <p style={{ fontFamily:F.mono, fontSize:11, color:B.red, flex:1 }}>
-            {ov} OVERDUE FOLLOW-UP{ov > 1 ? "S" : ""} — ACT NOW
+            {overdue.length} OVERDUE FOLLOW-UP{overdue.length > 1 ? "S" : ""} — ACT NOW
           </p>
           <GBtn label="ACTION →" onClick={() => nav("followups")} on />
         </div>
       )}
 
+      <div style={{ background:B.raised, border:`1px solid ${B.border}`, borderRadius:10, padding:14 }}>
+        <SLabel>Foundry Assets</SLabel>
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
+          {[
+            { l:"Archetypes Active",  v:hasAssets ? archsDeployed  : null },
+            { l:"Prototypes Live", v:hasAssets ? protosLive     : null },
+            { l:"Gallery Published",    v:hasAssets ? galleryLive    : null },
+            { l:"SEO Clusters",    v:hasAssets ? clustersActive : null },
+            { l:"Patterns",        v:hasAssets ? patterns.length: null },
+            { l:"Pattern Reuse",   v:hasAssets ? patternReuse   : null },
+          ].map(m => (
+            <div key={m.l} style={{ background:B.surface, border:`1px solid ${B.border}`, borderRadius:8, padding:"10px 12px" }}>
+              <p style={{ fontFamily:F.mono, fontSize:9, letterSpacing:".1em", textTransform:"uppercase", color:B.dim, marginBottom:4 }}>{m.l}</p>
+              {m.v !== null
+                ? <p style={{ fontFamily:F.disp, fontSize:22, color:B.teal, lineHeight:1 }}>{m.v}</p>
+                : <p style={{ fontFamily:F.mono, fontSize:9, color:B.muted, letterSpacing:1 }}>PENDING</p>
+              }
+            </div>
+          ))}
+        </div>
+      </div>
+
       <MGrid items={[
-        { l:"Prospects",      v:leads.length },
-        { l:"Demos Live",     v:leads.filter(l => l.status === "DEMO").length },
-        { l:"Overdue",        v:ov, alert:ov > 0 },
-        { l:"Wtd Pipeline",   v:fmt(Math.round(wt)), sm:true },
+        { l:"Active Prospects", v:active.length },
+        { l:"Weighted Pipeline",     v:fmt(weighted), sm:true },
+        { l:"Overdue",          v:overdue.length, alert:overdue.length > 0 },
+        { l:"MRR",              v:"₱0", sm:true },
       ]} />
 
       <Card>
@@ -343,16 +517,21 @@ function Snapshot({ leads, pipeline, followups, nav }) {
 
       <Card>
         <SLabel>Next Best Actions</SLabel>
+        {overdue.map((p,i) => (
+          <div key={"ov-"+i} style={{ display:"flex", gap:8, alignItems:"flex-start", marginBottom:9 }}>
+            <div style={{ width:6, height:6, borderRadius:"50%", background:B.red, marginTop:5, flexShrink:0 }} />
+            <p style={{ fontSize:13, color:B.ink, lineHeight:1.4 }}>Close {p.name} — {p.action}</p>
+          </div>
+        ))}
         {[
-          { u:true,  t:"Close overdue Proposal prospect — 72hr follow-up past due" },
-          { u:true,  t:"Close second Proposal prospect — demo approved, awaiting signature" },
-          { u:false, t:"Ship next Prototype demo — same-strip walk-in opportunity" },
-          { u:false, t:"Book Prototype presentation — confirm decision authority" },
-          { u:false, t:"Register auroradigitalfoundry.com at Porkbun" },
-        ].map((a, i) => (
-          <div key={i} style={{ display:"flex", gap:8, alignItems:"flex-start", marginBottom:9 }}>
-            <div style={{ width:6, height:6, borderRadius:"50%", background:a.u ? B.red : B.muted, marginTop:5, flexShrink:0 }} />
-            <p style={{ fontSize:13, color:a.u ? B.ink : B.dim, lineHeight:1.4 }}>{a.t}</p>
+          "Manufacture next highest-scoring Archetype candidate",
+          "Publish Surf archetype to Infrastructure Gallery",
+          "Complete Nalu Surf Camp prototype — walk-in ready",
+          "Register auroradigitalfoundry.com at Porkbun",
+        ].map((t,i) => (
+          <div key={"s-"+i} style={{ display:"flex", gap:8, alignItems:"flex-start", marginBottom:9 }}>
+            <div style={{ width:6, height:6, borderRadius:"50%", background:B.muted, marginTop:5, flexShrink:0 }} />
+            <p style={{ fontSize:13, color:B.dim, lineHeight:1.4 }}>{t}</p>
           </div>
         ))}
       </Card>
@@ -360,10 +539,10 @@ function Snapshot({ leads, pipeline, followups, nav }) {
       <Card>
         <SLabel>Governance</SLabel>
         {[
-          ["Suite Status",    "STATE C — CANDIDATE", B.teal],
-          ["Weekly Review 1", "June 8, 2026",         B.teal],
-          ["Patches Overdue", "0",                    B.green],
-          ["Red Band Clients","0",                    B.green],
+          ["Spine Version",   "v2.0 — Asset-Centric", B.teal],
+          ["Suite Status",    "STATE C — CANDIDATE",  B.teal],
+          ["Weekly Review 1", "June 8, 2026",          B.teal],
+          ["Patches Overdue", "0",                     B.green],
         ].map(([k, v, c]) => (
           <div key={k} style={{ display:"flex", justifyContent:"space-between", marginBottom:7 }}>
             <span style={{ fontSize:13, color:B.dim }}>{k}</span>
@@ -374,6 +553,7 @@ function Snapshot({ leads, pipeline, followups, nav }) {
     </div>
   );
 }
+
 
 // ─────────────────────────────────────────────────────────────
 function Leads({ leads, setLeads, ai }) {
@@ -420,7 +600,7 @@ function Leads({ leads, setLeads, ai }) {
       )}
 
       <div style={{ display:"flex", gap:4, overflowX:"auto", paddingBottom:4 }}>
-        {["ALL","PITCH","DEMO","QUEUED","PROSPECT","STRATEGIC"].map(x => (
+        {["ALL","Proposal","Prototype","New Lead","Qualified","Parked"].map(x => (
           <GBtn key={x} label={x} onClick={() => setFilter(x)} on={filter === x} />
         ))}
       </div>
@@ -793,7 +973,7 @@ function Reviews({ reviews, setReviews, ai }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-function AIConsole({ leads, pipeline, followups, autoRun, onRan }) {
+function AIConsole({ leads, pipeline, followups, assets, autoRun, onRan }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState(null);
@@ -802,14 +982,14 @@ function AIConsole({ leads, pipeline, followups, autoRun, onRan }) {
   const [showKey, setShowKey] = useState(false);
 
   const PRESETS = [
-    "Analyze prospects — find highest-probability close this week",
-    "Draft 72hr follow-up for top overdue Proposal prospect",
-    "Draft close message for Proposal prospect — demo approved",
-    "Generate this week's Foundry operator brief",
-    "Identify revenue gaps in the current pipeline",
-    "Write a demo walk-in script for Prototype-stage prospect",
-    "Suggest 3 next prospect targets in Aurora Province",
-    "Draft opening for upcoming Prototype presentation",
+    "Generate this week's Foundry operator brief — asset-centric",
+    "Which archetype should be manufactured next and why?",
+    "Identify revenue gaps — which active prospects are closest to closing?",
+    "Draft 72hr follow-up for the highest-probability Proposal stage prospect",
+    "Write a demo walk-in script for a Prototype-stage prospect",
+    "Suggest 3 next archetype candidates for Aurora Province territory",
+    "Draft a closing message for a Proposal prospect — deposit goal",
+    "What is the highest-leverage action the Foundry can take today?",
   ];
 
   const run = async (prompt, idx = null) => {
@@ -830,7 +1010,7 @@ function AIConsole({ leads, pipeline, followups, autoRun, onRan }) {
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
-          system: buildContext(leads, pipeline, followups),
+          system: buildContext(leads, pipeline, followups, assets),
           messages: [{ role:"user", content:prompt }],
         }),
       });
@@ -916,7 +1096,7 @@ function AIConsole({ leads, pipeline, followups, autoRun, onRan }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-function Settings({ spineConnected, spineStatus }) {
+function Settings({ spineConnected, spineStatus, spineDetail }) {
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
       <SLabel>Foundry Settings</SLabel>
@@ -928,10 +1108,10 @@ function Settings({ spineConnected, spineStatus }) {
         <p style={{ fontFamily:F.mono, fontSize:10, letterSpacing:2,
           color: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal }}>
           {spineStatus==="LIVE"
-            ? "✓ DATA SPINE: LIVE — LEADS TAB CONNECTED"
+            ? `✓ SPINE v2.0 LIVE — ${spineDetail || "PROSPECTS"} CONNECTED`
             : spineStatus==="FALLBACK"
-            ? "⚠ DATA SPINE: FALLBACK MOCK — LEADS READ FAILED"
-            : "◌ DATA SPINE: CONNECTING…"}
+            ? `⚠ SPINE FALLBACK — ${spineDetail || "READ FAILED"}`
+            : "◌ SPINE v2.0 CONNECTING…"}
         </p>
       </div>
       <div style={{ display:"flex", flexDirection:"column", gap:4 }}>
@@ -940,7 +1120,7 @@ function Settings({ spineConnected, spineStatus }) {
           ["GitHub",           "hirrok/adf-hq",                      false],
           ["Domain",           "auroradigitalfoundry.com — PENDING",  true],
           ["Hosting",          "GitHub Pages — free tier",            false],
-          ["Data Spine",       spineStatus==="LIVE" ? "Leads — LIVE" : spineStatus==="FALLBACK" ? "FALLBACK MOCK — LEADS READ FAILED" : "Connecting…", spineStatus!=="LIVE"],
+          ["Data Spine",       spineStatus==="LIVE" ? `PROSPECTS — LIVE` : spineStatus==="FALLBACK" ? "FALLBACK — READ FAILED" : "Connecting…", spineStatus!=="LIVE"],
           ["Form Backend",     "Formspree — mjgzdlja",                false],
           ["GBP",              "NOT CREATED",                         true],
           ["Search Console",   "NOT SET UP",                          true],
@@ -984,9 +1164,12 @@ const NAV_MODULES = [
 // ROOT APP
 // ══════════════════════════════════════════════════════════════
 export default function FoundryOps() {
-  const [mod,        setMod]       = useState("snapshot");
-  const [live,       setLive]      = useState(false);
-  const [spineStatus, setSpineStatus] = useState("CONNECTING"); // CONNECTING | LIVE | FALLBACK
+  const [mod,         setMod]        = useState("snapshot");
+  const [live,        setLive]       = useState(false);
+  const [spineStatus, setSpineStatus]= useState("CONNECTING");
+  const [spineDetail, setSpineDetail]= useState("");         // which tab confirmed readable
+
+  // Secondary ledger state
   const [leads,      setLeads]     = useState(SEED_LEADS);
   const [pipeline,   setPipeline]  = useState(SEED_PIPELINE);
   const [followups,  setFollowups] = useState(SEED_FOLLOWUPS);
@@ -994,37 +1177,55 @@ export default function FoundryOps() {
   const [bookings,   setBookings]  = useState(SEED_BOOKINGS);
   const [marketing,  setMarketing] = useState(SEED_MARKETING);
   const [reviews,    setReviews]   = useState(SEED_REVIEWS);
+
+  // Primary asset ledger state — Spine v2.0
+  const [archetypes,  setArchetypes]  = useState(SEED_ASSETS.archetypes);
+  const [prototypes,  setPrototypes]  = useState(SEED_ASSETS.prototypes);
+  const [gallery,     setGallery]     = useState(SEED_ASSETS.gallery);
+  const [seoClusters, setSeoClusters] = useState(SEED_ASSETS.seoClusters);
+  const [patterns,    setPatterns]    = useState(SEED_ASSETS.patterns);
+
   const [aiQueue,    setAiQueue]   = useState(null);
   const contentRef = useRef(null);
 
-  const overdue = followups.filter(f => f.status === "OVERDUE").length;
+  // Derived overdue count from PROSPECTS (Option B — no separate FollowUps tab)
+  const overdue = leads.filter(l =>
+    (l.recordState === "ACTIVE" || !l.recordState) &&
+    l.due && l.due !== "—" &&
+    new Date(l.due) < new Date() &&
+    !["Conversion","Production","Maintenance","Lost","Archived"].includes(l.status)
+  ).length;
 
-  // ── SPINE HYDRATION ──────────────────────────────────────────
-  // Patch v1.1 — 2026-06-02
-  // Corrected target: PROSPECTS (Foundry schema) — was incorrectly "Leads" (Client schema)
-  // Maps canonical PROSPECTS rows to frontend Lead shape via mapProspectRow()
+  // ── SPINE HYDRATION v2.0 ─────────────────────────────────────
+  // Pattern: Sheet → adapter.read(tab) → mapper(row) → state
+  // PART 4 — Badge reflects: spine reachable AND expected tab readable
   useEffect(() => {
     (async () => {
-      try {
-        const raw = await adapter.read("Leads");
-        if (raw && Array.isArray(raw) && raw.length > 0) {
-          const mapped = raw.map(mapProspectRow).filter(r => r.id && r.name);
-          if (mapped.length > 0) {
-            setLeads(mapped);
-            setLive(true);
-            setSpineStatus("LIVE");
-          } else {
-            // Tab exists but rows are empty or malformed
-            setSpineStatus("FALLBACK");
-          }
-        } else {
-          setSpineStatus("FALLBACK");
-        }
-      } catch (e) {
+      // Step 1: Reconnect PROSPECTS (secondary — required for daily ops)
+      const prospectsOk = await hydrateTab("PROSPECTS", mapProspect, (rows) => {
+        const active = rows.filter(r => r.recordState === "ACTIVE" || !r.recordState);
+        setLeads(active.length > 0 ? active : rows); // show all if no ACTIVE filter match
+      });
+
+      if (prospectsOk) {
+        setLive(true);
+        setSpineStatus("LIVE");
+        setSpineDetail("PROSPECTS");
+      } else {
         setSpineStatus("FALLBACK");
+        setSpineDetail("PROSPECTS READ FAILED");
       }
+
+      // Step 2: Hydrate primary asset ledgers (non-blocking — fail gracefully)
+      await hydrateTab("ARCHETYPES",           mapArchetype,   setArchetypes);
+      await hydrateTab("PROTOTYPES",           mapPrototype,   setPrototypes);
+      await hydrateTab("INFRASTRUCTURE_GALLERY", mapGalleryItem, setGallery);
+      await hydrateTab("SEO_CLUSTERS",         mapSEOCluster,  setSeoClusters);
+      await hydrateTab("PATTERN_LIBRARY",      mapPattern,     setPatterns);
     })();
   }, []);
+
+  const assets = { archetypes, prototypes, gallery, seoClusters, patterns };
 
   const nav = (id) => {
     setMod(id);
@@ -1034,16 +1235,16 @@ export default function FoundryOps() {
   const ai = (prompt) => { setAiQueue(prompt); nav("ai"); };
 
   const MODULE_MAP = {
-    snapshot:  <Snapshot  leads={leads} pipeline={pipeline} followups={followups} nav={nav} />,
+    snapshot:  <Snapshot  leads={leads} assets={assets} nav={nav} />,
     leads:     <Leads     leads={leads} setLeads={setLeads} ai={ai} />,
     pipeline:  <Pipeline  pipeline={pipeline} setPipeline={setPipeline} ai={ai} />,
-    followups: <FollowUps followups={followups} setFollowups={setFollowups} />,
+    followups: <FollowUps followups={leads} setFollowups={setLeads} />,
     customers: <Customers customers={customers} />,
     bookings:  <Bookings  bookings={bookings} setBookings={setBookings} ai={ai} />,
     marketing: <Marketing marketing={marketing} setMarketing={setMarketing} ai={ai} />,
     reviews:   <Reviews   reviews={reviews} setReviews={setReviews} ai={ai} />,
-    ai:        <AIConsole leads={leads} pipeline={pipeline} followups={followups} autoRun={aiQueue} onRan={() => setAiQueue(null)} />,
-    settings:  <Settings  spineConnected={live} spineStatus={spineStatus} />,
+    ai:        <AIConsole leads={leads} pipeline={pipeline} followups={followups} assets={assets} autoRun={aiQueue} onRan={() => setAiQueue(null)} />,
+    settings:  <Settings  spineConnected={live} spineStatus={spineStatus} spineDetail={spineDetail} />,
   };
 
   return (
@@ -1153,10 +1354,13 @@ export default function FoundryOps() {
         </div>
         <div style={{ padding:"0 12px", marginBottom:12, display:"flex", gap:6, flexWrap:"wrap" }}>
           <div style={{ display:"inline-flex", alignItems:"center", gap:5, padding:"3px 8px", borderRadius:99,
-            fontFamily:F.mono, fontSize:9, background:live?B.gbg:B.tbg,
-            border:`1px solid ${live?B.green:B.teal}`, color:live?B.green:B.teal }}>
-            <div style={{ width:5, height:5, borderRadius:"50%", background:live?B.green:B.teal }} />
-            {live?"LIVE":"MOCK"}
+            fontFamily:F.mono, fontSize:9,
+            background: spineStatus==="LIVE" ? B.gbg : spineStatus==="FALLBACK" ? B.rbg : B.tbg,
+            border: `1px solid ${spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? "rgba(204,34,34,.4)" : B.teal}`,
+            color: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal }}>
+            <div style={{ width:5, height:5, borderRadius:"50%",
+              background: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal }} />
+            {spineStatus==="LIVE" ? "LIVE" : spineStatus==="FALLBACK" ? "FALLBACK" : "…"}
           </div>
           {overdue > 0 && (
             <div style={{ display:"inline-flex", alignItems:"center", gap:4, padding:"3px 8px", borderRadius:99,
