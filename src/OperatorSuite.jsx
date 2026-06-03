@@ -362,7 +362,7 @@ function mapGalleryItem(row) {
     industry:    r.target_industry    || "",
     problem:     r.business_problem_demonstrated || "",
     demoUrl:     r.frontend_demo_url  || "",
-    published:   r.published_status === "Published",
+    published:   ["Published","published","TRUE","true",true].includes(r.published_status),
   };
 }
 
@@ -723,9 +723,54 @@ function FollowUps({ followups, setFollowups }) {
   const pending = followups.filter(f => f.status !== "DONE");
   const doneCount = followups.filter(f => f.status === "DONE").length;
 
+  // ── OPTION B PERSISTENCE ─────────────────────────────────────
+  // DONE ✓ writes to PROSPECTS (no FollowUps tab — Option B confirmed).
+  // Pushes follow_up_date forward by cadence. Appends to ACTIVITY_LOG.
   const markDone = async (id) => {
+    // Optimistic UI update
     setFollowups(p => p.map(f => f.id === id ? { ...f, status:"DONE" } : f));
-    await adapter.update("FollowUps", id, { status:"DONE" });
+
+    const prospect = followups.find(f => f.id === id);
+    if (!prospect) return;
+
+    const cadence = prospect.cadence || prospect.type || "72HR";
+    const pad = n => String(n).padStart(2, "0");
+    const isoDate = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const base = new Date();
+
+    let newDue = "";
+    let clearAction = false;
+    switch (cadence) {
+      case "24HR":  { const d = new Date(base); d.setDate(d.getDate()+1); newDue = isoDate(d); break; }
+      case "72HR":  { const d = new Date(base); d.setDate(d.getDate()+3); newDue = isoDate(d); break; }
+      case "7DAY":  { const d = new Date(base); d.setDate(d.getDate()+7); newDue = isoDate(d); break; }
+      case "BUILD": newDue = ""; clearAction = true; break;
+      case "NONE":  newDue = ""; clearAction = true; break;
+      case "MANUAL": newDue = prospect.due || ""; break;
+      default:      { const d = new Date(base); d.setDate(d.getDate()+3); newDue = isoDate(d); }
+    }
+
+    const now = new Date().toISOString();
+    const prospectUpdate = {
+      follow_up_date: newDue,
+      updated_at: now,
+      ...(clearAction ? { next_action: "" } : {}),
+    };
+
+    // Write 1: push follow_up_date forward in PROSPECTS
+    await adapter.update("PROSPECTS", id, prospectUpdate);
+
+    // Write 2: append completion record to ACTIVITY_LOG
+    const logRow = {
+      log_id:      "LOG-" + Date.now().toString(36),
+      timestamp:   now,
+      entry_type:  "Follow-Up",
+      entity_type: "Prospect",
+      entity_id:   id,
+      summary:     `Completed ${cadence} follow-up: ${prospect.action || "—"} (${prospect.name || id})`,
+      operator:    "hirrok",
+    };
+    await adapter.append("ACTIVITY_LOG", logRow);
   };
 
   const submit = async () => {
@@ -761,20 +806,24 @@ function FollowUps({ followups, setFollowups }) {
       )}
 
       <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-        {pending.map(f => (
+        {pending.map(f => {
+          const isOv = f.due && f.due !== "—" && new Date(f.due) < new Date() &&
+            !["Conversion","Production","Maintenance","Lost","Archived"].includes(f.status);
+          const dueDisplay = typeof f.due === "string" && f.due.includes("T") ? f.due.split("T")[0] : f.due;
+          return (
           <div key={f.id} style={{
-            background: f.status === "OVERDUE" ? B.rbg : B.surface,
-            border:`1px solid ${f.status === "OVERDUE" ? "rgba(204,34,34,.3)" : B.border}`,
+            background: isOv ? B.rbg : B.surface,
+            border:`1px solid ${isOv ? "rgba(204,34,34,.3)" : B.border}`,
             borderRadius:10, padding:12, display:"flex", gap:10, alignItems:"center",
           }}>
             <div style={{ flex:1, minWidth:0 }}>
               <div style={{ display:"flex", gap:6, marginBottom:4, flexWrap:"wrap", alignItems:"center" }}>
-                <Tag l={f.type} />
-                <p style={{ fontSize:14, fontWeight:500, color:B.ink }}>{f.lead}</p>
+                <Tag l={f.cadence || f.type || "72HR"} />
+                <p style={{ fontSize:14, fontWeight:500, color:B.ink }}>{f.name || f.lead || "—"}</p>
               </div>
               <p style={{ fontSize:12, color:B.dim }}>{f.action}</p>
-              <p style={{ fontFamily:F.mono, fontSize:9, color:f.status === "OVERDUE" ? B.red : B.muted, marginTop:3 }}>
-                {f.status === "OVERDUE" ? "⚠ OVERDUE" : "DUE"} · {f.due}
+              <p style={{ fontFamily:F.mono, fontSize:9, color:isOv ? B.red : B.muted, marginTop:3 }}>
+                {isOv ? "⚠ OVERDUE" : "DUE"} · {dueDisplay}
               </p>
             </div>
             <button onClick={() => markDone(f.id)} style={{
@@ -782,7 +831,8 @@ function FollowUps({ followups, setFollowups }) {
               padding:"7px 10px", borderRadius:6, border:"none", cursor:"pointer", flexShrink:0,
             }}>DONE ✓</button>
           </div>
-        ))}
+          );
+        })}
         {doneCount > 0 && (
           <p style={{ fontFamily:F.mono, fontSize:9, color:B.muted, letterSpacing:2, padding:"4px 0" }}>
             {doneCount} COMPLETED
