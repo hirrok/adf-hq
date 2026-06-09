@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora Digital Foundry — Business Infrastructure</title>
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --black:   #0a0a0a;
+      --white:   #f5f4f0;
+      --aurora:  #00c9a7;
+      --aurora2: #845ec2;
+      --gold:    #e8c547;
+      --mid:     #1a1a1a;
+      --border:  rgba(255,255,255,0.08);
+      --text:    rgba(245,244,240,0.75);
+      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── UTILITY ────────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--aurora);
+      border: 1px solid var(--aurora);
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+    .aurora-text {
+      background: linear-gradient(90deg, var(--aurora), var(--aurora2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--aurora);
+      color: var(--black);
+    }
+    .btn-primary:hover { background: #00e8c1; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,201,167,0.35); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--aurora); color: var(--aurora); }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--aurora), var(--aurora2));
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900;
+      font-size: 0.8rem;
+      color: var(--black);
+      letter-spacing: -0.05em;
+    }
+    .nav-logo-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo-name span { color: var(--aurora); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { font-size: 0.85rem; }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 68px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,201,167,0.12) 0%, transparent 70%);
+      top: 10%; right: -10%;
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(132,94,194,0.1) 0%, transparent 70%);
+      bottom: 15%; left: -5%;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--aurora);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--aurora);
+    }
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 28px;
+    }
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text);
+      max-width: 560px;
+      margin-bottom: 44px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--text);
+      z-index: 2;
+      animation: bob 2s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--aurora), transparent);
+    }
+    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ─── CREDIBILITY BAR ────────────────────────────────── */
+    #cred {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .cred-inner {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .cred-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .cred-divider {
+      width: 1px; height: 20px;
+      background: var(--border);
+    }
+    .cred-items {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .cred-item {
+      font-size: 0.85rem;
+      color: rgba(245,244,240,0.5);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── MANIFESTO ──────────────────────────────────────── */
+    #manifesto {
+      padding: 120px 0;
+    }
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .manifesto-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .manifesto-stat {
+      background: var(--mid);
+      padding: 32px;
+      border: 1px solid var(--border);
+    }
+    .manifesto-stat:first-child { border-radius: 8px 0 0 0; }
+    .manifesto-stat:nth-child(2) { border-radius: 0 8px 0 0; }
+    .manifesto-stat:nth-child(3) { border-radius: 0 0 0 8px; }
+    .manifesto-stat:last-child { border-radius: 0 0 8px 0; }
+    .stat-num {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* ─── WHAT WE BUILD ──────────────────────────────────── */
+    #services {
+      padding: 120px 0;
+      background: var(--mid);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--black);
+      padding: 40px 36px;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--aurora), var(--aurora2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { border-color: rgba(0,201,167,0.3); transform: translateY(-4px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: rgba(0,201,167,0.08);
+      border: 1px solid rgba(0,201,167,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+    }
+    .service-layer {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--aurora);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .service-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .service-desc {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .service-tag {
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      background: rgba(0,201,167,0.06);
+      border: 1px solid rgba(0,201,167,0.15);
+      border-radius: 2px;
+      color: var(--text);
+      font-family: var(--mono);
+    }
+
+    /* ─── PROCESS ────────────────────────────────────────── */
+    #process {
+      padding: 120px 0;
+    }
+    .process-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .process-timeline {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--aurora), transparent);
+    }
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 8px;
+      position: relative;
+      z-index: 2;
+    }
+    .process-node {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--aurora);
+      margin-bottom: 16px;
+      transition: border-color 0.3s, background 0.3s;
+      letter-spacing: 0;
+    }
+    .process-step:hover .process-node {
+      border-color: var(--aurora);
+      background: rgba(0,201,167,0.1);
+    }
+    .process-step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .process-step-sub {
+      font-size: 0.68rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* ─── INFRASTRUCTURE LAYERS ──────────────────────────── */
+    #layers {
+      padding: 120px 0;
+      background: var(--mid);
+    }
+    .layers-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .layer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .layer-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--black);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+      border-radius: 4px;
+    }
+    .layer-btn:hover, .layer-btn.active {
+      border-color: var(--aurora);
+      background: rgba(0,201,167,0.05);
+    }
+    .layer-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--aurora);
+      letter-spacing: 0.1em;
+    }
+    .layer-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .layer-content {
+      padding: 40px;
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 320px;
+    }
+    .layer-panel { display: none; }
+    .layer-panel.active { display: block; }
+    .layer-panel-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .layer-panel-desc {
+      color: var(--text);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .layer-examples {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .layer-example {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .layer-example::before {
+      content: '→';
+      color: var(--aurora);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+    }
+
+    /* ─── PORTFOLIO ──────────────────────────────────────── */
+    #portfolio {
+      padding: 120px 0;
+    }
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .portfolio-card {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .portfolio-card:hover { border-color: rgba(0,201,167,0.3); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+    .portfolio-thumb {
+      height: 200px;
+      background: linear-gradient(135deg, rgba(0,201,167,0.1), rgba(132,94,194,0.1));
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-thumb-text {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--text);
+      text-transform: uppercase;
+      position: absolute;
+      bottom: 16px; left: 20px;
+    }
+    .portfolio-class {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      padding: 3px 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .class-a { background: rgba(232,197,71,0.15); color: var(--gold); border: 1px solid rgba(232,197,71,0.3); }
+    .class-b { background: rgba(0,201,167,0.1); color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
+    .class-c { background: rgba(132,94,194,0.1); color: var(--aurora2); border: 1px solid rgba(132,94,194,0.3); }
+    .portfolio-live-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      padding: 3px 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      background: rgba(0,201,167,0.12);
+      color: var(--aurora);
+      border: 1px solid rgba(0,201,167,0.45);
+    }
+    .portfolio-live-dot {
+      display: inline-block;
+      width: 5px; height: 5px;
+      background: var(--aurora);
+      border-radius: 50%;
+      margin-right: 5px;
+      animation: pulse 2s infinite;
+      vertical-align: middle;
+      position: relative; top: -1px;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      color: var(--aurora);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 14px;
+      border: 1px solid rgba(0,201,167,0.3);
+      padding: 5px 14px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .portfolio-link:hover { background: rgba(0,201,167,0.08); }
+    .portfolio-body { padding: 24px; }
+    .portfolio-industry {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--text);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .portfolio-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .portfolio-desc {
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .portfolio-layers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .portfolio-layer-tag {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      font-family: var(--mono);
+    }
+
+    /* ─── PROOF / METRICS ────────────────────────────────── */
+    #proof {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--mid), var(--black));
+      border-top: 1px solid var(--border);
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .proof-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .proof-num {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .proof-label {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* ─── CTA ────────────────────────────────────────────── */
+    #cta {
+      padding: 160px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,201,167,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .cta-content { position: relative; z-index: 2; }
+    #cta h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    #cta p {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 500px;
+      margin: 0 auto 44px;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact {
+      padding: 120px 0;
+      background: var(--mid);
+      border-top: 1px solid var(--border);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--black);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-family: var(--ff);
+      border-radius: 4px;
+      transition: border-color 0.2s;
+      outline: none;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--aurora); }
+    .form-group select option { background: #1a1a1a; }
+    .contact-info {
+      padding-top: 8px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .contact-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(0,201,167,0.08);
+      border: 1px solid rgba(0,201,167,0.2);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .contact-detail-body { font-size: 0.875rem; }
+    .contact-detail-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--aurora); }
+    .footer-badge {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--aurora);
+      border: 1px solid rgba(0,201,167,0.2);
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+
+    /* ─── MOBILE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .manifesto-grid,
+      .contact-grid,
+      .layers-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .process-timeline {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .process-timeline::before { display: none; }
+      .process-step { flex-direction: row; text-align: left; align-items: center; gap: 20px; }
+      .process-node { flex-shrink: 0; }
+      .layer-nav { flex-direction: row; flex-wrap: wrap; }
+      .layer-examples { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── OPERATOR SUITE ─────────────────────────────────── */
+    #operator {
+      padding: 120px 0;
+      background: linear-gradient(180deg, var(--black) 0%, rgba(0,201,167,0.03) 50%, var(--black) 100%);
+    }
+    .ops-header { margin-bottom: 56px; }
+    .ops-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 32px;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px;
+      width: fit-content;
+    }
+    .ops-tab {
+      padding: 10px 22px;
+      border-radius: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .ops-tab:hover { color: var(--white); }
+    .ops-tab.active {
+      background: var(--aurora);
+      color: var(--black);
+    }
+    .ops-panel { display: none; }
+    .ops-panel.active { display: block; }
+    .ops-shell {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .ops-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .ops-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .ops-dot-r { background: #ff5f57; }
+    .ops-dot-y { background: #ffbd2e; }
+    .ops-dot-g { background: #28c840; }
+    .ops-url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: rgba(245,244,240,0.35);
+      letter-spacing: 0.03em;
+    }
+    .ops-live-badge {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #28c840;
+      border: 1px solid #28c840;
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+    /* KPI strip */
+    .ops-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .ops-kpi {
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .ops-kpi:last-child { border-right: none; }
+    .ops-kpi-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .ops-kpi-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .ops-kpi-val.green { color: var(--aurora); }
+    .ops-kpi-val.gold { color: var(--gold); }
+    .ops-kpi-delta {
+      font-size: 0.72rem;
+      color: var(--aurora);
+      margin-top: 4px;
+      font-family: var(--mono);
+    }
+    /* Table */
+    .ops-table-wrap { overflow-x: auto; }
+    .ops-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+    .ops-table th {
+      padding: 12px 20px;
+      text-align: left;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.2);
+    }
+    .ops-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: rgba(245,244,240,0.85);
+    }
+    .ops-table tr:last-child td { border-bottom: none; }
+    .ops-table tr:hover td { background: rgba(0,201,167,0.04); }
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .pill-hot   { background: rgba(232,197,71,0.15); color: var(--gold); border: 1px solid rgba(232,197,71,0.3); }
+    .pill-warm  { background: rgba(0,201,167,0.12); color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
+    .pill-cold  { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
+    .pill-won   { background: rgba(40,200,64,0.15); color: #28c840; border: 1px solid rgba(40,200,64,0.3); }
+    .pill-pending { background: rgba(132,94,194,0.15); color: #845ec2; border: 1px solid rgba(132,94,194,0.3); }
+    .pill-active  { background: rgba(0,201,167,0.12); color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
+    /* Revenue bars */
+    .ops-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .ops-rev-left { background: var(--mid); padding: 28px 28px 20px; }
+    .ops-rev-right { background: var(--mid); padding: 28px 28px 20px; }
+    .ops-chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 120px;
+      margin-top: 20px;
+    }
+    .ops-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+    .ops-bar {
+      width: 100%;
+      border-radius: 3px 3px 0 0;
+      background: rgba(0,201,167,0.3);
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .ops-bar:hover { background: var(--aurora); }
+    .ops-bar.highlight { background: var(--aurora); }
+    .ops-bar-label { font-family: var(--mono); font-size: 0.58rem; color: var(--text); letter-spacing: 0.05em; }
+    .ops-metric-list { display: grid; gap: 16px; margin-top: 20px; }
+    .ops-metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .ops-metric-name { font-size: 0.82rem; color: var(--text); }
+    .ops-metric-val { font-weight: 700; font-family: var(--mono); font-size: 0.9rem; }
+    /* Booking */
+    .ops-booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .ops-booking-col { background: var(--mid); padding: 24px; }
+    .ops-booking-col-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+    .booking-card:hover { border-color: rgba(0,201,167,0.3); }
+    .booking-name { font-weight: 600; margin-bottom: 4px; font-size: 0.9rem; }
+    .booking-meta { font-size: 0.75rem; color: var(--text); font-family: var(--mono); }
+    .booking-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .booking-val { font-family: var(--mono); font-weight: 700; color: var(--aurora); font-size: 0.88rem; }
+    .ops-notice {
+      padding: 16px 24px;
+      background: rgba(0,201,167,0.06);
+      border-top: 1px solid rgba(0,201,167,0.15);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: rgba(0,201,167,0.6);
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">ADF</div>
+        <div class="nav-logo-name">Aurora <span>Digital</span> Foundry</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#layers">Infrastructure</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#operator">Operator Suite</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary nav-cta">Start Recon</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Business Infrastructure Foundry</div>
+      <h1>We don't build websites.<br><span class="aurora-text">We build business capability.</span></h1>
+      <p class="hero-sub">Websites are interfaces. Infrastructure is the product. We manufacture future-state business systems that increase revenue, reduce friction, and compound over time.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Request Recon ↗</a>
+        <a href="#process" class="btn btn-ghost">See the Process</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ─── CREDIBILITY BAR ───────────────────────────────────── -->
+<section id="cred">
+  <div class="container">
+    <div class="cred-inner">
+      <span class="cred-label">Built for</span>
+      <div class="cred-divider"></div>
+      <div class="cred-items">
+        <span class="cred-item">Trades & Contractors</span>
+        <span class="cred-item">Hospitality & Tourism</span>
+        <span class="cred-item">Professional Services</span>
+        <span class="cred-item">Retail & Suppliers</span>
+        <span class="cred-item">Associations</span>
+        <span class="cred-item">Restaurants & F&B</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MANIFESTO ─────────────────────────────────────────── -->
+<section id="manifesto">
+  <div class="container">
+    <div class="manifesto-grid">
+      <div>
+        <div class="tag">Our Doctrine</div>
+        <h2 class="section-title">Infrastructure first.<br>Everything else follows.</h2>
+        <p style="color:var(--text); margin-bottom:24px; line-height:1.8;">Most agencies hand you a website and call it done. We map your entire business, identify where value leaks, and build systems that close those gaps — permanently.</p>
+        <p style="color:var(--text); margin-bottom:40px; line-height:1.8;">Before we write a single line of code, we run a full Recon. Before you see a proposal, you experience your future business as a working prototype.</p>
+        <a href="#process" class="btn btn-ghost">See How We Work →</a>
+      </div>
+      <div class="manifesto-right">
+        <div class="manifesto-stat">
+          <div class="stat-num aurora-text">5</div>
+          <div class="stat-label">Infrastructure layers evaluated on every engagement</div>
+        </div>
+        <div class="manifesto-stat">
+          <div class="stat-num aurora-text">9</div>
+          <div class="stat-label">Stage lifecycle — from Lead to Maintenance</div>
+        </div>
+        <div class="manifesto-stat">
+          <div class="stat-num aurora-text">0</div>
+          <div class="stat-label">Features built without measurable business leverage</div>
+        </div>
+        <div class="manifesto-stat">
+          <div class="stat-num aurora-text">100%</div>
+          <div class="stat-label">Prototypes delivered before the sales conversation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ──────────────────────────────────────────── -->
+<section id="services">
+  <div class="container">
+    <div class="tag">What We Manufacture</div>
+    <h2 class="section-title">Not just pages.<br>Business systems.</h2>
+    <p class="section-sub">Every deliverable maps to a business outcome. If it doesn't move a metric, we don't build it.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <div class="service-layer">Layer 1 — Public Presence</div>
+        <div class="service-title">Digital Presence Infrastructure</div>
+        <div class="service-desc">High-converting websites, landing pages, and service pages engineered to establish authority and drive inbound action from the first visit.</div>
+        <div class="service-tags">
+          <span class="service-tag">Homepage</span>
+          <span class="service-tag">Service Pages</span>
+          <span class="service-tag">Location Pages</span>
+          <span class="service-tag">Gallery Systems</span>
+          <span class="service-tag">Contact Flows</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <div class="service-layer">Layer 2 — Lead Capture</div>
+        <div class="service-title">Lead Generation Systems</div>
+        <div class="service-desc">Booking engines, quote request flows, inquiry pipelines, and email capture systems that convert visitors into qualified prospects automatically.</div>
+        <div class="service-tags">
+          <span class="service-tag">Quote Systems</span>
+          <span class="service-tag">Booking Flows</span>
+          <span class="service-tag">Lead Routing</span>
+          <span class="service-tag">Email Capture</span>
+          <span class="service-tag">CRM Integration</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-layer">Layer 3 — Operations</div>
+        <div class="service-title">Operational Infrastructure</div>
+        <div class="service-desc">Job tracking dashboards, booking management systems, inventory concepts, and workflow tools that eliminate manual overhead and restore owner time.</div>
+        <div class="service-tags">
+          <span class="service-tag">Job Tracking</span>
+          <span class="service-tag">Booking Dashboard</span>
+          <span class="service-tag">Inventory Systems</span>
+          <span class="service-tag">Workflow Design</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <div class="service-layer">Layer 4 — Growth</div>
+        <div class="service-title">Growth Infrastructure</div>
+        <div class="service-desc">SEO foundations, review acquisition systems, referral mechanics, and Google Business Profile optimization that compound visibility over time.</div>
+        <div class="service-tags">
+          <span class="service-tag">SEO Infrastructure</span>
+          <span class="service-tag">Review Systems</span>
+          <span class="service-tag">Referral Flows</span>
+          <span class="service-tag">GBP Optimization</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧠</div>
+        <div class="service-layer">Layer 5 — Intelligence</div>
+        <div class="service-title">Business Intelligence</div>
+        <div class="service-desc">KPI dashboards, revenue tracking, customer data systems, and decision support tools that give owners clarity and control without spreadsheet chaos.</div>
+        <div class="service-tags">
+          <span class="service-tag">KPI Dashboards</span>
+          <span class="service-tag">Revenue Tracking</span>
+          <span class="service-tag">Customer Data</span>
+          <span class="service-tag">Reporting Systems</span>
+        </div>
+      </div>
+
+      <div class="service-card" style="background: linear-gradient(135deg, rgba(0,201,167,0.06), rgba(132,94,194,0.06)); border-color: rgba(0,201,167,0.2);">
+        <div class="service-icon" style="background:rgba(0,201,167,0.12); border-color:rgba(0,201,167,0.3);">🏗️</div>
+        <div class="service-layer" style="color:var(--gold);">Foundry Model</div>
+        <div class="service-title">Prototype-First Sales</div>
+        <div class="service-desc">You don't get a proposal — you get a working prototype of your future business before the sales conversation. Experience the outcome before you commit.</div>
+        <div class="service-tags">
+          <span class="service-tag" style="border-color:rgba(232,197,71,0.3); color:var(--gold);">No Guesswork</span>
+          <span class="service-tag" style="border-color:rgba(232,197,71,0.3); color:var(--gold);">Live Demo</span>
+          <span class="service-tag" style="border-color:rgba(232,197,71,0.3); color:var(--gold);">Own the Assets</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ───────────────────────────────────────────── -->
+<section id="process">
+  <div class="container">
+    <div class="process-header">
+      <div>
+        <div class="tag">The Foundry Lifecycle</div>
+        <h2 class="section-title">Nine stages.<br>Zero shortcuts.</h2>
+      </div>
+      <p style="color:var(--text); max-width:360px; font-size:0.9rem; line-height:1.7;">Every engagement runs the same lifecycle. We never skip Recon. We never build before we understand the business.</p>
+    </div>
+    <div class="process-timeline">
+      <div class="process-step">
+        <div class="process-node">01</div>
+        <div class="process-step-label">Lead</div>
+        <div class="process-step-sub">Identify prospect & classify</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">02</div>
+        <div class="process-step-label">Recon</div>
+        <div class="process-step-sub">Deep business intelligence gathering</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">03</div>
+        <div class="process-step-label">Assessment</div>
+        <div class="process-step-sub">Score all five infrastructure layers</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">04</div>
+        <div class="process-step-label">Blueprint</div>
+        <div class="process-step-sub">Design infrastructure architecture</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">05</div>
+        <div class="process-step-label">Prototype</div>
+        <div class="process-step-sub">Build before the pitch</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">06</div>
+        <div class="process-step-label">Present</div>
+        <div class="process-step-sub">Demo future state, not mockups</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">07</div>
+        <div class="process-step-label">Convert</div>
+        <div class="process-step-sub">Close with evidence in hand</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">08</div>
+        <div class="process-step-label">Production</div>
+        <div class="process-step-sub">Ship to live environment</div>
+      </div>
+      <div class="process-step">
+        <div class="process-node">09</div>
+        <div class="process-step-label">Maintain</div>
+        <div class="process-step-sub">Ongoing infrastructure health</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INFRASTRUCTURE LAYERS ─────────────────────────────── -->
+<section id="layers">
+  <div class="container">
+    <div class="tag">Infrastructure Model</div>
+    <h2 class="section-title" style="margin-bottom:56px;">Five layers.<br>Every engagement.</h2>
+    <div class="layers-grid">
+      <div class="layer-nav" id="layerNav">
+        <button class="layer-btn active" onclick="showLayer(0)">
+          <span class="layer-num">L1</span>
+          <span class="layer-name">Public Presence</span>
+        </button>
+        <button class="layer-btn" onclick="showLayer(1)">
+          <span class="layer-num">L2</span>
+          <span class="layer-name">Lead Capture</span>
+        </button>
+        <button class="layer-btn" onclick="showLayer(2)">
+          <span class="layer-num">L3</span>
+          <span class="layer-name">Operations</span>
+        </button>
+        <button class="layer-btn" onclick="showLayer(3)">
+          <span class="layer-num">L4</span>
+          <span class="layer-name">Growth</span>
+        </button>
+        <button class="layer-btn" onclick="showLayer(4)">
+          <span class="layer-num">L5</span>
+          <span class="layer-name">Intelligence</span>
+        </button>
+      </div>
+      <div class="layer-content">
+        <div class="layer-panel active" id="layer0">
+          <div class="tag">Layer 1</div>
+          <div class="layer-panel-title">Public Presence</div>
+          <div class="layer-panel-desc">The face of the business — engineered for authority, conversion, and first impression. Every element earns its presence. Nothing decorative without purpose.</div>
+          <div class="layer-examples">
+            <div class="layer-example">Website & Homepage</div>
+            <div class="layer-example">Landing Pages</div>
+            <div class="layer-example">Service Pages</div>
+            <div class="layer-example">Location Pages</div>
+            <div class="layer-example">Gallery & Media</div>
+            <div class="layer-example">Contact Flows</div>
+          </div>
+        </div>
+        <div class="layer-panel" id="layer1">
+          <div class="tag">Layer 2</div>
+          <div class="layer-panel-title">Lead Capture</div>
+          <div class="layer-panel-desc">Visitors who don't convert are lost revenue. We build systems that intercept intent at every stage — quote forms, booking flows, and automated lead routing.</div>
+          <div class="layer-examples">
+            <div class="layer-example">Quote Request Systems</div>
+            <div class="layer-example">Booking Requests</div>
+            <div class="layer-example">Inquiry Pipelines</div>
+            <div class="layer-example">Lead Routing Logic</div>
+            <div class="layer-example">Email Capture</div>
+            <div class="layer-example">Follow-up Automation</div>
+          </div>
+        </div>
+        <div class="layer-panel" id="layer2">
+          <div class="tag">Layer 3</div>
+          <div class="layer-panel-title">Operations</div>
+          <div class="layer-panel-desc">Time is capital. Operational infrastructure eliminates manual admin, reduces errors, and gives owners back the hours they spend inside the business instead of on it.</div>
+          <div class="layer-examples">
+            <div class="layer-example">CRM Concepts</div>
+            <div class="layer-example">Job Tracking</div>
+            <div class="layer-example">Booking Dashboards</div>
+            <div class="layer-example">Inventory Systems</div>
+            <div class="layer-example">Workflow Automation</div>
+            <div class="layer-example">Staff Portals</div>
+          </div>
+        </div>
+        <div class="layer-panel" id="layer3">
+          <div class="tag">Layer 4</div>
+          <div class="layer-panel-title">Growth</div>
+          <div class="layer-panel-desc">Visibility compounds. We build the infrastructure that feeds search engines, captures reviews, activates referrals, and builds organic authority over 12-24 months.</div>
+          <div class="layer-examples">
+            <div class="layer-example">SEO Infrastructure</div>
+            <div class="layer-example">Content Systems</div>
+            <div class="layer-example">Review Acquisition</div>
+            <div class="layer-example">Referral Systems</div>
+            <div class="layer-example">GBP Optimization</div>
+            <div class="layer-example">Local Search Signals</div>
+          </div>
+        </div>
+        <div class="layer-panel" id="layer4">
+          <div class="tag">Layer 5</div>
+          <div class="layer-panel-title">Intelligence</div>
+          <div class="layer-panel-desc">Decisions made without data are expensive guesses. Intelligence infrastructure converts business activity into clear signals — so owners know what's working and what isn't.</div>
+          <div class="layer-examples">
+            <div class="layer-example">KPI Dashboards</div>
+            <div class="layer-example">Revenue Tracking</div>
+            <div class="layer-example">Customer Data Systems</div>
+            <div class="layer-example">Business Reporting</div>
+            <div class="layer-example">Decision Support</div>
+            <div class="layer-example">Performance Monitoring</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PORTFOLIO ─────────────────────────────────────────── -->
+<section id="portfolio">
+  <div class="container">
+    <div class="portfolio-header">
+      <div>
+        <div class="tag">Portfolio</div>
+        <h2 class="section-title">Built. Shipped. Compounding.</h2>
+      </div>
+      <p style="color:var(--text); max-width:360px; font-size:0.875rem; line-height:1.7;">Rejected demos are not failures — they're portfolio assets, industry templates, and training ground for the next build.</p>
+    </div>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          🏄
+          <div class="portfolio-class class-a">Class A</div>
+          <div class="portfolio-thumb-text">Tourism / Showcase</div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Surf & Tourism</div>
+          <div class="portfolio-name">[Client Name Placeholder]</div>
+          <div class="portfolio-desc">Full booking infrastructure, gallery system, seasonal pricing, and Google visibility stack for a premier surf camp operation.</div>
+          <div class="portfolio-layers">
+            <span class="portfolio-layer-tag">L1 Presence</span>
+            <span class="portfolio-layer-tag">L2 Booking</span>
+            <span class="portfolio-layer-tag">L4 SEO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          🔧
+          <div class="portfolio-class class-b">Class B</div>
+          <div class="portfolio-thumb-text">Trades / Revenue</div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Trades & Contractors</div>
+          <div class="portfolio-name">[Client Name Placeholder]</div>
+          <div class="portfolio-desc">Quote request system, job tracking dashboard, review acquisition engine, and local SEO domination for a regional contractor.</div>
+          <div class="portfolio-layers">
+            <span class="portfolio-layer-tag">L1 Presence</span>
+            <span class="portfolio-layer-tag">L2 Quotes</span>
+            <span class="portfolio-layer-tag">L3 Jobs</span>
+            <span class="portfolio-layer-tag">L4 Reviews</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          💪
+          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Production</div>
+          <div class="portfolio-class class-a">Class A</div>
+          <div class="portfolio-thumb-text">Fitness / Showcase</div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Fitness &amp; Wellness</div>
+          <div class="portfolio-name">Iron Tribe Fitness Gym</div>
+          <div class="portfolio-desc">Multi-tier membership system, coach profiles &amp; utilization tracking, class scheduling, lead capture, and performance analytics for a community strength gym in Malvar, Batangas.</div>
+          <div class="portfolio-layers">
+            <span class="portfolio-layer-tag">L1 Presence</span>
+            <span class="portfolio-layer-tag">L2 Memberships</span>
+            <span class="portfolio-layer-tag">L3 Operations</span>
+          </div>
+          <a href="https://hirrok.github.io/iron-tribe-fitness-simulator/" target="_blank" class="portfolio-link">View Live Build ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          ⚖️
+          <div class="portfolio-class class-b">Class B</div>
+          <div class="portfolio-thumb-text">Professional Services</div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Professional Services</div>
+          <div class="portfolio-name">[Client Name Placeholder]</div>
+          <div class="portfolio-desc">Consultation booking, case intake system, client portal concept, and authority content stack for a professional services firm.</div>
+          <div class="portfolio-layers">
+            <span class="portfolio-layer-tag">L1 Presence</span>
+            <span class="portfolio-layer-tag">L2 Intake</span>
+            <span class="portfolio-layer-tag">L3 Portal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          ⛽
+          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Production</div>
+          <div class="portfolio-class class-b">Class B</div>
+          <div class="portfolio-thumb-text">LPG &amp; Energy / Revenue</div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">LPG &amp; Energy Distribution</div>
+          <div class="portfolio-name">Ecopetrol Aurora</div>
+          <div class="portfolio-desc">Live pricing dashboard, branch status management, fleet &amp; LPG catalog, inquiry capture, and ops-grade admin portal — all wired to a Google Sheets data spine with full write audit trail.</div>
+          <div class="portfolio-layers">
+            <span class="portfolio-layer-tag">L1 Presence</span>
+            <span class="portfolio-layer-tag">L2 Inquiries</span>
+            <span class="portfolio-layer-tag">L3 Ops Dashboard</span>
+            <span class="portfolio-layer-tag">L5 Data Spine</span>
+          </div>
+          <a href="https://hirrok.github.io/adf-ecopetrol-aurora/" target="_blank" class="portfolio-link">View Live Build ↗</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          🤝
+          <div class="portfolio-class class-c">Class C</div>
+          <div class="portfolio-thumb-text">Association / Strategic</div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Association & Community</div>
+          <div class="portfolio-name">[Client Name Placeholder]</div>
+          <div class="portfolio-desc">Member directory, event infrastructure, publication system, and network expansion tools for a regional industry association.</div>
+          <div class="portfolio-layers">
+            <span class="portfolio-layer-tag">L1 Presence</span>
+            <span class="portfolio-layer-tag">L2 Members</span>
+            <span class="portfolio-layer-tag">L4 Network</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPERATOR SUITE ───────────────────────────────────────── -->
+<section id="operator">
+  <div class="container">
+    <div class="ops-header">
+      <span class="tag">Aurora Operator Suite</span>
+      <h2 class="section-title">Your ops stack,<br>built in.</h2>
+      <p class="section-sub">Every Aurora infrastructure build includes an Operator Suite — live dashboards, lead tracking, and revenue intelligence. This is what your business looks like when it runs on systems.</p>
+    </div>
+
+    <div class="ops-tabs" role="tablist">
+      <button class="ops-tab active" onclick="opsSwitch(0)" role="tab">Ops HUD</button>
+      <button class="ops-tab" onclick="opsSwitch(1)" role="tab">Lead CRM</button>
+      <button class="ops-tab" onclick="opsSwitch(2)" role="tab">Revenue Board</button>
+      <button class="ops-tab" onclick="opsSwitch(3)" role="tab">Booking Queue</button>
+    </div>
+
+    <!-- Panel 0: Ops HUD -->
+    <div class="ops-panel active" id="ops-panel-0">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / hud / overview</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi"><div class="ops-kpi-label">Active Leads</div><div class="ops-kpi-val green" id="hud-leads">—</div><div class="ops-kpi-delta">In pipeline</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Revenue MTD</div><div class="ops-kpi-val" id="hud-rev">—</div><div class="ops-kpi-delta">This month</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Open Jobs</div><div class="ops-kpi-val gold" id="hud-jobs">—</div><div class="ops-kpi-delta" id="hud-jobs-sub"> </div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Hot Pipeline</div><div class="ops-kpi-val green" id="hud-pipeline">—</div><div class="ops-kpi-delta">Active leads</div></div>
+        </div>
+        <div class="ops-table-wrap">
+          <table class="ops-table">
+            <thead><tr><th>Active Job</th><th>Type</th><th>Due</th><th>Value</th><th>Status</th></tr></thead>
+            <tbody id="hud-jobs-body"><tr><td colspan="5" style="color:var(--text);padding:16px;">Loading…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="ops-notice" id="ops-notice-hud">⬡ Loading live data…</div>
+      </div>
+    </div>
+
+    <!-- Panel 1: Lead CRM -->
+    <div class="ops-panel" id="ops-panel-1">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / crm / leads</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi"><div class="ops-kpi-label">Total Leads</div><div class="ops-kpi-val green">38</div><div class="ops-kpi-delta">↑ 12 this month</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Hot Pipeline</div><div class="ops-kpi-val gold">₱312,000</div><div class="ops-kpi-delta">6 prospects</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Avg Response</div><div class="ops-kpi-val">2.4 hrs</div><div class="ops-kpi-delta">↓ 1.1 hrs vs last mo.</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Won This Month</div><div class="ops-kpi-val green">5</div><div class="ops-kpi-delta">₱89,500 closed</div></div>
+        </div>
+        <div class="ops-table-wrap">
+          <table class="ops-table">
+            <thead><tr><th>Contact</th><th>Business</th><th>Source</th><th>Value</th><th>Stage</th><th>Last Touch</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Maria Santos</strong></td><td>Santos Trading Co.</td><td>Referral</td><td>₱24,000</td><td><span class="status-pill pill-hot">Hot</span></td><td>Today</td></tr>
+              <tr><td><strong>RJ Dela Cruz</strong></td><td>Dela Cruz Bakery</td><td>Facebook</td><td>₱18,500</td><td><span class="status-pill pill-hot">Hot</span></td><td>Yesterday</td></tr>
+              <tr><td><strong>Ana Reyes</strong></td><td>Reyes Resort Panglao</td><td>Direct</td><td>₱95,000</td><td><span class="status-pill pill-warm">Warm</span></td><td>May 28</td></tr>
+              <tr><td><strong>Carlo Lim</strong></td><td>Lim Hardware Supply</td><td>Google</td><td>₱32,000</td><td><span class="status-pill pill-warm">Warm</span></td><td>May 26</td></tr>
+              <tr><td><strong>Gio Tan</strong></td><td>Tan Fuel Services</td><td>Referral</td><td>₱48,000</td><td><span class="status-pill pill-pending">Proposal</span></td><td>May 22</td></tr>
+              <tr><td><strong>Jenny Cruz</strong></td><td>Cruz Dental Clinic</td><td>Instagram</td><td>₱15,000</td><td><span class="status-pill pill-cold">Cold</span></td><td>May 15</td></tr>
+              <tr><td><strong>Ben Soriano</strong></td><td>Soriano Events</td><td>Google</td><td>₱28,000</td><td><span class="status-pill pill-won">Won ✓</span></td><td>May 10</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ops-notice">⬡ MOCK DATA — Aurora Operator Suite Demo · Live builds connect to real backend</div>
+      </div>
+    </div>
+
+    <!-- Panel 2: Revenue Board -->
+    <div class="ops-panel" id="ops-panel-2">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / revenue / board</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi"><div class="ops-kpi-label">Revenue YTD</div><div class="ops-kpi-val green">₱748,200</div><div class="ops-kpi-delta">↑ 31% vs prior year</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Best Month</div><div class="ops-kpi-val">April</div><div class="ops-kpi-delta">₱168,000</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Avg Job Value</div><div class="ops-kpi-val gold">₱32,400</div><div class="ops-kpi-delta">↑ ₱4,200 vs baseline</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Recurring Rev.</div><div class="ops-kpi-val green">₱42,000</div><div class="ops-kpi-delta">3 retainer clients</div></div>
+        </div>
+        <div class="ops-rev-grid">
+          <div class="ops-rev-left">
+            <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);">Monthly Revenue — 2026</div>
+            <div class="ops-chart-bars" id="revBars"></div>
+          </div>
+          <div class="ops-rev-right">
+            <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);">Revenue Breakdown</div>
+            <div class="ops-metric-list">
+              <div class="ops-metric-row"><span class="ops-metric-name">Infrastructure Builds</span><span class="ops-metric-val" style="color:var(--aurora);">₱512,000</span></div>
+              <div class="ops-metric-row"><span class="ops-metric-name">Retainer / Maintenance</span><span class="ops-metric-val" style="color:var(--gold);">₱168,000</span></div>
+              <div class="ops-metric-row"><span class="ops-metric-name">Add-ons & Systems</span><span class="ops-metric-val" style="color:#845ec2;">₱68,200</span></div>
+              <div class="ops-metric-row"><span class="ops-metric-name">Avg Days to Close</span><span class="ops-metric-val">8.4 days</span></div>
+              <div class="ops-metric-row"><span class="ops-metric-name">Client Retention Rate</span><span class="ops-metric-val" style="color:var(--aurora);">88%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="ops-notice">⬡ MOCK DATA — Aurora Operator Suite Demo · Live builds connect to real backend</div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Booking Queue -->
+    <div class="ops-panel" id="ops-panel-3">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / bookings / queue</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi"><div class="ops-kpi-label">Active Bookings</div><div class="ops-kpi-val green">12</div><div class="ops-kpi-delta">3 confirmed today</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Pending Confirm</div><div class="ops-kpi-val gold">4</div><div class="ops-kpi-delta">Awaiting deposit</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">This Week Value</div><div class="ops-kpi-val">₱86,500</div><div class="ops-kpi-delta">↑ 22% vs last week</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Capacity Used</div><div class="ops-kpi-val green">74%</div><div class="ops-kpi-delta">3 slots remaining</div></div>
+        </div>
+        <div class="ops-booking-grid" id="booking-grid">
+          <div class="ops-booking-col">
+            <div class="ops-booking-col-title">Active Jobs</div>
+            <div id="booking-active"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
+          </div>
+          <div class="ops-booking-col">
+            <div class="ops-booking-col-title">Pending Confirmation</div>
+            <div id="booking-pending"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
+          </div>
+        </div>
+        <div class="ops-notice" id="ops-notice-booking">⬡ Loading live data…</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PROOF ────────────────────────────────────────────────────────────── -->
+<section id="proof">
+  <div class="container">
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-num aurora-text">5</div>
+        <div class="proof-label">Infrastructure layers evaluated on every project</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num aurora-text">3</div>
+        <div class="proof-label">Client classifications — Showcase, Revenue, Strategic</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num aurora-text">100%</div>
+        <div class="proof-label">Prototype delivered before the sales conversation</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num aurora-text">∞</div>
+        <div class="proof-label">Compounding value across every project built</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ──────────────────────────────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="container">
+    <div class="cta-content">
+      <div class="tag" style="margin:0 auto 20px;">Ready to Build</div>
+      <h2>Experience your future business<br><span class="aurora-text">before you commit to it.</span></h2>
+      <p>We run a full Recon on your business, build the prototype, then show you what's possible. No vague proposals. No guesswork.</p>
+      <div class="cta-actions">
+        <a href="#contact" class="btn btn-primary" style="font-size:1rem; padding:16px 36px;">Request Recon ↗</a>
+        <a href="#portfolio" class="btn btn-ghost" style="font-size:1rem; padding:16px 36px;">View Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="tag">Start the Lifecycle</div>
+    <h2 class="section-title" style="margin-bottom:56px;">Request Recon.</h2>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="[First Last]" />
+          </div>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" placeholder="[Business Name]" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="[email@domain.com]" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="[+63 xxx xxx xxxx]" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Industry</label>
+          <select>
+            <option value="" disabled selected>Select your industry</option>
+            <option>Trades &amp; Contractors</option>
+            <option>Hospitality &amp; Tourism</option>
+            <option>Restaurant &amp; F&amp;B</option>
+            <option>Professional Services</option>
+            <option>Retail &amp; Suppliers</option>
+            <option>Association / Community</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Current Website (if any)</label>
+          <input type="url" placeholder="[https://yourbusiness.com]" />
+        </div>
+        <div class="form-group">
+          <label>Biggest Business Challenge</label>
+          <textarea rows="4" placeholder="Describe what's holding your business back — leads, operations, visibility, all of the above..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:0.95rem; padding:16px;">
+          Submit Recon Request ↗
+        </button>
+      </form>
+
+      <div class="contact-info">
+        <h3 style="font-size:1.4rem; font-weight:700; margin-bottom:16px;">What happens next.</h3>
+        <p style="color:var(--text); margin-bottom:40px; line-height:1.7; font-size:0.9rem;">We run a full Recon on your business — online presence, competitors, opportunities, and gaps. Then we build a working prototype. You see your future business before you sign anything.</p>
+
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div class="contact-detail-body">
+            <div class="contact-detail-label">Location</div>
+            [City, Region, Country]
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-detail-body">
+            <div class="contact-detail-label">Email</div>
+            [hello@auroradigitalfoundry.com]
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon">📱</div>
+          <div class="contact-detail-body">
+            <div class="contact-detail-label">Phone / WhatsApp</div>
+            [+63 xxx xxx xxxx]
+          </div>
+        </div>
+
+        <div style="margin-top:48px; padding:28px; background:var(--black); border:1px solid rgba(0,201,167,0.2); border-radius:8px;">
+          <div class="tag" style="margin-bottom:16px;">Foundry Promise</div>
+          <p style="font-size:0.875rem; color:var(--text); line-height:1.7;">You experience your future business as a working prototype — before the proposal, before the invoice, before the commitment. If we can't show you the outcome, we don't deserve the work.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 Aurora Digital Foundry. Business Infrastructure Manufactured Here.</div>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer-badge">Infrastructure · Not Websites</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── LAYER TABS SCRIPT ─────────────────────────────────────────────────────────── -->
+<script>
+  function showLayer(index) {
+    const panels = document.querySelectorAll('.layer-panel');
+    const btns = document.querySelectorAll('#layerNav .layer-btn');
+    panels.forEach((p, i) => p.classList.toggle('active', i === index));
+    btns.forEach((b, i) => b.classList.toggle('active', i === index));
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.style.opacity = 1;
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.service-card, .portfolio-card, .proof-card').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transition = 'opacity 0.5s ease, transform 0.3s ease';
+    observer.observe(el);
+  });
+
+  /* ─── OPERATOR SUITE ─────────────────────────────────────────────── */
+
+  // ↓ Replace with your deployed Apps Script URL after backend setup
+  const OPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBeAlrKs5Vhn3dgfKHs-61tiYU034NSboF78NakWapc4Vhlquq7oqMsB_QrCJz8Lkr/exec';
+
+  const MOCK_DATA = {
+    leads: [
+      { contact:'Maria Santos',   business:'Santos Trading Co.',  source:'Referral',  value:24000,  stage:'Hot',      lastTouch:'Today' },
+      { contact:'RJ Dela Cruz',   business:'Dela Cruz Bakery',    source:'Facebook',  value:18500,  stage:'Hot',      lastTouch:'Yesterday' },
+      { contact:'Ana Reyes',      business:'Reyes Resort Panglao',source:'Direct',    value:95000,  stage:'Warm',     lastTouch:'May 28' },
+      { contact:'Carlo Lim',      business:'Lim Hardware Supply', source:'Google',    value:32000,  stage:'Warm',     lastTouch:'May 26' },
+      { contact:'Gio Tan',        business:'Tan Fuel Services',   source:'Referral',  value:48000,  stage:'Proposal', lastTouch:'May 22' },
+      { contact:'Jenny Cruz',     business:'Cruz Dental Clinic',  source:'Instagram', value:15000,  stage:'Cold',     lastTouch:'May 15' },
+      { contact:'Ben Soriano',    business:'Soriano Events',      source:'Google',    value:28000,  stage:'Won',      lastTouch:'May 10' },
+    ],
+    jobs: [
+      { name:'Ecopetrol Aurora — Full Infrastructure', type:'Infrastructure Build', started:'May 20', due:'Jun 9',  value:45000, status:'Completed' },
+      { name:'Iron Tribe Fitness Gym — Production',   type:'Layer 1–3 Build',      started:'Jun 1',  due:'Jun 9',  value:0,     status:'Completed' },
+      { name:'Aliya Surf Camp — Finalization',         type:'Layer 1–2 Deploy',     started:'May 25', due:'Jun 20', value:18500, status:'In Progress' },
+      { name:'Nalu Surf Camp — Contact System',        type:'Form Backend + CRM',   started:'Jun 10', due:'Jun 20', value:12000, status:'Scheduled' },
+    ],
+    revenue: {
+      monthly: [
+        {mo:'Jan',val:88000},{mo:'Feb',val:102000},{mo:'Mar',val:124000},
+        {mo:'Apr',val:168000},{mo:'May',val:148500},{mo:'Jun',val:118000},
+      ],
+      breakdown: {
+        'Infrastructure Builds':  512000,
+        'Retainer / Maintenance': 168000,
+        'Add-ons & Systems':       68200,
+      }
+    },
+    kpis: { activeLeads:24, openJobs:5, revMTD:148500, wonThisMonth:7, hotPipeline:312000 },
+  };
+
+  let OPS_DATA = null;
+
+  function fmt(n) {
+    return '₱' + Number(n).toLocaleString();
+  }
+
+  function stagePill(stage) {
+    const map = {
+      'Hot':      'pill-hot',
+      'Warm':     'pill-warm',
+      'Proposal': 'pill-pending',
+      'Cold':     'pill-cold',
+      'Won':      'pill-won',
+      'In Progress':'pill-active',
+      'Active':   'pill-warm',
+      'Scheduled':'pill-pending',
+    };
+    return `<span class="status-pill ${map[stage]||'pill-cold'}">${stage}</span>`;
+  }
+
+  async function loadOpsData() {
+    if (OPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
+      OPS_DATA = MOCK_DATA;
+      return;
+    }
+    try {
+      const res = await fetch(OPS_SCRIPT_URL);
+      const json = await res.json();
+      OPS_DATA = json.error ? MOCK_DATA : json;
+    } catch {
+      OPS_DATA = MOCK_DATA;
+    }
+  }
+
+  function renderCRM() {
+    const tbody = document.querySelector('#ops-panel-1 .ops-table tbody');
+    if (!tbody || !OPS_DATA) return;
+    tbody.innerHTML = OPS_DATA.leads.map(l => `
+      <tr>
+        <td><strong>${l.contact}</strong></td>
+        <td>${l.business}</td>
+        <td>${l.source}</td>
+        <td>${fmt(l.value)}</td>
+        <td>${stagePill(l.stage)}</td>
+        <td>${l.lastTouch}</td>
+      </tr>`).join('');
+  }
+
+  function renderRevenue() {
+    const wrap = document.getElementById('revBars');
+    if (!wrap || !OPS_DATA) return;
+    const data = OPS_DATA.revenue.monthly;
+    const max  = Math.max(...data.map(d => d.val));
+    wrap.innerHTML = data.map(d => {
+      const pct = Math.round((d.val / max) * 100);
+      const hi  = pct === 100 ? ' highlight' : '';
+      return `<div class="ops-bar-wrap">
+        <div class="ops-bar${hi}" style="height:${pct}%;"></div>
+        <div class="ops-bar-label">${d.mo}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function opsSwitch(index) {
+    document.querySelectorAll('.ops-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+    document.querySelectorAll('.ops-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+  }
+
+  function renderHUD() {
+    if (!OPS_DATA) return;
+    const k = OPS_DATA.kpis || {};
+    const el = id => document.getElementById(id);
+
+    el('hud-leads').textContent    = k.activeLeads ?? '—';
+    el('hud-rev').textContent      = k.revMTD ? fmt(k.revMTD) : '—';
+    el('hud-jobs').textContent     = k.openJobs ?? '—';
+    el('hud-pipeline').textContent = k.hotPipeline ? fmt(k.hotPipeline) : '—';
+
+    const jobs = (OPS_DATA.jobs || []).filter(j => j.status !== 'Complete');
+    const tbody = el('hud-jobs-body');
+    if (jobs.length) {
+      tbody.innerHTML = jobs.map(j => `
+        <tr>
+          <td><strong>${j.name}</strong></td>
+          <td>${j.type}</td>
+          <td>${j.due}</td>
+          <td>${fmt(j.value)}</td>
+          <td>${stagePill(j.status)}</td>
+        </tr>`).join('');
+    } else {
+      tbody.innerHTML = '<tr><td colspan="5" style="color:var(--text);padding:16px;">No active jobs. Add one via the admin panel.</td></tr>';
+    }
+    el('ops-notice-hud').textContent = '⬡ LIVE DATA — Aurora Operator Suite · Powered by Google Sheets';
+  }
+
+  function renderBookingQueue() {
+    if (!OPS_DATA) return;
+    const jobs = OPS_DATA.jobs || [];
+    const activeStatuses  = ['In Progress', 'Active'];
+    const pendingStatuses = ['Scheduled', 'Awaiting Deposit', 'Proposal Sent'];
+
+    const active  = jobs.filter(j => activeStatuses.includes(j.status));
+    const pending = jobs.filter(j => pendingStatuses.includes(j.status));
+
+    function card(j) {
+      return `<div class="booking-card">
+        <div class="booking-name">${j.name}</div>
+        <div class="booking-meta">${j.type}${j.due !== '—' ? ' · Due ' + j.due : ''}</div>
+        <div class="booking-footer">${stagePill(j.status)}<span class="booking-val">${fmt(j.value)}</span></div>
+      </div>`;
+    }
+
+    const aWrap = document.getElementById('booking-active');
+    const pWrap = document.getElementById('booking-pending');
+
+    aWrap.innerHTML = active.length  ? active.map(card).join('')  : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No active jobs.</div>';
+    pWrap.innerHTML = pending.length ? pending.map(card).join('') : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No pending jobs.</div>';
+
+    // Update KPI strip for booking panel dynamically
+    const kpis = document.querySelectorAll('#ops-panel-3 .ops-kpi-val');
+    const totalActive = active.length;
+    const totalPending = pending.length;
+    const weekVal = [...active, ...pending].reduce((s, j) => s + (parseFloat(j.value) || 0), 0);
+    if (kpis[0]) kpis[0].textContent = totalActive;
+    if (kpis[1]) kpis[1].textContent = totalPending;
+    if (kpis[2]) kpis[2].textContent = weekVal ? fmt(weekVal) : '—';
+
+    document.getElementById('ops-notice-booking').textContent = '⬡ LIVE DATA — Aurora Operator Suite · Powered by Google Sheets';
+  }
+
+  // Boot: fetch data then render all panels
+  loadOpsData().then(() => {
+    renderHUD();
+    renderCRM();
+    renderRevenue();
+    renderBookingQueue();
+  });
+
+  /* ─── RECON FORM ─────────────────────────────────────────────────── */
+  document.querySelector('.contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    const fields = this.querySelectorAll('input, select, textarea');
+
+    const payload = {
+      type:      'recon',
+      name:      this.querySelector('input[type="text"]').value,
+      business:  this.querySelectorAll('input[type="text"]')[1]?.value,
+      email:     this.querySelector('input[type="email"]').value,
+      phone:     this.querySelector('input[type="tel"]').value,
+      industry:  this.querySelector('select').value,
+      website:   this.querySelector('input[type="url"]').value,
+      challenge: this.querySelector('textarea').value,
+    };
+
+    if (OPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
+      btn.textContent = '✓ Request Received (Demo Mode)';
+      btn.style.background = '#28c840';
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    fields.forEach(f => f.disabled = true);
+
+    try {
+      await fetch(OPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+      btn.textContent = '✓ Recon Request Submitted';
+      btn.style.background = '#28c840';
+    } catch {
+      btn.textContent = '✗ Send failed — email hirro.kuizon@gmail.com';
+      btn.style.background = '#ff5f57';
+      btn.disabled = false;
+      fields.forEach(f => f.disabled = false);
+    }
+  });
+</script>
+
+</body>
+</html>
