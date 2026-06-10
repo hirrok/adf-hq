@@ -1,322 +1,573 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Solaris Fuel & LPG — Fuel & LPG Across Batangas Region</title>
-  <meta name="description" content="Batangas Region's fuel infrastructure network. 8 branches across San Roque, Baler, Dipaculao, San Luis and beyond. Gasoline, diesel, and PetroCyl LPG."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Karla:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solaris Fuel & LPG — Regional Energy Supply</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#ffffff;--surface:#f4f6f9;--surface2:#eef1f6;
-      --border:rgba(15,23,42,0.1);--text:#0f172a;--muted:#64748b;
-      --yellow:#d4a800;--blue:#1a3fa0;--green:#16a34a;
-      --ff:'Karla',sans-serif;--fh:'Syne',sans-serif;
+    :root {
+      --black:   #0a0c0e;
+      --deep:    #111518;
+      --mid:     #1a1f24;
+      --surface: #222830;
+      --border:  rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+      --white:   #f5f7fa;
+      --text:    rgba(245,247,250,0.68);
+      --text2:   rgba(245,247,250,0.44);
+      --amber:   #f5a623;
+      --amber2:  #e8912b;
+      --green:   #3adb76;
+      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --mono:    'JetBrains Mono', 'Fira Code', monospace;
     }
-    body{font-family:var(--ff);background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;}
-    a{color:inherit;text-decoration:none;}
-
-    /* EMERGENCY BAR */
-    .emergency{background:#7f1d1d;color:#fca5a5;font-size:0.75rem;text-align:center;padding:8px 20px;display:flex;align-items:center;justify-content:center;gap:16px;}
-    .emergency a{color:#fca5a5;text-decoration:underline;font-weight:600;}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
 
     /* NAV */
-    nav{background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);box-shadow:0 1px 12px rgba(15,23,42,0.06);position:sticky;top:0;z-index:100;}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;height:66px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{display:flex;align-items:center;gap:12px;}
-    .nav-mark{background:#1a3fa0;width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:0.7rem;font-weight:800;color:#fff;}
-    .nav-name{font-family:var(--fh);font-size:0.95rem;font-weight:800;}
-    .nav-links{display:flex;gap:28px;list-style:none;}
-    .nav-links a{font-size:0.82rem;color:var(--muted);transition:color 0.2s;}
-    .nav-links a:hover{color:var(--text);}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:4px;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;font-family:var(--ff);}
-    .btn-primary{background:var(--yellow);color:#fff;}
-    .btn-primary:hover{background:#b89000;transform:translateY(-1px);}
-    .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
-    .btn-ghost:hover{border-color:var(--yellow);color:var(--yellow);}
-    .container{max-width:1200px;margin:0 auto;padding:0 28px;}
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,12,14,0.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-mark {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: var(--amber); color: var(--black);
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-name { font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; }
+    .nav-links { display: flex; gap: 28px; font-size: 0.8rem; color: var(--text); }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--amber); color: var(--black);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 8px 18px; border-radius: 4px; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
 
     /* HERO */
-    #hero{min-height:90vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:0;}
-    .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#ffffff 45%,rgba(212,168,0,0.07) 75%,rgba(26,63,160,0.04) 100%);}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(26,63,160,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,63,160,0.04) 1px,transparent 1px);background-size:48px 48px;}
-    .hero-sunrise{position:absolute;bottom:-120px;right:-80px;width:700px;height:700px;background:radial-gradient(circle at center,rgba(212,168,0,0.13) 0%,rgba(255,180,0,0.06) 35%,transparent 70%);pointer-events:none;z-index:1;}
-    .hero-sunrise2{position:absolute;bottom:0;right:200px;width:400px;height:3px;background:linear-gradient(90deg,transparent,rgba(212,168,0,0.25),transparent);pointer-events:none;z-index:1;}
-    .hero-content{position:relative;z-index:2;max-width:720px;}
-    .hero-eyebrow{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--yellow);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
-    .hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--yellow);}
-    h1{font-family:var(--fh);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-bottom:24px;}
-    h1 span{color:var(--yellow);}
-    .hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:40px;line-height:1.75;}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-    /* PRICE TICKER */
-    .price-ticker{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 28px;margin-top:48px;display:inline-flex;gap:40px;flex-wrap:wrap;}
-    .ticker-item{}
-    .ticker-label{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);margin-bottom:4px;}
-    .ticker-price{font-family:var(--fh);font-size:1.4rem;font-weight:800;color:var(--text);}
-    .ticker-price span{font-size:0.75rem;color:var(--muted);font-family:var(--ff);font-weight:400;}
-    .ticker-date{font-size:0.65rem;color:var(--muted);margin-top:4px;}
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(245,166,35,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(232,145,43,0.04) 0%, transparent 50%),
+        var(--black);
+      padding: 100px 32px 60px;
+    }
+    .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; }
+    .hero-h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
+    .hero-h1 span { color: var(--amber); }
+    .hero-sub { font-size: 1rem; color: var(--text); line-height: 1.75; margin-bottom: 36px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--amber); color: var(--black);
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 14px 28px; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 14px 28px; border-radius: 4px; border: 1px solid var(--border2); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* PRICE BOARD */
+    .price-board {
+      background: var(--mid); border: 1px solid var(--border2); border-radius: 12px;
+      padding: 28px; position: relative; overflow: hidden;
+    }
+    .price-board::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--amber2));
+    }
+    .pb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .pb-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
+    .pb-live { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); }
+    .pb-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .pb-rows { display: flex; flex-direction: column; gap: 3px; }
+    .pb-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 14px; border-radius: 6px; background: var(--surface);
+    }
+    .pb-row:hover { background: rgba(245,166,35,0.06); }
+    .pb-fuel { display: flex; align-items: center; gap: 10px; }
+    .pb-fuel-dot { width: 8px; height: 8px; border-radius: 2px; }
+    .d-ron91 { background: #3adb76; }
+    .d-ron95 { background: #f5a623; }
+    .d-ron97 { background: #e05c3a; }
+    .d-diesel { background: #4a9fd4; }
+    .pb-fuel-name { font-size: 0.875rem; font-weight: 600; }
+    .pb-fuel-grade { font-family: var(--mono); font-size: 0.58rem; color: var(--text2); }
+    .pb-price { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--amber); }
+    .pb-price span { font-size: 0.62rem; color: var(--text2); font-weight: 400; }
+    .pb-footer { margin-top: 16px; font-size: 0.7rem; color: var(--text2); display: flex; justify-content: space-between; align-items: center; }
+    .sim-tag {
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); border: 1px solid rgba(245,166,35,0.25); padding: 2px 7px; border-radius: 3px; opacity: 0.7;
+    }
 
     /* SECTIONS */
-    section{padding:100px 0;}
-    .section-tag{display:inline-block;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--yellow);border:1px solid rgba(212,168,0,0.3);padding:3px 12px;border-radius:2px;margin-bottom:16px;}
-    h2{font-family:var(--fh);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px;}
-    .section-sub{font-size:1rem;color:var(--muted);max-width:520px;margin-bottom:52px;line-height:1.75;}
+    section { padding: 96px 32px; }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .eyebrow { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; }
+    .sh2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .ssub { color: var(--text); font-size: 1rem; line-height: 1.75; max-width: 560px; margin-bottom: 52px; }
 
-    /* DUAL AUDIENCE */
-    #audiences{background:var(--surface);border-top:1px solid var(--border);}
-    .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
-    .audience-card{background:var(--bg);padding:56px 48px;border:1px solid var(--border);transition:border-color 0.3s;}
-    .audience-card:hover{border-color:rgba(212,168,0,0.3);}
-    .audience-icon{font-size:2.5rem;margin-bottom:20px;}
-    .audience-title{font-family:var(--fh);font-size:1.4rem;font-weight:800;margin-bottom:12px;}
-    .audience-desc{font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:28px;}
-    .audience-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:32px;}
-    .audience-list li{font-size:0.85rem;display:flex;align-items:center;gap:10px;color:var(--muted);}
-    .audience-list li::before{content:'→';color:var(--yellow);font-size:0.75rem;}
+    /* TRUST BAR */
+    .trust-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 32px; }
+    .trust-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; text-align: center; }
+    .ts-num { font-size: 2rem; font-weight: 800; color: var(--amber); }
+    .ts-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
 
-    /* BRANCHES PREVIEW */
-    #branches-preview{}
-    .branches-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:36px;}
-    .branch-card{background:var(--surface);border:1px solid var(--border);padding:24px 20px;transition:border-color 0.2s;}
-    .branch-card:hover{border-color:rgba(212,168,0,0.3);}
-    .branch-status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;}
-    .branch-status-text{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--green);margin-bottom:12px;display:flex;align-items:center;}
-    .branch-name{font-family:var(--fh);font-size:0.95rem;font-weight:700;margin-bottom:6px;}
-    .branch-loc{font-size:0.75rem;color:var(--muted);}
-    .branch-products{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
-    .prod-tag{font-size:0.62rem;padding:2px 8px;background:rgba(212,168,0,0.08);border:1px solid rgba(212,168,0,0.2);border-radius:2px;color:var(--muted);}
+    /* SERVICES */
+    .bg-deep { background: var(--deep); }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .svc-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
+      padding: 28px; transition: border-color 0.3s, transform 0.3s;
+    }
+    .svc-card:hover { border-color: rgba(245,166,35,0.3); transform: translateY(-3px); }
+    .svc-icon { font-size: 2rem; margin-bottom: 16px; }
+    .svc-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .svc-desc { font-size: 0.875rem; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .svc-tag { font-family: var(--mono); font-size: 0.6rem; color: var(--text2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; }
 
-    /* LPG STRIP */
-    #lpg-strip{background:linear-gradient(160deg,#f4f6f9 0%,rgba(212,168,0,0.06) 60%,rgba(26,63,160,0.03) 100%);}
-    .lpg-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-    .lpg-right{display:flex;flex-direction:column;gap:16px;}
-    .lpg-feature{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;}
-    .lpg-icon{font-size:1.4rem;flex-shrink:0;}
-    .lpg-feat-title{font-weight:700;font-size:0.9rem;margin-bottom:4px;}
-    .lpg-feat-desc{font-size:0.8rem;color:var(--muted);line-height:1.6;}
+    /* BRANCHES */
+    .branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .branch-list { display: flex; flex-direction: column; gap: 10px; }
+    .branch-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 8px;
+      padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .branch-name { font-weight: 700; font-size: 0.875rem; margin-bottom: 2px; }
+    .branch-loc { font-size: 0.76rem; color: var(--text2); }
+    .b-status { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; padding: 4px 9px; border-radius: 3px; white-space: nowrap; }
+    .b-open { background: rgba(58,219,118,0.12); color: var(--green); border: 1px solid rgba(58,219,118,0.2); }
+    .b-24h  { background: rgba(245,166,35,0.12); color: var(--amber); border: 1px solid rgba(245,166,35,0.2); }
+    .cov-stats { display: flex; flex-direction: column; gap: 20px; }
+    .cov-stat { padding: 22px 24px; background: var(--mid); border: 1px solid var(--border); border-radius: 10px; }
+    .cov-num { font-size: 2.2rem; font-weight: 800; color: var(--amber); line-height: 1; margin-bottom: 5px; }
+    .cov-label { font-size: 0.84rem; color: var(--text); }
 
-    /* FLEET CTA */
-    #fleet-cta{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 0;}
-    .fleet-inner{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;}
-    .fleet-stat{display:flex;gap:48px;flex-wrap:wrap;}
-    .fstat-num{font-family:var(--fh);font-size:2.5rem;font-weight:800;color:var(--yellow);}
-    .fstat-label{font-size:0.78rem;color:var(--muted);}
+    /* LPG */
+    .lpg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+    .lpg-products { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 0; }
+    .lpg-prod {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 8px;
+      padding: 20px; text-align: center;
+    }
+    .lpg-prod-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .lpg-prod-name { font-weight: 700; font-size: 0.875rem; margin-bottom: 4px; }
+    .lpg-prod-desc { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+    .lpg-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .lpg-list li { display: flex; gap: 10px; font-size: 0.875rem; color: var(--text); line-height: 1.6; }
+    .lpg-list li::before { content: '▸'; color: var(--amber); flex-shrink: 0; margin-top: 2px; }
 
-    /* TRUST */
-    #trust{padding:80px 0;background:var(--bg);border-top:1px solid var(--border);}
-    .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
-    .trust-item{background:var(--surface);border:1px solid var(--border);padding:32px 24px;text-align:center;}
-    .trust-icon{font-size:2rem;margin-bottom:12px;}
-    .trust-label{font-size:0.85rem;font-weight:600;margin-bottom:6px;}
-    .trust-desc{font-size:0.75rem;color:var(--muted);line-height:1.6;}
+    /* FLEET */
+    .fleet-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .fleet-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
+      padding: 28px; position: relative; display: flex; flex-direction: column;
+    }
+    .fleet-card.featured { border-color: rgba(245,166,35,0.35); }
+    .fleet-badge {
+      position: absolute; top: 18px; right: 18px;
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em;
+      background: var(--amber); color: var(--black); padding: 3px 8px; border-radius: 3px; font-weight: 700;
+    }
+    .fleet-tier { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--amber); margin-bottom: 8px; }
+    .fleet-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .fleet-desc { font-size: 0.82rem; color: var(--text); margin-bottom: 18px; line-height: 1.65; flex: 1; }
+    .fleet-perks { list-style: none; margin-bottom: 22px; display: flex; flex-direction: column; gap: 7px; }
+    .fleet-perks li { font-size: 0.8rem; color: var(--text); display: flex; align-items: flex-start; gap: 8px; }
+    .fleet-perks li::before { content: '✓'; color: var(--green); font-size: 0.75rem; flex-shrink: 0; }
+    .fleet-btn {
+      width: 100%; padding: 11px; border-radius: 5px; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; border: none;
+    }
+    .fleet-btn-primary { background: var(--amber); color: var(--black); }
+    .fleet-btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border2) !important; }
+    .fleet-btn:hover { opacity: 0.8; }
+
+    /* INQUIRY */
+    .inquiry-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+    .inq-info h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; }
+    .inq-info p { color: var(--text); font-size: 0.9rem; line-height: 1.75; margin-bottom: 28px; }
+    .inq-trust { display: flex; flex-direction: column; gap: 14px; }
+    .inq-trust-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.85rem; color: var(--text); }
+    .inq-trust-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .inq-form { background: var(--mid); border: 1px solid var(--border2); border-radius: 12px; padding: 36px; }
+    .form-title { font-weight: 700; font-size: 1rem; margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text2); }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--white); font-family: var(--ff); font-size: 0.875rem; padding: 12px 14px;
+      outline: none; transition: border-color 0.2s; width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--amber); }
+    .form-group select option { background: var(--surface); }
+    .form-group textarea { resize: vertical; min-height: 88px; }
+    .form-submit {
+      width: 100%; padding: 14px; background: var(--amber); color: var(--black);
+      font-family: var(--ff); font-weight: 700; font-size: 0.875rem; letter-spacing: 0.08em;
+      text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s; margin-top: 6px;
+    }
+    .form-submit:hover { opacity: 0.85; }
+    .form-note { font-size: 0.7rem; color: var(--text2); margin-top: 10px; text-align: center; }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .form-success h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .form-success p { font-size: 0.875rem; color: var(--text); }
 
     /* FOOTER */
-    footer{background:var(--surface);border-top:1px solid var(--border);padding:56px 0 32px;}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
-    .footer-brand{font-family:var(--fh);font-size:1rem;font-weight:800;margin-bottom:8px;}
-    .footer-tagline{font-size:0.8rem;color:var(--muted);margin-bottom:20px;}
-    .footer-emergency{background:rgba(127,29,29,0.3);border:1px solid rgba(127,29,29,0.5);padding:12px 16px;border-radius:4px;font-size:0.75rem;color:#fca5a5;}
-    .footer-col-title{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);margin-bottom:14px;}
-    .footer-links{list-style:none;display:flex;flex-direction:column;gap:8px;}
-    .footer-links a{font-size:0.82rem;color:var(--muted);transition:color 0.2s;}
-    .footer-links a:hover{color:var(--yellow);}
-    .footer-bottom{padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);}
+    footer { background: var(--deep); border-top: 1px solid var(--border); padding: 48px 32px 32px; }
+    .footer-inner { max-width: 1120px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand-desc { font-size: 0.82rem; color: var(--text2); line-height: 1.65; margin-top: 10px; }
+    .footer-col-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links li { font-size: 0.82rem; color: var(--text2); cursor: pointer; }
+    .footer-links li:hover { color: var(--white); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.78rem; color: var(--text2); }
+    .footer-adf { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; }
+    .footer-adf span { color: var(--amber); }
 
-    @media(max-width:900px){
-      .nav-links{display:none;}
-      .audience-grid,.lpg-grid,.fleet-inner,.footer-grid{grid-template-columns:1fr;}
-      .branches-grid{grid-template-columns:1fr 1fr;}
-      .trust-grid{grid-template-columns:1fr 1fr;}
+    /* SIM BANNER */
+    .sim-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(10,12,14,0.96); border-top: 1px solid rgba(245,166,35,0.3);
+      padding: 10px 24px; display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(8px);
     }
-    @media(max-width:600px){
-      .branches-grid,.trust-grid{grid-template-columns:1fr;}
+    .sim-banner-text { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--amber); }
+    .sim-banner-sub { font-size: 0.7rem; color: var(--text2); margin-top: 2px; }
+    .sim-close { background: none; border: none; color: var(--text2); cursor: pointer; font-size: 1.1rem; padding: 4px 8px; }
+    .sim-close:hover { color: var(--white); }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero-inner, .branch-grid, .lpg-grid, .inquiry-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid, .fleet-grid { grid-template-columns: 1fr 1fr; }
+      .trust-inner { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 64px 20px; }
+      .services-grid, .fleet-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- EMERGENCY -->
-<div class="emergency">
-  ⚠ LPG emergency or fuel hazard? Call your nearest branch immediately.
-  <a href=contact.html>Branch Hotlines →</a>
+<!-- SIMULATOR BANNER -->
+<div class="sim-banner" id="simBanner">
+  <div>
+    <div class="sim-banner-text">◐ AURORA DIGITAL FOUNDRY — ARCHETYPE SIMULATOR</div>
+    <div class="sim-banner-sub">Regional Fuel & LPG Distributor · Infrastructure Demo · Forms run in simulator mode</div>
+  </div>
+  <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'">✕</button>
 </div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-mark">EC</div>
-      <div class="nav-name">· <span style="color:var(--yellow)">ECO</span>PETROL</div>
-    </a>
-    <ul class="nav-links">
-      <li><a href=branches.html>Branches</a></li>
-      <li><a href=prices.html>Prices</a></li>
-      <li><a href=lpg.html>LPG / PetroCyl</a></li>
-      <li><a href=fleet.html>Fleet</a></li>
-      <li><a href=about.html>About</a></li>
-      <li><a href=contact.html>Contact</a></li>
-    </ul>
-    <a href=fleet.html class="btn btn-primary">Fleet Accounts →</a>
+  <div class="nav-brand">
+    <div class="nav-mark">SL</div>
+    <div class="nav-name">SOLARIS FUEL & LPG</div>
   </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#branches">Coverage</a>
+    <a href="#lpg">LPG</a>
+    <a href="#fleet">Fleet</a>
+    <a href="#inquiry">Contact</a>
+  </div>
+  <a href="#inquiry" class="nav-cta">Get a Quote</a>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-sunrise"></div>
-  <div class="hero-sunrise2"></div>
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-eyebrow">Quality Fuels · Batangas Region</div>
-      <h1>Fuel That <span>Keeps</span><br/>Aurora Moving.</h1>
-      <p class="hero-sub">Quality fuels for every road. 8 branches across Batangas Region — gasoline, diesel, and PetroCyl LPG for retail customers, fleet operators, and institutional buyers for over a decade.</p>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">⛽ Regional Fuel & LPG Distributor · Philippines</div>
+      <h1 class="hero-h1">Fuel the fleet.<br /><span>Power the region.</span></h1>
+      <p class="hero-sub">Solaris operates a regional network of fuel stations and LPG distribution points — serving commercial fleets, industrial operations, and residential customers across multiple municipalities.</p>
       <div class="hero-actions">
-        <a href=branches.html class="btn btn-primary">Find a Branch ↗</a>
-        <a href=fleet.html class="btn btn-ghost">Fleet Accounts</a>
+        <button class="btn-primary" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Fleet Inquiry</button>
+        <button class="btn-outline" onclick="document.getElementById('branches').scrollIntoView({behavior:'smooth'})">View Coverage</button>
       </div>
-      <!-- LIVE PRICE TICKER -->
-      <div class="price-ticker" id="priceTicker">
-        <div class="ticker-item">
-          <div class="ticker-label">Unleaded</div>
-          <div class="ticker-price" id="t-ron91">₱89.50 <span>/L</span></div>
-          <div class="ticker-date" id="ticker-date">As of today</div>
+    </div>
+    <div>
+      <div class="price-board">
+        <div class="pb-header">
+          <div class="pb-title">Today's Pump Prices</div>
+          <div class="pb-live"><span class="pb-dot"></span>Live</div>
         </div>
-        <div class="ticker-item">
-          <div class="ticker-label">Premium</div>
-          <div class="ticker-price" id="t-ron95">₱94.00 <span>/L</span></div>
+        <div class="pb-rows">
+          <div class="pb-row">
+            <div class="pb-fuel"><div class="pb-fuel-dot d-ron91"></div><div><div class="pb-fuel-name">Gasoline RON 91</div><div class="pb-fuel-grade">Unleaded Regular</div></div></div>
+            <div class="pb-price">₱56.75 <span>/ L</span></div>
+          </div>
+          <div class="pb-row">
+            <div class="pb-fuel"><div class="pb-fuel-dot d-ron95"></div><div><div class="pb-fuel-name">Gasoline RON 95</div><div class="pb-fuel-grade">Unleaded Premium</div></div></div>
+            <div class="pb-price">₱59.50 <span>/ L</span></div>
+          </div>
+          <div class="pb-row">
+            <div class="pb-fuel"><div class="pb-fuel-dot d-ron97"></div><div><div class="pb-fuel-name">Gasoline RON 97</div><div class="pb-fuel-grade">Unleaded Super</div></div></div>
+            <div class="pb-price">₱62.10 <span>/ L</span></div>
+          </div>
+          <div class="pb-row">
+            <div class="pb-fuel"><div class="pb-fuel-dot d-diesel"></div><div><div class="pb-fuel-name">Diesel Euro 5</div><div class="pb-fuel-grade">Low Sulfur</div></div></div>
+            <div class="pb-price">₱51.30 <span>/ L</span></div>
+          </div>
         </div>
-        <div class="ticker-item">
-          <div class="ticker-label">Diesel</div>
-          <div class="ticker-price" id="t-diesel">₱84.50 <span>/L</span></div>
-        </div>
-        <div class="ticker-item" style="border-left:1px solid var(--border);padding-left:40px;">
-          <div class="ticker-label">Full Price Board</div>
-          <a href=prices.html class="btn btn-ghost" style="padding:8px 16px;font-size:0.75rem;margin-top:4px;">View All →</a>
+        <div class="pb-footer">
+          <span>Prices inclusive of all taxes. Subject to daily adjustment.</span>
+          <span class="sim-tag">Simulator Data</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DUAL AUDIENCE -->
-<section id="audiences">
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div><div class="ts-num">8</div><div class="ts-label">Branch Locations</div></div>
+    <div><div class="ts-num">12+</div><div class="ts-label">Years in Operation</div></div>
+    <div><div class="ts-num">340+</div><div class="ts-label">Fleet Accounts</div></div>
+    <div><div class="ts-num">24/7</div><div class="ts-label">Select Branches Open</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="bg-deep" id="services">
   <div class="container">
-    <div class="audience-grid">
-      <div class="audience-card">
-        <div class="audience-icon">🚗</div>
-        <div class="audience-title">For Motorists & Households</div>
-        <p class="audience-desc">Find your nearest Solaris station, check today's pump prices, and arrange PetroCyl LPG delivery for your home.</p>
-        <ul class="audience-list">
-          <li>8 branch locations across Batangas Region</li>
-          <li>Daily price board — always current</li>
-          <li>PetroCyl LPG cylinders & residential delivery</li>
-          <li>Kerosene for household use</li>
-        </ul>
-        <a href=branches.html class="btn btn-ghost">Find Your Branch →</a>
+    <div class="eyebrow">What We Supply</div>
+    <h2 class="sh2">Full-service energy supply<br />for every operation.</h2>
+    <p class="ssub">From pump-side retail to bulk commercial contracts — covering the full range of fuel and LPG needs across the region.</p>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-icon">⛽</div>
+        <div class="svc-name">Pump Station Retail</div>
+        <div class="svc-desc">Walk-in and drive-through fueling for private vehicles, motorcycles, and light commercial units. Full-service lanes at all branches.</div>
+        <div class="svc-tags"><span class="svc-tag">RON 91 / 95 / 97</span><span class="svc-tag">Diesel Euro 5</span><span class="svc-tag">Full Service</span></div>
       </div>
-      <div class="audience-card">
-        <div class="audience-icon">🚛</div>
-        <div class="audience-title">For Fleets & Institutions</div>
-        <p class="audience-desc">Open a fleet account for volume pricing, credit terms, and dedicated service across our Aurora network.</p>
-        <ul class="audience-list">
-          <li>Volume pricing for fleet operators</li>
-          <li>Government & institutional supply capacity</li>
-          <li>Commercial LPG delivery for restaurants & resorts</li>
-          <li>Multi-branch account coverage</li>
-        </ul>
-        <a href=fleet.html class="btn btn-primary">Open Fleet Account →</a>
+      <div class="svc-card">
+        <div class="svc-icon">🚛</div>
+        <div class="svc-name">Commercial Fleet Supply</div>
+        <div class="svc-desc">Dedicated fleet accounts for trucking, construction, logistics, and government fleets. Volume pricing, card management, and consolidated billing.</div>
+        <div class="svc-tags"><span class="svc-tag">Fleet Cards</span><span class="svc-tag">Volume Pricing</span><span class="svc-tag">Monthly Billing</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏭</div>
+        <div class="svc-name">Industrial Bulk Delivery</div>
+        <div class="svc-desc">Scheduled bulk diesel and gasoline delivery to industrial sites, resorts, hospitals, and generator operations. Tanker dispatch on your schedule.</div>
+        <div class="svc-tags"><span class="svc-tag">Tanker Dispatch</span><span class="svc-tag">Scheduled Delivery</span><span class="svc-tag">On-site Filling</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔵</div>
+        <div class="svc-name">LPG Distribution</div>
+        <div class="svc-desc">Residential cylinder refills, commercial LPG supply, and bulk installations. Covering homes, restaurants, hotels, and food service operations.</div>
+        <div class="svc-tags"><span class="svc-tag">11kg / 22kg</span><span class="svc-tag">Bulk Supply</span><span class="svc-tag">Home Delivery</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏗️</div>
+        <div class="svc-name">Construction Site Fueling</div>
+        <div class="svc-desc">Dedicated supply for construction projects — diesel and gasoline for heavy equipment, generators, and site vehicles on your build schedule.</div>
+        <div class="svc-tags"><span class="svc-tag">Heavy Equipment</span><span class="svc-tag">Generator Supply</span><span class="svc-tag">Project Billing</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏨</div>
+        <div class="svc-name">Tourism & Hospitality</div>
+        <div class="svc-desc">Tailored accounts for resorts, dive shops, and tourism operators. Marine fuel, generator diesel, and vehicle fueling with hospitality-grade reliability.</div>
+        <div class="svc-tags"><span class="svc-tag">Marine Fuel</span><span class="svc-tag">Generator Diesel</span><span class="svc-tag">Resort Accounts</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BRANCHES PREVIEW -->
-<section id="branches-preview">
+<!-- COVERAGE -->
+<section id="branches">
   <div class="container">
-    <div class="section-tag">Branch Network</div>
-    <h2>Across Batangas Region.</h2>
-    <p class="section-sub">From San Roque to Baler, Dipaculao to San Luis — we're where Aurora moves.</p>
-    <div class="branches-grid" id="branchCards">
-      <!-- Rendered by JS from live status -->
+    <div class="eyebrow">Where We Operate</div>
+    <h2 class="sh2">8 branches. One region.<br />Continuous supply.</h2>
+    <p class="ssub">Our branch network is positioned to serve all major commercial corridors and population centers within our coverage area.</p>
+    <div class="branch-grid">
+      <div class="branch-list">
+        <div class="branch-card"><div><div class="branch-name">Centro Branch — Flagship</div><div class="branch-loc">Main Commercial District, Town Center</div></div><div class="b-status b-24h">24 / 7</div></div>
+        <div class="branch-card"><div><div class="branch-name">North Highway Branch</div><div class="branch-loc">National Highway Northbound, Km 12</div></div><div class="b-status b-24h">24 / 7</div></div>
+        <div class="branch-card"><div><div class="branch-name">Industrial Zone Branch</div><div class="branch-loc">Economic Zone Access Road</div></div><div class="b-status b-open">Open</div></div>
+        <div class="branch-card"><div><div class="branch-name">Port Road Branch</div><div class="branch-loc">Port Access Road, Commercial Wharf Area</div></div><div class="b-status b-open">Open</div></div>
+        <div class="branch-card"><div><div class="branch-name">South Coastal Branch</div><div class="branch-loc">Coastal Highway, Tourism Corridor</div></div><div class="b-status b-open">Open</div></div>
+        <div class="branch-card"><div><div class="branch-name">Mountain Road Branch</div><div class="branch-loc">Provincial Road, Upland District</div></div><div class="b-status b-open">Open</div></div>
+      </div>
+      <div class="cov-stats">
+        <div class="cov-stat"><div class="cov-num">6</div><div class="cov-label">Municipalities in coverage area</div></div>
+        <div class="cov-stat"><div class="cov-num">340+</div><div class="cov-label">Active fleet accounts</div></div>
+        <div class="cov-stat"><div class="cov-num">1.2M L</div><div class="cov-label">Monthly fuel throughput</div></div>
+        <div class="cov-stat"><div class="cov-num">4hr</div><div class="cov-label">Average bulk delivery lead time</div></div>
+      </div>
     </div>
-    <a href=branches.html class="btn btn-ghost">View All Branches with Maps →</a>
   </div>
 </section>
 
-<!-- LPG STRIP -->
-<section id="lpg-strip">
+<!-- LPG -->
+<section class="bg-deep" id="lpg">
   <div class="container">
+    <div class="eyebrow">LPG Distribution</div>
+    <h2 class="sh2">Gas supply for homes,<br />kitchens, and operations.</h2>
+    <p class="ssub">Authorized LPG distributor covering residential and commercial requirements across our full service area.</p>
     <div class="lpg-grid">
-      <div>
-        <div class="section-tag">PetroCyl LPG</div>
-        <h2>Gas Up Your Home<br/>& Business.</h2>
-        <p class="section-sub">Authorized PetroCyl showroom. Residential cylinder refills and commercial bulk delivery across the region coverage areas.</p>
-        <a href=lpg.html class="btn btn-primary">Schedule LPG Delivery →</a>
+      <div class="lpg-products">
+        <div class="lpg-prod"><div class="lpg-prod-icon">🔵</div><div class="lpg-prod-name">11kg Cylinder</div><div class="lpg-prod-desc">Standard household. Refill or swap at any branch.</div></div>
+        <div class="lpg-prod"><div class="lpg-prod-icon">🫧</div><div class="lpg-prod-name">22kg Cylinder</div><div class="lpg-prod-desc">Commercial and restaurant use. Scheduled delivery available.</div></div>
+        <div class="lpg-prod"><div class="lpg-prod-icon">🏭</div><div class="lpg-prod-name">Bulk Tank</div><div class="lpg-prod-desc">Industrial and institutional installations. On-site setup and supply management.</div></div>
+        <div class="lpg-prod"><div class="lpg-prod-icon">🚐</div><div class="lpg-prod-name">Home Delivery</div><div class="lpg-prod-desc">Barangay-level delivery for residential refills. Schedule via call or walk-in request.</div></div>
       </div>
-      <div class="lpg-right">
-        <div class="lpg-feature">
-          <div class="lpg-icon">🏠</div>
-          <div><div class="lpg-feat-title">Residential Refills</div><div class="lpg-feat-desc">11kg and 22kg cylinders. Call your nearest PetroCyl showroom branch to schedule a refill or swap.</div></div>
-        </div>
-        <div class="lpg-feature">
-          <div class="lpg-icon">🏭</div>
-          <div><div class="lpg-feat-title">Commercial & Bulk Delivery</div><div class="lpg-feat-desc">For restaurants, resorts, food businesses, and institutional kitchens. Volume pricing available.</div></div>
-        </div>
-        <div class="lpg-feature">
-          <div class="lpg-icon">📦</div>
-          <div><div class="lpg-feat-title">Cylinder Availability</div><div class="lpg-feat-desc">Multiple PetroCyl showroom branches across the province. Check your nearest location for current stock.</div></div>
-        </div>
+      <div>
+        <ul class="lpg-list">
+          <li>Authorized LPG distributor — authentic product, certified handling, and DOE-compliant storage and transport protocols throughout the supply chain</li>
+          <li>All delivery personnel trained in safe cylinder handling and transport regulations</li>
+          <li>Commercial accounts available for restaurants, hotels, hospitals, and food manufacturers</li>
+          <li>Bulk tank installation assessments for institutional and industrial clients</li>
+          <li>Emergency supply response for operational disruptions — call the nearest branch for priority dispatch</li>
+          <li>Multiple branch pickup locations across our coverage network for fast cylinder swaps</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FLEET CTA -->
-<section id="fleet-cta">
+<!-- FLEET PROGRAMS -->
+<section id="fleet">
   <div class="container">
-    <div class="fleet-inner">
-      <div>
-        <div class="section-tag">Fleet & Institutional</div>
-        <h2 style="margin-bottom:12px;">Your operations run on fuel.<br/>Ours runs on reliability.</h2>
-        <p style="color:var(--muted);font-size:0.95rem;max-width:480px;line-height:1.75;margin-bottom:28px;">Government agencies, construction companies, logistics operators, and resort groups across the region trust Solaris for uninterrupted fuel supply.</p>
-        <a href=fleet.html class="btn btn-primary">Apply for a Fleet Account →</a>
+    <div class="eyebrow">Fleet & Commercial Programs</div>
+    <h2 class="sh2">Built for operations<br />that run on fuel.</h2>
+    <p class="ssub">From small business fleets to large logistics operations — structured account programs with pricing, billing, and supply reliability that scales with your needs.</p>
+    <div class="fleet-grid">
+      <div class="fleet-card">
+        <div class="fleet-tier">TIER 1</div>
+        <div class="fleet-name">Business Account</div>
+        <div class="fleet-desc">For SMBs and small fleets of 3–15 vehicles. Simplified fueling with consolidated monthly billing.</div>
+        <ul class="fleet-perks">
+          <li>Dedicated fleet card per vehicle</li>
+          <li>Monthly e-invoice</li>
+          <li>Purchase history dashboard</li>
+          <li>Priority lane access</li>
+        </ul>
+        <button class="fleet-btn fleet-btn-outline" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Inquire Now</button>
       </div>
-      <div class="fleet-stat">
-        <div><div class="fstat-num">8+</div><div class="fstat-label">Branch locations</div></div>
-        <div><div class="fstat-num">4</div><div class="fstat-label">Fuel products</div></div>
-        <div><div class="fstat-num">14+</div><div class="fstat-label">Years in Batangas</div></div>
+      <div class="fleet-card featured">
+        <div class="fleet-badge">Most Popular</div>
+        <div class="fleet-tier">TIER 2</div>
+        <div class="fleet-name">Commercial Fleet</div>
+        <div class="fleet-desc">For logistics, construction, and government operators with 15–100+ vehicles. Volume pricing and supply reliability at scale.</div>
+        <ul class="fleet-perks">
+          <li>Volume discount pricing</li>
+          <li>Dedicated account manager</li>
+          <li>Multi-branch access</li>
+          <li>Bulk delivery scheduling</li>
+          <li>Fleet utilization reporting</li>
+        </ul>
+        <button class="fleet-btn fleet-btn-primary" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Get a Proposal</button>
+      </div>
+      <div class="fleet-card">
+        <div class="fleet-tier">TIER 3</div>
+        <div class="fleet-name">Industrial Supply</div>
+        <div class="fleet-desc">For mining, megaprojects, resorts, and industrial operations requiring on-site tank supply and scheduled deliveries.</div>
+        <ul class="fleet-perks">
+          <li>On-site tank delivery</li>
+          <li>Custom supply schedules</li>
+          <li>DOE-compliant documentation</li>
+          <li>Emergency dispatch availability</li>
+          <li>Dedicated tanker allocation</li>
+        </ul>
+        <button class="fleet-btn fleet-btn-outline" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Discuss Requirements</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TRUST -->
-<section id="trust">
+<!-- INQUIRY -->
+<section class="bg-deep" id="inquiry">
   <div class="container">
-    <div class="trust-grid">
-      <div class="trust-item">
-        <div class="trust-icon">⚖️</div>
-        <div class="trust-label">DOE Compliant</div>
-        <div class="trust-desc">Operating under Department of Energy regulations. Certificates of compliance maintained per branch.</div>
+    <div class="eyebrow">Get in Touch</div>
+    <div class="inquiry-wrap">
+      <div class="inq-info">
+        <h3>Start a supply conversation.</h3>
+        <p>Fill out the form and our team will reach out to discuss your fuel or LPG requirements, confirm pricing, and arrange a site assessment if needed.</p>
+        <div class="inq-trust">
+          <div class="inq-trust-item"><div class="inq-trust-icon">⚡</div><span>Response within 24 hours on all commercial inquiries</span></div>
+          <div class="inq-trust-item"><div class="inq-trust-icon">🏗️</div><span>Free site assessment for bulk tank and industrial accounts</span></div>
+          <div class="inq-trust-item"><div class="inq-trust-icon">📋</div><span>Formal proposal within 3 business days for fleet accounts</span></div>
+          <div class="inq-trust-item"><div class="inq-trust-icon">🔒</div><span>All information kept confidential</span></div>
+        </div>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon">🔒</div>
-        <div class="trust-label">PetroCyl Authorized</div>
-        <div class="trust-desc">Official PetroCyl LPG showroom operator. Authentic product, certified handling, and safe delivery practices.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">📍</div>
-        <div class="trust-label">8 Branch Locations</div>
-        <div class="trust-desc">The widest fuel network in Batangas Region, spanning 5+ municipalities from coast to mountain barangays.</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">🤝</div>
-        <div class="trust-label">Institutional Supplier</div>
-        <div class="trust-desc">Serving government agencies, construction firms, and commercial operators across Batangas Region.</div>
+      <div class="inq-form">
+        <div id="formContent">
+          <div class="form-title">Fuel & LPG Supply Inquiry</div>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Your first name" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Your last name" /></div>
+          </div>
+          <div class="form-group"><label>Business / Organization</label><input type="text" placeholder="Company or organization name" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Mobile / Viber</label><input type="tel" placeholder="+63 9XX XXX XXXX" /></div>
+            <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Inquiry Type</label>
+              <select>
+                <option value="">Select inquiry type</option>
+                <option>Fleet Account Setup</option>
+                <option>Bulk / Industrial Delivery</option>
+                <option>LPG Commercial Supply</option>
+                <option>LPG Residential</option>
+                <option>General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Monthly Volume (est.)</label>
+              <select>
+                <option value="">Estimated monthly volume</option>
+                <option>Under 500 liters</option>
+                <option>500 – 2,000 liters</option>
+                <option>2,000 – 10,000 liters</option>
+                <option>10,000 – 50,000 liters</option>
+                <option>50,000+ liters</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label>Details / Requirements</label><textarea placeholder="Describe your supply requirements, location, schedule, or any specific needs..."></textarea></div>
+          <button class="form-submit" onclick="handleSubmit()">Send Inquiry</button>
+          <div class="form-note">By submitting, you agree to be contacted regarding your fuel or LPG inquiry.</div>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✅</div>
+          <h4>Inquiry received.</h4>
+          <p>Our team will reach out within 24 hours to discuss your requirements.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -324,81 +575,45 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="footer-grid">
+  <div class="footer-inner">
+    <div class="footer-top">
       <div>
-        <div class="footer-brand">· SOLARIS FUEL & LPG</div>
-        <div class="footer-tagline">Fuel and LPG across Batangas Region.</div>
-        <div class="footer-emergency">⚠ LPG leak or fuel emergency?<br/>Call your nearest branch immediately.</div>
+        <div class="nav-brand"><div class="nav-mark">SL</div><div class="nav-name">SOLARIS FUEL & LPG</div></div>
+        <div class="footer-brand-desc">Regional fuel and LPG distribution serving commercial, industrial, and residential customers across the province.</div>
       </div>
       <div>
-        <div class="footer-col-title">For Motorists</div>
-        <ul class="footer-links">
-          <li><a href=branches.html>Find a Branch</a></li>
-          <li><a href=prices.html>Fuel Prices</a></li>
-          <li><a href=lpg.html>LPG / PetroCyl</a></li>
-        </ul>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links"><li>Pump Station Retail</li><li>Commercial Fleet Supply</li><li>Industrial Bulk Delivery</li><li>LPG Distribution</li></ul>
       </div>
       <div>
-        <div class="footer-col-title">For Business</div>
-        <ul class="footer-links">
-          <li><a href=fleet.html>Fleet Accounts</a></li>
-          <li><a href=about.html>About Solaris</a></li>
-          <li><a href=contact.html>Contact Us</a></li>
-        </ul>
+        <div class="footer-col-title">Coverage</div>
+        <ul class="footer-links"><li>Centro Branch</li><li>North Highway</li><li>Industrial Zone</li><li>All Branches</li></ul>
       </div>
       <div>
-        <div class="footer-col-title">Admin</div>
-        <ul class="footer-links">
-          <li><a href=admin/login.html>Operations Portal</a></li>
-        </ul>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links"><li>Fleet Accounts</li><li>LPG Delivery</li><li>Bulk Inquiry</li><li>Emergency Supply</li></ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Solaris Fuel & LPG · Batangas Region · +63 912 000 0001</span>
-      <span>Site by <a href=https://hirrok.github.io/adf-hq/ style="color:var(--yellow)">Aurora Digital Foundry</a></span>
+      <div class="footer-copy">© 2026 Solaris Fuel & LPG · Regional Energy Supply · Philippines</div>
+      <div class="footer-adf">Built by <span>Aurora Digital Foundry</span></div>
     </div>
   </div>
 </footer>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnL82TNk1DplBIDCbgxwH1rfWhtBqZqMK1A87BETMYaUQYMKMrHgBfBUpEogBclKuf9w/exec';
-  // Load live prices from Google Sheets (falls back to placeholders)
-  const SHEET_ID = '1YSl6At1Gbcg64yTtJmL134YkWnNf26rFxm_Q88EX4GM';
-  const PRICES_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
-
-  async function loadPrices() {
-    try {
-      const res = await fetch(`${SCRIPT_URL}?type=prices`);
-      const json = await res.json();
-      const latest = json.data && json.data[0];
-      if (latest) {
-        document.getElementById('t-ron91').innerHTML = `₱${latest.RON91} <span>/L</span>`;
-        document.getElementById('t-ron95').innerHTML = `₱${latest.RON95} <span>/L</span>`;
-        document.getElementById('t-diesel').innerHTML = `₱${latest.Diesel} <span>/L</span>`;
-        const d = new Date(latest.Timestamp);
-        document.getElementById('ticker-date').textContent = `Updated ${d.toLocaleDateString('en-PH', {month:'short',day:'numeric'})}`;
-      }
-    } catch {}
+  function handleSubmit() {
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
   }
-
-  // Branch cards
-  const BRANCHES = [
-    { name: 'San Roque — Flagship', loc: 'San Roque, Aurora', products: ['Unleaded','Diesel','PetroCyl LPG'] },
-    { name: 'Baler NE', loc: 'Baler, Aurora', products: ['Unleaded','Diesel','PetroCyl LPG'] },
-    { name: 'Baler Pingit', loc: 'Baler, Aurora', products: ['Unleaded','Diesel'] },
-    { name: 'Dipaculao South', loc: 'Dipaculao, Aurora', products: ['Unleaded','Diesel','PetroCyl LPG'] },
-    { name: 'San Luis', loc: 'San Luis, Aurora', products: ['Unleaded','Diesel','PetroCyl LPG'] },
-    { name: 'Dinadiawan', loc: 'Dinadiawan, Aurora', products: ['Unleaded','Diesel'] },
-    { name: 'Detailen', loc: 'San Roque, Aurora', products: ['Unleaded','Diesel'] },
-    { name: 'Uno', loc: 'San Roque, Aurora', products: ['Unleaded','Diesel','PetroCyl LPG'] },
-  ];
-
-  document.getElementById('branchCards').innerHTML = BRANCHES.slice(0, 8).map(b => `
-    <div class="branch-card">
-      <div class="branch-status-text"><span class="branch-status-dot"></span> Open</div>
-      <div class="branch-name">${b.name}</div>
-      <div class="branch-loc">${b.loc}</div>
-      <div class="branch-products">${b.products.map(p => `<span class="prod-tag">${p}</span>`).join('')}</div>
-    </div>
- 
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) { el.target.style.opacity=1; el.target.style.transform='translateY(0)'; } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.svc-card,.branch-card,.fleet-card,.cov-stat,.lpg-prod').forEach(el => {
+    el.style.opacity = 0; el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
