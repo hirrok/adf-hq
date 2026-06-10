@@ -57,6 +57,12 @@
       border-radius: 8px; cursor: pointer; transition: background 0.18s;
     }
     .gate-btn:hover { background: var(--amber2); }
+    
+    .gate-sim-note {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-align: center;
+      color: var(--text2); margin-top: 18px; opacity: 0.7;
+    }
+
     .gate-err { font-size: 0.75rem; color: var(--red); margin-top: 10px; min-height: 18px; }
 
     /* ─── APP SHELL ─── */
@@ -276,6 +282,7 @@
     <input class="gate-input" type="password" id="gate-input" placeholder="••••••••••" autocomplete="off"/>
     <button class="gate-btn" onclick="unlock()">Access Dashboard</button>
     <div class="gate-err" id="gate-err"></div>
+    <div class="gate-sim-note">SIMULATOR MODE &middot; Use code: ironcrest2026</div>
   </div>
 </div>
 

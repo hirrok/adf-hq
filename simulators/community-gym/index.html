@@ -32,6 +32,20 @@ textarea{resize:vertical;min-height:100px}
       .fh-nav-cta { display: none !important; }
     }
 
+  
+    /* ── ForgeHaus Admin Panel Mobile ─────────────── */
+    @media (max-width: 768px) {
+      .fh-admin-wrap { flex-direction: column !important; height: auto !important; min-height: calc(100vh - 56px); }
+      .fh-admin-sidebar {
+        width: 100% !important; flex-shrink: 0;
+        display: flex !important; flex-wrap: wrap; flex-direction: row !important;
+        padding: 8px 12px !important; gap: 4px;
+        border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+        overflow-x: auto; overflow-y: hidden;
+      }
+      .fh-admin-main { padding: 16px 14px 40px !important; overflow-y: auto; }
+    }
+
   </style>
 </head>
 <body>
@@ -158,7 +172,7 @@ function useTypewriter(speed=10){
   return{display,running,startTyping};
 }
 
-function NavBar({page,goTo,adminMode,setAdminMode}){
+function NavBar({page,goTo,adminMode,setAdminMode,setAdminGate}){
   const links=[['home','Home'],['memberships','Memberships'],['coaching','Coaching'],['classes','Classes'],['transformations','Results'],['stories','Stories'],['about','About'],['faq','FAQ']];
   const [menuOpen,setMenuOpen]=React.useState(false);
   const closeMenu=()=>{setMenuOpen(false);document.body.style.overflow='';};
@@ -186,7 +200,7 @@ function NavBar({page,goTo,adminMode,setAdminMode}){
         </div>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
           <button className="fh-nav-cta" style={{...btn(),fontSize:13,padding:'8px 14px'}} onClick={()=>goTo('join')}>Book Assessment</button>
-          <button onClick={()=>setAdminMode(true)} style={{fontFamily:'monospace',fontSize:'0.62rem',letterSpacing:'0.1em',textTransform:'uppercase',background:'none',border:'1px solid rgba(0,0,0,0.15)',borderRadius:4,padding:'6px 10px',cursor:'pointer',color:'rgba(0,0,0,0.28)',transition:'0.2s'}} title="Operator Access">⚙ Operator</button>
+          <button onClick={()=>setAdminGate(true)} style={{fontFamily:'monospace',fontSize:'0.62rem',letterSpacing:'0.1em',textTransform:'uppercase',background:'none',border:'1px solid rgba(0,0,0,0.15)',borderRadius:4,padding:'6px 10px',cursor:'pointer',color:'rgba(0,0,0,0.28)',transition:'0.2s'}} title="Operator Access">⚙ Operator</button>
           <button className="fh-ham" onClick={menuOpen?closeMenu:openMenu} aria-label="Menu">
             <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',transform:menuOpen?'translateY(7px) rotate(45deg)':'none'}}></span>
             <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',opacity:menuOpen?0:1}}></span>
@@ -195,14 +209,14 @@ function NavBar({page,goTo,adminMode,setAdminMode}){
         </div>
       </nav>
       {menuOpen&&(
-        <div style={{position:'fixed',inset:0,zIndex:299,background:C.bg,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:4,padding:'80px 24px 40px'}}>
+        <div style={{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:9999,background:'#F2EEE6',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:4,padding:'80px 24px 40px'}}>
           <button onClick={closeMenu} style={{position:'absolute',top:16,right:16,background:'none',border:'none',cursor:'pointer',fontSize:28,color:C.text2,width:44,height:44,display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
           {links.map(([p,l])=>(
             <div key={p} onClick={()=>{goTo(p);closeMenu();}} style={{cursor:'pointer',fontSize:'1.4rem',fontWeight:700,color:C.text,padding:'12px 0',width:'100%',textAlign:'center',borderBottom:`1px solid ${C.border}`}}>{l}</div>
           ))}
           <button style={{...btn(C.red,true),marginTop:24,fontSize:14,padding:'14px 32px',width:'100%'}} onClick={()=>{goTo('join');closeMenu();}}>Book Assessment</button>
           <div style={{width:'100%',height:1,background:C.border,margin:'16px 0 4px'}}></div>
-          <button onClick={()=>{setAdminMode(true);closeMenu();}} style={{background:'none',border:'none',cursor:'pointer',fontFamily:'monospace',fontSize:'0.72rem',letterSpacing:'0.12em',textTransform:'uppercase',color:C.text3,padding:'10px 0'}}>⚙ Operator Login</button>
+          <button onClick={()=>{setAdminGate(true);closeMenu();}} style={{background:'none',border:'none',cursor:'pointer',fontFamily:'monospace',fontSize:'0.72rem',letterSpacing:'0.12em',textTransform:'uppercase',color:C.text3,padding:'10px 0'}}>⚙ Operator Login</button>
         </div>
       )}
     </>
@@ -970,13 +984,41 @@ function AdminSuite(){
   const panels={dashboard:AdminDashboard,leads:AdminLeads,members:AdminMembers,coaches:AdminCoaches,bookings:AdminBookings,challenges:AdminChallenges,reviews:AdminReviews,marketing:AdminMarketing,intelligence:AdminIntelligence,ai:AdminAIConsole,settings:AdminSettings};
   const Panel=panels[panel]||AdminDashboard;
   return(
-    <div style={{display:'flex',height:'calc(100vh - 56px)'}}>
-      <div style={{width:200,background:'#050507',borderRight:`1px solid ${C.border}`,padding:'16px 10px',flexShrink:0,overflowY:'auto'}}>
+    <div className="fh-admin-wrap" style={{display:'flex',height:'calc(100vh - 56px)'}}>
+      <div className="fh-admin-sidebar" style={{width:200,background:'#050507',borderRight:`1px solid ${C.border}`,padding:'16px 10px',flexShrink:0,overflowY:'auto'}}>
         {nav.map(([k,l])=>(
           <div key={k} onClick={()=>setPanel(k)} style={{padding:'9px 12px',borderRadius:8,marginBottom:3,cursor:'pointer',fontSize:13,background:panel===k?C.redDim:'transparent',color:panel===k?C.red:C.text2,fontWeight:panel===k?600:400,userSelect:'none'}}>{l}</div>
         ))}
       </div>
-      <div style={{flex:1,overflowY:'auto',padding:'28px 32px'}}><Panel/></div>
+      <div className="fh-admin-main" style={{flex:1,overflowY:'auto',padding:'28px 32px'}}><Panel/></div>
+    </div>
+  );
+}
+
+function AdminGateModal({onSuccess,onClose}){
+  const [val,setVal]=React.useState('');
+  const [err,setErr]=React.useState(false);
+  const check=()=>{
+    if(val.trim()==='forgehaus2026'){setErr(false);onSuccess();}
+    else{setErr(true);setTimeout(()=>setErr(false),2500);}
+  };
+  return(
+    <div style={{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:9998,background:'rgba(0,0,0,0.72)',display:'flex',alignItems:'center',justifyContent:'center',padding:16}}>
+      <div style={{background:C.card,borderRadius:12,padding:'32px 28px',width:'100%',maxWidth:340,boxShadow:'0 24px 64px rgba(0,0,0,0.4)'}}>
+        <div style={{fontFamily:'var(--mono,monospace)',fontSize:'0.6rem',letterSpacing:'0.14em',color:C.text3,textTransform:'uppercase',marginBottom:8}}>Operator Access</div>
+        <div style={{fontSize:'1.15rem',fontWeight:700,color:C.text,marginBottom:4}}>ForgeHaus Admin</div>
+        <div style={{fontSize:'0.82rem',color:C.text2,marginBottom:24}}>Enter the operator access code to continue.</div>
+        <input
+          type="password" placeholder="Access code"
+          value={val} onChange={e=>setVal(e.target.value)}
+          onKeyDown={e=>e.key==='Enter'&&check()}
+          style={{width:'100%',background:C.elev,border:`1px solid ${err?C.red:C.border}`,borderRadius:8,padding:'11px 14px',fontSize:'0.9rem',color:C.text,outline:'none',marginBottom:8,boxSizing:'border-box',transition:'border-color 0.2s'}}
+        />
+        {err&&<div style={{fontSize:'0.75rem',color:C.red,marginBottom:8}}>Incorrect code. Try again.</div>}
+        <button onClick={check} style={{...btn(C.red,true),width:'100%',fontSize:14,padding:'12px 0',marginBottom:12}}>Enter Suite</button>
+        <button onClick={onClose} style={{background:'none',border:'none',cursor:'pointer',fontSize:'0.75rem',color:C.text3,width:'100%',textAlign:'center',letterSpacing:'0.08em'}}>Cancel</button>
+        <div style={{fontFamily:'var(--mono,monospace)',fontSize:'0.62rem',letterSpacing:'0.1em',color:C.text3,textAlign:'center',marginTop:16,opacity:0.6}}>SIMULATOR MODE · Use code: forgehaus2026</div>
+      </div>
     </div>
   );
 }
@@ -984,6 +1026,7 @@ function AdminSuite(){
 function App(){
   const [page,setPage]=useState('home');
   const [adminMode,setAdminMode]=useState(false);
+  const [adminGate,setAdminGate]=useState(false);
   const goTo=(p)=>{setPage(p);window.scrollTo(0,0);};
   const pages={
     home:<HomePage goTo={goTo}/>,
@@ -999,8 +1042,9 @@ function App(){
   };
   return(
     <div style={{background:C.bg,minHeight:'100vh',color:C.text}}>
-      <NavBar page={page} goTo={goTo} adminMode={adminMode} setAdminMode={setAdminMode}/>
+      <NavBar page={page} goTo={goTo} adminMode={adminMode} setAdminMode={setAdminMode} setAdminGate={setAdminGate}/>
       {adminMode?<AdminSuite/>:(pages[page]||pages.home)}
+      {adminGate&&<AdminGateModal onSuccess={()=>{setAdminGate(false);setAdminMode(true);}} onClose={()=>setAdminGate(false)}/>}
     </div>
   );
 }
