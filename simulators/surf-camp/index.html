@@ -87,7 +87,7 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; }
+    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; padding-bottom: 56px; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
@@ -145,10 +145,10 @@
       position: absolute; inset: 0;
       background: linear-gradient(
         170deg,
-        rgba(5,16,30,0.25) 0%,
-        rgba(5,16,30,0.05) 35%,
-        rgba(5,16,30,0.55) 65%,
-        rgba(5,16,30,0.93) 100%
+        rgba(5,16,30,0.52) 0%,
+        rgba(5,16,30,0.18) 35%,
+        rgba(5,16,30,0.62) 65%,
+        rgba(5,16,30,0.95) 100%
       );
     }
     .hero-content {
@@ -297,7 +297,7 @@
     /* ─────────── GALLERY ─────────── */
     .gallery-grid {
       display: grid; grid-template-columns: repeat(3,1fr);
-      grid-template-rows: 290px 210px; gap: 10px;
+      grid-template-rows: minmax(200px,290px) minmax(150px,210px); gap: 10px;
     }
     .gal-item { overflow: hidden; border-radius: 6px; position: relative; cursor: pointer; }
     .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
@@ -531,13 +531,13 @@
     <div class="nav-logo">A</div>
     <div class="nav-name">Alon Surf & Stay</div>
   </div>
-  <nav class="nav-links" aria-label="Site navigation">
+  <div class="nav-links" aria-label="Site navigation">
     <a href="#packages">Packages</a>
     <a href="#gallery">Gallery</a>
     <a href="#stay">Stay</a>
     <a href="#team">Instructors</a>
     <a href="#location">Location</a>
-  </nav>
+  </div>
   <div class="nav-right">
     <a href="#book" class="nav-cta">Book Now</a>
     <a href="operator.html" class="nav-op">Operator</a>
