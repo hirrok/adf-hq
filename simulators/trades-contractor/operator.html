@@ -9,12 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --black:   #0B0D0F;
-      --mid:     #14181C;
-      --surface: #1C2128;
-      --border:  rgba(255,255,255,0.08);
-      --text:    rgba(240,237,230,0.5);
-      --white:   #F0EDE8;
+      --black:   #F2EFE8;
+      --mid:     #FFFFFF;
+      --surface: #E8E4DC;
+      --border:  rgba(20,14,8,0.1);
+      --text:    rgba(20,14,8,0.55);
+      --white:   #1C1610;
       --amber:   #E8A020;
       --amber2:  #F5B942;
       --green:   #2ECC71;
@@ -23,17 +23,9 @@
       --mono:    'JetBrains Mono', monospace;
       --sans:    'Source Sans 3', sans-serif;
     }
-    [data-theme="light"] {
-      --black:   #F2EFE8;
-      --mid:     #FFFFFF;
-      --surface: #E8E4DC;
-      --border:  rgba(20,14,8,0.1);
-      --text:    rgba(20,14,8,0.55);
-      --white:   #1C1610;
-    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; transition: background 0.2s, color 0.2s; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; }
 
     /* ─── GATE ─── */
     #gate {
@@ -255,7 +247,6 @@
       <div class="health-dot green" id="health-dot"></div>
       <span class="health-label" id="health-label">Systems Nominal</span>
       <span class="topbar-user">Ely Dizon · Foreman</span>
-      <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:4px;cursor:pointer;font-size:0.85rem;transition:all 0.15s;">☀</button>
       <a href="index.html" class="topbar-back">← Site</a>
     </div>
   </div>
@@ -824,21 +815,6 @@
 
 <script>
   /* ─── THEME ─── */
-  (function(){
-    const saved = localStorage.getItem('adf-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
-  })();
-  function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
-    localStorage.setItem('adf-theme', next);
-  }
 
   function unlock() {
     const val = document.getElementById('gate-input').value.trim();

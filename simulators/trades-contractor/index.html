@@ -11,12 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --black:   #0B0D0F;
-      --mid:     #14181C;
-      --surface: #1C2128;
-      --border:  rgba(255,255,255,0.08);
-      --text:    rgba(240,237,230,0.55);
-      --white:   #F0EDE8;
+      --black:   #F5F2EB;
+      --mid:     #FFFFFF;
+      --surface: #EDE9E1;
+      --border:  rgba(30,22,12,0.1);
+      --text:    rgba(30,22,12,0.58);
+      --white:   #1C1610;
       --amber:   #E8A020;
       --amber2:  #F5B942;
       --red:     #E85A20;
@@ -25,18 +25,10 @@
       --sans:    'Source Sans 3', sans-serif;
       --display: 'Oswald', sans-serif;
     }
-    [data-theme="light"] {
-      --black:   #F5F2EB;
-      --mid:     #FFFFFF;
-      --surface: #EDE9E1;
-      --border:  rgba(30,22,12,0.1);
-      --text:    rgba(30,22,12,0.58);
-      --white:   #1C1610;
-    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; transition: background 0.2s, color 0.2s; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
     img { display: block; width: 100%; object-fit: cover; }
 
@@ -327,7 +319,6 @@
         <li><a href="#quote">Get a Quote</a></li>
       </ul>
       <div class="nav-cta">
-        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:all 0.15s;" title="Toggle light/dark">🌙</button>
         <a href="operator.html" class="nav-operator" target="_blank">⚙ Operator</a>
         <a href="#quote" class="btn btn-primary" style="padding:10px 20px; font-size:0.82rem;">Free Quote</a>
       </div>
@@ -881,57 +872,6 @@
     </div>
   </div>
 </footer>
-
-<script>
-  /* ─── THEME TOGGLE ─── */
-  (function(){
-    const saved = localStorage.getItem('adf-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
-  })();
-  function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
-    localStorage.setItem('adf-theme', next);
-  }
-
-  /* ─── QUOTE FORM ─── */
-  document.getElementById('quote-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Submitting…';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = '✓ Request Received: We\'ll contact you within 4 hours';
-      btn.style.background = '#2ECC71';
-    }, 900);
-  });
-
-  /* ─── NAV SCROLL BEHAVIOR ─── */
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.borderBottomColor = window.scrollY > 40
-      ? 'rgba(255,255,255,0.12)'
-      : 'rgba(255,255,255,0.08)';
-  });
-
-  /* ─── SCROLL FADE IN ─── */
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } }),
-    { threshold: 0.1 }
-  );
-  document.querySelectorAll('.svc-card, .stat-block, .gallery-card, .team-card, .review-card, .area-zone').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
-</script>
 
 </body>
 </html>

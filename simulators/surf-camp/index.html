@@ -65,40 +65,29 @@
 
   <style>
     :root {
-      --void:   #05101e;
-      --deep:   #091828;
-      --mid:    #112236;
-      --panel:  #1a3048;
+      --void:   #EAF4F8;
+      --deep:   #D6EAF4;
+      --mid:    #C8E0EF;
+      --panel:  #FFFFFF;
       --coral:  #f9614a;
       --coral2: #e84d37;
       --ocean:  #0ea5e9;
       --gold:   #f0b942;
       --sand:   #f0dfc0;
-      --white:  #f8fafc;
-      --text:   rgba(248,250,252,0.72);
-      --text2:  rgba(248,250,252,0.44);
-      --border: rgba(255,255,255,0.08);
-      --border2:rgba(255,255,255,0.15);
-      --ff:     'Lato', 'Helvetica Neue', Arial, sans-serif;
-      --serif:  'Playfair Display', Georgia, serif;
-      --mono:   'JetBrains Mono', monospace;
-      --r:      8px;
-    }
-    [data-theme="light"] {
-      --void:   #EAF4F8;
-      --deep:   #D6EAF4;
-      --mid:    #C8E0EF;
-      --panel:  #FFFFFF;
       --white:  #0A2038;
       --text:   rgba(10,32,56,0.72);
       --text2:  rgba(10,32,56,0.45);
       --border: rgba(10,32,56,0.1);
       --border2:rgba(10,32,56,0.18);
+      --ff:     'Lato', 'Helvetica Neue', Arial, sans-serif;
+      --serif:  'Playfair Display', Georgia, serif;
+      --mono:   'JetBrains Mono', monospace;
+      --r:      8px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; padding-bottom: 56px; transition: background 0.2s, color 0.2s; }
+    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; padding-bottom: 56px; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
@@ -550,7 +539,6 @@
     <a href="#location">Location</a>
   </div>
   <div class="nav-right">
-    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border2);color:var(--text);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:all 0.15s;" title="Toggle light/dark">🌙</button>
     <a href="#book" class="nav-cta">Book Now</a>
     <a href="operator.html" class="nav-op">Operator</a>
   </div>
@@ -1099,24 +1087,7 @@
 </div>
 
 <script>
-  // Theme toggle
-  (function(){
-    const saved = localStorage.getItem('adf-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
-  })();
-  function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
-    localStorage.setItem('adf-theme', next);
-  }
-
-  // Nav scroll behaviour
+// Nav scroll behaviour
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);

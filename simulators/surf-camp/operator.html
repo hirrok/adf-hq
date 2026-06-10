@@ -3,47 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alon Surf & Stay: Operator Suite</title>
+  <title>Alon Surf & Stay — Operator Suite</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --void:   #05101e;
-      --deep:   #091828;
-      --mid:    #112236;
-      --panel:  #1a3048;
-      --rail:   #0f2035;
+      --void:   #EAF4F8;
+      --deep:   #D6EAF4;
+      --mid:    #C8E0EF;
+      --panel:  #FFFFFF;
+      --rail:   #D0E6F2;
       --coral:  #f9614a;
       --coral2: #e84d37;
       --ocean:  #0ea5e9;
       --green:  #22c55e;
       --gold:   #f0b942;
       --red:    #ef4444;
-      --white:  #f8fafc;
-      --text:   rgba(248,250,252,0.75);
-      --text2:  rgba(248,250,252,0.44);
-      --border: rgba(255,255,255,0.08);
-      --border2:rgba(255,255,255,0.14);
-      --ff:     'Lato', 'Helvetica Neue', Arial, sans-serif;
-      --mono:   'JetBrains Mono', monospace;
-      --serif:  'Playfair Display', Georgia, serif;
-    }
-    [data-theme="light"] {
-      --void:   #EAF4F8;
-      --deep:   #D6EAF4;
-      --mid:    #C8E0EF;
-      --panel:  #FFFFFF;
-      --rail:   #D0E6F2;
       --white:  #0A2038;
       --text:   rgba(10,32,56,0.72);
       --text2:  rgba(10,32,56,0.45);
       --border: rgba(10,32,56,0.1);
       --border2:rgba(10,32,56,0.18);
+      --ff:     'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --mono:   'JetBrains Mono', monospace;
+      --serif:  'Playfair Display', Georgia, serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--ff); background: var(--deep); color: var(--white); overflow: hidden; height: 100vh; transition: background 0.2s, color 0.2s; }
+    body { font-family: var(--ff); background: var(--deep); color: var(--white); overflow: hidden; height: 100vh; }
 
     /* ─── GATE ─── */
     #gate {
@@ -330,8 +318,7 @@
       <div class="topbar-loc">General Luna · Siargao Island</div>
     </div>
     <div class="topbar-right">
-      <div class="topbar-time" id="clock"></div>
-      <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border2);color:var(--text);padding:5px 10px;border-radius:4px;cursor:pointer;font-size:0.85rem;transition:all 0.15s;" title="Toggle light/dark">🌙</button>
+      <div class="topbar-time" id="clock">—</div>
       <a href="index.html" class="topbar-pub">← Public Site</a>
       <button class="signout-btn" onclick="signOut()">Sign Out</button>
     </div>
@@ -412,7 +399,7 @@
       <div class="tab-pane" id="tab-guests">
         <div class="page-header">
           <div class="page-title">Guests In-House</div>
-          <div class="page-sub">Current roster: check-ins, program progress, check-out schedule</div>
+          <div class="page-sub">Current roster — check-ins, program progress, check-out schedule</div>
         </div>
         <div class="kpi-row">
           <div class="kpi"><div class="kpi-label">Guests In-House</div><div class="kpi-val coral">7</div><div class="kpi-meta">As of today</div></div>
@@ -444,7 +431,7 @@
       <div class="tab-pane" id="tab-schedule">
         <div class="page-header">
           <div class="page-title">Lesson Schedule</div>
-          <div class="page-sub">Today's sessions + upcoming program: all times local (PHT)</div>
+          <div class="page-sub">Today's sessions + upcoming program — all times local (PHT)</div>
         </div>
         <div class="schedule-day">
           <div class="schedule-label">Tuesday, June 10 · Today</div>
@@ -458,7 +445,7 @@
             </div>
             <div class="session-card">
               <div class="session-time">🌅 07:00 – 09:00 AM</div>
-              <div class="session-title">Beginner Group: Women</div>
+              <div class="session-title">Beginner Group — Women</div>
               <div class="session-coach">Coach Lena</div>
               <div class="session-pax"><strong>Guests:</strong> Yuki T., Anna, Maria, Priya M.</div>
               <div class="session-break">📍 General Luna Beach · Whitewater</div>
@@ -468,11 +455,11 @@
               <div class="session-title">Intermediate Afternoon</div>
               <div class="session-coach">Coach Marco</div>
               <div class="session-pax"><strong>Guests:</strong> Nico F., Carlos V.</div>
-              <div class="session-break">📍 Pacifico: Fun Reef · Tricycle 15:45</div>
+              <div class="session-break">📍 Pacifico — Fun Reef · Tricycle 15:45</div>
             </div>
             <div class="session-card">
               <div class="session-time">☀️ 04:30 – 06:00 PM</div>
-              <div class="session-title">Beginner Group: Afternoon</div>
+              <div class="session-title">Beginner Group — Afternoon</div>
               <div class="session-coach">Coach Lena</div>
               <div class="session-pax"><strong>Guests:</strong> Yuki T., Priya M.</div>
               <div class="session-break">📍 General Luna Beach · Longboard Reef</div>
@@ -498,7 +485,7 @@
             </div>
             <div class="session-card">
               <div class="session-time">🌅 07:00 – 09:30 AM</div>
-              <div class="session-title">Beginner Assessment: New Arrivals</div>
+              <div class="session-title">Beginner Assessment — New Arrivals</div>
               <div class="session-coach">Coach Marco + Lena</div>
               <div class="session-pax"><strong>Arriving today:</strong> Jake, Rhi, David P. group</div>
               <div class="session-break">📍 General Luna Beach · Softboards</div>
@@ -508,7 +495,7 @@
               <div class="session-title">Intermediate Group</div>
               <div class="session-coach">Coach Diego</div>
               <div class="session-pax"><strong>Guests:</strong> Nico F. + new confirmations</div>
-              <div class="session-break">📍 TBC: swell dependent</div>
+              <div class="session-break">📍 TBC — swell dependent</div>
             </div>
           </div>
         </div>
@@ -528,7 +515,7 @@
         </div>
 
         <div class="rev-section">
-          <h3>Package Revenue Breakdown: June MTD</h3>
+          <h3>Package Revenue Breakdown — June MTD</h3>
           <div class="table-wrap">
             <table class="data-table">
               <thead><tr><th>Package</th><th>Bookings</th><th>Guests</th><th>Revenue</th><th>% of Total</th></tr></thead>
@@ -544,7 +531,7 @@
         </div>
 
         <div class="rev-section">
-          <h3>Room Occupancy: June MTD</h3>
+          <h3>Room Occupancy — June MTD</h3>
           <div style="background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:560px;">
             <div class="occ-row"><div class="occ-name">Loft Suite</div><div class="occ-track"><div class="occ-fill" style="width:90%;background:var(--coral)"></div></div><div class="occ-pct">90%</div></div>
             <div class="occ-row"><div class="occ-name">Ocean Cabana 1</div><div class="occ-track"><div class="occ-fill" style="width:80%;background:var(--coral)"></div></div><div class="occ-pct">80%</div></div>
@@ -606,7 +593,7 @@
               <input type="number" id="r4" value="7500">
             </div>
           </div>
-          <div class="price-note">Changes apply to future bookings only. Already-confirmed reservations retain their quoted rate. Last updated: <span id="priceTime"></span></div>
+          <div class="price-note">Changes apply to future bookings only. Already-confirmed reservations retain their quoted rate. Last updated: <span id="priceTime">—</span></div>
           <div style="display:flex;align-items:center;">
             <button class="act-btn primary" onclick="savePrice()">Publish Price Update</button>
             <span id="priceSaved">✓ Published</span>
@@ -628,26 +615,9 @@
 </div><!-- /app -->
 
 <!-- SIM STRIP -->
-<div class="sim-strip">AURORA DIGITAL FOUNDRY: Alon Surf & Stay · Operator Suite · Live Blueprint · All data is mock · No live backend connected</div>
+<div class="sim-strip">AURORA DIGITAL FOUNDRY — OPERATOR SUITE SIMULATOR · All data is mock · No live backend connected</div>
 
 <script>
-  // Theme toggle
-  (function(){
-    const saved = localStorage.getItem('adf-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
-  })();
-  function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
-    localStorage.setItem('adf-theme', next);
-  }
-
   const ACCESS = 'alon2026';
   const SK = 'alon_auth';
 
@@ -709,13 +679,34 @@
   const ROOMS = [
     { name:'Loft Suite', type:'Suite · Ocean View', guest:'Carlos V.', status:'occupied', checkout:'Jun 13', rate:'₱7,500' },
     { name:'Ocean Cabana 1', type:'Beachfront Cabana', guest:'Nico F.', status:'occupied', checkout:'Jun 15', rate:'₱4,500' },
-    { name:'Ocean Cabana 2', type:'Beachfront Cabana', guest:'', status:'available', checkout:'', rate:'₱4,500' },
+    { name:'Ocean Cabana 2', type:'Beachfront Cabana', guest:'—', status:'available', checkout:'—', rate:'₱4,500' },
     { name:'Garden Room 1', type:'Private Room', guest:'Priya M.', status:'occupied', checkout:'Jun 11', rate:'₱2,500' },
     { name:'Garden Room 2', type:'Private Room', guest:'Yuki T.', status:'occupied', checkout:'Jun 12', rate:'₱2,500' },
-    { name:'Garden Room 3', type:'Private Room', guest:'', status:'cleaning', checkout:'', rate:'₱2,500' },
+    { name:'Garden Room 3', type:'Private Room', guest:'—', status:'cleaning', checkout:'—', rate:'₱2,500' },
     { name:'Surf Dorm A', type:'Dormitory (6 beds)', guest:'Anna, Maria + 1', status:'occupied', checkout:'Jun 10', rate:'₱800/bed' },
-    { name:'Surf Dorm B', type:'Dormitory (6 beds)', guest:'2 of 6 beds', status:'partial', checkout:'', rate:'₱800/bed' },
+    { name:'Surf Dorm B', type:'Dormitory (6 beds)', guest:'2 of 6 beds', status:'partial', checkout:'—', rate:'₱800/bed' },
   ];
   const STATUS_COLORS = {
     occupied: { bg:'rgba(249,97,74,0.1)', border:'rgba(249,97,74,0.3)', label:'Occupied', color:'var(--coral)' },
-    available: { bg:'rgba(34,197,94,0.08)', border:'
+    available: { bg:'rgba(34,197,94,0.08)', border:'rgba(34,197,94,0.24)', label:'Available', color:'var(--green)' },
+    cleaning: { bg:'rgba(240,185,66,0.1)', border:'rgba(240,185,66,0.28)', label:'Cleaning', color:'var(--gold)' },
+    partial: { bg:'rgba(14,165,233,0.08)', border:'rgba(14,165,233,0.24)', label:'Partial', color:'var(--ocean)' },
+  };
+
+  function buildRooms() {
+    const grid = document.getElementById('roomGrid');
+    grid.innerHTML = ROOMS.map((r,i) => {
+      const s = STATUS_COLORS[r.status];
+      return `<div style="background:var(--mid);border:1px solid ${s.border};border-radius:8px;padding:20px;">
+        <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;color:${s.color};text-transform:uppercase;margin-bottom:6px;">${s.label}</div>
+        <div style="font-weight:700;font-size:0.95rem;margin-bottom:3px;">${r.name}</div>
+        <div style="font-size:0.75rem;color:var(--text2);margin-bottom:12px;">${r.type}</div>
+        <div style="font-size:0.82rem;color:var(--text);margin-bottom:4px;"><strong>Guest:</strong> ${r.guest}</div>
+        <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px;"><strong>Check-out:</strong> ${r.checkout}</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--coral);border-top:1px solid var(--border);padding-top:10px;">${r.rate}</div>
+      </div>`;
+    }).join('');
+  }
+</script>
+</body>
+</html>

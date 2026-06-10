@@ -8,26 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --black:   #08090a;
-      --deep:    #0e1012;
-      --mid:     #161a1e;
-      --surface: #1e2328;
-      --card:    #232930;
-      --border:  rgba(255,255,255,0.07);
-      --border2: rgba(255,255,255,0.13);
-      --white:   #f0f2f5;
-      --text:    rgba(240,242,245,0.65);
-      --text2:   rgba(240,242,245,0.38);
-      --amber:   #f5a623;
-      --amber2:  #e8912b;
-      --green:   #3adb76;
-      --red:     #e05c3a;
-      --blue:    #4a9fd4;
-      --yellow:  #f5c842;
-      --ff:      'Space Grotesk', sans-serif;
-      --mono:    'JetBrains Mono', monospace;
-    }
-    [data-theme="light"] {
       --black:   #F0EDE5;
       --deep:    #E8E4DC;
       --mid:     #FFFFFF;
@@ -38,10 +18,18 @@
       --white:   #1A1510;
       --text:    rgba(20,16,10,0.62);
       --text2:   rgba(20,16,10,0.38);
+      --amber:   #f5a623;
+      --amber2:  #e8912b;
+      --green:   #3adb76;
+      --red:     #e05c3a;
+      --blue:    #4a9fd4;
+      --yellow:  #f5c842;
+      --ff:      'Space Grotesk', sans-serif;
+      --mono:    'JetBrains Mono', monospace;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.5; overflow-x: hidden; min-height: 100vh; transition: background 0.2s, color 0.2s; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.5; overflow-x: hidden; min-height: 100vh; }
 
     /* ── GATE ── */
     #gate {
@@ -288,7 +276,6 @@
     </div>
     <div class="topbar-right">
       <div class="topbar-time" id="topbarTime"></div>
-      <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border2);color:var(--text);padding:5px 10px;border-radius:4px;cursor:pointer;font-size:0.85rem;transition:all 0.15s;">☀</button>
       <button class="topbar-signout" onclick="signOut()">Sign Out</button>
     </div>
   </div>
@@ -576,22 +563,7 @@
 <script>
   /* ─── THEME ─── */
   (function(){
-    const saved = localStorage.getItem('adf-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
-  })();
-  function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    const btn = document.getElementById('theme-toggle');
-    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
-    localStorage.setItem('adf-theme', next);
-  }
-
-  const ACCESS = 'solaris2026';
+    const saved =   const ACCESS = 'solaris2026';
 
   function checkGate() {
     const v = document.getElementById('gateInput').value.trim();
