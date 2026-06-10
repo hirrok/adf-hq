@@ -290,7 +290,7 @@ function HomePage({goTo}){
               {name:'Annual Plan',price:'8,000',per:'/yr',color:C.gold,tag:'Best Value'},
             ].map(p=>(
               <div key={p.name} style={{...card,border:`2px solid ${p.color}`,position:'relative'}}>
-                {p.tag&&<div style={{...bdg(p.color===C.border?C.text2:p.color),position:'absolute',top:-10,left:16,fontSize:10}}>{p.tag}</div>}
+                {p.tag&&<div style={{...bdg(p.color===C.border?C.text2:p.color),position:'absolute',top:10,right:12,fontSize:10}}>{p.tag}</div>}
                 <div style={{fontSize:13,color:C.text2,marginBottom:4}}>{p.name}</div>
                 <div style={{fontSize:30,fontWeight:800}}>₱{p.price}<span style={{fontSize:13,fontWeight:400,color:C.text2}}>{p.per}</span></div>
                 <button style={{...btn(p.color===C.border?C.red:p.color),width:'100%',marginTop:14,fontSize:13}} onClick={()=>goTo('join')}>Get Started</button>
@@ -324,7 +324,7 @@ function MembershipsPage({goTo}){
       <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:18}}>
         {plans.map(p=>(
           <div key={p.name} style={{...card,border:`2px solid ${p.color}`,position:'relative'}}>
-            {p.featured&&<div style={{...bdg(C.red),position:'absolute',top:-10,left:20,fontSize:10}}>Most Popular</div>}
+            {p.featured&&<div style={{...bdg(C.red),position:'absolute',top:10,right:14,fontSize:10}}>Most Popular</div>}
             <div style={{fontSize:13,color:C.text2}}>{p.name}</div>
             <div style={{fontSize:36,fontWeight:800,margin:'6px 0'}}>₱{p.price.toLocaleString()}<span style={{fontSize:13,fontWeight:400,color:C.text2}}>/{p.per}</span></div>
             <div style={{borderTop:`1px solid ${C.border}`,paddingTop:14,marginTop:14}}>
