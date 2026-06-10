@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══ LOCAL SEO ═══ -->
+  <title>Alon Surf & Stay — Surf Camp & Resort | Siargao Island, Philippines</title>
+  <meta name="description" content="Premier surf camp and beachfront resort on Siargao Island, Philippines. Beginner to advanced surf lessons, multi-day surf packages, board rentals, and ocean-front accommodation minutes from Cloud 9.">
+  <meta name="keywords" content="surf camp Siargao, surf lessons Siargao Philippines, Cloud 9 surf school, Siargao resort stay, surf packages Philippines, beginner surf lessons Siargao, General Luna accommodation, Siargao Island resort, surfing Surigao del Norte">
+  <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="PH-SUR">
+  <meta name="geo.placename" content="Siargao Island, Surigao del Norte">
+  <meta name="geo.position" content="9.8072;126.1580">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Alon Surf & Stay — Siargao Island, Philippines">
+  <meta property="og:description" content="Where the swell meets the soul. Surf lessons, board rentals & beachfront stays near Cloud 9, Siargao.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_PH">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200&q=80">
+
+  <!-- ═══ SCHEMA: LocalBusiness + SportsActivityLocation ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["SportsActivityLocation", "LodgingBusiness"],
+    "name": "Alon Surf & Stay",
+    "description": "Premier surf camp and beachfront resort on Siargao Island, Philippines. Surf lessons, board rental, multi-day packages, and accommodation near Cloud 9.",
+    "image": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Purok 3, Brgy. Tourism Road",
+      "addressLocality": "General Luna, Siargao Island",
+      "addressRegion": "Surigao del Norte",
+      "postalCode": "8417",
+      "addressCountry": "PH"
+    },
+    "telephone": "+63-912-345-6789",
+    "email": "surf@alonsurfstay.com",
+    "openingHours": "Mo-Su 06:00-20:00",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 9.8072,
+      "longitude": 126.1580
+    },
+    "priceRange": "₱₱",
+    "amenityFeature": [
+      {"@type": "LocationFeatureSpecification", "name": "Surf Lessons", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Board Rental", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Beach Access", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Airport Transfer", "value": true}
+    ],
+    "sameAs": [
+      "https://www.facebook.com/alonsurfstay",
+      "https://www.instagram.com/alonsurfstay"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --void:   #05101e;
+      --deep:   #091828;
+      --mid:    #112236;
+      --panel:  #1a3048;
+      --coral:  #f9614a;
+      --coral2: #e84d37;
+      --ocean:  #0ea5e9;
+      --gold:   #f0b942;
+      --sand:   #f0dfc0;
+      --white:  #f8fafc;
+      --text:   rgba(248,250,252,0.72);
+      --text2:  rgba(248,250,252,0.44);
+      --border: rgba(255,255,255,0.08);
+      --border2:rgba(255,255,255,0.15);
+      --ff:     'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --serif:  'Playfair Display', Georgia, serif;
+      --mono:   'JetBrains Mono', monospace;
+      --r:      8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 0 40px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, border-bottom 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(5,16,30,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-logo {
+      width: 34px; height: 34px; border-radius: 6px;
+      background: var(--coral); color: var(--white);
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 700; font-style: italic;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .nav-name { font-weight: 700; font-size: 0.82rem; letter-spacing: 0.07em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 28px; font-size: 0.8rem; color: var(--text); }
+    .nav-links a:hover { color: var(--white); transition: color 0.2s; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-cta {
+      background: var(--coral); color: var(--white);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 9px 20px; border-radius: 4px; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--coral2); }
+    .nav-op {
+      font-size: 0.78rem; font-weight: 600; color: var(--text);
+      border: 1px solid var(--border2); padding: 8px 16px; border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-op:hover { color: var(--coral); border-color: rgba(249,97,74,0.45); }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: flex-end;
+      padding-bottom: 110px; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1920&q=85');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.03); transition: transform 8s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        170deg,
+        rgba(5,16,30,0.25) 0%,
+        rgba(5,16,30,0.05) 35%,
+        rgba(5,16,30,0.55) 65%,
+        rgba(5,16,30,0.93) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%;
+    }
+    .hero-tag {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.22em;
+      color: var(--coral); text-transform: uppercase;
+      margin-bottom: 22px; display: flex; align-items: center; gap: 12px;
+    }
+    .hero-tag::before { content: ''; display: block; width: 36px; height: 1px; background: var(--coral); }
+    h1.hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+      font-weight: 900; line-height: 1.05;
+      margin-bottom: 26px; max-width: 720px;
+    }
+    h1.hero-headline em { font-style: italic; color: var(--coral); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text);
+      max-width: 520px; margin-bottom: 44px; line-height: 1.72;
+    }
+    .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--coral); color: var(--white);
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 30px; border-radius: 4px; transition: background 0.2s;
+      border: none; cursor: pointer; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--coral2); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em;
+      padding: 13px 26px; border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.38);
+      transition: border-color 0.2s; cursor: pointer; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.75); }
+
+    /* ─────────── TRUST BAR ─────────── */
+    .trust {
+      background: var(--mid);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 28px 40px;
+    }
+    .trust-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .trust-item { text-align: center; }
+    .trust-num {
+      font-family: var(--serif); font-size: 1.75rem; font-weight: 800;
+      color: var(--coral); line-height: 1;
+    }
+    .trust-label {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em;
+      color: var(--text2); text-transform: uppercase; margin-top: 5px;
+    }
+    .trust-divider { width: 1px; height: 44px; background: var(--border); }
+
+    /* ─────────── SECTION CHROME ─────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.2em;
+      color: var(--coral); text-transform: uppercase; margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2.1rem, 4vw, 3.1rem);
+      font-weight: 800; line-height: 1.12; margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--text); font-size: 1rem;
+      max-width: 560px; line-height: 1.78; margin-bottom: 60px;
+    }
+    .bg-deep { background: var(--deep); }
+
+    /* ─────────── PACKAGES ─────────── */
+    .packages-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .pkg-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .pkg-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+      border-color: var(--border2);
+    }
+    .pkg-card.featured { border-color: var(--coral); }
+    .pkg-badge {
+      background: var(--coral); color: var(--white);
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; text-align: center; padding: 7px;
+    }
+    .pkg-img { width: 100%; height: 165px; object-fit: cover; }
+    .pkg-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .pkg-name { font-weight: 800; font-size: 1.05rem; margin-bottom: 4px; }
+    .pkg-days {
+      font-family: var(--mono); font-size: 0.63rem; color: var(--coral);
+      letter-spacing: 0.13em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .pkg-includes {
+      list-style: none; font-size: 0.82rem; color: var(--text);
+      display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; flex: 1;
+    }
+    .pkg-includes li { display: flex; gap: 8px; align-items: flex-start; }
+    .pkg-includes li::before { content: '✓'; color: var(--coral); flex-shrink: 0; font-weight: 700; }
+    .pkg-price {
+      font-family: var(--serif); font-size: 1.65rem; font-weight: 800; color: var(--white);
+      border-top: 1px solid var(--border); padding-top: 16px;
+      display: flex; align-items: baseline; gap: 5px;
+    }
+    .pkg-price span { font-family: var(--ff); font-size: 0.75rem; color: var(--text2); font-weight: 400; }
+    .pkg-cta {
+      display: block; margin-top: 14px; text-align: center;
+      border: 1px solid var(--border2); color: var(--white);
+      padding: 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .pkg-card.featured .pkg-cta { background: var(--coral); border-color: var(--coral); }
+    .pkg-cta:hover { background: var(--coral); border-color: var(--coral); }
+
+    /* ─────────── EXPERIENCE ─────────── */
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .exp-visual {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 250px 165px; gap: 10px;
+    }
+    .exp-img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+    .exp-img:first-child { grid-row: span 2; }
+    .exp-features { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 36px; }
+    .exp-feat { display: flex; gap: 14px; align-items: flex-start; }
+    .exp-icon {
+      width: 38px; height: 38px; border-radius: 7px; flex-shrink: 0; margin-top: 2px;
+      background: rgba(249,97,74,0.12); border: 1px solid rgba(249,97,74,0.22);
+      display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+    }
+    .exp-feat h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+    .exp-feat p { font-size: 0.79rem; color: var(--text2); line-height: 1.55; }
+
+    /* ─────────── GALLERY ─────────── */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      grid-template-rows: 290px 210px; gap: 10px;
+    }
+    .gal-item { overflow: hidden; border-radius: 6px; position: relative; cursor: pointer; }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gal-item:hover img { transform: scale(1.06); }
+    .gal-item:first-child { grid-row: span 2; }
+    .gal-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(5,16,30,0.85) 0%, transparent 100%);
+      padding: 24px 16px 14px;
+      font-family: var(--mono); font-size: 0.61rem; letter-spacing: 0.14em;
+      color: rgba(248,250,252,0.75); text-transform: uppercase;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gal-item:hover .gal-label { opacity: 1; }
+
+    /* ─────────── ACCOMMODATIONS ─────────── */
+    .rooms-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .room-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .room-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    .room-img { width: 100%; height: 185px; object-fit: cover; }
+    .room-body { padding: 22px; }
+    .room-type {
+      font-family: var(--mono); font-size: 0.61rem; letter-spacing: 0.15em;
+      color: var(--ocean); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .room-name { font-weight: 700; font-size: 0.97rem; margin-bottom: 8px; }
+    .room-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.55; margin-bottom: 16px; }
+    .room-price { font-family: var(--serif); font-size: 1.35rem; font-weight: 700; color: var(--coral); }
+    .room-price span { font-family: var(--ff); font-size: 0.74rem; color: var(--text2); font-weight: 400; }
+    .room-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .room-tag {
+      font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text2);
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 3px;
+    }
+
+    /* ─────────── INSTRUCTORS ─────────── */
+    .instructors-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .instr-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+    }
+    .instr-img { width: 100%; height: 260px; object-fit: cover; object-position: top; }
+    .instr-body { padding: 24px; }
+    .instr-name { font-weight: 800; font-size: 1.05rem; margin-bottom: 4px; }
+    .instr-role {
+      font-family: var(--mono); font-size: 0.63rem; color: var(--coral);
+      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .instr-bio { font-size: 0.82rem; color: var(--text); line-height: 1.65; }
+    .instr-cert {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ocean);
+      background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.2);
+      padding: 4px 10px; border-radius: 3px;
+    }
+
+    /* ─────────── TESTIMONIALS ─────────── */
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .testi-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 30px;
+    }
+    .testi-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 16px; }
+    .testi-text {
+      font-size: 0.9rem; color: var(--text); line-height: 1.75;
+      margin-bottom: 22px; font-style: italic;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border2); }
+    .testi-name { font-weight: 700; font-size: 0.87rem; }
+    .testi-loc { font-size: 0.74rem; color: var(--text2); margin-top: 2px; }
+
+    /* ─────────── LOCATION ─────────── */
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 44px; }
+    .location-map { width: 100%; height: 380px; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
+    .location-map img { width: 100%; height: 100%; object-fit: cover; }
+    .location-details { display: flex; flex-direction: column; gap: 30px; }
+    .loc-item h4 {
+      font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.16em;
+      color: var(--coral); text-transform: uppercase; margin-bottom: 8px;
+    }
+    .loc-item p { font-size: 0.88rem; color: var(--text); line-height: 1.72; }
+
+    /* ─────────── BOOKING ─────────── */
+    .book-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .book-perks { display: flex; flex-direction: column; gap: 18px; margin-top: 36px; }
+    .book-perk { display: flex; gap: 14px; align-items: flex-start; }
+    .perk-check {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+      background: rgba(249,97,74,0.15); border: 1px solid rgba(249,97,74,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--coral);
+    }
+    .book-perk h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+    .book-perk p { font-size: 0.8rem; color: var(--text2); line-height: 1.55; }
+    .book-form {
+      background: var(--panel); border: 1px solid var(--border2);
+      border-radius: var(--r); padding: 38px;
+    }
+    .form-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 6px; }
+    .form-sub { font-size: 0.82rem; color: var(--text2); margin-bottom: 28px; }
+    .form-group { margin-bottom: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    label { display: block; font-size: 0.77rem; color: var(--text2); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.02em; }
+    input, select, textarea {
+      width: 100%; background: var(--mid); border: 1px solid var(--border2);
+      border-radius: 4px; padding: 10px 14px;
+      color: var(--white); font-family: var(--ff); font-size: 0.85rem;
+      transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
+    }
+    input::placeholder { color: var(--text2); }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--coral); }
+    select option { background: var(--deep); color: var(--white); }
+    textarea { resize: vertical; min-height: 84px; }
+    .form-submit {
+      width: 100%; margin-top: 8px;
+      background: var(--coral); color: var(--white);
+      border: none; border-radius: 4px; padding: 14px;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.09em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--coral2); }
+    .form-success { display: none; text-align: center; padding: 48px 20px; }
+    .success-icon { font-size: 3.2rem; margin-bottom: 18px; }
+    .form-success h3 { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+    .form-success p { color: var(--text); font-size: 0.92rem; line-height: 1.65; }
+
+    /* ─────────── FOOTER ─────────── */
+    footer { background: #030c19; border-top: 1px solid var(--border); padding: 64px 40px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 52px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .footer-logo-mark {
+      width: 38px; height: 38px; border-radius: 7px;
+      background: var(--coral); color: var(--white);
+      font-family: var(--serif); font-size: 1.25rem; font-weight: 700; font-style: italic;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-name { font-weight: 700; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .footer-tagline { font-size: 0.85rem; color: var(--text2); line-height: 1.72; max-width: 265px; }
+    .footer-addr {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text2); margin-top: 16px; line-height: 1.8;
+    }
+    .footer-col h5 {
+      font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.16em;
+      color: var(--text2); text-transform: uppercase; margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-col ul li a { font-size: 0.85rem; color: var(--text); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 26px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 0.77rem; color: var(--text2); }
+    .footer-adf { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.1em; color: var(--text2); }
+    .footer-adf a { color: var(--coral); transition: opacity 0.2s; }
+    .footer-adf a:hover { opacity: 0.75; }
+    .footer-op {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      color: var(--text2); border: 1px solid var(--border); padding: 5px 12px; border-radius: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .footer-op:hover { color: var(--coral); border-color: rgba(249,97,74,0.4); }
+
+    /* ─────────── SIMULATOR BANNER ─────────── */
+    .sim-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+      background: rgba(5,16,30,0.96); border-top: 1px solid rgba(249,97,74,0.28);
+      padding: 10px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    .sim-text {
+      font-family: var(--mono); font-size: 0.61rem; letter-spacing: 0.18em;
+      color: rgba(249,97,74,0.8); text-transform: uppercase;
+    }
+    .sim-sub {
+      font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em;
+      color: var(--text2); margin-top: 2px;
+    }
+    .sim-close {
+      background: none; border: none; color: var(--text2); cursor: pointer;
+      font-size: 1rem; padding: 4px; line-height: 1; transition: color 0.2s;
+    }
+    .sim-close:hover { color: var(--white); }
+
+    /* ─────────── FADE-IN ─────────── */
+    .fi { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fi.vis { opacity: 1; transform: translateY(0); }
+    .fi-d1 { transition-delay: 0.1s; }
+    .fi-d2 { transition-delay: 0.2s; }
+    .fi-d3 { transition-delay: 0.3s; }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width: 1100px) {
+      .packages-grid { grid-template-columns: repeat(2,1fr); }
+      .rooms-grid { grid-template-columns: repeat(2,1fr); }
+      .exp-grid { grid-template-columns: 1fr; }
+      .book-grid { grid-template-columns: 1fr; }
+      .location-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 72px 20px; }
+      .hero-content { padding: 0 20px; }
+      .trust { padding: 24px 20px; }
+      .packages-grid, .rooms-grid { grid-template-columns: 1fr; }
+      .testi-grid, .instructors-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gal-item:first-child { grid-row: auto; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <div class="nav-logo">A</div>
+    <div class="nav-name">Alon Surf & Stay</div>
+  </div>
+  <nav class="nav-links" aria-label="Site navigation">
+    <a href="#packages">Packages</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#stay">Stay</a>
+    <a href="#team">Instructors</a>
+    <a href="#location">Location</a>
+  </nav>
+  <div class="nav-right">
+    <a href="#book" class="nav-cta">Book Now</a>
+    <a href="operator.html" class="nav-op">Operator</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">General Luna · Siargao Island · Est. 2019</div>
+    <h1 class="hero-headline">
+      Surf the<br><em>best waves</em><br>in the Philippines.
+    </h1>
+    <p class="hero-sub">Alon is Siargao's premier surf camp and beachfront resort. Beginner-friendly lessons, expert coaching, and ocean-front accommodation — all minutes from the legendary Cloud 9 break.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-primary">Book a Package</a>
+      <a href="#packages" class="btn-ghost">See Packages ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRUST BAR ═══════════ -->
+<div class="trust" aria-label="Key stats">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="trust-num">1,400+</div><div class="trust-label">Surfers Taught</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">5.0 ★</div><div class="trust-label">Google Rating</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">6 Yrs</div><div class="trust-label">On Siargao</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">28</div><div class="trust-label">Nationalities Hosted</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">8</div><div class="trust-label">Certified Instructors</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">5 min</div><div class="trust-label">To Cloud 9</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ PACKAGES ═══════════ -->
+<section id="packages" class="bg-deep" aria-labelledby="pkg-heading">
+  <div class="section-inner">
+    <p class="section-tag">Surf Packages · Siargao Island, Philippines</p>
+    <h2 id="pkg-heading" class="section-title">Find your program.</h2>
+    <p class="section-sub">First wave or Cloud 9 regular — we have a package built around your level, your schedule, and what you want out of Siargao.</p>
+    <div class="packages-grid">
+
+      <div class="pkg-card fi">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1455264745730-cb3b76250f67?auto=format&fit=crop&w=600&q=80" alt="Beginner surf lesson on Siargao beach" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Day Tripper</div>
+          <div class="pkg-days">1 Day · Beginner</div>
+          <ul class="pkg-includes">
+            <li>2-hour group surf lesson</li>
+            <li>Softboard & leash rental</li>
+            <li>Rash guard & wax included</li>
+            <li>Post-session lunch</li>
+            <li>Instructor video review</li>
+          </ul>
+          <div class="pkg-price">₱1,500 <span>/ person</span></div>
+          <a href="#book" class="pkg-cta">Book This →</a>
+        </div>
+      </div>
+
+      <div class="pkg-card fi fi-d1">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80" alt="Weekend surf camp Siargao Philippines" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Weekend Warrior</div>
+          <div class="pkg-days">3 Days · Beginner–Intermediate</div>
+          <ul class="pkg-includes">
+            <li>2 surf sessions daily</li>
+            <li>Surf dorm accommodation</li>
+            <li>Daily breakfast & lunch</li>
+            <li>Board rental all 3 days</li>
+            <li>Lagoon island tour</li>
+          </ul>
+          <div class="pkg-price">₱6,500 <span>/ person</span></div>
+          <a href="#book" class="pkg-cta">Book This →</a>
+        </div>
+      </div>
+
+      <div class="pkg-card featured fi fi-d2">
+        <div class="pkg-badge">Most Popular</div>
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="5-day surf and stay package Siargao" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Surf & Stay</div>
+          <div class="pkg-days">5 Days · All Levels</div>
+          <ul class="pkg-includes">
+            <li>AM & PM surf sessions daily</li>
+            <li>Private garden room (AC)</li>
+            <li>All meals included</li>
+            <li>Airport transfer (Sayak)</li>
+            <li>Full-day island hopping</li>
+            <li>Progress video analysis</li>
+          </ul>
+          <div class="pkg-price">₱15,000 <span>/ person</span></div>
+          <a href="#book" class="pkg-cta">Book This →</a>
+        </div>
+      </div>
+
+      <div class="pkg-card fi fi-d3">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80" alt="Advanced surf immersion program Cloud 9 Siargao" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Immersion</div>
+          <div class="pkg-days">10 Days · Intermediate–Advanced</div>
+          <ul class="pkg-includes">
+            <li>Semi-private coaching (max 3)</li>
+            <li>Beachfront loft suite</li>
+            <li>All meals + evening snacks</li>
+            <li>Boat sessions at Cloud 9</li>
+            <li>GoPro footage package</li>
+            <li>Competition prep (optional)</li>
+          </ul>
+          <div class="pkg-price">₱28,000 <span>/ person</span></div>
+          <a href="#book" class="pkg-cta">Book This →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section id="experience" aria-labelledby="exp-heading">
+  <div class="section-inner">
+    <div class="exp-grid">
+      <div class="exp-visual fi">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80" alt="Aerial view of Siargao Island surf camp and beachfront resort" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Tropical beach Siargao Philippines" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1520116468816-95b69f847357?auto=format&fit=crop&w=600&q=80" alt="Surfboards lined up on Siargao beach" loading="lazy">
+      </div>
+      <div class="fi fi-d1">
+        <p class="section-tag">Why Alon · Siargao's Highest-Rated Surf Camp</p>
+        <h2 id="exp-heading" class="section-title">Built around the water.</h2>
+        <p style="color:var(--text);line-height:1.75;font-size:1rem;margin-bottom:32px;">Most surf camps are businesses that happen to surf. We're surfers who built a camp. Every session, every room, every meal is designed around one goal: getting you up on the board and keeping you there.</p>
+        <div class="exp-features">
+          <div class="exp-feat">
+            <div class="exp-icon">🌊</div>
+            <div>
+              <h4>5 min from Cloud 9</h4>
+              <p>The Philippines' most famous reef break, right at your doorstep every session.</p>
+            </div>
+          </div>
+          <div class="exp-feat">
+            <div class="exp-icon">🏄</div>
+            <div>
+              <h4>ISA-Certified Coaches</h4>
+              <p>International Surfing Association trained. Safety-first, progression-focused methodology.</p>
+            </div>
+          </div>
+          <div class="exp-feat">
+            <div class="exp-icon">📍</div>
+            <div>
+              <h4>Multi-Break Access</h4>
+              <p>From beginner beach breaks to advanced reef — we read the swell and go where it's right.</p>
+            </div>
+          </div>
+          <div class="exp-feat">
+            <div class="exp-icon">🌴</div>
+            <div>
+              <h4>Small Groups Only</h4>
+              <p>Max 6 per instructor. You get coached, not herded. Real feedback, every session.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<section id="gallery" class="bg-deep" aria-labelledby="gal-heading">
+  <div class="section-inner">
+    <p class="section-tag">Life at Alon · Siargao Surf Camp</p>
+    <h2 id="gal-heading" class="section-title">See the camp.</h2>
+    <p class="section-sub" style="margin-bottom:40px;">Dawn sessions, island afternoons, and nights under the palms. This is what a week at Alon looks like.</p>
+    <div class="gallery-grid">
+      <div class="gal-item fi">
+        <img src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=800&q=80" alt="Dawn patrol surf session Cloud 9 Siargao" loading="lazy">
+        <div class="gal-label">Dawn Patrol · Cloud 9</div>
+      </div>
+      <div class="gal-item fi fi-d1">
+        <img src="https://images.unsplash.com/photo-1455264745730-cb3b76250f67?auto=format&fit=crop&w=700&q=80" alt="Surf lesson on General Luna beach Siargao Philippines" loading="lazy">
+        <div class="gal-label">Beginner Session · General Luna Beach</div>
+      </div>
+      <div class="gal-item fi fi-d2">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=700&q=80" alt="Ocean cabana beachfront accommodation Siargao" loading="lazy">
+        <div class="gal-label">Ocean Cabana · Beachfront</div>
+      </div>
+      <div class="gal-item fi fi-d1">
+        <img src="https://images.unsplash.com/photo-1552374187-6b99db30d890?auto=format&fit=crop&w=700&q=80" alt="Siargao Island palm trees tropical afternoon" loading="lazy">
+        <div class="gal-label">Island Afternoon</div>
+      </div>
+      <div class="gal-item fi fi-d2">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=700&q=80" alt="Intermediate surfing reef break Siargao Philippines" loading="lazy">
+        <div class="gal-label">Intermediate Program · Reef Break</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ACCOMMODATIONS ═══════════ -->
+<section id="stay" aria-labelledby="stay-heading">
+  <div class="section-inner">
+    <p class="section-tag">Stay With Us · Siargao Island Accommodation</p>
+    <h2 id="stay-heading" class="section-title">Sleep near the swell.</h2>
+    <p class="section-sub">Budget surf dorms to private beachfront suites — every room is clean, comfortable, and a short walk from the water.</p>
+    <div class="rooms-grid">
+      <div class="room-card fi">
+        <img class="room-img" src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="Surf camp dormitory Siargao" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Dormitory</div>
+          <div class="room-name">Surf Dorm</div>
+          <div class="room-desc">Fan-cooled 6-bunk with individual lockers, reading lights, and shared outdoor bathrooms. The classic surf camp vibe.</div>
+          <div class="room-price">₱800 <span>/ night per bed</span></div>
+          <div class="room-tags">
+            <span class="room-tag">Fan</span>
+            <span class="room-tag">Locker</span>
+            <span class="room-tag">Shared Bath</span>
+          </div>
+        </div>
+      </div>
+      <div class="room-card fi fi-d1">
+        <img class="room-img" src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=600&q=80" alt="Private garden room Siargao resort" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Private Room</div>
+          <div class="room-name">Garden Room</div>
+          <div class="room-desc">Air-conditioned private room with ensuite bath, garden-facing window, and daily housekeeping on the quiet side of the property.</div>
+          <div class="room-price">₱2,500 <span>/ night</span></div>
+          <div class="room-tags">
+            <span class="room-tag">AC</span>
+            <span class="room-tag">Ensuite</span>
+            <span class="room-tag">Garden View</span>
+            <span class="room-tag">WiFi</span>
+          </div>
+        </div>
+      </div>
+      <div class="room-card fi fi-d2">
+        <img class="room-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" alt="Beachfront ocean cabana Siargao surf resort" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Cabana · Beachfront</div>
+          <div class="room-name">Ocean Cabana</div>
+          <div class="room-desc">Private bamboo cabana with AC, ensuite bath, and a private deck with direct beach access. Wake up to the sound of the ocean.</div>
+          <div class="room-price">₱4,500 <span>/ night</span></div>
+          <div class="room-tags">
+            <span class="room-tag">AC</span>
+            <span class="room-tag">Ensuite</span>
+            <span class="room-tag">Beach Access</span>
+            <span class="room-tag">Private Deck</span>
+          </div>
+        </div>
+      </div>
+      <div class="room-card fi fi-d3">
+        <img class="room-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Loft suite ocean view Siargao resort" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Suite · Ocean View</div>
+          <div class="room-name">Loft Suite</div>
+          <div class="room-desc">Two-level suite with queen bed, ensuite, living area, and private rooftop deck overlooking the ocean. Best for couples or extended stays.</div>
+          <div class="room-price">₱7,500 <span>/ night</span></div>
+          <div class="room-tags">
+            <span class="room-tag">AC</span>
+            <span class="room-tag">Ocean View</span>
+            <span class="room-tag">Rooftop Deck</span>
+            <span class="room-tag">Smart TV</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INSTRUCTORS ═══════════ -->
+<section id="team" class="bg-deep" aria-labelledby="team-heading">
+  <div class="section-inner">
+    <p class="section-tag">The Team · ISA-Certified · General Luna, Siargao</p>
+    <h2 id="team-heading" class="section-title">Your coaches.</h2>
+    <p class="section-sub">Siargao locals and national-level competitors who teach because they love it — not because it's a side job.</p>
+    <div class="instructors-grid">
+      <div class="instr-card fi">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Head surf instructor Siargao Philippines" loading="lazy">
+        <div class="instr-body">
+          <div class="instr-name">Kuya Marco</div>
+          <div class="instr-role">Head Coach · Founder</div>
+          <div class="instr-bio">Siargao native. 18 years on the water. Former national surfing team alternate. Marco founded Alon after a decade hosting surf guests at his family's beachfront property in General Luna.</div>
+          <div class="instr-cert">⚡ ISA Level 2 Certified</div>
+        </div>
+      </div>
+      <div class="instr-card fi fi-d1">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80" alt="Female surf instructor women's program Siargao" loading="lazy">
+        <div class="instr-body">
+          <div class="instr-name">Coach Lena</div>
+          <div class="instr-role">Intermediate & Women's Program</div>
+          <div class="instr-bio">Lena runs our women-only surf clinics and intermediate program. Her coaching style is patient, technical, and built around ocean safety. 9 years in the water, 5 on Siargao.</div>
+          <div class="instr-cert">⚡ ISA Level 1 Certified</div>
+        </div>
+      </div>
+      <div class="instr-card fi fi-d2">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Advanced surf coach reef break Cloud 9 Siargao" loading="lazy">
+        <div class="instr-body">
+          <div class="instr-name">Coach Diego</div>
+          <div class="instr-role">Advanced & Reef Break Specialist</div>
+          <div class="instr-bio">Diego's specialty is taking intermediate surfers to the next level. Reef break protocol, tube riding fundamentals, and competition-style video feedback — all in one program.</div>
+          <div class="instr-cert">⚡ ISA Level 2 Certified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="reviews" aria-labelledby="reviews-heading">
+  <div class="section-inner">
+    <p class="section-tag">Guest Reviews · Siargao Surf Camp · Philippines</p>
+    <h2 id="reviews-heading" class="section-title">What guests say.</h2>
+    <p class="section-sub" style="margin-bottom:44px;">Over 1,400 surfers from 28 countries. A few things they had to say after their week at Alon.</p>
+    <div class="testi-grid">
+      <div class="testi-card fi">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I came to Siargao with zero surfing experience. After 5 days with Coach Marco, I was riding green waves on my own. The Surf & Stay package is worth every peso. The food, the coaching, the energy — nothing was half-hearted."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80" alt="Sarah K. — Guest review Alon Surf Siargao" loading="lazy">
+          <div>
+            <div class="testi-name">Sarah K.</div>
+            <div class="testi-loc">Melbourne, Australia</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fi fi-d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Immersion program changed the way I surf. Diego pushed me beyond what I thought I was capable of. Cloud 9 boat sessions, daily video review, small group so you actually get coached. Non-negotiable for anyone at an intermediate plateau."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80" alt="Thomas R. — Alon Surf Camp review" loading="lazy">
+          <div>
+            <div class="testi-name">Thomas R.</div>
+            <div class="testi-loc">Berlin, Germany</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fi fi-d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Booked the Ocean Cabana for two weeks. Woke up to the sound of waves every morning. The staff are genuinely the warmest people. Alon doesn't feel like a business. It feels like a family's home that happens to have the best surf on the island."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="Mia L. — Siargao surf resort review" loading="lazy">
+          <div>
+            <div class="testi-name">Mia L.</div>
+            <div class="testi-loc">Vancouver, Canada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LOCATION ═══════════ -->
+<section id="location" class="bg-deep" aria-labelledby="loc-heading">
+  <div class="section-inner">
+    <p class="section-tag">Getting Here · General Luna · Siargao Island · Surigao del Norte</p>
+    <h2 id="loc-heading" class="section-title">Find us.</h2>
+    <div class="location-grid">
+      <div class="fi">
+        <div class="location-map">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Siargao Island General Luna Philippines map location" loading="lazy">
+        </div>
+        <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);margin-top:10px;letter-spacing:0.1em;line-height:1.6;">PUROK 3 · BRGY. TOURISM ROAD · GENERAL LUNA<br>SIARGAO ISLAND · SURIGAO DEL NORTE 8417 · PHILIPPINES</p>
+      </div>
+      <div class="location-details fi fi-d1">
+        <div class="loc-item">
+          <h4>Flying to Siargao</h4>
+          <p>Fly direct to Sayak Airport (IAO) via Manila (MNL) or Cebu (CEB). Daily flights via Philippine Airlines, Cebu Pacific, and AirAsia. Manila to Siargao: ~2h. Cebu to Siargao: ~1h.</p>
+        </div>
+        <div class="loc-item">
+          <h4>Sayak Airport to Alon</h4>
+          <p>Complimentary airport transfer for all Surf & Stay and Immersion guests. For Day Tripper and dorm bookings, the van ride is 45 minutes and costs ₱200–₱300. We can also arrange pick-up — just message us.</p>
+        </div>
+        <div class="loc-item">
+          <h4>From General Luna Town Center</h4>
+          <p>10-minute tricycle ride from the main road. Tell your driver "Alon Surf Camp" — everyone in General Luna knows us. Or call ahead and we'll send someone.</p>
+        </div>
+        <div class="loc-item">
+          <h4>Reach Us</h4>
+          <p>📞 +63 912 345 6789<br>📧 surf@alonsurfstay.com<br>💬 Facebook: @AlonSurfStay<br>📸 Instagram: @alonsurfstay</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BOOKING FORM ═══════════ -->
+<section id="book" style="background:var(--mid);" aria-labelledby="book-heading">
+  <div class="section-inner">
+    <div class="book-grid">
+      <div class="fi">
+        <p class="section-tag">Book Your Stay · Siargao Island, Philippines</p>
+        <h2 id="book-heading" style="font-family:var(--serif);font-size:clamp(2.2rem,4vw,3rem);line-height:1.1;margin-bottom:20px;">Ready to paddle out?</h2>
+        <p style="color:var(--text);line-height:1.75;font-size:0.98rem;">Tell us when you're coming and what program you're after. We confirm availability and get your trip sorted within 24 hours.</p>
+        <div class="book-perks">
+          <div class="book-perk">
+            <div class="perk-check">✓</div>
+            <div>
+              <h4>No payment upfront</h4>
+              <p>Reserve now, pay on arrival. No credit card required to hold your spot.</p>
+            </div>
+          </div>
+          <div class="book-perk">
+            <div class="perk-check">✓</div>
+            <div>
+              <h4>Free reschedule</h4>
+              <p>Plans change. Reschedule anytime up to 48 hours before arrival at no fee.</p>
+            </div>
+          </div>
+          <div class="book-perk">
+            <div class="perk-check">✓</div>
+            <div>
+              <h4>Group rates available</h4>
+              <p>Coming with 4 or more? Message us — group pricing and private sessions on request.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="book-form fi fi-d1">
+        <div id="formContent">
+          <div class="form-title">Booking Inquiry</div>
+          <div class="form-sub">We respond within 24 hours.</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input id="fname" type="text" placeholder="Juan">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input id="lname" type="text" placeholder="dela Cruz">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone / WhatsApp</label>
+            <input id="phone" type="tel" placeholder="+63 912 345 6789">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="arrival">Arrival Date</label>
+              <input id="arrival" type="date">
+            </div>
+            <div class="form-group">
+              <label for="guests">No. of Guests</label>
+              <select id="guests">
+                <option>1 person</option>
+                <option>2 people</option>
+                <option>3 people</option>
+                <option>4 people</option>
+                <option>5+ people</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="package">Package Interest</label>
+            <select id="package">
+              <option value="">Select a package…</option>
+              <option>Day Tripper — ₱1,500/person</option>
+              <option>Weekend Warrior — 3 days, ₱6,500/person</option>
+              <option>Surf & Stay — 5 days, ₱15,000/person</option>
+              <option>Immersion — 10 days, ₱28,000/person</option>
+              <option>Accommodation only (no lessons)</option>
+              <option>Custom / Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="msg">Message (optional)</label>
+            <textarea id="msg" placeholder="Surfing experience level, special requests, questions…"></textarea>
+          </div>
+          <button class="form-submit" onclick="handleSubmit()">Send Booking Inquiry</button>
+        </div>
+        <div id="formSuccess" class="form-success">
+          <div class="success-icon">🤙</div>
+          <h3>Inquiry sent!</h3>
+          <p>We'll confirm your dates and package within 24 hours. Keep an eye on your email — and start getting stoked about Siargao.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-mark">A</div>
+          <div class="footer-logo-name">Alon Surf & Stay</div>
+        </div>
+        <div class="footer-tagline">Where the swell meets the soul. Siargao Island's premier surf camp and beachfront resort since 2019.</div>
+        <div class="footer-addr">
+          PUROK 3 · BRGY. TOURISM ROAD<br>
+          GENERAL LUNA · SIARGAO ISLAND<br>
+          SURIGAO DEL NORTE 8417 · PHILIPPINES
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Programs</h5>
+        <ul>
+          <li><a href="#packages">Day Tripper</a></li>
+          <li><a href="#packages">Weekend Warrior</a></li>
+          <li><a href="#packages">Surf & Stay</a></li>
+          <li><a href="#packages">Immersion</a></li>
+          <li><a href="#packages">Women's Clinics</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Stay</h5>
+        <ul>
+          <li><a href="#stay">Surf Dorm</a></li>
+          <li><a href="#stay">Garden Room</a></li>
+          <li><a href="#stay">Ocean Cabana</a></li>
+          <li><a href="#stay">Loft Suite</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Info</h5>
+        <ul>
+          <li><a href="#location">Getting Here</a></li>
+          <li><a href="#team">Our Instructors</a></li>
+          <li><a href="#reviews">Guest Reviews</a></li>
+          <li><a href="#book">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2024 Alon Surf & Stay · All rights reserved · General Luna, Siargao Island</div>
+      <div class="footer-adf">Infrastructure by <a href="https://hirrok.github.io/adf-hq/foundry-hq.html" target="_blank" rel="noopener">Aurora Digital Foundry</a></div>
+      <a href="operator.html" class="footer-op">⚙ Operator Suite</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SIMULATOR BANNER ═══════════ -->
+<div class="sim-banner" id="simBanner">
+  <div>
+    <div class="sim-text">© Aurora Digital Foundry — Class A Archetype Simulator · Surf Camp & Resort</div>
+    <div class="sim-sub">All content is fictional · No live backend · Forms run in simulator mode · Imagery via Unsplash</div>
+  </div>
+  <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'" aria-label="Dismiss">✕</button>
+</div>
+
+<script>
+  // Nav scroll behaviour
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Hero parallax pan
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('load', () => heroBg.classList.add('loaded'));
+
+  // Booking form — simulator mode
+  function handleSubmit() {
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  // Intersection Observer — fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fi').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

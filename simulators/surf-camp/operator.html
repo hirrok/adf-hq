@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alon Surf & Stay — Operator Suite</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void:   #05101e;
+      --deep:   #091828;
+      --mid:    #112236;
+      --panel:  #1a3048;
+      --rail:   #0f2035;
+      --coral:  #f9614a;
+      --coral2: #e84d37;
+      --ocean:  #0ea5e9;
+      --green:  #22c55e;
+      --gold:   #f0b942;
+      --red:    #ef4444;
+      --white:  #f8fafc;
+      --text:   rgba(248,250,252,0.75);
+      --text2:  rgba(248,250,252,0.44);
+      --border: rgba(255,255,255,0.08);
+      --border2:rgba(255,255,255,0.14);
+      --ff:     'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --mono:   'JetBrains Mono', monospace;
+      --serif:  'Playfair Display', Georgia, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--ff); background: var(--deep); color: var(--white); overflow: hidden; height: 100vh; }
+
+    /* ─── GATE ─── */
+    #gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--void);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0;
+    }
+    .gate-logo {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: var(--coral); color: var(--white);
+      font-family: var(--serif); font-size: 1.6rem; font-weight: 700; font-style: italic;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+    }
+    .gate-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .gate-sub {
+      font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em;
+      color: var(--coral); text-transform: uppercase; margin-bottom: 36px;
+    }
+    .gate-box {
+      background: var(--mid); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 32px; width: 340px;
+    }
+    .gate-label { font-size: 0.78rem; color: var(--text2); margin-bottom: 8px; display: block; }
+    .gate-input {
+      width: 100%; background: var(--panel); border: 1px solid var(--border2);
+      border-radius: 4px; padding: 11px 14px;
+      color: var(--white); font-family: var(--ff); font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s; margin-bottom: 14px;
+    }
+    .gate-input:focus { border-color: var(--coral); }
+    .gate-btn {
+      width: 100%; background: var(--coral); color: var(--white);
+      border: none; border-radius: 4px; padding: 12px;
+      font-weight: 700; font-size: 0.84rem; letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .gate-btn:hover { background: var(--coral2); }
+    .gate-err {
+      color: #ef4444; font-size: 0.78rem; text-align: center;
+      margin-top: 10px; display: none;
+    }
+    .gate-sim {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text2); text-align: center; margin-top: 14px;
+    }
+    .gate-sim span { color: var(--coral); }
+
+    /* ─── LAYOUT ─── */
+    #app { display: none; height: 100vh; flex-direction: column; }
+    #app.visible { display: flex; }
+
+    /* TOPBAR */
+    .topbar {
+      height: 54px; background: var(--void); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 14px; flex-shrink: 0;
+      justify-content: space-between;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
+    .topbar-badge {
+      background: var(--coral); color: var(--white);
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em;
+      padding: 4px 10px; border-radius: 3px; text-transform: uppercase;
+    }
+    .topbar-title { font-weight: 700; font-size: 0.92rem; }
+    .topbar-loc {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text2); text-transform: uppercase;
+    }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .topbar-time {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--text2);
+    }
+    .topbar-pub {
+      background: var(--panel); border: 1px solid var(--border2); color: var(--text);
+      font-size: 0.75rem; padding: 6px 14px; border-radius: 4px; cursor: pointer;
+      transition: color 0.2s; text-decoration: none; font-weight: 500;
+    }
+    .topbar-pub:hover { color: var(--white); }
+    .signout-btn {
+      background: none; border: 1px solid var(--border2); color: var(--text2);
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 12px; border-radius: 3px; cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .signout-btn:hover { color: var(--coral); border-color: rgba(249,97,74,0.4); }
+
+    /* BODY ROW */
+    .body-row { display: flex; flex: 1; overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 210px; flex-shrink: 0; background: var(--rail);
+      border-right: 1px solid var(--border); overflow-y: auto;
+      padding: 16px 0;
+    }
+    .sidebar-section {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em;
+      color: var(--text2); text-transform: uppercase;
+      padding: 10px 20px 6px;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 20px; font-size: 0.84rem; color: var(--text);
+      cursor: pointer; transition: background 0.15s, color 0.15s; border-radius: 0;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-item:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+    .sidebar-item.active {
+      background: rgba(249,97,74,0.1); color: var(--white);
+      border-left-color: var(--coral);
+    }
+    .sidebar-icon { font-size: 0.95rem; width: 18px; text-align: center; }
+    .sidebar-badge {
+      margin-left: auto; background: var(--coral); color: var(--white);
+      font-family: var(--mono); font-size: 0.58rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 10px;
+    }
+
+    /* MAIN */
+    .main { flex: 1; overflow-y: auto; background: var(--deep); padding: 28px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* PAGE HEADER */
+    .page-header { margin-bottom: 28px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .page-sub { font-size: 0.84rem; color: var(--text2); }
+
+    /* KPI ROW */
+    .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 28px; }
+    .kpi {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 8px; padding: 18px 22px;
+    }
+    .kpi-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+      color: var(--text2); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .kpi-val { font-family: var(--serif); font-size: 2rem; font-weight: 700; line-height: 1; }
+    .kpi-val.coral { color: var(--coral); }
+    .kpi-val.green { color: var(--green); }
+    .kpi-val.ocean { color: var(--ocean); }
+    .kpi-meta { font-size: 0.76rem; color: var(--text2); margin-top: 6px; }
+
+    /* TABLE */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+      color: var(--text2); text-transform: uppercase;
+      padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .data-table td {
+      padding: 12px 14px; font-size: 0.84rem; color: var(--text);
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.025); }
+    .table-wrap {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    }
+    .table-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .table-title { font-weight: 700; font-size: 0.9rem; }
+    .table-count { font-family: var(--mono); font-size: 0.65rem; color: var(--text2); }
+
+    /* BADGES */
+    .badge {
+      display: inline-block; padding: 3px 9px; border-radius: 3px;
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+    }
+    .badge-new    { background: rgba(249,97,74,0.15);  color: var(--coral); border: 1px solid rgba(249,97,74,0.3); }
+    .badge-conf   { background: rgba(34,197,94,0.12);  color: var(--green); border: 1px solid rgba(34,197,94,0.28); }
+    .badge-in     { background: rgba(14,165,233,0.12); color: var(--ocean); border: 1px solid rgba(14,165,233,0.28); }
+    .badge-done   { background: rgba(248,250,252,0.06); color: var(--text2); border: 1px solid var(--border); }
+    .badge-beg    { background: rgba(240,185,66,0.12); color: var(--gold); border: 1px solid rgba(240,185,66,0.28); }
+    .badge-int    { background: rgba(14,165,233,0.12); color: var(--ocean); border: 1px solid rgba(14,165,233,0.28); }
+    .badge-adv    { background: rgba(249,97,74,0.15);  color: var(--coral); border: 1px solid rgba(249,97,74,0.3); }
+    .badge-t1     { background: rgba(240,185,66,0.12); color: var(--gold);  border: 1px solid rgba(240,185,66,0.28); }
+    .badge-t2     { background: rgba(14,165,233,0.12); color: var(--ocean); border: 1px solid rgba(14,165,233,0.28); }
+    .badge-t3     { background: rgba(249,97,74,0.15);  color: var(--coral); border: 1px solid rgba(249,97,74,0.3); }
+
+    /* ACTION BUTTONS */
+    .act-btn {
+      background: var(--panel); border: 1px solid var(--border2); color: var(--text);
+      font-size: 0.75rem; padding: 5px 12px; border-radius: 3px; cursor: pointer;
+      transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+    }
+    .act-btn:hover { color: var(--coral); border-color: rgba(249,97,74,0.4); }
+    .act-btn.primary { background: var(--coral); border-color: var(--coral); color: var(--white); }
+    .act-btn.primary:hover { background: var(--coral2); border-color: var(--coral2); color: var(--white); }
+    .btn-row { display: flex; gap: 6px; }
+
+    /* SCHEDULE GRID */
+    .schedule-day { margin-bottom: 28px; }
+    .schedule-label {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.16em;
+      color: var(--coral); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .session-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .session-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 8px; padding: 18px;
+    }
+    .session-time { font-family: var(--mono); font-size: 0.7rem; color: var(--ocean); margin-bottom: 8px; }
+    .session-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+    .session-coach { font-size: 0.78rem; color: var(--text2); margin-bottom: 10px; }
+    .session-pax { font-size: 0.78rem; color: var(--text); }
+    .session-break {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text2); text-transform: uppercase; margin-top: 10px;
+      padding-top: 10px; border-top: 1px solid var(--border);
+    }
+
+    /* PRICE EDITOR */
+    .price-editor {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 8px; padding: 24px; max-width: 560px;
+    }
+    .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .price-field label { font-size: 0.78rem; color: var(--text2); display: block; margin-bottom: 6px; }
+    .price-field input {
+      width: 100%; background: var(--panel); border: 1px solid var(--border2);
+      border-radius: 4px; padding: 9px 13px;
+      color: var(--white); font-family: var(--ff); font-size: 0.9rem; font-weight: 600;
+      outline: none; transition: border-color 0.2s;
+    }
+    .price-field input:focus { border-color: var(--coral); }
+    .price-note { font-size: 0.78rem; color: var(--text2); margin-bottom: 16px; line-height: 1.55; }
+    #priceSaved {
+      display: none; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.28);
+      color: var(--green); font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+      padding: 6px 14px; border-radius: 3px; margin-left: 10px;
+    }
+
+    /* REVENUE TABLE */
+    .rev-section { margin-bottom: 28px; }
+    .rev-section h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+
+    /* OCCUPANCY BAR */
+    .occ-row { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    .occ-name { font-size: 0.82rem; color: var(--text); width: 130px; flex-shrink: 0; }
+    .occ-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .occ-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+    .occ-pct { font-family: var(--mono); font-size: 0.65rem; color: var(--text2); width: 36px; text-align: right; }
+
+    /* SIM STRIP */
+    .sim-strip {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 8000;
+      background: rgba(5,16,30,0.97); border-top: 1px solid rgba(249,97,74,0.25);
+      padding: 7px 20px;
+      font-family: var(--mono); font-size: 0.59rem; letter-spacing: 0.14em;
+      color: rgba(249,97,74,0.7); text-transform: uppercase; text-align: center;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ GATE ═══ -->
+<div id="gate">
+  <div class="gate-logo">A</div>
+  <div class="gate-title">Alon Surf & Stay</div>
+  <div class="gate-sub">Operator Suite · Restricted Access</div>
+  <div class="gate-box">
+    <label class="gate-label" for="pwInput">Access Code</label>
+    <input id="pwInput" class="gate-input" type="password" placeholder="Enter access code" onkeydown="if(event.key==='Enter')unlock()">
+    <button class="gate-btn" onclick="unlock()">Enter Operator Suite</button>
+    <div class="gate-err" id="gateErr">Incorrect access code. Try again.</div>
+    <div class="gate-sim">Simulator · Demo code: <span>alon2026</span></div>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-badge">Operator Suite</div>
+      <div class="topbar-title">Alon Surf & Stay</div>
+      <div class="topbar-loc">General Luna · Siargao Island</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-time" id="clock">—</div>
+      <a href="index.html" class="topbar-pub">← Public Site</a>
+      <button class="signout-btn" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body-row">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">Operations</div>
+      <div class="sidebar-item active" onclick="showTab('reservations',this)">
+        <span class="sidebar-icon">📋</span> Reservations
+        <span class="sidebar-badge" id="newBadge">3</span>
+      </div>
+      <div class="sidebar-item" onclick="showTab('guests',this)">
+        <span class="sidebar-icon">🏄</span> Guests In-House
+      </div>
+      <div class="sidebar-item" onclick="showTab('schedule',this)">
+        <span class="sidebar-icon">📅</span> Lesson Schedule
+      </div>
+      <div class="sidebar-section">Business</div>
+      <div class="sidebar-item" onclick="showTab('revenue',this)">
+        <span class="sidebar-icon">₱</span> Revenue
+      </div>
+      <div class="sidebar-item" onclick="showTab('prices',this)">
+        <span class="sidebar-icon">🏷</span> Pricing
+      </div>
+      <div class="sidebar-section">Camp</div>
+      <div class="sidebar-item" onclick="showTab('rooms',this)">
+        <span class="sidebar-icon">🛏</span> Room Status
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+      <!-- ── RESERVATIONS ── -->
+      <div class="tab-pane active" id="tab-reservations">
+        <div class="page-header">
+          <div class="page-title">Reservations</div>
+          <div class="page-sub">Incoming booking inquiries and confirmed stays</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">New Inquiries</div><div class="kpi-val coral">3</div><div class="kpi-meta">Awaiting response</div></div>
+          <div class="kpi"><div class="kpi-label">Confirmed This Month</div><div class="kpi-val green">11</div><div class="kpi-meta">June 2026</div></div>
+          <div class="kpi"><div class="kpi-label">Arriving This Week</div><div class="kpi-val ocean">4</div><div class="kpi-meta">Jun 10–16</div></div>
+          <div class="kpi"><div class="kpi-label">Avg Booking Value</div><div class="kpi-val">₱12.4K</div><div class="kpi-meta">Per reservation</div></div>
+        </div>
+        <div class="table-wrap">
+          <div class="table-header">
+            <div class="table-title">All Reservations</div>
+            <div class="table-count">14 entries · June 2026</div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Guest</th><th>Package</th><th>Arrival</th><th>Nights</th><th>Pax</th><th>Value</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Sarah K.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Melbourne, AU</span></td><td>Surf & Stay</td><td>Jun 12</td><td>5</td><td>1</td><td>₱15,000</td><td><span class="badge badge-new">New</span></td><td><div class="btn-row"><button class="act-btn primary">Confirm</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Thomas R.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Berlin, DE</span></td><td>Immersion</td><td>Jun 14</td><td>10</td><td>1</td><td>₱28,000</td><td><span class="badge badge-new">New</span></td><td><div class="btn-row"><button class="act-btn primary">Confirm</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Mia L.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Vancouver, CA</span></td><td>Ocean Cabana</td><td>Jun 15</td><td>7</td><td>2</td><td>₱31,500</td><td><span class="badge badge-new">New</span></td><td><div class="btn-row"><button class="act-btn primary">Confirm</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Jake & Rhi</strong><br><span style="font-size:0.75rem;color:var(--text2)">London, UK</span></td><td>Weekend Warrior</td><td>Jun 10</td><td>3</td><td>2</td><td>₱13,000</td><td><span class="badge badge-conf">Confirmed</span></td><td><div class="btn-row"><button class="act-btn">Check In</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>David P.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Manila, PH</span></td><td>Day Tripper</td><td>Jun 11</td><td>1</td><td>3</td><td>₱4,500</td><td><span class="badge badge-conf">Confirmed</span></td><td><div class="btn-row"><button class="act-btn">Check In</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Yuki T.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Tokyo, JP</span></td><td>Surf & Stay</td><td>Jun 7</td><td>5</td><td>1</td><td>₱15,000</td><td><span class="badge badge-in">In-House</span></td><td><div class="btn-row"><button class="act-btn">Check Out</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Anna & Maria</strong><br><span style="font-size:0.75rem;color:var(--text2)">Seoul, KR</span></td><td>Weekend Warrior</td><td>Jun 8</td><td>3</td><td>2</td><td>₱13,000</td><td><span class="badge badge-in">In-House</span></td><td><div class="btn-row"><button class="act-btn">Check Out</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Carlos V.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Madrid, ES</span></td><td>Immersion</td><td>Jun 3</td><td>10</td><td>1</td><td>₱28,000</td><td><span class="badge badge-in">In-House</span></td><td><div class="btn-row"><button class="act-btn">Check Out</button><button class="act-btn">View</button></div></td></tr>
+              <tr><td><strong>Grace O.</strong><br><span style="font-size:0.75rem;color:var(--text2)">Lagos, NG</span></td><td>Day Tripper</td><td>Jun 5</td><td>1</td><td>1</td><td>₱1,500</td><td><span class="badge badge-done">Completed</span></td><td><div class="btn-row"><button class="act-btn">Review</button></div></td></tr>
+              <tr><td><strong>Ben H. Group</strong><br><span style="font-size:0.75rem;color:var(--text2)">Sydney, AU</span></td><td>Surf & Stay ×4</td><td>Jun 1</td><td>5</td><td>4</td><td>₱60,000</td><td><span class="badge badge-done">Completed</span></td><td><div class="btn-row"><button class="act-btn">Review</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── GUESTS IN-HOUSE ── -->
+      <div class="tab-pane" id="tab-guests">
+        <div class="page-header">
+          <div class="page-title">Guests In-House</div>
+          <div class="page-sub">Current roster — check-ins, program progress, check-out schedule</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">Guests In-House</div><div class="kpi-val coral">7</div><div class="kpi-meta">As of today</div></div>
+          <div class="kpi"><div class="kpi-label">Rooms Occupied</div><div class="kpi-val ocean">5</div><div class="kpi-meta">of 8 available</div></div>
+          <div class="kpi"><div class="kpi-label">Checking Out Today</div><div class="kpi-val">1</div><div class="kpi-meta">Anna & Maria</div></div>
+          <div class="kpi"><div class="kpi-label">Arriving Today</div><div class="kpi-val green">2</div><div class="kpi-meta">Jake & Rhi · David P.</div></div>
+        </div>
+        <div class="table-wrap">
+          <div class="table-header">
+            <div class="table-title">Current Guests</div>
+            <div class="table-count">7 guests · 5 rooms</div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Guest</th><th>Room</th><th>Package</th><th>Level</th><th>Day</th><th>Coach</th><th>Check-Out</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Yuki T.</strong></td><td>Garden Room 2</td><td>Surf & Stay</td><td><span class="badge badge-beg">Beginner</span></td><td>Day 4 of 5</td><td>Marco</td><td>Jun 12</td><td><div class="btn-row"><button class="act-btn">Profile</button><button class="act-btn">Log Note</button></div></td></tr>
+              <tr><td><strong>Anna & Maria</strong></td><td>Surf Dorm</td><td>Weekend Warrior</td><td><span class="badge badge-beg">Beginner</span></td><td>Day 3 of 3</td><td>Lena</td><td>Jun 10 ← Today</td><td><div class="btn-row"><button class="act-btn primary">Check Out</button></div></td></tr>
+              <tr><td><strong>Carlos V.</strong></td><td>Loft Suite</td><td>Immersion</td><td><span class="badge badge-adv">Advanced</span></td><td>Day 8 of 10</td><td>Diego</td><td>Jun 13</td><td><div class="btn-row"><button class="act-btn">Profile</button><button class="act-btn">Log Note</button></div></td></tr>
+              <tr><td><strong>Nico F.</strong></td><td>Ocean Cabana 1</td><td>Surf & Stay</td><td><span class="badge badge-int">Intermediate</span></td><td>Day 2 of 5</td><td>Diego</td><td>Jun 15</td><td><div class="btn-row"><button class="act-btn">Profile</button><button class="act-btn">Log Note</button></div></td></tr>
+              <tr><td><strong>Priya M.</strong></td><td>Garden Room 1</td><td>Day Tripper ×2</td><td><span class="badge badge-beg">Beginner</span></td><td>Day 1 of 2</td><td>Lena</td><td>Jun 11</td><td><div class="btn-row"><button class="act-btn">Profile</button><button class="act-btn">Log Note</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── LESSON SCHEDULE ── -->
+      <div class="tab-pane" id="tab-schedule">
+        <div class="page-header">
+          <div class="page-title">Lesson Schedule</div>
+          <div class="page-sub">Today's sessions + upcoming program — all times local (PHT)</div>
+        </div>
+        <div class="schedule-day">
+          <div class="schedule-label">Tuesday, June 10 · Today</div>
+          <div class="session-cards">
+            <div class="session-card">
+              <div class="session-time">🌅 06:00 – 08:00 AM</div>
+              <div class="session-title">Advanced Boat Session</div>
+              <div class="session-coach">Coach Diego</div>
+              <div class="session-pax"><strong>Guests:</strong> Carlos V., Nico F.</div>
+              <div class="session-break">📍 Cloud 9 Reef Break · Boat Transfer 05:45</div>
+            </div>
+            <div class="session-card">
+              <div class="session-time">🌅 07:00 – 09:00 AM</div>
+              <div class="session-title">Beginner Group — Women</div>
+              <div class="session-coach">Coach Lena</div>
+              <div class="session-pax"><strong>Guests:</strong> Yuki T., Anna, Maria, Priya M.</div>
+              <div class="session-break">📍 General Luna Beach · Whitewater</div>
+            </div>
+            <div class="session-card">
+              <div class="session-time">☀️ 04:00 – 06:00 PM</div>
+              <div class="session-title">Intermediate Afternoon</div>
+              <div class="session-coach">Coach Marco</div>
+              <div class="session-pax"><strong>Guests:</strong> Nico F., Carlos V.</div>
+              <div class="session-break">📍 Pacifico — Fun Reef · Tricycle 15:45</div>
+            </div>
+            <div class="session-card">
+              <div class="session-time">☀️ 04:30 – 06:00 PM</div>
+              <div class="session-title">Beginner Group — Afternoon</div>
+              <div class="session-coach">Coach Lena</div>
+              <div class="session-pax"><strong>Guests:</strong> Yuki T., Priya M.</div>
+              <div class="session-break">📍 General Luna Beach · Longboard Reef</div>
+            </div>
+            <div class="session-card">
+              <div class="session-time">🌙 06:30 PM</div>
+              <div class="session-title">Video Review Session</div>
+              <div class="session-coach">All Coaches</div>
+              <div class="session-pax"><strong>All in-house guests</strong></div>
+              <div class="session-break">📍 Camp Common Room</div>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-day">
+          <div class="schedule-label">Wednesday, June 11 · Tomorrow</div>
+          <div class="session-cards">
+            <div class="session-card">
+              <div class="session-time">🌅 06:00 – 08:00 AM</div>
+              <div class="session-title">Advanced Dawn Patrol</div>
+              <div class="session-coach">Coach Diego</div>
+              <div class="session-pax"><strong>Guests:</strong> Carlos V., Nico F. + arrivals TBC</div>
+              <div class="session-break">📍 Cloud 9 · Boat Session</div>
+            </div>
+            <div class="session-card">
+              <div class="session-time">🌅 07:00 – 09:30 AM</div>
+              <div class="session-title">Beginner Assessment — New Arrivals</div>
+              <div class="session-coach">Coach Marco + Lena</div>
+              <div class="session-pax"><strong>Arriving today:</strong> Jake, Rhi, David P. group</div>
+              <div class="session-break">📍 General Luna Beach · Softboards</div>
+            </div>
+            <div class="session-card">
+              <div class="session-time">☀️ 04:00 – 06:00 PM</div>
+              <div class="session-title">Intermediate Group</div>
+              <div class="session-coach">Coach Diego</div>
+              <div class="session-pax"><strong>Guests:</strong> Nico F. + new confirmations</div>
+              <div class="session-break">📍 TBC — swell dependent</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── REVENUE ── -->
+      <div class="tab-pane" id="tab-revenue">
+        <div class="page-header">
+          <div class="page-title">Revenue Overview</div>
+          <div class="page-sub">Month-to-date financials and package breakdown</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">MTD Revenue</div><div class="kpi-val coral">₱186K</div><div class="kpi-meta">Jun 1–10, 2026</div></div>
+          <div class="kpi"><div class="kpi-label">June Target</div><div class="kpi-val">₱380K</div><div class="kpi-meta">49% attained</div></div>
+          <div class="kpi"><div class="kpi-label">Occupancy Rate</div><div class="kpi-val green">63%</div><div class="kpi-meta">5 of 8 rooms</div></div>
+          <div class="kpi"><div class="kpi-label">vs May (same period)</div><div class="kpi-val ocean">+14%</div><div class="kpi-meta">₱163K prior year</div></div>
+        </div>
+
+        <div class="rev-section">
+          <h3>Package Revenue Breakdown — June MTD</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Package</th><th>Bookings</th><th>Guests</th><th>Revenue</th><th>% of Total</th></tr></thead>
+              <tbody>
+                <tr><td>Immersion (10 Days)</td><td>2</td><td>2</td><td>₱56,000</td><td>30%</td></tr>
+                <tr><td>Surf & Stay (5 Days)</td><td>4</td><td>5</td><td>₱75,000</td><td>40%</td></tr>
+                <tr><td>Weekend Warrior (3 Days)</td><td>3</td><td>6</td><td>₱39,000</td><td>21%</td></tr>
+                <tr><td>Day Tripper</td><td>8</td><td>12</td><td>₱18,000</td><td>10%</td></tr>
+                <tr><td><strong>TOTAL</strong></td><td><strong>17</strong></td><td><strong>25</strong></td><td><strong>₱188,000</strong></td><td><strong>100%</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="rev-section">
+          <h3>Room Occupancy — June MTD</h3>
+          <div style="background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:560px;">
+            <div class="occ-row"><div class="occ-name">Loft Suite</div><div class="occ-track"><div class="occ-fill" style="width:90%;background:var(--coral)"></div></div><div class="occ-pct">90%</div></div>
+            <div class="occ-row"><div class="occ-name">Ocean Cabana 1</div><div class="occ-track"><div class="occ-fill" style="width:80%;background:var(--coral)"></div></div><div class="occ-pct">80%</div></div>
+            <div class="occ-row"><div class="occ-name">Ocean Cabana 2</div><div class="occ-track"><div class="occ-fill" style="width:50%;background:var(--ocean)"></div></div><div class="occ-pct">50%</div></div>
+            <div class="occ-row"><div class="occ-name">Garden Room 1</div><div class="occ-track"><div class="occ-fill" style="width:70%;background:var(--ocean)"></div></div><div class="occ-pct">70%</div></div>
+            <div class="occ-row"><div class="occ-name">Garden Room 2</div><div class="occ-track"><div class="occ-fill" style="width:60%;background:var(--ocean)"></div></div><div class="occ-pct">60%</div></div>
+            <div class="occ-row"><div class="occ-name">Surf Dorm (6 beds)</div><div class="occ-track"><div class="occ-fill" style="width:45%;background:var(--gold)"></div></div><div class="occ-pct">45%</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PRICING ── -->
+      <div class="tab-pane" id="tab-prices">
+        <div class="page-header">
+          <div class="page-title">Pricing</div>
+          <div class="page-sub">Edit package and room rates · Updates reflected on public site after publish</div>
+        </div>
+        <div class="price-editor">
+          <div style="font-weight:700;font-size:0.92rem;margin-bottom:6px;">Package Rates (₱ / person)</div>
+          <div style="font-size:0.8rem;color:var(--text2);margin-bottom:18px;">Prices shown to guests on public booking form</div>
+          <div class="price-row">
+            <div class="price-field">
+              <label>Day Tripper</label>
+              <input type="number" id="p1" value="1500">
+            </div>
+            <div class="price-field">
+              <label>Weekend Warrior (3D)</label>
+              <input type="number" id="p2" value="6500">
+            </div>
+          </div>
+          <div class="price-row">
+            <div class="price-field">
+              <label>Surf & Stay (5D)</label>
+              <input type="number" id="p3" value="15000">
+            </div>
+            <div class="price-field">
+              <label>Immersion (10D)</label>
+              <input type="number" id="p4" value="28000">
+            </div>
+          </div>
+          <div style="font-weight:700;font-size:0.92rem;margin-bottom:6px;margin-top:20px;">Room Rates (₱ / night)</div>
+          <div class="price-row">
+            <div class="price-field">
+              <label>Surf Dorm (per bed)</label>
+              <input type="number" id="r1" value="800">
+            </div>
+            <div class="price-field">
+              <label>Garden Room</label>
+              <input type="number" id="r2" value="2500">
+            </div>
+          </div>
+          <div class="price-row">
+            <div class="price-field">
+              <label>Ocean Cabana</label>
+              <input type="number" id="r3" value="4500">
+            </div>
+            <div class="price-field">
+              <label>Loft Suite</label>
+              <input type="number" id="r4" value="7500">
+            </div>
+          </div>
+          <div class="price-note">Changes apply to future bookings only. Already-confirmed reservations retain their quoted rate. Last updated: <span id="priceTime">—</span></div>
+          <div style="display:flex;align-items:center;">
+            <button class="act-btn primary" onclick="savePrice()">Publish Price Update</button>
+            <span id="priceSaved">✓ Published</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ROOM STATUS ── -->
+      <div class="tab-pane" id="tab-rooms">
+        <div class="page-header">
+          <div class="page-title">Room Status</div>
+          <div class="page-sub">Current occupancy and housekeeping flags</div>
+        </div>
+        <div id="roomGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;"></div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /body-row -->
+</div><!-- /app -->
+
+<!-- SIM STRIP -->
+<div class="sim-strip">AURORA DIGITAL FOUNDRY — OPERATOR SUITE SIMULATOR · All data is mock · No live backend connected</div>
+
+<script>
+  const ACCESS = 'alon2026';
+  const SK = 'alon_auth';
+
+  function unlock() {
+    const v = document.getElementById('pwInput').value;
+    if (v === ACCESS) {
+      sessionStorage.setItem(SK, '1');
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      startClock();
+      buildRooms();
+    } else {
+      const e = document.getElementById('gateErr');
+      e.style.display = 'block';
+      setTimeout(() => e.style.display = 'none', 3000);
+    }
+  }
+
+  function signOut() {
+    sessionStorage.removeItem(SK);
+    location.reload();
+  }
+
+  // Auto-unlock if session exists
+  if (sessionStorage.getItem(SK)) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').classList.add('visible');
+    startClock();
+    buildRooms();
+  }
+
+  function startClock() {
+    function tick() {
+      document.getElementById('clock').textContent =
+        new Date().toLocaleTimeString('en-PH', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    }
+    tick(); setInterval(tick, 1000);
+  }
+
+  // Tab navigation
+  function showTab(name, el) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    el.classList.add('active');
+    if (name === 'reservations') document.getElementById('newBadge').style.display = '';
+  }
+
+  // Pricing save
+  function savePrice() {
+    document.getElementById('priceTime').textContent =
+      new Date().toLocaleTimeString('en-PH', { hour:'2-digit', minute:'2-digit' });
+    const s = document.getElementById('priceSaved');
+    s.style.display = 'inline';
+    setTimeout(() => s.style.display = 'none', 4000);
+  }
+
+  // Room builder
+  const ROOMS = [
+    { name:'Loft Suite', type:'Suite · Ocean View', guest:'Carlos V.', status:'occupied', checkout:'Jun 13', rate:'₱7,500' },
+    { name:'Ocean Cabana 1', type:'Beachfront Cabana', guest:'Nico F.', status:'occupied', checkout:'Jun 15', rate:'₱4,500' },
+    { name:'Ocean Cabana 2', type:'Beachfront Cabana', guest:'—', status:'available', checkout:'—', rate:'₱4,500' },
+    { name:'Garden Room 1', type:'Private Room', guest:'Priya M.', status:'occupied', checkout:'Jun 11', rate:'₱2,500' },
+    { name:'Garden Room 2', type:'Private Room', guest:'Yuki T.', status:'occupied', checkout:'Jun 12', rate:'₱2,500' },
+    { name:'Garden Room 3', type:'Private Room', guest:'—', status:'cleaning', checkout:'—', rate:'₱2,500' },
+    { name:'Surf Dorm A', type:'Dormitory (6 beds)', guest:'Anna, Maria + 1', status:'occupied', checkout:'Jun 10', rate:'₱800/bed' },
+    { name:'Surf Dorm B', type:'Dormitory (6 beds)', guest:'2 of 6 beds', status:'partial', checkout:'—', rate:'₱800/bed' },
+  ];
+  const STATUS_COLORS = {
+    occupied: { bg:'rgba(249,97,74,0.1)', border:'rgba(249,97,74,0.3)', label:'Occupied', color:'var(--coral)' },
+    available: { bg:'rgba(34,197,94,0.08)', border:'rgba(34,197,94,0.24)', label:'Available', color:'var(--green)' },
+    cleaning: { bg:'rgba(240,185,66,0.1)', border:'rgba(240,185,66,0.28)', label:'Cleaning', color:'var(--gold)' },
+    partial: { bg:'rgba(14,165,233,0.08)', border:'rgba(14,165,233,0.24)', label:'Partial', color:'var(--ocean)' },
+  };
+
+  function buildRooms() {
+    const grid = document.getElementById('roomGrid');
+    grid.innerHTML = ROOMS.map((r,i) => {
+      const s = STATUS_COLORS[r.status];
+      return `<div style="background:var(--mid);border:1px solid ${s.border};border-radius:8px;padding:20px;">
+        <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;color:${s.color};text-transform:uppercase;margin-bottom:6px;">${s.label}</div>
+        <div style="font-weight:700;font-size:0.95rem;margin-bottom:3px;">${r.name}</div>
+        <div style="font-size:0.75rem;color:var(--text2);margin-bottom:12px;">${r.type}</div>
+        <div style="font-size:0.82rem;color:var(--text);margin-bottom:4px;"><strong>Guest:</strong> ${r.guest}</div>
+        <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px;"><strong>Check-out:</strong> ${r.checkout}</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--coral);border-top:1px solid var(--border);padding-top:10px;">${r.rate}</div>
+      </div>`;
+    }).join('');
+  }
+</script>
+</body>
+</html>
