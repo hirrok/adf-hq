@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ForgeHaus Fitness — Baler, Aurora Province</title>
+<title>ForgeHaus Fitness Gym — Baler, Aurora Province | Coaching-Led Training</title>
+<meta name="description" content="ForgeHaus Fitness is a coaching-led gym in Baler, Aurora Province. Every member gets a dedicated coach, a structured program, and a community. Free body assessment — no commitment required."/>
+<meta name="keywords" content="gym Baler Aurora Province, fitness gym Aurora Philippines, coaching gym Baler, strength training Baler Aurora, body composition gym Aurora Province, ForgeHaus Fitness"/>
+<meta property="og:title" content="ForgeHaus Fitness Gym — Baler, Aurora Province"/>
+<meta property="og:description" content="Coaching-led fitness gym in Baler, Aurora Province. Dedicated coaches, structured programs, real results. Book a free body assessment today."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://hirrok.github.io/adf-hq/simulators/community-gym/"/>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -11,6 +17,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
+:root{
+  --c-bg:#070709;--c-card:#0D0D12;--c-elev:#14141A;--c-hover:#1C1C26;
+  --c-border:rgba(255,255,255,0.07);--c-borderBright:rgba(255,255,255,0.18);
+  --c-text:#F0F0F5;--c-text2:rgba(240,240,245,0.62);--c-text3:rgba(240,240,245,0.35);
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#070709;color:#F0F0F5;font-family:'Inter',system-ui,sans-serif;min-height:100%}
 input,textarea,select{background:#14141A;border:1px solid #1E1E28;border-radius:8px;padding:10px 14px;color:#F0F0F5;font-size:14px;width:100%;outline:none;font-family:'Inter',system-ui,sans-serif}
@@ -200,7 +211,7 @@ function NavBar({page,goTo,adminMode,setAdminMode,setAdminGate}){
         </div>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
           <button className="fh-nav-cta" style={{...btn(),fontSize:13,padding:'8px 14px'}} onClick={()=>goTo('join')}>Book Assessment</button>
-          <button onClick={()=>setAdminGate(true)} style={{fontFamily:'monospace',fontSize:'0.62rem',letterSpacing:'0.1em',textTransform:'uppercase',background:'none',border:'1px solid rgba(0,0,0,0.15)',borderRadius:4,padding:'6px 10px',cursor:'pointer',color:'rgba(0,0,0,0.28)',transition:'0.2s'}} title="Operator Access">⚙ Operator</button>
+          <button onClick={()=>setAdminGate(true)} style={{fontFamily:'monospace',fontSize:'0.62rem',letterSpacing:'0.1em',textTransform:'uppercase',background:'none',border:'1px solid rgba(255,255,255,0.18)',borderRadius:4,padding:'6px 10px',cursor:'pointer',color:'rgba(255,255,255,0.42)',transition:'0.2s'}} title="Operator Access">⚙ Operator</button>
           <button className="fh-ham" onClick={menuOpen?closeMenu:openMenu} aria-label="Menu">
             <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',transform:menuOpen?'translateY(7px) rotate(45deg)':'none'}}></span>
             <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',opacity:menuOpen?0:1}}></span>
@@ -209,7 +220,7 @@ function NavBar({page,goTo,adminMode,setAdminMode,setAdminGate}){
         </div>
       </nav>
       {menuOpen&&(
-        <div style={{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:9999,background:'#F2EEE6',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:4,padding:'80px 24px 40px'}}>
+        <div style={{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:9999,background:'#070709',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:4,padding:'80px 24px 40px'}}>
           <button onClick={closeMenu} style={{position:'absolute',top:16,right:16,background:'none',border:'none',cursor:'pointer',fontSize:28,color:C.text2,width:44,height:44,display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
           {links.map(([p,l])=>(
             <div key={p} onClick={()=>{goTo(p);closeMenu();}} style={{cursor:'pointer',fontSize:'1.4rem',fontWeight:700,color:C.text,padding:'12px 0',width:'100%',textAlign:'center',borderBottom:`1px solid ${C.border}`}}>{l}</div>
@@ -471,10 +482,10 @@ function AboutPage({goTo}){
           <p style={{color:C.text2,fontSize:14,lineHeight:1.8}}>So we built it. A coaching-led gym where every member gets a dedicated coach, a structured program, and a community that holds them accountable. No confusion. No guesswork. Just training that works.</p>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:14}}>
-          {[['Location','4F Noli Rose Bldg, 474 J.P. Laurel Hwy\nPoblacion, Baler, Aurora Province 4233'],
+          {[['Location','3F Pacific Mall, National Highway\nBaler, Aurora Province 3200'],
             ['Hours','Monday–Sunday · 8:00 AM – 10:00 PM'],
             ['Contact','+63 956 700 7785'],
-            ['Social','Facebook & Instagram: @irontribefitnessgym'],
+            ['Social','Facebook & Instagram: @forgehausfitness'],
           ].map(([label,value])=>(
             <div key={label}>
               <div style={{fontWeight:600,fontSize:13,marginBottom:2}}>{label}</div>
@@ -509,10 +520,10 @@ function ContactPage(){
       <h1 style={h1s}>Contact</h1>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:28}}>
         <div>
-          {[['Visit Us','4F Noli Rose Bldg, 474 J.P. Laurel Highway\nPoblacion, Baler, Aurora Province 4233'],
+          {[['Visit Us','3F Pacific Mall, National Highway\nBaler, Aurora Province 3200'],
             ['Call or Text','+63 956 700 7785\nAvailable during business hours'],
             ['Business Hours','Monday – Sunday\n8:00 AM – 10:00 PM daily'],
-            ['Social Media','Facebook: Iron-Tribe Fitness Gym\nInstagram: @irontribefitnessgym'],
+            ['Social Media','Facebook: ForgeHaus Fitness\nInstagram: @forgehausfitness'],
           ].map(([label,value])=>(
             <div key={label} style={{marginBottom:20}}>
               <div style={{fontWeight:600,marginBottom:4,fontSize:13}}>{label}</div>
