@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IronCrest Works — Operator Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #0B0D0F;
+      --mid:     #14181C;
+      --surface: #1C2128;
+      --border:  rgba(255,255,255,0.08);
+      --text:    rgba(240,237,230,0.5);
+      --white:   #F0EDE8;
+      --amber:   #E8A020;
+      --amber2:  #F5B942;
+      --green:   #2ECC71;
+      --red:     #E85A20;
+      --blue:    #4A9EF5;
+      --mono:    'JetBrains Mono', monospace;
+      --sans:    'Inter', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; }
+
+    /* ─── GATE ─── */
+    #gate {
+      position: fixed; inset: 0; background: var(--black); z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gate-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 16px;
+      padding: 48px 52px; width: 360px; text-align: center;
+    }
+    .gate-logo {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: var(--amber); display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.9rem; color: var(--black); margin: 0 auto 20px;
+    }
+    .gate-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .gate-sub { font-size: 0.8rem; color: var(--text); margin-bottom: 28px; }
+    .gate-input {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); font-family: var(--sans); font-size: 0.9rem;
+      padding: 12px 16px; border-radius: 8px; outline: none;
+      text-align: center; letter-spacing: 0.1em; margin-bottom: 14px;
+      transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: rgba(232,160,32,0.5); }
+    .gate-btn {
+      width: 100%; background: var(--amber); color: var(--black);
+      font-weight: 700; font-size: 0.88rem; padding: 13px; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.18s;
+    }
+    .gate-btn:hover { background: var(--amber2); }
+    .gate-err { font-size: 0.75rem; color: var(--red); margin-top: 10px; min-height: 18px; }
+
+    /* ─── APP SHELL ─── */
+    #app { display: none; height: 100vh; overflow: hidden; flex-direction: column; }
+    #app.visible { display: flex; }
+
+    /* TOP BAR */
+    .topbar {
+      height: 52px; background: var(--mid); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 16px; flex-shrink: 0;
+    }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; }
+    .topbar-mark { width: 30px; height: 30px; border-radius: 5px; background: var(--amber); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; color: var(--black); }
+    .topbar-name { font-weight: 700; font-size: 0.88rem; }
+    .topbar-name span { color: var(--amber); }
+    .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+    .topbar-badge { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .health-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .health-dot.green { background: var(--green); box-shadow: 0 0 6px rgba(46,204,113,0.5); }
+    .health-dot.amber { background: var(--amber); box-shadow: 0 0 6px rgba(232,160,32,0.5); }
+    .health-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+    .topbar-user { font-size: 0.78rem; color: var(--text); }
+    .topbar-back { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); border: 1px solid var(--border); padding: 5px 12px; border-radius: 4px; text-decoration: none; transition: color 0.15s; }
+    .topbar-back:hover { color: var(--white); }
+
+    /* MAIN LAYOUT */
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 200px; background: var(--mid); border-right: 1px solid var(--border);
+      flex-shrink: 0; display: flex; flex-direction: column; padding: 16px 0;
+    }
+    .sidebar-section { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); padding: 0 16px 8px; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px; font-size: 0.82rem; cursor: pointer;
+      color: var(--text); transition: all 0.15s; border-left: 2px solid transparent;
+    }
+    .sidebar-item:hover { color: var(--white); background: rgba(255,255,255,0.03); }
+    .sidebar-item.active { color: var(--white); background: rgba(232,160,32,0.08); border-left-color: var(--amber); }
+    .sidebar-icon { font-size: 0.9rem; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .sidebar-bottom { margin-top: auto; padding: 0 16px; }
+    .sidebar-footer-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+
+    /* MAIN CONTENT */
+    .main { flex: 1; overflow-y: auto; padding: 28px 32px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* PANEL HEADER */
+    .panel-header { margin-bottom: 28px; }
+    .panel-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+    .panel-sub { font-size: 0.82rem; color: var(--text); margin-top: 4px; }
+    .panel-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .pabtn {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 4px; cursor: pointer; border: 1px solid var(--border);
+      background: transparent; color: var(--text); transition: all 0.15s;
+    }
+    .pabtn:hover { border-color: rgba(232,160,32,0.4); color: var(--amber); }
+    .pabtn.primary { background: var(--amber); color: var(--black); border-color: var(--amber); }
+    .pabtn.primary:hover { background: var(--amber2); border-color: var(--amber2); }
+
+    /* KPI GRID */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+    .kpi-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; position: relative; }
+    .kpi-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 10px; }
+    .kpi-val { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .kpi-sub { font-size: 0.72rem; color: var(--text); margin-top: 6px; }
+    .kpi-delta { position: absolute; top: 14px; right: 14px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2); padding: 2px 8px; border-radius: 3px; }
+    .kpi-delta.amber { color: var(--amber); background: rgba(232,160,32,0.1); border-color: rgba(232,160,32,0.2); }
+
+    /* GRID 2/3 SPLIT */
+    .split-grid { display: grid; grid-template-columns: 1fr 340px; gap: 16px; }
+    .split-grid.rev { grid-template-columns: 1fr 1fr; }
+
+    /* CARD WIDGET */
+    .widget { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .widget-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .widget-title { font-size: 0.84rem; font-weight: 600; }
+    .widget-count { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; color: var(--text); }
+    .widget-body { padding: 0; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; }
+    th { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+    td { font-size: 0.82rem; padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(240,237,230,0.85); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* BADGES */
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+    .badge.new { color: var(--blue); background: rgba(74,158,245,0.12); border: 1px solid rgba(74,158,245,0.2); }
+    .badge.quoted { color: var(--amber); background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2); }
+    .badge.active { color: var(--green); background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2); }
+    .badge.done { color: var(--text); background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+    .badge.overdue { color: var(--red); background: rgba(232,90,32,0.1); border: 1px solid rgba(232,90,32,0.2); }
+    .badge.pending { color: var(--amber); background: rgba(232,160,32,0.08); border: 1px solid rgba(232,160,32,0.15); }
+
+    /* JOB STATUS DOTS */
+    .job-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .job-dot.active { background: var(--green); }
+    .job-dot.pending { background: var(--amber); }
+    .job-dot.done { background: var(--text); }
+
+    /* PROGRESS BAR */
+    .prog-bar { height: 5px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+    .prog-fill { height: 100%; border-radius: 3px; background: var(--amber); }
+    .prog-fill.green { background: var(--green); }
+
+    /* MINI STAT ROW */
+    .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .mini-stat { background: var(--mid); padding: 16px; text-align: center; }
+    .mini-stat-val { font-size: 1.2rem; font-weight: 800; color: var(--amber); }
+    .mini-stat-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-top: 3px; }
+
+    /* ACTIVITY FEED */
+    .activity-list { padding: 4px 0; }
+    .activity-item { display: flex; gap: 12px; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 5px; }
+    .activity-dot.green { background: var(--green); }
+    .activity-dot.blue { background: var(--blue); }
+    .activity-text { font-size: 0.8rem; color: rgba(240,237,230,0.8); line-height: 1.5; }
+    .activity-time { font-family: var(--mono); font-size: 0.58rem; color: var(--text); margin-top: 2px; }
+
+    /* QUOTE PIPELINE DETAIL */
+    .pipeline-item { display: flex; align-items: center; gap: 14px; padding: 13px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .pipeline-item:last-child { border-bottom: none; }
+    .pipeline-info { flex: 1; }
+    .pipeline-name { font-size: 0.84rem; font-weight: 600; margin-bottom: 2px; }
+    .pipeline-meta { font-size: 0.74rem; color: var(--text); }
+    .pipeline-amount { font-size: 0.88rem; font-weight: 700; color: var(--amber); text-align: right; }
+    .pipeline-amt-label { font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; color: var(--text); margin-top: 2px; text-align: right; }
+
+    /* CALENDAR ITEM */
+    .cal-item { display: flex; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: flex-start; }
+    .cal-item:last-child { border-bottom: none; }
+    .cal-date { background: var(--surface); border-radius: 6px; padding: 8px 10px; text-align: center; flex-shrink: 0; min-width: 46px; }
+    .cal-day { font-size: 1.1rem; font-weight: 800; color: var(--amber); line-height: 1; }
+    .cal-month { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+    .cal-info { flex: 1; }
+    .cal-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 2px; }
+    .cal-desc { font-size: 0.74rem; color: var(--text); }
+
+    /* REVENUE CHART PLACEHOLDER */
+    .rev-chart { padding: 24px 18px; }
+    .rev-bars { display: flex; align-items: flex-end; gap: 6px; height: 100px; margin-bottom: 8px; }
+    .rev-bar { flex: 1; border-radius: 3px 3px 0 0; background: rgba(232,160,32,0.2); transition: background 0.2s; position: relative; }
+    .rev-bar.filled { background: var(--amber); }
+    .rev-bar:hover { background: var(--amber2); }
+    .rev-labels { display: flex; gap: 6px; }
+    .rev-lbl { flex: 1; font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); text-align: center; }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- ─── GATE ──────────────────────────────────────────────────── -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">IC</div>
+    <div class="gate-title">IronCrest Operator Suite</div>
+    <div class="gate-sub">Enter your operator passphrase to continue</div>
+    <input class="gate-input" type="password" id="gate-input" placeholder="••••••••••" autocomplete="off"/>
+    <button class="gate-btn" onclick="unlock()">Access Dashboard</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
+
+<!-- ─── APP ───────────────────────────────────────────────────── -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-mark">IC</div>
+      <div class="topbar-name">IronCrest <span>Works</span></div>
+    </div>
+    <div class="topbar-sep"></div>
+    <span class="topbar-badge">Operator Suite · Batangas</span>
+    <div class="topbar-right">
+      <div class="health-dot green" id="health-dot"></div>
+      <span class="health-label" id="health-label">Systems Nominal</span>
+      <span class="topbar-user">Ely Dizon · Foreman</span>
+      <a href="index.html" class="topbar-back">← Site</a>
+    </div>
+  </div>
+
+  <div class="app-body">
+    <nav class="sidebar">
+      <div class="sidebar-section">Operations</div>
+      <div class="sidebar-item active" data-panel="dashboard"><span class="sidebar-icon">📊</span> Dashboard</div>
+      <div class="sidebar-item" data-panel="jobs"><span class="sidebar-icon">🏗️</span> Active Jobs</div>
+      <div class="sidebar-item" data-panel="pipeline"><span class="sidebar-icon">📋</span> Quote Pipeline</div>
+      <div class="sidebar-item" data-panel="schedule"><span class="sidebar-icon">📅</span> Schedule</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Revenue</div>
+      <div class="sidebar-item" data-panel="revenue"><span class="sidebar-icon">₱</span> Revenue</div>
+      <div class="sidebar-item" data-panel="leads"><span class="sidebar-icon">👤</span> New Leads</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Tools</div>
+      <div class="sidebar-item" data-panel="crew"><span class="sidebar-icon">👷</span> Crew</div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-footer-label">ADF Operator Suite v1</div>
+      </div>
+    </nav>
+
+    <main class="main">
+
+      <!-- ─ DASHBOARD ─ -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="panel-header">
+          <div class="panel-title">Operations HUD</div>
+          <div class="panel-sub">Real-time overview — updated June 2026</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Active Jobs</div>
+            <div class="kpi-val" style="color:var(--amber)">7</div>
+            <div class="kpi-sub">3 Residential · 2 Commercial · 2 Emergency</div>
+            <span class="kpi-delta">+2 vs last mo.</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Monthly Revenue</div>
+            <div class="kpi-val" style="color:var(--green)">₱312K</div>
+            <div class="kpi-sub">Invoiced this month · ₱224K collected</div>
+            <span class="kpi-delta">+18%</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Quote Pipeline</div>
+            <div class="kpi-val" style="color:var(--white)">₱740K</div>
+            <div class="kpi-sub">9 active quotes · 2 awaiting site visit</div>
+            <span class="kpi-delta amber">3 expiring</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">New Leads (7 days)</div>
+            <div class="kpi-val" style="color:var(--blue)">11</div>
+            <div class="kpi-sub">6 website · 3 referral · 2 walk-in</div>
+            <span class="kpi-delta">+4 vs last wk.</span>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div>
+            <div class="widget">
+              <div class="widget-head">
+                <span class="widget-title">Active Jobs — Status</span>
+                <span class="widget-count">7 jobs running</span>
+              </div>
+              <div class="widget-body">
+                <table>
+                  <thead>
+                    <tr><th>Job</th><th>Client</th><th>Trade</th><th>Progress</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="job-dot active"></span>Santos Residence Full Reno</td>
+                      <td>M. Santos · Lipa</td>
+                      <td>General</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill" style="width:72%"></div></div></td>
+                      <td><span class="badge active">On Track</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Reyes Commercial Fit-Out</td>
+                      <td>J. Reyes · Bat. City</td>
+                      <td>Multi-trade</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill green" style="width:90%"></div></div></td>
+                      <td><span class="badge active">Finishing</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Luna Building Rewire</td>
+                      <td>B. Luna · Sto. Tomas</td>
+                      <td>Electrical</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill" style="width:45%"></div></div></td>
+                      <td><span class="badge active">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Cruz Extension Build</td>
+                      <td>B. Cruz · Tanauan</td>
+                      <td>General + Steel</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill" style="width:30%"></div></div></td>
+                      <td><span class="badge active">Foundation</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot pending"></span>Dela Torre Water System</td>
+                      <td>R. Dela Torre · Malvar</td>
+                      <td>Plumbing</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill" style="width:20%"></div></div></td>
+                      <td><span class="badge pending">Awaiting Parts</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Macasaet Gate & Fence</td>
+                      <td>B. Macasaet · Lipa</td>
+                      <td>Steel & Welding</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill green" style="width:85%"></div></div></td>
+                      <td><span class="badge active">Near Done</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Villanueva Aircon Install</td>
+                      <td>E. Villanueva · Ibaan</td>
+                      <td>Mechanical</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill green" style="width:95%"></div></div></td>
+                      <td><span class="badge active">Punch List</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="widget" style="margin-bottom:16px;">
+              <div class="widget-head"><span class="widget-title">Today's Activity</span></div>
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-dot green"></div>
+                  <div>
+                    <div class="activity-text">Reyes fit-out: 90% milestone signed off by client.</div>
+                    <div class="activity-time">09:14 AM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot blue"></div>
+                  <div>
+                    <div class="activity-text">New lead: Peralta residence renovation inquiry from website.</div>
+                    <div class="activity-time">10:32 AM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot"></div>
+                  <div>
+                    <div class="activity-text">Invoice #2024-031 sent to M. Santos — ₱45,000.</div>
+                    <div class="activity-time">11:00 AM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot"></div>
+                  <div>
+                    <div class="activity-text">Progress photos uploaded: Santos Residence Day 22.</div>
+                    <div class="activity-time">01:45 PM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot blue"></div>
+                  <div>
+                    <div class="activity-text">Site visit scheduled: Dela Cruz — New build, Nasugbu. Thu 2PM.</div>
+                    <div class="activity-time">03:08 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="widget">
+              <div class="widget-head"><span class="widget-title">June Revenue</span></div>
+              <div class="mini-stats">
+                <div class="mini-stat"><div class="mini-stat-val">₱312K</div><div class="mini-stat-label">Invoiced</div></div>
+                <div class="mini-stat"><div class="mini-stat-val">₱224K</div><div class="mini-stat-label">Collected</div></div>
+                <div class="mini-stat"><div class="mini-stat-val">₱88K</div><div class="mini-stat-label">Outstanding</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ JOBS ─ -->
+      <div class="panel" id="panel-jobs">
+        <div class="panel-header">
+          <div class="panel-title">Active Jobs</div>
+          <div class="panel-sub">7 jobs in progress across Batangas Province</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Job</button>
+            <button class="pabtn">Export</button>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-body">
+            <table>
+              <thead>
+                <tr><th>Job ID</th><th>Client</th><th>Location</th><th>Trade(s)</th><th>Start</th><th>Deadline</th><th>Value</th><th>Progress</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-001</td>
+                  <td>M. Santos</td>
+                  <td>Lipa City</td>
+                  <td>General Reno</td>
+                  <td style="color:var(--text);font-size:0.78rem">May 15</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 30</td>
+                  <td style="color:var(--amber);font-weight:700">₱185,000</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill" style="width:72%"></div></div></td>
+                  <td><span class="badge active">On Track</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-002</td>
+                  <td>J. Reyes</td>
+                  <td>Batangas City</td>
+                  <td>Multi-trade</td>
+                  <td style="color:var(--text);font-size:0.78rem">May 20</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 20</td>
+                  <td style="color:var(--amber);font-weight:700">₱94,000</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill green" style="width:90%"></div></div></td>
+                  <td><span class="badge active">Finishing</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-003</td>
+                  <td>B. Luna</td>
+                  <td>Sto. Tomas</td>
+                  <td>Electrical</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 1</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 22</td>
+                  <td style="color:var(--amber);font-weight:700">₱38,000</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill" style="width:45%"></div></div></td>
+                  <td><span class="badge active">In Progress</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-004</td>
+                  <td>B. Cruz</td>
+                  <td>Tanauan City</td>
+                  <td>General + Steel</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 5</td>
+                  <td style="color:var(--text);font-size:0.78rem">Aug 10</td>
+                  <td style="color:var(--amber);font-weight:700">₱420,000</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill" style="width:30%"></div></div></td>
+                  <td><span class="badge active">Foundation</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-005</td>
+                  <td>R. Dela Torre</td>
+                  <td>Malvar</td>
+                  <td>Plumbing</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 8</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 18</td>
+                  <td style="color:var(--amber);font-weight:700">₱22,000</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill" style="width:20%"></div></div></td>
+                  <td><span class="badge pending">Awaiting Parts</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-006</td>
+                  <td>B. Macasaet</td>
+                  <td>Lipa City</td>
+                  <td>Steel & Welding</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 2</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 12</td>
+                  <td style="color:var(--amber);font-weight:700">₱44,000</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill green" style="width:85%"></div></div></td>
+                  <td><span class="badge active">Near Done</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-007</td>
+                  <td>E. Villanueva</td>
+                  <td>Ibaan</td>
+                  <td>Aircon Install</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 9</td>
+                  <td style="color:var(--text);font-size:0.78rem">Jun 11</td>
+                  <td style="color:var(--amber);font-weight:700">₱9,500</td>
+                  <td><div class="prog-bar" style="width:90px"><div class="prog-fill green" style="width:95%"></div></div></td>
+                  <td><span class="badge active">Punch List</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ PIPELINE ─ -->
+      <div class="panel" id="panel-pipeline">
+        <div class="panel-header">
+          <div class="panel-title">Quote Pipeline</div>
+          <div class="panel-sub">₱740,000 in active quotes — 9 prospects</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Quote</button>
+            <button class="pabtn">Site Visits</button>
+          </div>
+        </div>
+        <div class="split-grid rev">
+          <div>
+            <div class="widget">
+              <div class="widget-head"><span class="widget-title">Active Quotes</span><span class="widget-count">9 open</span></div>
+              <div class="widget-body">
+                <div class="pipeline-item">
+                  <div><span class="badge quoted">Quoted</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Dela Cruz New Build — Nasugbu</div>
+                    <div class="pipeline-meta">General Construction · 3BR · Site visit Jun 12</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱280,000</div>
+                    <div class="pipeline-amt-label">Estimated</div>
+                  </div>
+                </div>
+                <div class="pipeline-item">
+                  <div><span class="badge new">New</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Peralta Residence Renovation</div>
+                    <div class="pipeline-meta">Kitchen + 2 bath reno · Website inquiry today</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱85,000</div>
+                    <div class="pipeline-amt-label">Est. Range</div>
+                  </div>
+                </div>
+                <div class="pipeline-item">
+                  <div><span class="badge quoted">Quoted</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Manalang Warehouse Electrical</div>
+                    <div class="pipeline-meta">Commercial · 3-phase installation · Quoted May 30</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱145,000</div>
+                    <div class="pipeline-amt-label">Fixed Quote</div>
+                  </div>
+                </div>
+                <div class="pipeline-item">
+                  <div><span class="badge overdue">Expiring</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Hermosa Villa Extension</div>
+                    <div class="pipeline-meta">2nd floor add-on · Quote valid until Jun 14</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱230,000</div>
+                    <div class="pipeline-amt-label">Fixed Quote</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="widget">
+              <div class="widget-head"><span class="widget-title">Pipeline Funnel</span></div>
+              <div style="padding:16px 18px;">
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Inquiry Received</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">11</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+                </div>
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Site Visit Done</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">9</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill" style="width:82%"></div></div>
+                </div>
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Quote Sent</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">7</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill" style="width:64%"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Contract Signed</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--green);">3</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill green" style="width:27%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ SCHEDULE ─ -->
+      <div class="panel" id="panel-schedule">
+        <div class="panel-header">
+          <div class="panel-title">Schedule</div>
+          <div class="panel-sub">Upcoming site visits, deadlines, and milestones</div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">June 2026 — Upcoming</span></div>
+          <div class="widget-body">
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">11</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Macasaet Gate & Fence — Final Walkthrough</div>
+                <div class="cal-desc">IC-2406-006 · Lipa City · Client acceptance and handover</div>
+              </div>
+              <span class="badge active">Today</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">12</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Site Visit — Dela Cruz New Build, Nasugbu</div>
+                <div class="cal-desc">Scope walk with client · 2:00 PM · Contact: 0912-XXX-XXXX</div>
+              </div>
+              <span class="badge quoted">Pending</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">14</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Hermosa Villa Quote Expiry</div>
+                <div class="cal-desc">Follow up or quote lapses — ₱230,000 at stake</div>
+              </div>
+              <span class="badge overdue">Urgent</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">18</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Dela Torre Plumbing — Completion Target</div>
+                <div class="cal-desc">IC-2406-005 · Pending PVC fittings from supplier</div>
+              </div>
+              <span class="badge pending">At Risk</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">22</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Luna Building Rewire — Phase 1 Complete</div>
+                <div class="cal-desc">IC-2406-003 · Milestone payment ₱19,000 due on sign-off</div>
+              </div>
+              <span class="badge active">On Track</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">30</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Santos Full Renovation — Target Completion</div>
+                <div class="cal-desc">IC-2406-001 · Final invoice ₱55,000 on handover · Client out of town Jul 1</div>
+              </div>
+              <span class="badge active">Committed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ REVENUE ─ -->
+      <div class="panel" id="panel-revenue">
+        <div class="panel-header">
+          <div class="panel-title">Revenue Tracker</div>
+          <div class="panel-sub">June 2026 — Batangas Province operations</div>
+        </div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="kpi-card">
+            <div class="kpi-label">Invoiced This Month</div>
+            <div class="kpi-val" style="color:var(--amber)">₱312,500</div>
+            <div class="kpi-sub">7 jobs · 12 invoices</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Collected</div>
+            <div class="kpi-val" style="color:var(--green)">₱224,000</div>
+            <div class="kpi-sub">72% collection rate</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Outstanding</div>
+            <div class="kpi-val" style="color:var(--white)">₱88,500</div>
+            <div class="kpi-sub">3 invoices unpaid — oldest 14 days</div>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Monthly Revenue — 6-Month Trend</span></div>
+          <div class="rev-chart">
+            <div class="rev-bars">
+              <div class="rev-bar filled" style="height:42%"></div>
+              <div class="rev-bar filled" style="height:55%"></div>
+              <div class="rev-bar filled" style="height:48%"></div>
+              <div class="rev-bar filled" style="height:70%"></div>
+              <div class="rev-bar filled" style="height:82%"></div>
+              <div class="rev-bar filled" style="height:100%"></div>
+            </div>
+            <div class="rev-labels">
+              <div class="rev-lbl">Jan</div>
+              <div class="rev-lbl">Feb</div>
+              <div class="rev-lbl">Mar</div>
+              <div class="rev-lbl">Apr</div>
+              <div class="rev-lbl">May</div>
+              <div class="rev-lbl" style="color:var(--amber)">Jun</div>
+            </div>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Outstanding Invoices</span><span class="widget-count">₱88,500</span></div>
+          <table>
+            <thead><tr><th>Invoice</th><th>Client</th><th>Service</th><th>Amount</th><th>Age</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">#2024-029</td>
+                <td>M. Santos</td><td>Reno Progress #3</td>
+                <td style="color:var(--amber);font-weight:700">₱45,000</td>
+                <td style="color:var(--text);font-size:0.78rem">4 days</td>
+                <td><span class="badge pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">#2024-027</td>
+                <td>B. Cruz</td><td>Foundation Milestone</td>
+                <td style="color:var(--amber);font-weight:700">₱28,000</td>
+                <td style="color:var(--text);font-size:0.78rem">10 days</td>
+                <td><span class="badge pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">#2024-024</td>
+                <td>W. Manalang</td><td>Deposit Invoice</td>
+                <td style="color:var(--amber);font-weight:700">₱15,500</td>
+                <td style="color:var(--text);font-size:0.78rem">14 days</td>
+                <td><span class="badge overdue">Follow Up</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ LEADS ─ -->
+      <div class="panel" id="panel-leads">
+        <div class="panel-header">
+          <div class="panel-title">New Leads</div>
+          <div class="panel-sub">11 leads received in the last 7 days</div>
+        </div>
+        <div class="widget">
+          <table>
+            <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Location</th><th>Source</th><th>Received</th><th>Stage</th></tr></thead>
+            <tbody>
+              <tr><td>Ana Peralta</td><td>0917-XXX-1122</td><td>Kitchen Reno</td><td>Lipa City</td><td style="color:var(--text);font-size:0.78rem">Website</td><td style="color:var(--text);font-size:0.78rem">Today</td><td><span class="badge new">New</span></td></tr>
+              <tr><td>Rodel Sy</td><td>0918-XXX-3344</td><td>Rewiring</td><td>Batangas City</td><td style="color:var(--text);font-size:0.78rem">Facebook</td><td style="color:var(--text);font-size:0.78rem">Yesterday</td><td><span class="badge new">New</span></td></tr>
+              <tr><td>Marivic Torres</td><td>0926-XXX-5566</td><td>Full Reno</td><td>Taal</td><td style="color:var(--text);font-size:0.78rem">Referral</td><td style="color:var(--text);font-size:0.78rem">Jun 9</td><td><span class="badge quoted">Contacted</span></td></tr>
+              <tr><td>Jun Bautista</td><td>0905-XXX-7788</td><td>Aircon x3</td><td>Malvar</td><td style="color:var(--text);font-size:0.78rem">Walk-in</td><td style="color:var(--text);font-size:0.78rem">Jun 9</td><td><span class="badge quoted">Quoted</span></td></tr>
+              <tr><td>Elma Dizon</td><td>0923-XXX-9900</td><td>Fence & Gate</td><td>Lipa City</td><td style="color:var(--text);font-size:0.78rem">Website</td><td style="color:var(--text);font-size:0.78rem">Jun 8</td><td><span class="badge quoted">Site Visit</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ CREW ─ -->
+      <div class="panel" id="panel-crew">
+        <div class="panel-header">
+          <div class="panel-title">Crew Management</div>
+          <div class="panel-sub">18 active tradespeople — 7 crews deployed</div>
+        </div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="kpi-card"><div class="kpi-label">Total Crew</div><div class="kpi-val" style="color:var(--amber)">18</div><div class="kpi-sub">All disciplines</div></div>
+          <div class="kpi-card"><div class="kpi-label">On-Site Today</div><div class="kpi-val" style="color:var(--green)">14</div><div class="kpi-sub">7 active job sites</div></div>
+          <div class="kpi-card"><div class="kpi-label">Available</div><div class="kpi-val" style="color:var(--white)">4</div><div class="kpi-sub">Ready for new jobs</div></div>
+          <div class="kpi-card"><div class="kpi-label">Licensed</div><div class="kpi-val" style="color:var(--blue)">6</div><div class="kpi-sub">PRC/PEC certified</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Key Tradespersons</span></div>
+          <table>
+            <thead><tr><th>Name</th><th>Specialty</th><th>License</th><th>Current Assignment</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Ely Dizon</td><td>Lead Foreman</td><td>PCAB / Safety L2</td><td>Santos Reno (IC-2406-001)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Mark Santos</td><td>Master Electrician</td><td>PRC / PEC</td><td>Luna Rewire (IC-2406-003)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Rico Cruz</td><td>Master Plumber</td><td>PRC Licensed</td><td>Dela Torre (IC-2406-005)</td><td><span class="badge pending">Parts Delay</span></td></tr>
+              <tr><td>Gerry Lim</td><td>Structural Mason</td><td>TESDA NC III</td><td>Cruz Extension (IC-2406-004)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Dennis Vera</td><td>Welder / Fabricator</td><td>TESDA SMAW NC II</td><td>Macasaet Gate (IC-2406-006)</td><td><span class="badge active">Near Done</span></td></tr>
+              <tr><td>Allan Ramos</td><td>Aircon Technician</td><td>PAREB Certified</td><td>Villanueva Aircon (IC-2406-007)</td><td><span class="badge active">Punch List</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  function unlock() {
+    const val = document.getElementById('gate-input').value.trim();
+    const err = document.getElementById('gate-err');
+    if (val === 'ironcrest2026') {
+      document.getElementById('gate').style.display = 'none';
+      const app = document.getElementById('app');
+      app.classList.add('visible');
+    } else {
+      err.textContent = 'Incorrect passphrase. Try again.';
+      document.getElementById('gate-input').value = '';
+      setTimeout(() => { err.textContent = ''; }, 3000);
+    }
+  }
+
+  document.getElementById('gate-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlock();
+  });
+
+  // Sidebar nav
+  document.querySelectorAll('.sidebar-item[data-panel]').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById('panel-' + item.dataset.panel).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
