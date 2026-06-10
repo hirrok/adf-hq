@@ -58,9 +58,8 @@
     .hero {
       min-height: 100vh; display: flex; align-items: center;
       background:
-        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(245,166,35,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(232,145,43,0.04) 0%, transparent 50%),
-        var(--black);
+        linear-gradient(135deg, rgba(10,12,14,0.88) 0%, rgba(10,12,14,0.65) 55%, rgba(10,12,14,0.82) 100%),
+        url('https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
       padding: 100px 32px 60px;
     }
     .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
@@ -137,10 +136,12 @@
     .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
     .svc-card {
       background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
-      padding: 28px; transition: border-color 0.3s, transform 0.3s;
+      overflow: hidden; transition: border-color 0.3s, transform 0.3s;
     }
     .svc-card:hover { border-color: rgba(245,166,35,0.3); transform: translateY(-3px); }
-    .svc-icon { font-size: 2rem; margin-bottom: 16px; }
+    .svc-card-body { padding: 22px 24px 24px; }
+    .svc-img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .svc-icon { font-size: 1.5rem; margin-bottom: 12px; }
     .svc-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
     .svc-desc { font-size: 0.875rem; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
     .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -181,9 +182,12 @@
     .fleet-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
     .fleet-card {
       background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
-      padding: 28px; position: relative; display: flex; flex-direction: column;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
     }
     .fleet-card.featured { border-color: rgba(245,166,35,0.35); }
+    .fleet-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+    .fleet-card-body { padding: 28px; display: flex; flex-direction: column; flex: 1; }
+    .fleet-card.featured .fleet-badge { top: 148px; }
     .fleet-badge {
       position: absolute; top: 18px; right: 18px;
       font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em;
@@ -370,40 +374,58 @@
     <p class="ssub">From pump-side retail to bulk commercial contracts — covering the full range of fuel and LPG needs across the region.</p>
     <div class="services-grid">
       <div class="svc-card">
-        <div class="svc-icon">⛽</div>
-        <div class="svc-name">Pump Station Retail</div>
-        <div class="svc-desc">Walk-in and drive-through fueling for private vehicles, motorcycles, and light commercial units. Full-service lanes at all branches.</div>
-        <div class="svc-tags"><span class="svc-tag">RON 91 / 95 / 97</span><span class="svc-tag">Diesel Euro 5</span><span class="svc-tag">Full Service</span></div>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=600&q=80" alt="Pump station retail fueling" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">⛽</div>
+          <div class="svc-name">Pump Station Retail</div>
+          <div class="svc-desc">Walk-in and drive-through fueling for private vehicles, motorcycles, and light commercial units. Full-service lanes at all branches.</div>
+          <div class="svc-tags"><span class="svc-tag">RON 91 / 95 / 97</span><span class="svc-tag">Diesel Euro 5</span><span class="svc-tag">Full Service</span></div>
+        </div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🚛</div>
-        <div class="svc-name">Commercial Fleet Supply</div>
-        <div class="svc-desc">Dedicated fleet accounts for trucking, construction, logistics, and government fleets. Volume pricing, card management, and consolidated billing.</div>
-        <div class="svc-tags"><span class="svc-tag">Fleet Cards</span><span class="svc-tag">Volume Pricing</span><span class="svc-tag">Monthly Billing</span></div>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="Commercial fleet trucks supply" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🚛</div>
+          <div class="svc-name">Commercial Fleet Supply</div>
+          <div class="svc-desc">Dedicated fleet accounts for trucking, construction, logistics, and government fleets. Volume pricing, card management, and consolidated billing.</div>
+          <div class="svc-tags"><span class="svc-tag">Fleet Cards</span><span class="svc-tag">Volume Pricing</span><span class="svc-tag">Monthly Billing</span></div>
+        </div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🏭</div>
-        <div class="svc-name">Industrial Bulk Delivery</div>
-        <div class="svc-desc">Scheduled bulk diesel and gasoline delivery to industrial sites, resorts, hospitals, and generator operations. Tanker dispatch on your schedule.</div>
-        <div class="svc-tags"><span class="svc-tag">Tanker Dispatch</span><span class="svc-tag">Scheduled Delivery</span><span class="svc-tag">On-site Filling</span></div>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80" alt="Industrial bulk fuel delivery tanker" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🏭</div>
+          <div class="svc-name">Industrial Bulk Delivery</div>
+          <div class="svc-desc">Scheduled bulk diesel and gasoline delivery to industrial sites, resorts, hospitals, and generator operations. Tanker dispatch on your schedule.</div>
+          <div class="svc-tags"><span class="svc-tag">Tanker Dispatch</span><span class="svc-tag">Scheduled Delivery</span><span class="svc-tag">On-site Filling</span></div>
+        </div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🔵</div>
-        <div class="svc-name">LPG Distribution</div>
-        <div class="svc-desc">Residential cylinder refills, commercial LPG supply, and bulk installations. Covering homes, restaurants, hotels, and food service operations.</div>
-        <div class="svc-tags"><span class="svc-tag">11kg / 22kg</span><span class="svc-tag">Bulk Supply</span><span class="svc-tag">Home Delivery</span></div>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1611981568428-fe72f41f23b7?auto=format&fit=crop&w=600&q=80" alt="LPG gas cylinder distribution" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🔵</div>
+          <div class="svc-name">LPG Distribution</div>
+          <div class="svc-desc">Residential cylinder refills, commercial LPG supply, and bulk installations. Covering homes, restaurants, hotels, and food service operations.</div>
+          <div class="svc-tags"><span class="svc-tag">11kg / 22kg</span><span class="svc-tag">Bulk Supply</span><span class="svc-tag">Home Delivery</span></div>
+        </div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🏗️</div>
-        <div class="svc-name">Construction Site Fueling</div>
-        <div class="svc-desc">Dedicated supply for construction projects — diesel and gasoline for heavy equipment, generators, and site vehicles on your build schedule.</div>
-        <div class="svc-tags"><span class="svc-tag">Heavy Equipment</span><span class="svc-tag">Generator Supply</span><span class="svc-tag">Project Billing</span></div>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=600&q=80" alt="Construction site heavy equipment fueling" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🏗️</div>
+          <div class="svc-name">Construction Site Fueling</div>
+          <div class="svc-desc">Dedicated supply for construction projects — diesel and gasoline for heavy equipment, generators, and site vehicles on your build schedule.</div>
+          <div class="svc-tags"><span class="svc-tag">Heavy Equipment</span><span class="svc-tag">Generator Supply</span><span class="svc-tag">Project Billing</span></div>
+        </div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🏨</div>
-        <div class="svc-name">Tourism & Hospitality</div>
-        <div class="svc-desc">Tailored accounts for resorts, dive shops, and tourism operators. Marine fuel, generator diesel, and vehicle fueling with hospitality-grade reliability.</div>
-        <div class="svc-tags"><span class="svc-tag">Marine Fuel</span><span class="svc-tag">Generator Diesel</span><span class="svc-tag">Resort Accounts</span></div>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Tourism resort marine fuel supply" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🏨</div>
+          <div class="svc-name">Tourism & Hospitality</div>
+          <div class="svc-desc">Tailored accounts for resorts, dive shops, and tourism operators. Marine fuel, generator diesel, and vehicle fueling with hospitality-grade reliability.</div>
+          <div class="svc-tags"><span class="svc-tag">Marine Fuel</span><span class="svc-tag">Generator Diesel</span><span class="svc-tag">Resort Accounts</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -469,43 +491,52 @@
     <p class="ssub">From small business fleets to large logistics operations — structured account programs with pricing, billing, and supply reliability that scales with your needs.</p>
     <div class="fleet-grid">
       <div class="fleet-card">
-        <div class="fleet-tier">TIER 1</div>
-        <div class="fleet-name">Business Account</div>
-        <div class="fleet-desc">For SMBs and small fleets of 3–15 vehicles. Simplified fueling with consolidated monthly billing.</div>
-        <ul class="fleet-perks">
-          <li>Dedicated fleet card per vehicle</li>
-          <li>Monthly e-invoice</li>
-          <li>Purchase history dashboard</li>
-          <li>Priority lane access</li>
-        </ul>
-        <button class="fleet-btn fleet-btn-outline" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Inquire Now</button>
+        <img class="fleet-img" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80" alt="Small business fleet vehicles" loading="lazy"/>
+        <div class="fleet-card-body">
+          <div class="fleet-tier">TIER 1</div>
+          <div class="fleet-name">Business Account</div>
+          <div class="fleet-desc">For SMBs and small fleets of 3–15 vehicles. Simplified fueling with consolidated monthly billing.</div>
+          <ul class="fleet-perks">
+            <li>Dedicated fleet card per vehicle</li>
+            <li>Monthly e-invoice</li>
+            <li>Purchase history dashboard</li>
+            <li>Priority lane access</li>
+          </ul>
+          <button class="fleet-btn fleet-btn-outline" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Inquire Now</button>
+        </div>
       </div>
       <div class="fleet-card featured">
-        <div class="fleet-badge">Most Popular</div>
-        <div class="fleet-tier">TIER 2</div>
-        <div class="fleet-name">Commercial Fleet</div>
-        <div class="fleet-desc">For logistics, construction, and government operators with 15–100+ vehicles. Volume pricing and supply reliability at scale.</div>
-        <ul class="fleet-perks">
-          <li>Volume discount pricing</li>
-          <li>Dedicated account manager</li>
-          <li>Multi-branch access</li>
-          <li>Bulk delivery scheduling</li>
-          <li>Fleet utilization reporting</li>
-        </ul>
-        <button class="fleet-btn fleet-btn-primary" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Get a Proposal</button>
+        <img class="fleet-img" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=600&q=80" alt="Commercial logistics truck fleet" loading="lazy"/>
+        <div class="fleet-card-body">
+          <div class="fleet-badge">Most Popular</div>
+          <div class="fleet-tier">TIER 2</div>
+          <div class="fleet-name">Commercial Fleet</div>
+          <div class="fleet-desc">For logistics, construction, and government operators with 15–100+ vehicles. Volume pricing and supply reliability at scale.</div>
+          <ul class="fleet-perks">
+            <li>Volume discount pricing</li>
+            <li>Dedicated account manager</li>
+            <li>Multi-branch access</li>
+            <li>Bulk delivery scheduling</li>
+            <li>Fleet utilization reporting</li>
+          </ul>
+          <button class="fleet-btn fleet-btn-primary" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Get a Proposal</button>
+        </div>
       </div>
       <div class="fleet-card">
-        <div class="fleet-tier">TIER 3</div>
-        <div class="fleet-name">Industrial Supply</div>
-        <div class="fleet-desc">For mining, megaprojects, resorts, and industrial operations requiring on-site tank supply and scheduled deliveries.</div>
-        <ul class="fleet-perks">
-          <li>On-site tank delivery</li>
-          <li>Custom supply schedules</li>
-          <li>DOE-compliant documentation</li>
-          <li>Emergency dispatch availability</li>
-          <li>Dedicated tanker allocation</li>
-        </ul>
-        <button class="fleet-btn fleet-btn-outline" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Discuss Requirements</button>
+        <img class="fleet-img" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80" alt="Industrial on-site fuel delivery" loading="lazy"/>
+        <div class="fleet-card-body">
+          <div class="fleet-tier">TIER 3</div>
+          <div class="fleet-name">Industrial Supply</div>
+          <div class="fleet-desc">For mining, megaprojects, resorts, and industrial operations requiring on-site tank supply and scheduled deliveries.</div>
+          <ul class="fleet-perks">
+            <li>On-site tank delivery</li>
+            <li>Custom supply schedules</li>
+            <li>DOE-compliant documentation</li>
+            <li>Emergency dispatch availability</li>
+            <li>Dedicated tanker allocation</li>
+          </ul>
+          <button class="fleet-btn fleet-btn-outline" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Discuss Requirements</button>
+        </div>
       </div>
     </div>
   </div>
