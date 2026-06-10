@@ -454,6 +454,7 @@
       <button class="ops-tab"        onclick="opsSwitch(1)">Lead CRM</button>
       <button class="ops-tab"        onclick="opsSwitch(2)">Revenue Board</button>
       <button class="ops-tab"        onclick="opsSwitch(3)">Booking Queue</button>
+      <button class="ops-tab"        onclick="opsSwitch(4)" id="tab-recon">Recon Inbox</button>
     </div>
 
     <!-- ── Panel 0: OPS HUD ─────────────────────────────────── -->
@@ -637,6 +638,52 @@
           </div>
         </div>
         <div class="ops-notice" id="ops-notice-booking">⬡ Connecting to backend…</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 4: Recon Inbox ──────────────────────────────── -->
+    <div class="ops-panel" id="ops-panel-4">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / recon / inbox</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Total Requests</div>
+            <div class="ops-kpi-val green" id="recon-total">—</div>
+            <div class="ops-kpi-delta">All time</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">New</div>
+            <div class="ops-kpi-val gold" id="recon-new">—</div>
+            <div class="ops-kpi-delta">Unprocessed</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Latest</div>
+            <div class="ops-kpi-val" id="recon-latest" style="font-size:1rem;">—</div>
+            <div class="ops-kpi-delta">Most recent submission</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Industries</div>
+            <div class="ops-kpi-val" id="recon-industries">—</div>
+            <div class="ops-kpi-delta">Unique</div>
+          </div>
+        </div>
+        <div class="ops-table-wrap">
+          <table class="ops-table">
+            <thead>
+              <tr><th>Time</th><th>Name</th><th>Business</th><th>Industry</th><th>Email</th><th>Challenge</th><th>Status</th></tr>
+            </thead>
+            <tbody id="recon-tbody">
+              <tr><td colspan="7" style="color:var(--text);padding:16px;">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ops-notice" id="ops-notice-recon">⬡ Connecting to backend…</div>
       </div>
     </div>
 
@@ -853,6 +900,43 @@
     document.getElementById('ops-notice-booking').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
   }
 
+  // ── RENDER: RECON INBOX ───────────────────────────────────────
+  function renderReconInbox() {
+    if (!OPS_DATA) {
+      document.getElementById('ops-notice-recon').textContent = '⬡ Backend unreachable — check GAS deployment.';
+      return;
+    }
+    const recons = OPS_DATA.reconRequests || [];
+
+    document.getElementById('recon-total').textContent = recons.length || '0';
+    document.getElementById('recon-new').textContent   = recons.filter(r => r.status === 'New').length || '0';
+    document.getElementById('recon-latest').textContent = recons.length ? recons[recons.length - 1].business || '—' : '—';
+    const industries = [...new Set(recons.map(r => r.industry).filter(Boolean))];
+    document.getElementById('recon-industries').textContent = industries.length || '0';
+
+    // Badge for tab if new items exist
+    const newCount = recons.filter(r => r.status === 'New').length;
+    const tabEl = document.getElementById('tab-recon');
+    if (tabEl && newCount > 0) tabEl.textContent = `Recon Inbox (${newCount})`;
+
+    const tbody = document.getElementById('recon-tbody');
+    tbody.innerHTML = recons.length
+      ? [...recons].reverse().map(r => `<tr>
+          <td style="white-space:nowrap;">${r.timestamp}</td>
+          <td><strong>${r.name}</strong></td>
+          <td>${r.business}</td>
+          <td>${r.industry}</td>
+          <td><a href="mailto:${r.email}" style="color:var(--aurora);text-decoration:none;">${r.email}</a></td>
+          <td style="max-width:280px;white-space:normal;font-size:0.78rem;color:var(--text);">${r.challenge}</td>
+          <td>${r.status === 'New'
+            ? '<span class="status-pill pill-hot">New</span>'
+            : '<span class="status-pill pill-won">Done</span>'}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="7" style="color:var(--text);padding:16px;">No recon requests yet.</td></tr>';
+
+    document.getElementById('ops-notice-recon').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
+  }
+
   // ── TAB SWITCH ────────────────────────────────────────────────
   function opsSwitch(index) {
     document.querySelectorAll('.ops-tab').forEach((t,i)   => t.classList.toggle('active', i===index));
@@ -866,6 +950,7 @@
     renderCRM();
     renderRevenue();
     renderBookingQueue();
+    renderReconInbox();
   }
 
   // If already authenticated, boot immediately
