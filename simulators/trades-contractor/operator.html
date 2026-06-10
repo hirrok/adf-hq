@@ -218,6 +218,51 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+  
+    /* ── Mobile Responsive (Operator Suite) ──────────────── */
+    .op-ham {
+      display: none; background: none; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; color: rgba(255,255,255,0.55); cursor: pointer;
+      font-size: 18px; line-height: 1; padding: 5px 8px; flex-shrink: 0;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .op-ham:hover { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.35); }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 199;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 768px) {
+      .op-ham { display: block !important; }
+      .topbar-badge { display: none; }
+      .topbar-sep { display: none; }
+      .health-label { display: none; }
+      .topbar-user { display: none; }
+
+      .sidebar {
+        position: fixed !important; top: 52px; left: -220px; bottom: 0;
+        width: 220px !important; z-index: 200;
+        transition: left 0.25s ease; overflow-y: auto;
+      }
+      .sidebar.open { left: 0; }
+
+      .app-body { overflow: hidden; }
+      .main { padding: 16px 14px 60px !important; overflow-y: auto; }
+
+      .kpi-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .job-grid, .crew-grid, .inv-grid { grid-template-columns: 1fr !important; }
+      .panel-actions { flex-wrap: wrap; gap: 8px; }
+      .btn { font-size: 0.78rem !important; padding: 8px 12px !important; }
+
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    }
+    @media (max-width: 480px) {
+      .kpi-grid { grid-template-columns: 1fr !important; }
+      .kpi-card { padding: 14px !important; }
+      .panel-header h1, .panel-header h2 { font-size: 1.1rem !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -236,13 +281,15 @@
 
 <!-- ─── APP ───────────────────────────────────────────────────── -->
 <div id="app">
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleOpSidebar()"></div>
   <div class="topbar">
+    <button class="op-ham" onclick="toggleOpSidebar()" aria-label="Open menu">☰</button>
     <div class="topbar-logo">
       <div class="topbar-mark">IC</div>
       <div class="topbar-name">IronCrest <span>Works</span></div>
     </div>
     <div class="topbar-sep"></div>
-    <span class="topbar-badge">Operator Suite · Batangas</span>
+    <span class="topbar-badge">Operator Suite · Aurora Province</span>
     <div class="topbar-right">
       <div class="health-dot green" id="health-dot"></div>
       <span class="health-label" id="health-label">Systems Nominal</span>
@@ -429,7 +476,7 @@
       <div class="panel" id="panel-jobs">
         <div class="panel-header">
           <div class="panel-title">Active Jobs</div>
-          <div class="panel-sub">7 jobs in progress across Batangas Province</div>
+          <div class="panel-sub">7 jobs in progress across Aurora Province</div>
           <div class="panel-actions">
             <button class="pabtn primary">+ New Job</button>
             <button class="pabtn">Export</button>
@@ -456,7 +503,7 @@
                 <tr>
                   <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">IC-2406-002</td>
                   <td>J. Reyes</td>
-                  <td>Batangas City</td>
+                  <td>Aurora Province</td>
                   <td>Multi-trade</td>
                   <td style="color:var(--text);font-size:0.78rem">May 20</td>
                   <td style="color:var(--text);font-size:0.78rem">Jun 20</td>
@@ -690,7 +737,7 @@
       <div class="panel" id="panel-revenue">
         <div class="panel-header">
           <div class="panel-title">Revenue Tracker</div>
-          <div class="panel-sub">June 2026: Batangas Province operations</div>
+          <div class="panel-sub">June 2026: Aurora Province operations</div>
         </div>
         <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
           <div class="kpi-card">
@@ -772,7 +819,7 @@
             <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Location</th><th>Source</th><th>Received</th><th>Stage</th></tr></thead>
             <tbody>
               <tr><td>Ana Peralta</td><td>0917-XXX-1122</td><td>Kitchen Reno</td><td>Lipa City</td><td style="color:var(--text);font-size:0.78rem">Website</td><td style="color:var(--text);font-size:0.78rem">Today</td><td><span class="badge new">New</span></td></tr>
-              <tr><td>Rodel Sy</td><td>0918-XXX-3344</td><td>Rewiring</td><td>Batangas City</td><td style="color:var(--text);font-size:0.78rem">Facebook</td><td style="color:var(--text);font-size:0.78rem">Yesterday</td><td><span class="badge new">New</span></td></tr>
+              <tr><td>Rodel Sy</td><td>0918-XXX-3344</td><td>Rewiring</td><td>Aurora Province</td><td style="color:var(--text);font-size:0.78rem">Facebook</td><td style="color:var(--text);font-size:0.78rem">Yesterday</td><td><span class="badge new">New</span></td></tr>
               <tr><td>Marivic Torres</td><td>0926-XXX-5566</td><td>Full Reno</td><td>Taal</td><td style="color:var(--text);font-size:0.78rem">Referral</td><td style="color:var(--text);font-size:0.78rem">Jun 9</td><td><span class="badge quoted">Contacted</span></td></tr>
               <tr><td>Jun Bautista</td><td>0905-XXX-7788</td><td>Aircon x3</td><td>Malvar</td><td style="color:var(--text);font-size:0.78rem">Walk-in</td><td style="color:var(--text);font-size:0.78rem">Jun 9</td><td><span class="badge quoted">Quoted</span></td></tr>
               <tr><td>Elma Dizon</td><td>0923-XXX-9900</td><td>Fence & Gate</td><td>Lipa City</td><td style="color:var(--text);font-size:0.78rem">Website</td><td style="color:var(--text);font-size:0.78rem">Jun 8</td><td><span class="badge quoted">Site Visit</span></td></tr>
@@ -843,6 +890,33 @@
       document.getElementById('panel-' + item.dataset.panel).classList.add('active');
     });
   });
+
+  // ── Mobile Sidebar Toggle ─────────────────────────────────
+  function toggleOpSidebar() {
+    var sb = document.querySelector('.sidebar');
+    var ov = document.getElementById('sidebarOverlay');
+    if (!sb) return;
+    sb.classList.toggle('open');
+    if (ov) ov.classList.toggle('active');
+    document.body.style.overflow = sb.classList.contains('open') ? 'hidden' : '';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Close sidebar on nav item tap (mobile)
+    document.querySelectorAll('.sidebar-item, .nav-item').forEach(function(el) {
+      el.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          var sb = document.querySelector('.sidebar');
+          var ov = document.getElementById('sidebarOverlay');
+          if (sb && sb.classList.contains('open')) {
+            sb.classList.remove('open');
+            if (ov) ov.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    });
+  });
+
 </script>
 </body>
 </html>

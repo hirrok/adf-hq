@@ -346,6 +346,23 @@
       section { padding: 60px 16px; }
     }
 
+  
+    /* ── Operator Access Link ─────────────── */
+    .nav-op {
+      font-family: var(--mono, monospace); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none;
+      padding: 6px 10px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-op:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.4); }
+    .nav-drawer-sep { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 16px 0 8px; }
+    .nav-drawer-op {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); text-decoration: none;
+      padding: 10px 20px; transition: color 0.2s;
+    }
+    .nav-drawer-op:hover { color: rgba(255,255,255,0.55); }
+
   </style>
 </head>
 <body>
@@ -366,6 +383,7 @@
         <li><a href="#quote">Get a Quote</a></li>
       </ul>
       <div class="nav-cta" style="display:flex;align-items:center;gap:8px;">
+        <a href="operator.html" class="nav-op" target="_blank">⚙ Operator</a>
         <a href="#quote" class="btn btn-primary" style="padding:10px 20px; font-size:0.82rem;">Free Quote</a>
         <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
       </div>
@@ -931,6 +949,8 @@
     <a href="#quote" onclick="__closeNavDrawer()">Get a Quote</a>
   </nav>
   <a href="#quote" class="nav-drawer-cta" onclick="__closeNavDrawer()">Free Quote</a>
+  <div class="nav-drawer-sep"></div>
+  <a href="operator.html" class="nav-drawer-op" target="_blank">⚙ Operator Login</a>
 </div>
 
 <script>

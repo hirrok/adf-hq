@@ -186,6 +186,7 @@ function NavBar({page,goTo,adminMode,setAdminMode}){
         </div>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
           <button className="fh-nav-cta" style={{...btn(),fontSize:13,padding:'8px 14px'}} onClick={()=>goTo('join')}>Book Assessment</button>
+          <button onClick={()=>setAdminMode(true)} style={{fontFamily:'monospace',fontSize:'0.62rem',letterSpacing:'0.1em',textTransform:'uppercase',background:'none',border:'1px solid rgba(0,0,0,0.15)',borderRadius:4,padding:'6px 10px',cursor:'pointer',color:'rgba(0,0,0,0.28)',transition:'0.2s'}} title="Operator Access">⚙ Operator</button>
           <button className="fh-ham" onClick={menuOpen?closeMenu:openMenu} aria-label="Menu">
             <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',transform:menuOpen?'translateY(7px) rotate(45deg)':'none'}}></span>
             <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',opacity:menuOpen?0:1}}></span>
@@ -200,6 +201,8 @@ function NavBar({page,goTo,adminMode,setAdminMode}){
             <div key={p} onClick={()=>{goTo(p);closeMenu();}} style={{cursor:'pointer',fontSize:'1.4rem',fontWeight:700,color:C.text,padding:'12px 0',width:'100%',textAlign:'center',borderBottom:`1px solid ${C.border}`}}>{l}</div>
           ))}
           <button style={{...btn(C.red,true),marginTop:24,fontSize:14,padding:'14px 32px',width:'100%'}} onClick={()=>{goTo('join');closeMenu();}}>Book Assessment</button>
+          <div style={{width:'100%',height:1,background:C.border,margin:'16px 0 4px'}}></div>
+          <button onClick={()=>{setAdminMode(true);closeMenu();}} style={{background:'none',border:'none',cursor:'pointer',fontFamily:'monospace',fontSize:'0.72rem',letterSpacing:'0.12em',textTransform:'uppercase',color:C.text3,padding:'10px 0'}}>⚙ Operator Login</button>
         </div>
       )}
     </>

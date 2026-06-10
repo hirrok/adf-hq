@@ -322,6 +322,23 @@
       .hero-eyebrow { font-size: 0.6rem; }
     }
 
+  
+    /* ── Operator Access Link ─────────────── */
+    .nav-op {
+      font-family: var(--mono, monospace); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none;
+      padding: 6px 10px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-op:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.4); }
+    .nav-drawer-sep { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 16px 0 8px; }
+    .nav-drawer-op {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); text-decoration: none;
+      padding: 10px 20px; transition: color 0.2s;
+    }
+    .nav-drawer-op:hover { color: rgba(255,255,255,0.55); }
+
   </style>
 </head>
 <body>
@@ -349,6 +366,7 @@
     <a href="#inquiry">Contact</a>
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
+    <a href="operator.html" class="nav-op" target="_blank">⚙ Operator</a>
     <a href="#inquiry" class="nav-cta">Get a Quote</a>
     <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
@@ -689,6 +707,8 @@
     <a href="#inquiry">Contact</a>
   </nav>
   <a href="#inquiry" class="nav-drawer-cta">Get a Quote</a>
+  <div class="nav-drawer-sep"></div>
+  <a href="operator.html" class="nav-drawer-op" target="_blank">⚙ Operator Login</a>
 </div>
 <script>
 (function(){

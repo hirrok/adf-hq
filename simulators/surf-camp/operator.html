@@ -289,6 +289,48 @@
       color: rgba(249,97,74,0.7); text-transform: uppercase; text-align: center;
       pointer-events: none;
     }
+  
+    /* ── Mobile Responsive (Operator Suite) ──────────────── */
+    .op-ham {
+      display: none; background: none; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; color: rgba(255,255,255,0.5); cursor: pointer;
+      font-size: 18px; line-height: 1; padding: 5px 8px; flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .op-ham:hover { color: rgba(255,255,255,0.82); }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 199;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 768px) {
+      .op-ham { display: block !important; }
+      .topbar-loc { display: none; }
+      .topbar-time { display: none; }
+
+      .sidebar {
+        position: fixed !important; top: 54px; left: -220px; bottom: 0;
+        width: 220px !important; z-index: 200;
+        transition: left 0.25s ease; overflow-y: auto;
+      }
+      .sidebar.open { left: 0; }
+
+      .body-row { overflow: hidden; }
+      .main { padding: 16px 14px 60px !important; }
+
+      .kpi-row { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .grid-2, .booking-grid, .staff-grid, .rev-grid { grid-template-columns: 1fr !important; }
+      .panel-actions { flex-wrap: wrap; gap: 8px; }
+
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+      .table-wrap { overflow-x: auto; }
+    }
+    @media (max-width: 480px) {
+      .kpi-row { grid-template-columns: 1fr !important; }
+      .kpi { padding: 14px !important; }
+      .page-header h1 { font-size: 1.1rem !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -309,13 +351,15 @@
 
 <!-- ═══ APP ═══ -->
 <div id="app">
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleOpSidebar()"></div>
 
   <!-- TOPBAR -->
   <div class="topbar">
+    <button class="op-ham" onclick="toggleOpSidebar()" aria-label="Open menu">☰</button>
     <div class="topbar-left">
       <div class="topbar-badge">Operator Suite</div>
       <div class="topbar-title">Alon Surf & Stay</div>
-      <div class="topbar-loc">General Luna · Siargao Island</div>
+      <div class="topbar-loc">Sabang · Aurora Province</div>
     </div>
     <div class="topbar-right">
       <div class="topbar-time" id="clock">—</div>
@@ -448,7 +492,7 @@
               <div class="session-title">Beginner Group — Women</div>
               <div class="session-coach">Coach Lena</div>
               <div class="session-pax"><strong>Guests:</strong> Yuki T., Anna, Maria, Priya M.</div>
-              <div class="session-break">📍 General Luna Beach · Whitewater</div>
+              <div class="session-break">📍 Sabang Beach · Whitewater</div>
             </div>
             <div class="session-card">
               <div class="session-time">☀️ 04:00 – 06:00 PM</div>
@@ -462,7 +506,7 @@
               <div class="session-title">Beginner Group — Afternoon</div>
               <div class="session-coach">Coach Lena</div>
               <div class="session-pax"><strong>Guests:</strong> Yuki T., Priya M.</div>
-              <div class="session-break">📍 General Luna Beach · Longboard Reef</div>
+              <div class="session-break">📍 Sabang Beach · Longboard</div>
             </div>
             <div class="session-card">
               <div class="session-time">🌙 06:30 PM</div>
@@ -488,7 +532,7 @@
               <div class="session-title">Beginner Assessment — New Arrivals</div>
               <div class="session-coach">Coach Marco + Lena</div>
               <div class="session-pax"><strong>Arriving today:</strong> Jake, Rhi, David P. group</div>
-              <div class="session-break">📍 General Luna Beach · Softboards</div>
+              <div class="session-break">📍 Sabang Beach · Softboards</div>
             </div>
             <div class="session-card">
               <div class="session-time">☀️ 04:00 – 06:00 PM</div>
@@ -707,6 +751,33 @@
       </div>`;
     }).join('');
   }
+
+  // ── Mobile Sidebar Toggle ─────────────────────────────────
+  function toggleOpSidebar() {
+    var sb = document.querySelector('.sidebar');
+    var ov = document.getElementById('sidebarOverlay');
+    if (!sb) return;
+    sb.classList.toggle('open');
+    if (ov) ov.classList.toggle('active');
+    document.body.style.overflow = sb.classList.contains('open') ? 'hidden' : '';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Close sidebar on nav item tap (mobile)
+    document.querySelectorAll('.sidebar-item, .nav-item').forEach(function(el) {
+      el.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          var sb = document.querySelector('.sidebar');
+          var ov = document.getElementById('sidebarOverlay');
+          if (sb && sb.classList.contains('open')) {
+            sb.classList.remove('open');
+            if (ov) ov.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    });
+  });
+
 </script>
 </body>
 </html>

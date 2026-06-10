@@ -578,6 +578,24 @@
       .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
     }
 
+  
+    /* ── Operator Access Link ─────────────── */
+    .nav-op {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38); text-decoration: none;
+      padding: 5px 9px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav.scrolled .nav-op { color: rgba(10,32,56,0.35); border-color: rgba(10,32,56,0.2); }
+    nav.scrolled .nav-op:hover { color: var(--white); border-color: var(--border2); }
+    .nav-op:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.45); }
+    .nav-drawer-sep { width: 100%; height: 1px; background: rgba(10,32,56,0.12); margin: 16px 0 8px; }
+    .nav-drawer-op {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(10,32,56,0.30); text-decoration: none; padding: 10px 20px; transition: color 0.2s;
+    }
+    .nav-drawer-op:hover { color: var(--white); }
+
   </style>
 </head>
 <body>
@@ -596,6 +614,7 @@
     <a href="#location">Location</a>
   </div>
   <div class="nav-right">
+    <a href="operator.html" class="nav-op" target="_blank">⚙ Operator</a>
     <a href="#book" class="nav-cta">Book Now</a>
     <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
@@ -1180,6 +1199,8 @@
     <a href="#location">Location</a>
   </nav>
   <a href="#book" class="nav-drawer-cta">Book Now</a>
+  <div class="nav-drawer-sep"></div>
+  <a href="operator.html" class="nav-drawer-op" target="_blank">⚙ Operator Login</a>
 </div>
 
 <script>

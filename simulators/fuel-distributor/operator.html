@@ -244,6 +244,48 @@
       .price-editor { grid-template-columns: 1fr; }
       .branch-ops-grid { grid-template-columns: 1fr 1fr; }
     }
+  
+    /* ── Mobile Responsive (Operator Suite) ──────────────── */
+    .op-ham {
+      display: none; background: none; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; color: rgba(255,255,255,0.5); cursor: pointer;
+      font-size: 18px; line-height: 1; padding: 5px 8px; flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .op-ham:hover { color: rgba(255,255,255,0.82); }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 199;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 768px) {
+      .op-ham { display: block !important; }
+      .topbar-tag { display: none; }
+      .topbar-time { display: none; }
+
+      .sidebar {
+        left: -240px !important;
+        transition: left 0.25s ease !important;
+        z-index: 200 !important;
+        width: 220px !important;
+      }
+      .sidebar.open { left: 0 !important; }
+
+      .main { margin-left: 0 !important; padding: 16px 14px 60px !important; }
+
+      .kpi-row { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .branch-ops-grid, .price-editor, .fleet-grid, .grid-2 { grid-template-columns: 1fr !important; }
+      .panel-actions { flex-wrap: wrap; gap: 8px; }
+
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+      .table-scroll, .table-wrap { overflow-x: auto; }
+    }
+    @media (max-width: 480px) {
+      .kpi-row { grid-template-columns: 1fr !important; }
+      .kpi-card { padding: 14px !important; }
+      .page-header h1 { font-size: 1.1rem !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -266,9 +308,11 @@
 
 <!-- APP -->
 <div id="app">
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleOpSidebar()"></div>
 
   <!-- TOPBAR -->
   <div class="topbar">
+    <button class="op-ham" onclick="toggleOpSidebar()" aria-label="Open menu">☰</button>
     <div class="topbar-brand">
       <div class="topbar-mark">SL</div>
       <div class="topbar-name">SOLARIS OPERATOR SUITE</div>
@@ -660,6 +704,33 @@
     btn.textContent = STATUS_LABEL[s];
     btn.style.cssText = BTN_STYLE[s];
   }
+
+  // ── Mobile Sidebar Toggle ─────────────────────────────────
+  function toggleOpSidebar() {
+    var sb = document.querySelector('.sidebar');
+    var ov = document.getElementById('sidebarOverlay');
+    if (!sb) return;
+    sb.classList.toggle('open');
+    if (ov) ov.classList.toggle('active');
+    document.body.style.overflow = sb.classList.contains('open') ? 'hidden' : '';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Close sidebar on nav item tap (mobile)
+    document.querySelectorAll('.sidebar-item, .nav-item').forEach(function(el) {
+      el.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          var sb = document.querySelector('.sidebar');
+          var ov = document.getElementById('sidebarOverlay');
+          if (sb && sb.classList.contains('open')) {
+            sb.classList.remove('open');
+            if (ov) ov.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    });
+  });
+
 </script>
 </body>
 </html>
