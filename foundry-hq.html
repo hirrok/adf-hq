@@ -855,45 +855,15 @@
       padding: 120px 0;
       background: linear-gradient(180deg, var(--black) 0%, rgba(0,201,167,0.03) 50%, var(--black) 100%);
     }
-    .ops-header { margin-bottom: 56px; }
-    .ops-tabs {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 32px;
-      background: var(--mid);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px;
-      width: fit-content;
-    }
-    .ops-tab {
-      padding: 10px 22px;
-      border-radius: 5px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-family: var(--mono);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      transition: all 0.2s;
-    }
-    .ops-tab:hover { color: var(--white); }
-    .ops-tab.active {
-      background: var(--aurora);
-      color: var(--black);
-    }
-    .ops-panel { display: none; }
-    .ops-panel.active { display: block; }
-    .ops-shell {
+    /* ─── OPERATOR SUITE TEASER ─────────────────────────────── */
+    .ops-teaser {
       background: var(--mid);
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
+      position: relative;
     }
-    .ops-titlebar {
+    .ops-teaser-titlebar {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -901,14 +871,11 @@
       background: rgba(0,0,0,0.4);
       border-bottom: 1px solid var(--border);
     }
-    .ops-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-    }
+    .ops-dot { width: 10px; height: 10px; border-radius: 50%; }
     .ops-dot-r { background: #ff5f57; }
     .ops-dot-y { background: #ffbd2e; }
     .ops-dot-g { background: #28c840; }
-    .ops-url {
+    .ops-teaser-url {
       flex: 1;
       background: rgba(255,255,255,0.05);
       border-radius: 4px;
@@ -918,28 +885,27 @@
       color: rgba(245,244,240,0.35);
       letter-spacing: 0.03em;
     }
-    .ops-live-badge {
+    .ops-teaser-locked {
       font-family: var(--mono);
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #28c840;
-      border: 1px solid #28c840;
+      color: var(--text);
+      border: 1px solid var(--border);
       padding: 3px 10px;
       border-radius: 2px;
     }
-    /* KPI strip */
-    .ops-kpi-strip {
+    .ops-teaser-grid {
       display: grid;
       grid-template-columns: repeat(4,1fr);
       border-bottom: 1px solid var(--border);
     }
-    .ops-kpi {
+    .ops-teaser-kpi {
       padding: 20px 24px;
       border-right: 1px solid var(--border);
     }
-    .ops-kpi:last-child { border-right: none; }
-    .ops-kpi-label {
+    .ops-teaser-kpi:last-child { border-right: none; }
+    .ops-teaser-label {
       font-family: var(--mono);
       font-size: 0.62rem;
       letter-spacing: 0.12em;
@@ -947,128 +913,81 @@
       color: var(--text);
       margin-bottom: 8px;
     }
-    .ops-kpi-val {
-      font-size: 1.6rem;
+    .ops-teaser-val {
+      font-size: 1.5rem;
       font-weight: 800;
+      color: rgba(245,244,240,0.15);
       letter-spacing: -0.02em;
-      color: var(--white);
+      filter: blur(6px);
+      user-select: none;
     }
-    .ops-kpi-val.green { color: var(--aurora); }
-    .ops-kpi-val.gold { color: var(--gold); }
-    .ops-kpi-delta {
-      font-size: 0.72rem;
-      color: var(--aurora);
-      margin-top: 4px;
-      font-family: var(--mono);
-    }
-    /* Table */
-    .ops-table-wrap { overflow-x: auto; }
-    .ops-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83rem;
-    }
-    .ops-table th {
-      padding: 12px 20px;
-      text-align: left;
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text);
-      border-bottom: 1px solid var(--border);
-      background: rgba(0,0,0,0.2);
-    }
-    .ops-table td {
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      color: rgba(245,244,240,0.85);
-    }
-    .ops-table tr:last-child td { border-bottom: none; }
-    .ops-table tr:hover td { background: rgba(0,201,167,0.04); }
-    .status-pill {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-    .pill-hot   { background: rgba(232,197,71,0.15); color: var(--gold); border: 1px solid rgba(232,197,71,0.3); }
-    .pill-warm  { background: rgba(0,201,167,0.12); color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
-    .pill-cold  { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
-    .pill-won   { background: rgba(40,200,64,0.15); color: #28c840; border: 1px solid rgba(40,200,64,0.3); }
-    .pill-pending { background: rgba(132,94,194,0.15); color: #845ec2; border: 1px solid rgba(132,94,194,0.3); }
-    .pill-active  { background: rgba(0,201,167,0.12); color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
-    /* Revenue bars */
-    .ops-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
-    .ops-rev-left { background: var(--mid); padding: 28px 28px 20px; }
-    .ops-rev-right { background: var(--mid); padding: 28px 28px 20px; }
-    .ops-chart-bars {
+    .ops-teaser-val.green { color: rgba(0,201,167,0.2); }
+    .ops-teaser-val.gold  { color: rgba(232,197,71,0.2); }
+    .ops-teaser-overlay {
+      position: absolute;
+      inset: 0;
       display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      height: 120px;
-      margin-top: 20px;
-    }
-    .ops-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
-    .ops-bar {
-      width: 100%;
-      border-radius: 3px 3px 0 0;
-      background: rgba(0,201,167,0.3);
-      transition: background 0.2s;
-      cursor: default;
-    }
-    .ops-bar:hover { background: var(--aurora); }
-    .ops-bar.highlight { background: var(--aurora); }
-    .ops-bar-label { font-family: var(--mono); font-size: 0.58rem; color: var(--text); letter-spacing: 0.05em; }
-    .ops-metric-list { display: grid; gap: 16px; margin-top: 20px; }
-    .ops-metric-row {
-      display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      padding: 12px 16px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      justify-content: center;
+      background: rgba(10,10,10,0.65);
+      backdrop-filter: blur(2px);
+      gap: 20px;
+      z-index: 2;
     }
-    .ops-metric-name { font-size: 0.82rem; color: var(--text); }
-    .ops-metric-val { font-weight: 700; font-family: var(--mono); font-size: 0.9rem; }
-    /* Booking */
-    .ops-booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
-    .ops-booking-col { background: var(--mid); padding: 24px; }
-    .ops-booking-col-title {
+    .ops-lock-icon {
+      font-size: 2rem;
+      opacity: 0.4;
+    }
+    .ops-lock-msg {
       font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--text);
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .booking-card {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 10px;
-    }
-    .booking-card:hover { border-color: rgba(0,201,167,0.3); }
-    .booking-name { font-weight: 600; margin-bottom: 4px; font-size: 0.9rem; }
-    .booking-meta { font-size: 0.75rem; color: var(--text); font-family: var(--mono); }
-    .booking-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-    .booking-val { font-family: var(--mono); font-weight: 700; color: var(--aurora); font-size: 0.88rem; }
-    .ops-notice {
-      padding: 16px 24px;
-      background: rgba(0,201,167,0.06);
-      border-top: 1px solid rgba(0,201,167,0.15);
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      color: rgba(0,201,167,0.6);
       text-align: center;
     }
+    .ops-lock-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--aurora);
+      color: var(--black);
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 5px;
+      transition: opacity 0.2s;
+    }
+    .ops-lock-link:hover { opacity: 0.85; }
+    .ops-tabs-demo {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 28px;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px;
+      width: fit-content;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .ops-tab-demo {
+      padding: 9px 20px;
+      border-radius: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      background: transparent;
+      color: var(--text);
+    }
+    .ops-tab-demo.active { background: var(--aurora); color: var(--black); }
 
   </style>
 </head>
@@ -1548,137 +1467,55 @@
 <!-- ─── OPERATOR SUITE ───────────────────────────────────────── -->
 <section id="operator">
   <div class="container">
-    <div class="ops-header">
+    <div style="margin-bottom:56px;">
       <span class="tag">Aurora Operator Suite</span>
       <h2 class="section-title">Your ops stack,<br>built in.</h2>
-      <p class="section-sub">Every Aurora infrastructure build includes an Operator Suite — live dashboards, lead tracking, and revenue intelligence. This is what your business looks like when it runs on systems.</p>
+      <p class="section-sub">Every Aurora build ships with a live Operator Suite — dashboards, lead tracking, and revenue intelligence wired directly to your backend. This is what running on systems looks like.</p>
     </div>
 
-    <div class="ops-tabs" role="tablist">
-      <button class="ops-tab active" onclick="opsSwitch(0)" role="tab">Ops HUD</button>
-      <button class="ops-tab" onclick="opsSwitch(1)" role="tab">Lead CRM</button>
-      <button class="ops-tab" onclick="opsSwitch(2)" role="tab">Revenue Board</button>
-      <button class="ops-tab" onclick="opsSwitch(3)" role="tab">Booking Queue</button>
+    <div class="ops-tabs-demo">
+      <div class="ops-tab-demo active">OPS HUD</div>
+      <div class="ops-tab-demo">Lead CRM</div>
+      <div class="ops-tab-demo">Revenue Board</div>
+      <div class="ops-tab-demo">Booking Queue</div>
     </div>
 
-    <!-- Panel 0: Ops HUD -->
-    <div class="ops-panel active" id="ops-panel-0">
-      <div class="ops-shell">
-        <div class="ops-titlebar">
-          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
-          <div class="ops-url">aurora.ops / hud / overview</div>
-          <div class="ops-live-badge">● LIVE</div>
+    <div class="ops-teaser">
+      <div class="ops-teaser-titlebar">
+        <div class="ops-dot ops-dot-r"></div>
+        <div class="ops-dot ops-dot-y"></div>
+        <div class="ops-dot ops-dot-g"></div>
+        <div class="ops-teaser-url">aurora.ops / hud / overview</div>
+        <div class="ops-teaser-locked">⊘ Restricted</div>
+      </div>
+      <div class="ops-teaser-grid">
+        <div class="ops-teaser-kpi">
+          <div class="ops-teaser-label">Active Leads</div>
+          <div class="ops-teaser-val green">24</div>
         </div>
-        <div class="ops-kpi-strip">
-          <div class="ops-kpi"><div class="ops-kpi-label">Active Leads</div><div class="ops-kpi-val green" id="hud-leads">—</div><div class="ops-kpi-delta">In pipeline</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Revenue MTD</div><div class="ops-kpi-val" id="hud-rev">—</div><div class="ops-kpi-delta">This month</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Open Jobs</div><div class="ops-kpi-val gold" id="hud-jobs">—</div><div class="ops-kpi-delta" id="hud-jobs-sub"> </div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Hot Pipeline</div><div class="ops-kpi-val green" id="hud-pipeline">—</div><div class="ops-kpi-delta">Active leads</div></div>
+        <div class="ops-teaser-kpi">
+          <div class="ops-teaser-label">Revenue MTD</div>
+          <div class="ops-teaser-val">₱148,500</div>
         </div>
-        <div class="ops-table-wrap">
-          <table class="ops-table">
-            <thead><tr><th>Active Job</th><th>Type</th><th>Due</th><th>Value</th><th>Status</th></tr></thead>
-            <tbody id="hud-jobs-body"><tr><td colspan="5" style="color:var(--text);padding:16px;">Loading…</td></tr></tbody>
-          </table>
+        <div class="ops-teaser-kpi">
+          <div class="ops-teaser-label">Open Jobs</div>
+          <div class="ops-teaser-val gold">5</div>
         </div>
-        <div class="ops-notice" id="ops-notice-hud">⬡ Loading live data…</div>
+        <div class="ops-teaser-kpi">
+          <div class="ops-teaser-label">Hot Pipeline</div>
+          <div class="ops-teaser-val green">₱312,000</div>
+        </div>
+      </div>
+
+      <!-- Overlay -->
+      <div class="ops-teaser-overlay">
+        <div class="ops-lock-icon">⊘</div>
+        <div class="ops-lock-msg">Operator Suite<br>Included with every Aurora build</div>
+        <a href="https://hirrok.github.io/adf-hq/cockpit.html" class="ops-lock-link" target="_blank">
+          → Open Cockpit
+        </a>
       </div>
     </div>
-
-    <!-- Panel 1: Lead CRM -->
-    <div class="ops-panel" id="ops-panel-1">
-      <div class="ops-shell">
-        <div class="ops-titlebar">
-          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
-          <div class="ops-url">aurora.ops / crm / leads</div>
-          <div class="ops-live-badge">● LIVE</div>
-        </div>
-        <div class="ops-kpi-strip">
-          <div class="ops-kpi"><div class="ops-kpi-label">Total Leads</div><div class="ops-kpi-val green">38</div><div class="ops-kpi-delta">↑ 12 this month</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Hot Pipeline</div><div class="ops-kpi-val gold">₱312,000</div><div class="ops-kpi-delta">6 prospects</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Avg Response</div><div class="ops-kpi-val">2.4 hrs</div><div class="ops-kpi-delta">↓ 1.1 hrs vs last mo.</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Won This Month</div><div class="ops-kpi-val green">5</div><div class="ops-kpi-delta">₱89,500 closed</div></div>
-        </div>
-        <div class="ops-table-wrap">
-          <table class="ops-table">
-            <thead><tr><th>Contact</th><th>Business</th><th>Source</th><th>Value</th><th>Stage</th><th>Last Touch</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Maria Santos</strong></td><td>Santos Trading Co.</td><td>Referral</td><td>₱24,000</td><td><span class="status-pill pill-hot">Hot</span></td><td>Today</td></tr>
-              <tr><td><strong>RJ Dela Cruz</strong></td><td>Dela Cruz Bakery</td><td>Facebook</td><td>₱18,500</td><td><span class="status-pill pill-hot">Hot</span></td><td>Yesterday</td></tr>
-              <tr><td><strong>Ana Reyes</strong></td><td>Reyes Resort Panglao</td><td>Direct</td><td>₱95,000</td><td><span class="status-pill pill-warm">Warm</span></td><td>May 28</td></tr>
-              <tr><td><strong>Carlo Lim</strong></td><td>Lim Hardware Supply</td><td>Google</td><td>₱32,000</td><td><span class="status-pill pill-warm">Warm</span></td><td>May 26</td></tr>
-              <tr><td><strong>Gio Tan</strong></td><td>Tan Fuel Services</td><td>Referral</td><td>₱48,000</td><td><span class="status-pill pill-pending">Proposal</span></td><td>May 22</td></tr>
-              <tr><td><strong>Jenny Cruz</strong></td><td>Cruz Dental Clinic</td><td>Instagram</td><td>₱15,000</td><td><span class="status-pill pill-cold">Cold</span></td><td>May 15</td></tr>
-              <tr><td><strong>Ben Soriano</strong></td><td>Soriano Events</td><td>Google</td><td>₱28,000</td><td><span class="status-pill pill-won">Won ✓</span></td><td>May 10</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="ops-notice">⬡ MOCK DATA — Aurora Operator Suite Demo · Live builds connect to real backend</div>
-      </div>
-    </div>
-
-    <!-- Panel 2: Revenue Board -->
-    <div class="ops-panel" id="ops-panel-2">
-      <div class="ops-shell">
-        <div class="ops-titlebar">
-          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
-          <div class="ops-url">aurora.ops / revenue / board</div>
-          <div class="ops-live-badge">● LIVE</div>
-        </div>
-        <div class="ops-kpi-strip">
-          <div class="ops-kpi"><div class="ops-kpi-label">Revenue YTD</div><div class="ops-kpi-val green">₱748,200</div><div class="ops-kpi-delta">↑ 31% vs prior year</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Best Month</div><div class="ops-kpi-val">April</div><div class="ops-kpi-delta">₱168,000</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Avg Job Value</div><div class="ops-kpi-val gold">₱32,400</div><div class="ops-kpi-delta">↑ ₱4,200 vs baseline</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Recurring Rev.</div><div class="ops-kpi-val green">₱42,000</div><div class="ops-kpi-delta">3 retainer clients</div></div>
-        </div>
-        <div class="ops-rev-grid">
-          <div class="ops-rev-left">
-            <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);">Monthly Revenue — 2026</div>
-            <div class="ops-chart-bars" id="revBars"></div>
-          </div>
-          <div class="ops-rev-right">
-            <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);">Revenue Breakdown</div>
-            <div class="ops-metric-list">
-              <div class="ops-metric-row"><span class="ops-metric-name">Infrastructure Builds</span><span class="ops-metric-val" style="color:var(--aurora);">₱512,000</span></div>
-              <div class="ops-metric-row"><span class="ops-metric-name">Retainer / Maintenance</span><span class="ops-metric-val" style="color:var(--gold);">₱168,000</span></div>
-              <div class="ops-metric-row"><span class="ops-metric-name">Add-ons & Systems</span><span class="ops-metric-val" style="color:#845ec2;">₱68,200</span></div>
-              <div class="ops-metric-row"><span class="ops-metric-name">Avg Days to Close</span><span class="ops-metric-val">8.4 days</span></div>
-              <div class="ops-metric-row"><span class="ops-metric-name">Client Retention Rate</span><span class="ops-metric-val" style="color:var(--aurora);">88%</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="ops-notice">⬡ MOCK DATA — Aurora Operator Suite Demo · Live builds connect to real backend</div>
-      </div>
-    </div>
-
-    <!-- Panel 3: Booking Queue -->
-    <div class="ops-panel" id="ops-panel-3">
-      <div class="ops-shell">
-        <div class="ops-titlebar">
-          <div class="ops-dot ops-dot-r"></div><div class="ops-dot ops-dot-y"></div><div class="ops-dot ops-dot-g"></div>
-          <div class="ops-url">aurora.ops / bookings / queue</div>
-          <div class="ops-live-badge">● LIVE</div>
-        </div>
-        <div class="ops-kpi-strip">
-          <div class="ops-kpi"><div class="ops-kpi-label">Active Bookings</div><div class="ops-kpi-val green">12</div><div class="ops-kpi-delta">3 confirmed today</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Pending Confirm</div><div class="ops-kpi-val gold">4</div><div class="ops-kpi-delta">Awaiting deposit</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">This Week Value</div><div class="ops-kpi-val">₱86,500</div><div class="ops-kpi-delta">↑ 22% vs last week</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Capacity Used</div><div class="ops-kpi-val green">74%</div><div class="ops-kpi-delta">3 slots remaining</div></div>
-        </div>
-        <div class="ops-booking-grid" id="booking-grid">
-          <div class="ops-booking-col">
-            <div class="ops-booking-col-title">Active Jobs</div>
-            <div id="booking-active"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
-          </div>
-          <div class="ops-booking-col">
-            <div class="ops-booking-col-title">Pending Confirmation</div>
-            <div id="booking-pending"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
-          </div>
-        </div>
-        <div class="ops-notice" id="ops-notice-booking">⬡ Loading live data…</div>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1853,173 +1690,6 @@
   // ↓ Replace with your deployed Apps Script URL after backend setup
   const OPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBfjVrfuLWMD-nLokoIhEzBzuHYmBlnJsXw7HLqyvXUtLMty0ArZTS26SFF4JoeK9X/exec';
 
-  const MOCK_DATA = {
-    leads: [
-      { contact:'Maria Santos',   business:'Santos Trading Co.',  source:'Referral',  value:24000,  stage:'Hot',      lastTouch:'Today' },
-      { contact:'RJ Dela Cruz',   business:'Dela Cruz Bakery',    source:'Facebook',  value:18500,  stage:'Hot',      lastTouch:'Yesterday' },
-      { contact:'Ana Reyes',      business:'Reyes Resort Panglao',source:'Direct',    value:95000,  stage:'Warm',     lastTouch:'May 28' },
-      { contact:'Carlo Lim',      business:'Lim Hardware Supply', source:'Google',    value:32000,  stage:'Warm',     lastTouch:'May 26' },
-      { contact:'Gio Tan',        business:'Tan Fuel Services',   source:'Referral',  value:48000,  stage:'Proposal', lastTouch:'May 22' },
-      { contact:'Jenny Cruz',     business:'Cruz Dental Clinic',  source:'Instagram', value:15000,  stage:'Cold',     lastTouch:'May 15' },
-      { contact:'Ben Soriano',    business:'Soriano Events',      source:'Google',    value:28000,  stage:'Won',      lastTouch:'May 10' },
-    ],
-    jobs: [
-      { name:'Ecopetrol Aurora — Full Infrastructure', type:'Infrastructure Build', started:'May 20', due:'Jun 9',  value:45000, status:'Completed' },
-      { name:'Iron Tribe Fitness Gym — Production',   type:'Layer 1–3 Build',      started:'Jun 1',  due:'Jun 9',  value:0,     status:'Completed' },
-      { name:'Aliya Surf Camp — Finalization',         type:'Layer 1–2 Deploy',     started:'May 25', due:'Jun 20', value:18500, status:'In Progress' },
-      { name:'Nalu Surf Camp — Contact System',        type:'Form Backend + CRM',   started:'Jun 10', due:'Jun 20', value:12000, status:'Scheduled' },
-    ],
-    revenue: {
-      monthly: [
-        {mo:'Jan',val:88000},{mo:'Feb',val:102000},{mo:'Mar',val:124000},
-        {mo:'Apr',val:168000},{mo:'May',val:148500},{mo:'Jun',val:118000},
-      ],
-      breakdown: {
-        'Infrastructure Builds':  512000,
-        'Retainer / Maintenance': 168000,
-        'Add-ons & Systems':       68200,
-      }
-    },
-    kpis: { activeLeads:24, openJobs:5, revMTD:148500, wonThisMonth:7, hotPipeline:312000 },
-  };
-
-  let OPS_DATA = null;
-
-  function fmt(n) {
-    return '₱' + Number(n).toLocaleString();
-  }
-
-  function stagePill(stage) {
-    const map = {
-      'Hot':      'pill-hot',
-      'Warm':     'pill-warm',
-      'Proposal': 'pill-pending',
-      'Cold':     'pill-cold',
-      'Won':      'pill-won',
-      'In Progress':'pill-active',
-      'Active':   'pill-warm',
-      'Scheduled':'pill-pending',
-    };
-    return `<span class="status-pill ${map[stage]||'pill-cold'}">${stage}</span>`;
-  }
-
-  async function loadOpsData() {
-    if (OPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
-      OPS_DATA = MOCK_DATA;
-      return;
-    }
-    try {
-      const res = await fetch(OPS_SCRIPT_URL);
-      const json = await res.json();
-      OPS_DATA = json.error ? MOCK_DATA : json;
-    } catch {
-      OPS_DATA = MOCK_DATA;
-    }
-  }
-
-  function renderCRM() {
-    const tbody = document.querySelector('#ops-panel-1 .ops-table tbody');
-    if (!tbody || !OPS_DATA) return;
-    tbody.innerHTML = OPS_DATA.leads.map(l => `
-      <tr>
-        <td><strong>${l.contact}</strong></td>
-        <td>${l.business}</td>
-        <td>${l.source}</td>
-        <td>${fmt(l.value)}</td>
-        <td>${stagePill(l.stage)}</td>
-        <td>${l.lastTouch}</td>
-      </tr>`).join('');
-  }
-
-  function renderRevenue() {
-    const wrap = document.getElementById('revBars');
-    if (!wrap || !OPS_DATA) return;
-    const data = OPS_DATA.revenue.monthly;
-    const max  = Math.max(...data.map(d => d.val));
-    wrap.innerHTML = data.map(d => {
-      const pct = Math.round((d.val / max) * 100);
-      const hi  = pct === 100 ? ' highlight' : '';
-      return `<div class="ops-bar-wrap">
-        <div class="ops-bar${hi}" style="height:${pct}%;"></div>
-        <div class="ops-bar-label">${d.mo}</div>
-      </div>`;
-    }).join('');
-  }
-
-  function opsSwitch(index) {
-    document.querySelectorAll('.ops-tab').forEach((t, i) => t.classList.toggle('active', i === index));
-    document.querySelectorAll('.ops-panel').forEach((p, i) => p.classList.toggle('active', i === index));
-  }
-
-  function renderHUD() {
-    if (!OPS_DATA) return;
-    const k = OPS_DATA.kpis || {};
-    const el = id => document.getElementById(id);
-
-    el('hud-leads').textContent    = k.activeLeads ?? '—';
-    el('hud-rev').textContent      = k.revMTD ? fmt(k.revMTD) : '—';
-    el('hud-jobs').textContent     = k.openJobs ?? '—';
-    el('hud-pipeline').textContent = k.hotPipeline ? fmt(k.hotPipeline) : '—';
-
-    const jobs = (OPS_DATA.jobs || []).filter(j => j.status !== 'Complete');
-    const tbody = el('hud-jobs-body');
-    if (jobs.length) {
-      tbody.innerHTML = jobs.map(j => `
-        <tr>
-          <td><strong>${j.name}</strong></td>
-          <td>${j.type}</td>
-          <td>${j.due}</td>
-          <td>${fmt(j.value)}</td>
-          <td>${stagePill(j.status)}</td>
-        </tr>`).join('');
-    } else {
-      tbody.innerHTML = '<tr><td colspan="5" style="color:var(--text);padding:16px;">No active jobs. Add one via the admin panel.</td></tr>';
-    }
-    el('ops-notice-hud').textContent = '⬡ LIVE DATA — Aurora Operator Suite · Powered by Google Sheets';
-  }
-
-  function renderBookingQueue() {
-    if (!OPS_DATA) return;
-    const jobs = OPS_DATA.jobs || [];
-    const activeStatuses  = ['In Progress', 'Active'];
-    const pendingStatuses = ['Scheduled', 'Awaiting Deposit', 'Proposal Sent'];
-
-    const active  = jobs.filter(j => activeStatuses.includes(j.status));
-    const pending = jobs.filter(j => pendingStatuses.includes(j.status));
-
-    function card(j) {
-      return `<div class="booking-card">
-        <div class="booking-name">${j.name}</div>
-        <div class="booking-meta">${j.type}${j.due !== '—' ? ' · Due ' + j.due : ''}</div>
-        <div class="booking-footer">${stagePill(j.status)}<span class="booking-val">${fmt(j.value)}</span></div>
-      </div>`;
-    }
-
-    const aWrap = document.getElementById('booking-active');
-    const pWrap = document.getElementById('booking-pending');
-
-    aWrap.innerHTML = active.length  ? active.map(card).join('')  : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No active jobs.</div>';
-    pWrap.innerHTML = pending.length ? pending.map(card).join('') : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No pending jobs.</div>';
-
-    // Update KPI strip for booking panel dynamically
-    const kpis = document.querySelectorAll('#ops-panel-3 .ops-kpi-val');
-    const totalActive = active.length;
-    const totalPending = pending.length;
-    const weekVal = [...active, ...pending].reduce((s, j) => s + (parseFloat(j.value) || 0), 0);
-    if (kpis[0]) kpis[0].textContent = totalActive;
-    if (kpis[1]) kpis[1].textContent = totalPending;
-    if (kpis[2]) kpis[2].textContent = weekVal ? fmt(weekVal) : '—';
-
-    document.getElementById('ops-notice-booking').textContent = '⬡ LIVE DATA — Aurora Operator Suite · Powered by Google Sheets';
-  }
-
-  // Boot: fetch data then render all panels
-  loadOpsData().then(() => {
-    renderHUD();
-    renderCRM();
-    renderRevenue();
-    renderBookingQueue();
-  });
 
   /* ─── RECON FORM ─────────────────────────────────────────────────── */
   document.querySelector('.contact-form').addEventListener('submit', async function(e) {

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Cockpit — Operator Suite</title>
+  <style>
+    :root {
+      --black:  #0a0a0a;
+      --mid:    #111111;
+      --border: rgba(255,255,255,0.08);
+      --text:   rgba(245,244,240,0.45);
+      --white:  #f5f4f0;
+      --aurora: #00c9a7;
+      --gold:   #e8c547;
+      --mono:   'Courier New', Courier, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ─── GATE ─────────────────────────────────────────────── */
+    #gate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    #gate.hidden { display: none; }
+
+    .gate-box {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+    .gate-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .gate-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--aurora);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.85rem; color: var(--black);
+    }
+    .gate-logo-name {
+      font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.04em; color: var(--white);
+    }
+    .gate-title {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .gate-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: var(--mono);
+      letter-spacing: 0.12em;
+      outline: none;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .gate-input:focus { border-color: var(--aurora); }
+    .gate-btn {
+      width: 100%;
+      background: var(--aurora);
+      color: var(--black);
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--mono);
+      transition: opacity 0.2s;
+    }
+    .gate-btn:hover { opacity: 0.85; }
+    .gate-error {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #ff5f57;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+    /* ─── COCKPIT ───────────────────────────────────────────── */
+    #cockpit { display: none; }
+    #cockpit.active { display: block; }
+
+    .cp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      background: rgba(0,0,0,0.6);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .cp-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cp-logo-mark {
+      width: 28px; height: 28px;
+      background: var(--aurora);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.78rem; color: var(--black);
+    }
+    .cp-logo-name {
+      font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+    .cp-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--aurora);
+      margin-left: 4px;
+    }
+    .cp-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .cp-status {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .cp-status span {
+      color: #28c840;
+    }
+    .cp-signout {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 14px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cp-signout:hover { border-color: #ff5f57; color: #ff5f57; }
+
+    .cp-body { padding: 32px 28px; max-width: 1280px; margin: 0 auto; }
+
+    /* ─── TABS ──────────────────────────────────────────────── */
+    .ops-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 28px;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px;
+      width: fit-content;
+    }
+    .ops-tab {
+      padding: 9px 20px;
+      border-radius: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .ops-tab:hover { color: var(--white); }
+    .ops-tab.active { background: var(--aurora); color: var(--black); }
+    .ops-panel { display: none; }
+    .ops-panel.active { display: block; }
+
+    /* ─── SHELL ─────────────────────────────────────────────── */
+    .ops-shell {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .ops-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .ops-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .ops-dot-r { background: #ff5f57; }
+    .ops-dot-y { background: #ffbd2e; }
+    .ops-dot-g { background: #28c840; }
+    .ops-url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: rgba(245,244,240,0.35);
+      letter-spacing: 0.03em;
+    }
+    .ops-live-badge {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #28c840;
+      border: 1px solid #28c840;
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+    .ops-notice {
+      padding: 12px 20px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.2);
+    }
+
+    /* ─── KPI STRIP ─────────────────────────────────────────── */
+    .ops-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .ops-kpi {
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .ops-kpi:last-child { border-right: none; }
+    .ops-kpi-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .ops-kpi-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .ops-kpi-val.green { color: var(--aurora); }
+    .ops-kpi-val.gold  { color: var(--gold); }
+    .ops-kpi-delta {
+      font-size: 0.7rem;
+      color: var(--aurora);
+      margin-top: 4px;
+      font-family: var(--mono);
+    }
+
+    /* ─── TABLE ─────────────────────────────────────────────── */
+    .ops-table-wrap { overflow-x: auto; }
+    .ops-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .ops-table th {
+      padding: 12px 20px;
+      text-align: left;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.2);
+    }
+    .ops-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: rgba(245,244,240,0.85);
+    }
+    .ops-table tr:last-child td { border-bottom: none; }
+    .ops-table tr:hover td { background: rgba(0,201,167,0.04); }
+
+    /* ─── PILLS ─────────────────────────────────────────────── */
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .pill-hot     { background: rgba(232,197,71,0.15);  color: var(--gold);   border: 1px solid rgba(232,197,71,0.3); }
+    .pill-warm    { background: rgba(0,201,167,0.12);   color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
+    .pill-cold    { background: rgba(255,255,255,0.06); color: var(--text);   border: 1px solid var(--border); }
+    .pill-won     { background: rgba(40,200,64,0.15);   color: #28c840;       border: 1px solid rgba(40,200,64,0.3); }
+    .pill-pending { background: rgba(132,94,194,0.15);  color: #845ec2;       border: 1px solid rgba(132,94,194,0.3); }
+    .pill-active  { background: rgba(0,201,167,0.12);   color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
+    .pill-completed { background: rgba(40,200,64,0.1);  color: #28c840;       border: 1px solid rgba(40,200,64,0.2); }
+
+    /* ─── REVENUE ────────────────────────────────────────────── */
+    .ops-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .ops-rev-left  { background: var(--mid); padding: 28px 28px 20px; }
+    .ops-rev-right { background: var(--mid); padding: 28px 28px 20px; }
+    .ops-chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 120px;
+      margin-top: 20px;
+    }
+    .ops-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+    .ops-bar {
+      width: 100%;
+      border-radius: 3px 3px 0 0;
+      background: rgba(0,201,167,0.3);
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .ops-bar:hover { background: var(--aurora); }
+    .ops-bar.highlight { background: var(--aurora); }
+    .ops-bar-label { font-family: var(--mono); font-size: 0.58rem; color: var(--text); letter-spacing: 0.05em; }
+    .ops-metric-list { display: grid; gap: 12px; margin-top: 20px; }
+    .ops-metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .ops-metric-name { font-size: 0.82rem; color: var(--text); }
+    .ops-metric-val { font-weight: 700; font-family: var(--mono); font-size: 0.88rem; }
+    .rev-section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    /* ─── BOOKING ────────────────────────────────────────────── */
+    .ops-booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .ops-booking-col { background: var(--mid); padding: 24px; }
+    .ops-booking-col-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+    .booking-card:hover { border-color: rgba(0,201,167,0.3); }
+    .booking-name { font-weight: 600; margin-bottom: 4px; font-size: 0.88rem; }
+    .booking-meta { font-size: 0.73rem; color: var(--text); font-family: var(--mono); }
+    .booking-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .booking-val { font-family: var(--mono); font-size: 0.82rem; color: var(--aurora); font-weight: 700; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .ops-kpi-strip { grid-template-columns: 1fr 1fr; }
+      .ops-kpi { border-right: none; border-bottom: 1px solid var(--border); }
+      .ops-rev-grid, .ops-booking-grid { grid-template-columns: 1fr; }
+      .cp-body { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── GATE ─────────────────────────────────────────────────── -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">
+      <div class="gate-logo-mark">ADF</div>
+      <div class="gate-logo-name">Aurora Digital Foundry</div>
+    </div>
+    <div class="gate-title">Operator Cockpit — Restricted Access</div>
+    <input
+      class="gate-input"
+      type="password"
+      id="gate-pw"
+      placeholder="Access code"
+      autocomplete="off"
+      onkeydown="if(event.key==='Enter') unlockCockpit()"
+    >
+    <button class="gate-btn" onclick="unlockCockpit()">Authenticate</button>
+    <div class="gate-error" id="gate-error"></div>
+  </div>
+</div>
+
+<!-- ─── COCKPIT ────────────────────────────────────────────────── -->
+<div id="cockpit">
+  <header class="cp-header">
+    <div class="cp-logo">
+      <div class="cp-logo-mark">ADF</div>
+      <div class="cp-logo-name">Aurora Cockpit</div>
+      <div class="cp-label">// Internal</div>
+    </div>
+    <div class="cp-header-right">
+      <div class="cp-status">Backend <span>● LIVE</span></div>
+      <button class="cp-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="cp-body">
+
+    <div class="ops-tabs" role="tablist">
+      <button class="ops-tab active" onclick="opsSwitch(0)">OPS HUD</button>
+      <button class="ops-tab"        onclick="opsSwitch(1)">Lead CRM</button>
+      <button class="ops-tab"        onclick="opsSwitch(2)">Revenue Board</button>
+      <button class="ops-tab"        onclick="opsSwitch(3)">Booking Queue</button>
+    </div>
+
+    <!-- ── Panel 0: OPS HUD ─────────────────────────────────── -->
+    <div class="ops-panel active" id="ops-panel-0">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / hud / overview</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Active Leads</div>
+            <div class="ops-kpi-val green" id="hud-leads">—</div>
+            <div class="ops-kpi-delta">In pipeline</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Revenue MTD</div>
+            <div class="ops-kpi-val" id="hud-rev">—</div>
+            <div class="ops-kpi-delta">This month</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Open Jobs</div>
+            <div class="ops-kpi-val gold" id="hud-jobs">—</div>
+            <div class="ops-kpi-delta" id="hud-jobs-sub"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Hot Pipeline</div>
+            <div class="ops-kpi-val green" id="hud-pipeline">—</div>
+            <div class="ops-kpi-delta">Active leads</div>
+          </div>
+        </div>
+        <div class="ops-table-wrap">
+          <table class="ops-table">
+            <thead>
+              <tr><th>Active Job</th><th>Type</th><th>Due</th><th>Value</th><th>Status</th></tr>
+            </thead>
+            <tbody id="hud-jobs-body">
+              <tr><td colspan="5" style="color:var(--text);padding:16px;">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ops-notice" id="ops-notice-hud">⬡ Connecting to backend…</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 1: Lead CRM ─────────────────────────────────── -->
+    <div class="ops-panel" id="ops-panel-1">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / crm / leads</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Total Leads</div>
+            <div class="ops-kpi-val green" id="crm-total">—</div>
+            <div class="ops-kpi-delta" id="crm-total-sub"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Hot Pipeline</div>
+            <div class="ops-kpi-val gold" id="crm-pipeline">—</div>
+            <div class="ops-kpi-delta" id="crm-pipeline-sub"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Won This Month</div>
+            <div class="ops-kpi-val green" id="crm-won">—</div>
+            <div class="ops-kpi-delta" id="crm-won-sub"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Proposals Out</div>
+            <div class="ops-kpi-val" id="crm-proposals">—</div>
+            <div class="ops-kpi-delta">Awaiting reply</div>
+          </div>
+        </div>
+        <div class="ops-table-wrap">
+          <table class="ops-table">
+            <thead>
+              <tr><th>Contact</th><th>Business</th><th>Source</th><th>Value</th><th>Stage</th><th>Last Touch</th></tr>
+            </thead>
+            <tbody id="crm-tbody">
+              <tr><td colspan="6" style="color:var(--text);padding:16px;">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ops-notice" id="ops-notice-crm">⬡ Connecting to backend…</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 2: Revenue Board ─────────────────────────────── -->
+    <div class="ops-panel" id="ops-panel-2">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / revenue / board</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Revenue YTD</div>
+            <div class="ops-kpi-val green" id="rev-ytd">—</div>
+            <div class="ops-kpi-delta" id="rev-ytd-sub"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Best Month</div>
+            <div class="ops-kpi-val" id="rev-best-mo">—</div>
+            <div class="ops-kpi-delta" id="rev-best-val"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Avg Job Value</div>
+            <div class="ops-kpi-val gold" id="rev-avg">—</div>
+            <div class="ops-kpi-delta" id="rev-avg-sub"> </div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Recurring Rev.</div>
+            <div class="ops-kpi-val green" id="rev-mrr">—</div>
+            <div class="ops-kpi-delta" id="rev-mrr-sub"> </div>
+          </div>
+        </div>
+        <div class="ops-rev-grid">
+          <div class="ops-rev-left">
+            <div class="rev-section-label">Monthly Revenue — 2026</div>
+            <div class="ops-chart-bars" id="revBars"></div>
+          </div>
+          <div class="ops-rev-right">
+            <div class="rev-section-label">Revenue Breakdown</div>
+            <div class="ops-metric-list" id="rev-breakdown"></div>
+          </div>
+        </div>
+        <div class="ops-notice" id="ops-notice-rev">⬡ Connecting to backend…</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 3: Booking Queue ─────────────────────────────── -->
+    <div class="ops-panel" id="ops-panel-3">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / bookings / queue</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div class="ops-kpi-strip">
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Active Jobs</div>
+            <div class="ops-kpi-val green" id="bq-active">—</div>
+            <div class="ops-kpi-delta">In progress</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Pending Confirm</div>
+            <div class="ops-kpi-val gold" id="bq-pending">—</div>
+            <div class="ops-kpi-delta">Awaiting deposit</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Queue Value</div>
+            <div class="ops-kpi-val" id="bq-value">—</div>
+            <div class="ops-kpi-delta">Active + pending</div>
+          </div>
+          <div class="ops-kpi">
+            <div class="ops-kpi-label">Completed</div>
+            <div class="ops-kpi-val" id="bq-done">—</div>
+            <div class="ops-kpi-delta">This period</div>
+          </div>
+        </div>
+        <div class="ops-booking-grid">
+          <div class="ops-booking-col">
+            <div class="ops-booking-col-title">Active Jobs</div>
+            <div id="booking-active"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
+          </div>
+          <div class="ops-booking-col">
+            <div class="ops-booking-col-title">Pending Confirmation</div>
+            <div id="booking-pending"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
+          </div>
+        </div>
+        <div class="ops-notice" id="ops-notice-booking">⬡ Connecting to backend…</div>
+      </div>
+    </div>
+
+  </div><!-- /cp-body -->
+</div><!-- /cockpit -->
+
+<script>
+  // ── CONFIG ────────────────────────────────────────────────────
+  const ACCESS_CODE    = 'adf2026';
+  const OPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBfjVrfuLWMD-nLokoIhEzBzuHYmBlnJsXw7HLqyvXUtLMty0ArZTS26SFF4JoeK9X/exec';
+  const SESSION_KEY    = 'adf_cockpit_auth';
+
+  // ── GATE ──────────────────────────────────────────────────────
+  function unlockCockpit() {
+    const pw = document.getElementById('gate-pw').value.trim();
+    if (pw === ACCESS_CODE) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      document.getElementById('gate').classList.add('hidden');
+      document.getElementById('cockpit').classList.add('active');
+      boot();
+    } else {
+      const err = document.getElementById('gate-error');
+      err.textContent = 'Invalid access code.';
+      document.getElementById('gate-pw').value = '';
+      document.getElementById('gate-pw').focus();
+      setTimeout(() => err.textContent = '', 2500);
+    }
+  }
+
+  function signOut() {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  }
+
+  // Auto-unlock if already authenticated this session
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('cockpit').classList.add('active');
+  }
+
+  // ── DATA ──────────────────────────────────────────────────────
+  let OPS_DATA = null;
+
+  function fmt(n) {
+    return '₱' + Number(n).toLocaleString();
+  }
+
+  function stagePill(stage) {
+    const map = {
+      'Hot':         'pill-hot',
+      'Warm':        'pill-warm',
+      'Proposal':    'pill-pending',
+      'Cold':        'pill-cold',
+      'Won':         'pill-won',
+      'Completed':   'pill-completed',
+      'Complete':    'pill-completed',
+      'In Progress': 'pill-active',
+      'Active':      'pill-warm',
+      'Scheduled':   'pill-pending',
+    };
+    return `<span class="status-pill ${map[stage]||'pill-cold'}">${stage}</span>`;
+  }
+
+  async function loadOpsData() {
+    try {
+      const res  = await fetch(OPS_SCRIPT_URL);
+      const json = await res.json();
+      OPS_DATA   = (json && !json.error) ? json : null;
+    } catch {
+      OPS_DATA = null;
+    }
+  }
+
+  // ── RENDER: OPS HUD ───────────────────────────────────────────
+  function renderHUD() {
+    if (!OPS_DATA) {
+      document.getElementById('ops-notice-hud').textContent = '⬡ Backend unreachable — check GAS deployment.';
+      return;
+    }
+    const k = OPS_DATA.kpis || {};
+    document.getElementById('hud-leads').textContent    = k.activeLeads ?? '—';
+    document.getElementById('hud-rev').textContent      = k.revMTD    ? fmt(k.revMTD)    : '—';
+    document.getElementById('hud-jobs').textContent     = k.openJobs  ?? '—';
+    document.getElementById('hud-pipeline').textContent = k.hotPipeline ? fmt(k.hotPipeline) : '—';
+
+    const jobs  = (OPS_DATA.jobs || []).filter(j => j.status !== 'Complete' && j.status !== 'Completed');
+    const tbody = document.getElementById('hud-jobs-body');
+    tbody.innerHTML = jobs.length
+      ? jobs.map(j => `<tr>
+          <td><strong>${j.name}</strong></td>
+          <td>${j.type}</td>
+          <td>${j.due}</td>
+          <td>${fmt(j.value)}</td>
+          <td>${stagePill(j.status)}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="5" style="color:var(--text);padding:16px;">No active jobs.</td></tr>';
+
+    document.getElementById('ops-notice-hud').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
+  }
+
+  // ── RENDER: LEAD CRM ──────────────────────────────────────────
+  function renderCRM() {
+    if (!OPS_DATA) {
+      document.getElementById('ops-notice-crm').textContent = '⬡ Backend unreachable — check GAS deployment.';
+      return;
+    }
+    const leads = OPS_DATA.leads || [];
+
+    const total     = leads.length;
+    const hot       = leads.filter(l => l.stage === 'Hot');
+    const proposals = leads.filter(l => l.stage === 'Proposal');
+    const won       = leads.filter(l => l.stage === 'Won');
+    const pipeline  = hot.reduce((s, l) => s + (Number(l.value) || 0), 0);
+
+    document.getElementById('crm-total').textContent        = total;
+    document.getElementById('crm-total-sub').textContent    = `${hot.length} hot`;
+    document.getElementById('crm-pipeline').textContent     = pipeline ? fmt(pipeline) : '₱0';
+    document.getElementById('crm-pipeline-sub').textContent = `${hot.length} hot leads`;
+    document.getElementById('crm-won').textContent          = won.length;
+    document.getElementById('crm-won-sub').textContent      = won.length ? fmt(won.reduce((s,l) => s + (Number(l.value)||0), 0)) + ' closed' : ' ';
+    document.getElementById('crm-proposals').textContent    = proposals.length;
+
+    const tbody = document.getElementById('crm-tbody');
+    tbody.innerHTML = leads.length
+      ? leads.map(l => `<tr>
+          <td><strong>${l.contact}</strong></td>
+          <td>${l.business}</td>
+          <td>${l.source}</td>
+          <td>${fmt(l.value)}</td>
+          <td>${stagePill(l.stage)}</td>
+          <td>${l.lastTouch}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="6" style="color:var(--text);padding:16px;">No leads yet. Add via the Foundry HQ sheet.</td></tr>';
+
+    document.getElementById('ops-notice-crm').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
+  }
+
+  // ── RENDER: REVENUE BOARD ─────────────────────────────────────
+  function renderRevenue() {
+    if (!OPS_DATA) {
+      document.getElementById('ops-notice-rev').textContent = '⬡ Backend unreachable — check GAS deployment.';
+      return;
+    }
+    const rev = OPS_DATA.revenue || {};
+    const monthly = rev.monthly || [];
+
+    // Bars
+    if (monthly.length) {
+      const max  = Math.max(...monthly.map(d => d.val));
+      document.getElementById('revBars').innerHTML = monthly.map(d => {
+        const pct = Math.round((d.val / max) * 100);
+        return `<div class="ops-bar-wrap">
+          <div class="ops-bar${pct===100?' highlight':''}" style="height:${pct}%;"></div>
+          <div class="ops-bar-label">${d.mo}</div>
+        </div>`;
+      }).join('');
+
+      // KPIs
+      const ytd     = monthly.reduce((s, d) => s + d.val, 0);
+      const bestMo  = monthly.reduce((a, b) => b.val > a.val ? b : a);
+      const jobVals = (OPS_DATA.jobs || []).map(j => Number(j.value)||0).filter(v => v > 0);
+      const avg     = jobVals.length ? Math.round(jobVals.reduce((s,v)=>s+v,0)/jobVals.length) : 0;
+      const mrr     = OPS_DATA.kpis?.mrr || 0;
+
+      document.getElementById('rev-ytd').textContent     = fmt(ytd);
+      document.getElementById('rev-best-mo').textContent = bestMo.mo;
+      document.getElementById('rev-best-val').textContent = fmt(bestMo.val);
+      document.getElementById('rev-avg').textContent      = avg ? fmt(avg) : '—';
+      document.getElementById('rev-mrr').textContent      = mrr ? fmt(mrr) : '—';
+    }
+
+    // Breakdown
+    const breakdown = rev.breakdown || {};
+    const colors    = ['var(--aurora)', 'var(--gold)', '#845ec2', 'var(--white)', 'var(--aurora)'];
+    const bEl       = document.getElementById('rev-breakdown');
+    const entries   = Object.entries(breakdown);
+    bEl.innerHTML   = entries.length
+      ? entries.map(([k, v], i) => `<div class="ops-metric-row">
+          <span class="ops-metric-name">${k}</span>
+          <span class="ops-metric-val" style="color:${colors[i%colors.length]};">${fmt(v)}</span>
+        </div>`).join('')
+      : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No breakdown data.</div>';
+
+    document.getElementById('ops-notice-rev').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
+  }
+
+  // ── RENDER: BOOKING QUEUE ─────────────────────────────────────
+  function renderBookingQueue() {
+    if (!OPS_DATA) {
+      document.getElementById('ops-notice-booking').textContent = '⬡ Backend unreachable — check GAS deployment.';
+      return;
+    }
+    const jobs = OPS_DATA.jobs || [];
+    const active  = jobs.filter(j => ['In Progress','Active'].includes(j.status));
+    const pending = jobs.filter(j => ['Scheduled','Awaiting Deposit','Proposal Sent'].includes(j.status));
+    const done    = jobs.filter(j => ['Completed','Complete','Won'].includes(j.status));
+
+    function card(j) {
+      return `<div class="booking-card">
+        <div class="booking-name">${j.name}</div>
+        <div class="booking-meta">${j.type}${j.due && j.due !== '—' ? ' · Due ' + j.due : ''}</div>
+        <div class="booking-footer">${stagePill(j.status)}<span class="booking-val">${fmt(j.value)}</span></div>
+      </div>`;
+    }
+    document.getElementById('booking-active').innerHTML  = active.length  ? active.map(card).join('')  : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No active jobs.</div>';
+    document.getElementById('booking-pending').innerHTML = pending.length ? pending.map(card).join('') : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No pending jobs.</div>';
+
+    const queueVal = [...active,...pending].reduce((s,j) => s+(Number(j.value)||0), 0);
+    document.getElementById('bq-active').textContent  = active.length;
+    document.getElementById('bq-pending').textContent = pending.length;
+    document.getElementById('bq-value').textContent   = queueVal ? fmt(queueVal) : '—';
+    document.getElementById('bq-done').textContent    = done.length;
+
+    document.getElementById('ops-notice-booking').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
+  }
+
+  // ── TAB SWITCH ────────────────────────────────────────────────
+  function opsSwitch(index) {
+    document.querySelectorAll('.ops-tab').forEach((t,i)   => t.classList.toggle('active', i===index));
+    document.querySelectorAll('.ops-panel').forEach((p,i) => p.classList.toggle('active', i===index));
+  }
+
+  // ── BOOT (runs only after auth) ───────────────────────────────
+  async function boot() {
+    await loadOpsData();
+    renderHUD();
+    renderCRM();
+    renderRevenue();
+    renderBookingQueue();
+  }
+
+  // If already authenticated, boot immediately
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    boot();
+  }
+</script>
+</body>
+</html>
