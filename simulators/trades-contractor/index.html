@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IronCrest Works — Construction & Trades Contractor | Batangas</title>
-  <meta name="description" content="IronCrest Works — full-service construction and trades contractor in Batangas. Renovation, electrical, plumbing, steel works, painting, and aircon. Built right, on time, every time."/>
+  <title>IronCrest Works: Construction & Trades Contractor | Batangas</title>
+  <meta name="description" content="IronCrest Works: full-service construction and trades contractor in Batangas. Renovation, electrical, plumbing, steel works, painting, and aircon. Built right, on time, every time."/>
   <meta name="keywords" content="construction contractor Batangas, renovation contractor Philippines, electrical works Batangas, plumbing contractor, trades contractor Batangas Laguna Cavite"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --black:   #0B0D0F;
@@ -22,12 +22,21 @@
       --red:     #E85A20;
       --green:   #2ECC71;
       --mono:    'JetBrains Mono', monospace;
-      --sans:    'Inter', sans-serif;
+      --sans:    'Source Sans 3', sans-serif;
+      --display: 'Oswald', sans-serif;
+    }
+    [data-theme="light"] {
+      --black:   #F5F2EB;
+      --mid:     #FFFFFF;
+      --surface: #EDE9E1;
+      --border:  rgba(30,22,12,0.1);
+      --text:    rgba(30,22,12,0.58);
+      --white:   #1C1610;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; transition: background 0.2s, color 0.2s; }
     a { text-decoration: none; color: inherit; }
     img { display: block; width: 100%; object-fit: cover; }
 
@@ -49,7 +58,7 @@
     .btn-primary:hover { background: var(--amber2); }
     .btn-ghost { background: transparent; color: var(--white); border: 1px solid var(--border); }
     .btn-ghost:hover { border-color: rgba(232,160,32,0.4); color: var(--amber); }
-    .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 18px; }
+    .section-title { font-family: var(--display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.08; letter-spacing: 0.01em; text-transform: uppercase; margin-bottom: 18px; }
     .section-sub { font-size: 1.05rem; color: var(--text); max-width: 560px; line-height: 1.7; }
 
     /* ─── NAV ─────────────────────────────────── */
@@ -93,7 +102,7 @@
       text-transform: uppercase; color: var(--amber); margin-bottom: 28px;
     }
     .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--amber); }
-    .hero h1 { font-size: clamp(2.8rem, 5.5vw, 4.2rem); font-weight: 900; line-height: 1.06; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .hero h1 { font-family: var(--display); font-size: clamp(2.8rem, 5.5vw, 4.8rem); font-weight: 700; line-height: 1.02; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 24px; }
     .hero h1 span { color: var(--amber); }
     .hero-sub { font-size: 1.1rem; color: var(--text); line-height: 1.7; margin-bottom: 40px; max-width: 480px; }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
@@ -318,6 +327,7 @@
         <li><a href="#quote">Get a Quote</a></li>
       </ul>
       <div class="nav-cta">
+        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:all 0.15s;" title="Toggle light/dark">🌙</button>
         <a href="operator.html" class="nav-operator" target="_blank">⚙ Operator</a>
         <a href="#quote" class="btn btn-primary" style="padding:10px 20px; font-size:0.82rem;">Free Quote</a>
       </div>
@@ -330,9 +340,9 @@
   <div class="container">
     <div class="hero-inner">
       <div>
-        <div class="hero-eyebrow">Batangas Province — Est. 2012</div>
+        <div class="hero-eyebrow">Batangas Province: Est. 2012</div>
         <h1>Built Right.<br><span>On Time.</span><br>Every Time.</h1>
-        <p class="hero-sub">Full-service construction and trades contractor serving Batangas, Laguna, Cavite, and Quezon. From ground-up builds to finishing touches — we deliver with licensed crews and zero shortcuts.</p>
+        <p class="hero-sub">Full-service construction and trades contractor serving Batangas, Laguna, Cavite, and Quezon. From ground-up builds to finishing touches: we deliver with licensed crews and zero shortcuts.</p>
         <div class="hero-actions">
           <a href="#quote" class="btn btn-primary">Request Free Quote ↗</a>
           <a href="#gallery" class="btn btn-ghost">View Projects</a>
@@ -384,7 +394,7 @@
         <span class="tag">What We Do</span>
         <h2 class="section-title">Six trades.<br>One crew.</h2>
       </div>
-      <p class="section-sub">We keep licensed tradespeople across all six disciplines in-house — no subcontracting, no finger-pointing, no delays. One call coordinates everything.</p>
+      <p class="section-sub">We keep licensed tradespeople across all six disciplines in-house: no subcontracting, no finger-pointing, no delays. One call coordinates everything.</p>
     </div>
     <div class="services-grid">
 
@@ -393,7 +403,7 @@
         <div class="svc-body">
           <div class="svc-icon">🏗️</div>
           <div class="svc-name">General Construction & Renovation</div>
-          <p class="svc-desc">Full-build and renovation projects for residential and commercial properties — from structural to finishing.</p>
+          <p class="svc-desc">Full-build and renovation projects for residential and commercial properties: from structural to finishing.</p>
           <div class="svc-items">
             <span class="svc-item">New Builds</span>
             <span class="svc-item">Extension</span>
@@ -423,7 +433,7 @@
         <div class="svc-body">
           <div class="svc-icon">🔧</div>
           <div class="svc-name">Plumbing & Water Systems</div>
-          <p class="svc-desc">Licensed master plumbers for full installation, repair, and water system design — residential to commercial scale.</p>
+          <p class="svc-desc">Licensed master plumbers for full installation, repair, and water system design: residential to commercial scale.</p>
           <div class="svc-items">
             <span class="svc-item">Installation</span>
             <span class="svc-item">Repair</span>
@@ -518,11 +528,11 @@
       <div>
         <span class="tag">Why IronCrest</span>
         <h2 class="section-title">The standard<br>most contractors skip.</h2>
-        <p class="section-sub">Corners get cut when nobody's watching. We build like you're watching — because our name is on it.</p>
+        <p class="section-sub">Corners get cut when nobody's watching. We build like you're watching: because our name is on it.</p>
         <ul class="why-points">
           <li class="why-point">
             <span class="why-point-num">01</span>
-            <p class="why-point-text"><strong>Licensed in-house tradespeople only.</strong> Every worker on your site is a direct employee with verified credentials — no fly-by-night subcontractors.</p>
+            <p class="why-point-text"><strong>Licensed in-house tradespeople only.</strong> Every worker on your site is a direct employee with verified credentials: no fly-by-night subcontractors.</p>
           </li>
           <li class="why-point">
             <span class="why-point-num">02</span>
@@ -530,7 +540,7 @@
           </li>
           <li class="why-point">
             <span class="why-point-num">03</span>
-            <p class="why-point-text"><strong>Progress photos every 48 hours.</strong> You see exactly what's happening on site — materials installed, milestones hit, issues flagged immediately.</p>
+            <p class="why-point-text"><strong>Progress photos every 48 hours.</strong> You see exactly what's happening on site: materials installed, milestones hit, issues flagged immediately.</p>
           </li>
           <li class="why-point">
             <span class="why-point-num">04</span>
@@ -552,9 +562,9 @@
     </div>
     <div class="gallery-grid">
       <div class="gallery-card gallery-overflow">
-        <img class="gallery-img" src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=700&q=80" alt="Completed residential renovation — living room" loading="lazy"/>
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=700&q=80" alt="Completed residential renovation: living room" loading="lazy"/>
         <div class="gallery-label">
-          <div class="gallery-label-title">Santos Residence — Full Renovation</div>
+          <div class="gallery-label-title">Santos Residence: Full Renovation</div>
           <div class="gallery-label-type">Residential · Lipa City</div>
         </div>
       </div>
@@ -584,7 +594,7 @@
     <div class="team-grid">
 
       <div class="team-card">
-        <img class="team-img" src="https://images.unsplash.com/photo-1530639834082-05bafb67fbbe?auto=format&fit=crop&w=600&q=80" alt="Ely Dizon — Lead Foreman" loading="lazy"/>
+        <img class="team-img" src="https://images.unsplash.com/photo-1530639834082-05bafb67fbbe?auto=format&fit=crop&w=600&q=80" alt="Ely Dizon: Lead Foreman" loading="lazy"/>
         <div class="team-body">
           <div class="team-name">Ely Dizon</div>
           <div class="team-role">Lead Foreman & Site Supervisor</div>
@@ -597,7 +607,7 @@
       </div>
 
       <div class="team-card">
-        <img class="team-img" src="https://images.unsplash.com/photo-1614127938540-a1139bee1841?auto=format&fit=crop&w=600&q=80" alt="Mark Santos — Master Electrician" loading="lazy"/>
+        <img class="team-img" src="https://images.unsplash.com/photo-1614127938540-a1139bee1841?auto=format&fit=crop&w=600&q=80" alt="Mark Santos: Master Electrician" loading="lazy"/>
         <div class="team-body">
           <div class="team-name">Mark Santos</div>
           <div class="team-role">Master Electrician</div>
@@ -610,7 +620,7 @@
       </div>
 
       <div class="team-card">
-        <img class="team-img" src="https://images.unsplash.com/photo-1595937146232-e4e496429fea?auto=format&fit=crop&w=600&q=80" alt="Rico Cruz — Master Plumber" loading="lazy"/>
+        <img class="team-img" src="https://images.unsplash.com/photo-1595937146232-e4e496429fea?auto=format&fit=crop&w=600&q=80" alt="Rico Cruz: Master Plumber" loading="lazy"/>
         <div class="team-body">
           <div class="team-name">Rico Cruz</div>
           <div class="team-role">Master Plumber</div>
@@ -649,7 +659,7 @@
 
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"We had a serious electrical fault in our commercial building — they were on-site in under 3 hours, diagnosed the problem, and had us back running the next morning. Lifesavers."</p>
+        <p class="review-text">"We had a serious electrical fault in our commercial building: they were on-site in under 3 hours, diagnosed the problem, and had us back running the next morning. Lifesavers."</p>
         <div class="review-author">
           <div class="review-avatar">JL</div>
           <div>
@@ -688,34 +698,34 @@
             <div class="area-zone-dot"></div>
             <div>
               <div class="area-zone-name">Batangas</div>
-              <div class="area-zone-note">Primary — No travel charge</div>
+              <div class="area-zone-note">Primary. No travel charge</div>
             </div>
           </div>
           <div class="area-zone">
             <div class="area-zone-dot"></div>
             <div>
               <div class="area-zone-name">Laguna</div>
-              <div class="area-zone-note">Primary — No travel charge</div>
+              <div class="area-zone-note">Primary. No travel charge</div>
             </div>
           </div>
           <div class="area-zone">
             <div class="area-zone-dot"></div>
             <div>
               <div class="area-zone-name">Cavite</div>
-              <div class="area-zone-note">Secondary — Minimal travel fee</div>
+              <div class="area-zone-note">Secondary: Minimal travel fee</div>
             </div>
           </div>
           <div class="area-zone">
             <div class="area-zone-dot"></div>
             <div>
               <div class="area-zone-name">Quezon</div>
-              <div class="area-zone-note">Secondary — Minimal travel fee</div>
+              <div class="area-zone-note">Secondary: Minimal travel fee</div>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <p class="section-sub">Every engagement begins with a free site visit — we assess the scope, provide a fixed quote, and outline a timeline before any money changes hands.</p>
+        <p class="section-sub">Every engagement begins with a free site visit: we assess the scope, provide a fixed quote, and outline a timeline before any money changes hands.</p>
         <div class="area-certs">
           <div class="area-cert-title">Registrations & Licenses</div>
           <div class="area-cert-list">
@@ -741,7 +751,7 @@
       <div>
         <span class="tag">Get a Quote</span>
         <h2 class="section-title">Tell us what you're building.</h2>
-        <p class="section-sub">Send us your project details and we'll get back within 4 hours — with a site visit scheduled, not a ballpark figure.</p>
+        <p class="section-sub">Send us your project details and we'll get back within 4 hours: with a site visit scheduled, not a ballpark figure.</p>
         <div class="quote-why">
           <div class="quote-why-item">
             <span class="quote-why-icon">📋</span>
@@ -761,7 +771,7 @@
             <span class="quote-why-icon">📅</span>
             <div class="quote-why-text">
               <strong>Committed timeline</strong>
-              <span>We give you a start date and a completion date — in writing.</span>
+              <span>We give you a start date and a completion date: in writing.</span>
             </div>
           </div>
           <div class="quote-why-item">
@@ -805,7 +815,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="fdesc">Project Description</label>
-            <textarea class="form-textarea" id="fdesc" name="description" placeholder="Briefly describe the scope of work — size, condition, what you need done..." required></textarea>
+            <textarea class="form-textarea" id="fdesc" name="description" placeholder="Briefly describe the scope of work: size, condition, what you need done..." required></textarea>
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -866,13 +876,30 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-bottom-left">© 2024 IronCrest Works. All rights reserved. PCAB Reg. No. XXXXX</div>
-      <div class="footer-powered">Powered by Aurora Digital Foundry</div>
+      <div class="footer-bottom-left">© 2024 IronCrest Works · All content is fictional · Forms run in demo mode · Imagery via Unsplash</div>
+      <div class="footer-powered">Live Blueprint · Aurora Digital Foundry</div>
     </div>
   </div>
 </footer>
 
 <script>
+  /* ─── THEME TOGGLE ─── */
+  (function(){
+    const saved = localStorage.getItem('adf-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
+    localStorage.setItem('adf-theme', next);
+  }
+
   /* ─── QUOTE FORM ─── */
   document.getElementById('quote-form').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -880,7 +907,7 @@
     btn.textContent = 'Submitting…';
     btn.disabled = true;
     setTimeout(() => {
-      btn.textContent = '✓ Request Received — We\'ll contact you within 4 hours';
+      btn.textContent = '✓ Request Received: We\'ll contact you within 4 hours';
       btn.style.background = '#2ECC71';
     }, 900);
   });

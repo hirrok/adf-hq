@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Solaris Operator Suite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --black:   #08090a;
@@ -24,12 +24,24 @@
       --red:     #e05c3a;
       --blue:    #4a9fd4;
       --yellow:  #f5c842;
-      --ff:      'Inter', sans-serif;
+      --ff:      'Space Grotesk', sans-serif;
       --mono:    'JetBrains Mono', monospace;
+    }
+    [data-theme="light"] {
+      --black:   #F0EDE5;
+      --deep:    #E8E4DC;
+      --mid:     #FFFFFF;
+      --surface: #F5F2EA;
+      --card:    #EDE9E1;
+      --border:  rgba(20,16,10,0.08);
+      --border2: rgba(20,16,10,0.14);
+      --white:   #1A1510;
+      --text:    rgba(20,16,10,0.62);
+      --text2:   rgba(20,16,10,0.38);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.5; overflow-x: hidden; min-height: 100vh; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.5; overflow-x: hidden; min-height: 100vh; transition: background 0.2s, color 0.2s; }
 
     /* ── GATE ── */
     #gate {
@@ -276,6 +288,7 @@
     </div>
     <div class="topbar-right">
       <div class="topbar-time" id="topbarTime"></div>
+      <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border2);color:var(--text);padding:5px 10px;border-radius:4px;cursor:pointer;font-size:0.85rem;transition:all 0.15s;">☀</button>
       <button class="topbar-signout" onclick="signOut()">Sign Out</button>
     </div>
   </div>
@@ -414,7 +427,7 @@
         <div class="price-editor">
           <div class="price-card featured">
             <div class="price-fuel-label">Gasoline</div>
-            <div class="price-fuel-name">RON 91 — Unleaded Regular</div>
+            <div class="price-fuel-name">RON 91: Unleaded Regular</div>
             <div class="price-input-row">
               <div class="price-prefix">₱</div>
               <input class="price-input" type="number" value="56.75" step="0.05" />
@@ -424,7 +437,7 @@
           </div>
           <div class="price-card">
             <div class="price-fuel-label">Gasoline</div>
-            <div class="price-fuel-name">RON 95 — Unleaded Premium</div>
+            <div class="price-fuel-name">RON 95: Unleaded Premium</div>
             <div class="price-input-row">
               <div class="price-prefix">₱</div>
               <input class="price-input" type="number" value="59.50" step="0.05" />
@@ -434,7 +447,7 @@
           </div>
           <div class="price-card">
             <div class="price-fuel-label">Gasoline</div>
-            <div class="price-fuel-name">RON 97 — Unleaded Super</div>
+            <div class="price-fuel-name">RON 97: Unleaded Super</div>
             <div class="price-input-row">
               <div class="price-prefix">₱</div>
               <input class="price-input" type="number" value="62.10" step="0.05" />
@@ -444,7 +457,7 @@
           </div>
           <div class="price-card">
             <div class="price-fuel-label">Diesel</div>
-            <div class="price-fuel-name">Euro 5 — Low Sulfur</div>
+            <div class="price-fuel-name">Euro 5: Low Sulfur</div>
             <div class="price-input-row">
               <div class="price-prefix">₱</div>
               <input class="price-input" type="number" value="51.30" step="0.05" />
@@ -456,7 +469,7 @@
         <div class="price-update-bar">
           <button class="price-update-btn" onclick="savePrice()">Publish Price Update</button>
           <div class="price-save-note">Prices will reflect immediately on the public site after publishing.</div>
-          <div class="price-saved" id="priceSaved">✓ Prices published — Jun 10, <span id="priceTime"></span></div>
+          <div class="price-saved" id="priceSaved">✓ Prices published: Jun 10, <span id="priceTime"></span></div>
         </div>
       </div>
 
@@ -521,7 +534,7 @@
         <div class="page-header">
           <div class="page-eyebrow">Overview</div>
           <div class="page-title">Operations Overview</div>
-          <div class="page-sub">Network performance snapshot — June 2026.</div>
+          <div class="page-sub">Network performance snapshot: June 2026.</div>
         </div>
         <div class="kpi-row">
           <div class="kpi-card"><div class="kpi-label">Monthly Volume</div><div class="kpi-value">1.2M L</div><div class="kpi-delta">↑ 4.2% vs May</div></div>
@@ -531,13 +544,13 @@
         </div>
         <div class="data-table">
           <div class="data-table-header">
-            <div><div class="data-table-title">Branch Volume (MTD)</div><div class="data-table-sub">Fuel throughput by location — June 2026</div></div>
+            <div><div class="data-table-title">Branch Volume (MTD)</div><div class="data-table-sub">Fuel throughput by location: June 2026</div></div>
           </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Branch</th><th>Volume (L)</th><th>vs Last Month</th><th>Status</th></tr></thead>
               <tbody>
-                <tr><td><strong>Centro — Flagship</strong></td><td style="font-family:var(--mono)">340,000</td><td style="font-family:var(--mono);color:var(--green)">+6.2%</td><td><span class="status-badge s-24h">24/7</span></td></tr>
+                <tr><td><strong>Centro: Flagship</strong></td><td style="font-family:var(--mono)">340,000</td><td style="font-family:var(--mono);color:var(--green)">+6.2%</td><td><span class="status-badge s-24h">24/7</span></td></tr>
                 <tr><td><strong>North Highway</strong></td><td style="font-family:var(--mono)">280,000</td><td style="font-family:var(--mono);color:var(--green)">+3.8%</td><td><span class="status-badge s-24h">24/7</span></td></tr>
                 <tr><td><strong>Industrial Zone</strong></td><td style="font-family:var(--mono)">210,000</td><td style="font-family:var(--mono);color:var(--green)">+8.1%</td><td><span class="status-badge s-open">Open</span></td></tr>
                 <tr><td><strong>Port Road</strong></td><td style="font-family:var(--mono)">165,000</td><td style="font-family:var(--mono);color:var(--red)">-1.4%</td><td><span class="status-badge s-open">Open</span></td></tr>
@@ -555,12 +568,29 @@
   <!-- SIM STRIP -->
   <div class="sim-strip">
     <div class="sim-strip-dot"></div>
-    <span>AURORA DIGITAL FOUNDRY — OPERATOR SUITE SIMULATOR · All data is mock · No live backend connected</span>
+    <span>AURORA DIGITAL FOUNDRY: OPERATOR SUITE SIMULATOR · All data is mock · No live backend connected</span>
   </div>
 
 </div><!-- /app -->
 
 <script>
+  /* ─── THEME ─── */
+  (function(){
+    const saved = localStorage.getItem('adf-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
+    localStorage.setItem('adf-theme', next);
+  }
+
   const ACCESS = 'solaris2026';
 
   function checkGate() {
@@ -616,7 +646,7 @@
   }
 
   const BRANCHES = [
-    { name:'Centro Branch — Flagship', loc:'Main Commercial District', vol:'340,000 L / mo', status:'24h' },
+    { name:'Centro Branch: Flagship', loc:'Main Commercial District', vol:'340,000 L / mo', status:'24h' },
     { name:'North Highway Branch',     loc:'National Highway Northbound, Km 12', vol:'280,000 L / mo', status:'24h' },
     { name:'Industrial Zone Branch',   loc:'Economic Zone Access Road', vol:'210,000 L / mo', status:'open' },
     { name:'Port Road Branch',         loc:'Port Access Road, Wharf Area', vol:'165,000 L / mo', status:'open' },

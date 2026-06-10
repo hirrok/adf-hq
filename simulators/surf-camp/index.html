@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ═══ LOCAL SEO ═══ -->
-  <title>Alon Surf & Stay — Surf Camp & Resort | Siargao Island, Philippines</title>
+  <title>Alon Surf & Stay: Surf Camp & Resort | Siargao Island, Philippines</title>
   <meta name="description" content="Premier surf camp and beachfront resort on Siargao Island, Philippines. Beginner to advanced surf lessons, multi-day surf packages, board rentals, and ocean-front accommodation minutes from Cloud 9.">
   <meta name="keywords" content="surf camp Siargao, surf lessons Siargao Philippines, Cloud 9 surf school, Siargao resort stay, surf packages Philippines, beginner surf lessons Siargao, General Luna accommodation, Siargao Island resort, surfing Surigao del Norte">
   <meta name="robots" content="index, follow">
@@ -14,7 +14,7 @@
   <meta name="geo.position" content="9.8072;126.1580">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Alon Surf & Stay — Siargao Island, Philippines">
+  <meta property="og:title" content="Alon Surf & Stay: Siargao Island, Philippines">
   <meta property="og:description" content="Where the swell meets the soul. Surf lessons, board rentals & beachfront stays near Cloud 9, Siargao.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_PH">
@@ -61,7 +61,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -79,15 +79,26 @@
       --text2:  rgba(248,250,252,0.44);
       --border: rgba(255,255,255,0.08);
       --border2:rgba(255,255,255,0.15);
-      --ff:     'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --ff:     'Lato', 'Helvetica Neue', Arial, sans-serif;
       --serif:  'Playfair Display', Georgia, serif;
       --mono:   'JetBrains Mono', monospace;
       --r:      8px;
     }
+    [data-theme="light"] {
+      --void:   #EAF4F8;
+      --deep:   #D6EAF4;
+      --mid:    #C8E0EF;
+      --panel:  #FFFFFF;
+      --white:  #0A2038;
+      --text:   rgba(10,32,56,0.72);
+      --text2:  rgba(10,32,56,0.45);
+      --border: rgba(10,32,56,0.1);
+      --border2:rgba(10,32,56,0.18);
+    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; padding-bottom: 56px; }
+    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; padding-bottom: 56px; transition: background 0.2s, color 0.2s; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
@@ -539,6 +550,7 @@
     <a href="#location">Location</a>
   </div>
   <div class="nav-right">
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border2);color:var(--text);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:all 0.15s;" title="Toggle light/dark">🌙</button>
     <a href="#book" class="nav-cta">Book Now</a>
     <a href="operator.html" class="nav-op">Operator</a>
   </div>
@@ -553,7 +565,7 @@
     <h1 class="hero-headline">
       Surf the<br><em>best waves</em><br>in the Philippines.
     </h1>
-    <p class="hero-sub">Alon is Siargao's premier surf camp and beachfront resort. Beginner-friendly lessons, expert coaching, and ocean-front accommodation — all minutes from the legendary Cloud 9 break.</p>
+    <p class="hero-sub">Alon is Siargao's premier surf camp and beachfront resort. Beginner-friendly lessons, expert coaching, and ocean-front accommodation: all minutes from the legendary Cloud 9 break.</p>
     <div class="hero-actions">
       <a href="#book" class="btn-primary">Book a Package</a>
       <a href="#packages" class="btn-ghost">See Packages ↓</a>
@@ -583,7 +595,7 @@
   <div class="section-inner">
     <p class="section-tag">Surf Packages · Siargao Island, Philippines</p>
     <h2 id="pkg-heading" class="section-title">Find your program.</h2>
-    <p class="section-sub">First wave or Cloud 9 regular — we have a package built around your level, your schedule, and what you want out of Siargao.</p>
+    <p class="section-sub">First wave or Cloud 9 regular: we have a package built around your level, your schedule, and what you want out of Siargao.</p>
     <div class="packages-grid">
 
       <div class="pkg-card fi">
@@ -693,7 +705,7 @@
             <div class="exp-icon">📍</div>
             <div>
               <h4>Multi-Break Access</h4>
-              <p>From beginner beach breaks to advanced reef — we read the swell and go where it's right.</p>
+              <p>From beginner beach breaks to advanced reef: we read the swell and go where it's right.</p>
             </div>
           </div>
           <div class="exp-feat">
@@ -745,7 +757,7 @@
   <div class="section-inner">
     <p class="section-tag">Stay With Us · Siargao Island Accommodation</p>
     <h2 id="stay-heading" class="section-title">Sleep near the swell.</h2>
-    <p class="section-sub">Budget surf dorms to private beachfront suites — every room is clean, comfortable, and a short walk from the water.</p>
+    <p class="section-sub">Budget surf dorms to private beachfront suites: every room is clean, comfortable, and a short walk from the water.</p>
     <div class="rooms-grid">
       <div class="room-card fi">
         <img class="room-img" src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="Surf camp dormitory Siargao" loading="lazy">
@@ -815,7 +827,7 @@
   <div class="section-inner">
     <p class="section-tag">The Team · ISA-Certified · General Luna, Siargao</p>
     <h2 id="team-heading" class="section-title">Your coaches.</h2>
-    <p class="section-sub">Siargao locals and national-level competitors who teach because they love it — not because it's a side job.</p>
+    <p class="section-sub">Siargao locals and national-level competitors who teach because they love it: not because it's a side job.</p>
     <div class="instructors-grid">
       <div class="instr-card fi">
         <img class="instr-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Head surf instructor Siargao Philippines" loading="lazy">
@@ -840,7 +852,7 @@
         <div class="instr-body">
           <div class="instr-name">Coach Diego</div>
           <div class="instr-role">Advanced & Reef Break Specialist</div>
-          <div class="instr-bio">Diego's specialty is taking intermediate surfers to the next level. Reef break protocol, tube riding fundamentals, and competition-style video feedback — all in one program.</div>
+          <div class="instr-bio">Diego's specialty is taking intermediate surfers to the next level. Reef break protocol, tube riding fundamentals, and competition-style video feedback: all in one program.</div>
           <div class="instr-cert">⚡ ISA Level 2 Certified</div>
         </div>
       </div>
@@ -857,9 +869,9 @@
     <div class="testi-grid">
       <div class="testi-card fi">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"I came to Siargao with zero surfing experience. After 5 days with Coach Marco, I was riding green waves on my own. The Surf & Stay package is worth every peso. The food, the coaching, the energy — nothing was half-hearted."</p>
+        <p class="testi-text">"I came to Siargao with zero surfing experience. After 5 days with Coach Marco, I was riding green waves on my own. The Surf & Stay package is worth every peso. The food, the coaching, the energy: nothing was half-hearted."</p>
         <div class="testi-author">
-          <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80" alt="Sarah K. — Guest review Alon Surf Siargao" loading="lazy">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80" alt="Sarah K.: Guest review Alon Surf Siargao" loading="lazy">
           <div>
             <div class="testi-name">Sarah K.</div>
             <div class="testi-loc">Melbourne, Australia</div>
@@ -870,7 +882,7 @@
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">"The Immersion program changed the way I surf. Diego pushed me beyond what I thought I was capable of. Cloud 9 boat sessions, daily video review, small group so you actually get coached. Non-negotiable for anyone at an intermediate plateau."</p>
         <div class="testi-author">
-          <img class="testi-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80" alt="Thomas R. — Alon Surf Camp review" loading="lazy">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80" alt="Thomas R.: Alon Surf Camp review" loading="lazy">
           <div>
             <div class="testi-name">Thomas R.</div>
             <div class="testi-loc">Berlin, Germany</div>
@@ -881,7 +893,7 @@
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">"Booked the Ocean Cabana for two weeks. Woke up to the sound of waves every morning. The staff are genuinely the warmest people. Alon doesn't feel like a business. It feels like a family's home that happens to have the best surf on the island."</p>
         <div class="testi-author">
-          <img class="testi-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="Mia L. — Siargao surf resort review" loading="lazy">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="Mia L.: Siargao surf resort review" loading="lazy">
           <div>
             <div class="testi-name">Mia L.</div>
             <div class="testi-loc">Vancouver, Canada</div>
@@ -911,11 +923,11 @@
         </div>
         <div class="loc-item">
           <h4>Sayak Airport to Alon</h4>
-          <p>Complimentary airport transfer for all Surf & Stay and Immersion guests. For Day Tripper and dorm bookings, the van ride is 45 minutes and costs ₱200–₱300. We can also arrange pick-up — just message us.</p>
+          <p>Complimentary airport transfer for all Surf & Stay and Immersion guests. For Day Tripper and dorm bookings, the van ride is 45 minutes and costs ₱200–₱300. We can also arrange pick-up: just message us.</p>
         </div>
         <div class="loc-item">
           <h4>From General Luna Town Center</h4>
-          <p>10-minute tricycle ride from the main road. Tell your driver "Alon Surf Camp" — everyone in General Luna knows us. Or call ahead and we'll send someone.</p>
+          <p>10-minute tricycle ride from the main road. Tell your driver "Alon Surf Camp": everyone in General Luna knows us. Or call ahead and we'll send someone.</p>
         </div>
         <div class="loc-item">
           <h4>Reach Us</h4>
@@ -953,7 +965,7 @@
             <div class="perk-check">✓</div>
             <div>
               <h4>Group rates available</h4>
-              <p>Coming with 4 or more? Message us — group pricing and private sessions on request.</p>
+              <p>Coming with 4 or more? Message us: group pricing and private sessions on request.</p>
             </div>
           </div>
         </div>
@@ -1000,10 +1012,10 @@
             <label for="package">Package Interest</label>
             <select id="package">
               <option value="">Select a package…</option>
-              <option>Day Tripper — ₱1,500/person</option>
-              <option>Weekend Warrior — 3 days, ₱6,500/person</option>
-              <option>Surf & Stay — 5 days, ₱15,000/person</option>
-              <option>Immersion — 10 days, ₱28,000/person</option>
+              <option>Day Tripper: ₱1,500/person</option>
+              <option>Weekend Warrior: 3 days, ₱6,500/person</option>
+              <option>Surf & Stay: 5 days, ₱15,000/person</option>
+              <option>Immersion: 10 days, ₱28,000/person</option>
               <option>Accommodation only (no lessons)</option>
               <option>Custom / Not sure yet</option>
             </select>
@@ -1017,7 +1029,7 @@
         <div id="formSuccess" class="form-success">
           <div class="success-icon">🤙</div>
           <h3>Inquiry sent!</h3>
-          <p>We'll confirm your dates and package within 24 hours. Keep an eye on your email — and start getting stoked about Siargao.</p>
+          <p>We'll confirm your dates and package within 24 hours. Keep an eye on your email: and start getting stoked about Siargao.</p>
         </div>
       </div>
     </div>
@@ -1080,13 +1092,30 @@
 <!-- ═══════════ SIMULATOR BANNER ═══════════ -->
 <div class="sim-banner" id="simBanner">
   <div>
-    <div class="sim-text">© Aurora Digital Foundry — Class A Archetype Simulator · Surf Camp & Resort</div>
-    <div class="sim-sub">All content is fictional · No live backend · Forms run in simulator mode · Imagery via Unsplash</div>
+    <div class="sim-text">© Aurora Digital Foundry: Alon Surf & Stay · Live Blueprint</div>
+    <div class="sim-sub">All content is fictional · No live backend · Forms run in demo mode · Imagery via Unsplash</div>
   </div>
   <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'" aria-label="Dismiss">✕</button>
 </div>
 
 <script>
+  // Theme toggle
+  (function(){
+    const saved = localStorage.getItem('adf-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
+    localStorage.setItem('adf-theme', next);
+  }
+
   // Nav scroll behaviour
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
@@ -1097,13 +1126,13 @@
   const heroBg = document.getElementById('heroBg');
   window.addEventListener('load', () => heroBg.classList.add('loaded'));
 
-  // Booking form — simulator mode
+  // Booking form: simulator mode
   function handleSubmit() {
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   }
 
-  // Intersection Observer — fade-in
+  // Intersection Observer: fade-in
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('vis'); observer.unobserve(e.target); }

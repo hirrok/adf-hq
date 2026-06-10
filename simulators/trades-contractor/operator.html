@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IronCrest Works — Operator Suite</title>
+  <title>IronCrest Works: Operator Suite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --black:   #0B0D0F;
@@ -21,11 +21,19 @@
       --red:     #E85A20;
       --blue:    #4A9EF5;
       --mono:    'JetBrains Mono', monospace;
-      --sans:    'Inter', sans-serif;
+      --sans:    'Source Sans 3', sans-serif;
+    }
+    [data-theme="light"] {
+      --black:   #F2EFE8;
+      --mid:     #FFFFFF;
+      --surface: #E8E4DC;
+      --border:  rgba(20,14,8,0.1);
+      --text:    rgba(20,14,8,0.55);
+      --white:   #1C1610;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; transition: background 0.2s, color 0.2s; }
 
     /* ─── GATE ─── */
     #gate {
@@ -247,6 +255,7 @@
       <div class="health-dot green" id="health-dot"></div>
       <span class="health-label" id="health-label">Systems Nominal</span>
       <span class="topbar-user">Ely Dizon · Foreman</span>
+      <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:4px;cursor:pointer;font-size:0.85rem;transition:all 0.15s;">☀</button>
       <a href="index.html" class="topbar-back">← Site</a>
     </div>
   </div>
@@ -276,7 +285,7 @@
       <div class="panel active" id="panel-dashboard">
         <div class="panel-header">
           <div class="panel-title">Operations HUD</div>
-          <div class="panel-sub">Real-time overview — updated June 2026</div>
+          <div class="panel-sub">Real-time overview: updated June 2026</div>
         </div>
         <div class="kpi-grid">
           <div class="kpi-card">
@@ -309,7 +318,7 @@
           <div>
             <div class="widget">
               <div class="widget-head">
-                <span class="widget-title">Active Jobs — Status</span>
+                <span class="widget-title">Active Jobs: Status</span>
                 <span class="widget-count">7 jobs running</span>
               </div>
               <div class="widget-body">
@@ -393,7 +402,7 @@
                 <div class="activity-item">
                   <div class="activity-dot"></div>
                   <div>
-                    <div class="activity-text">Invoice #2024-031 sent to M. Santos — ₱45,000.</div>
+                    <div class="activity-text">Invoice #2024-031 sent to M. Santos: ₱45,000.</div>
                     <div class="activity-time">11:00 AM</div>
                   </div>
                 </div>
@@ -407,7 +416,7 @@
                 <div class="activity-item">
                   <div class="activity-dot blue"></div>
                   <div>
-                    <div class="activity-text">Site visit scheduled: Dela Cruz — New build, Nasugbu. Thu 2PM.</div>
+                    <div class="activity-text">Site visit scheduled: Dela Cruz: New build, Nasugbu. Thu 2PM.</div>
                     <div class="activity-time">03:08 PM</div>
                   </div>
                 </div>
@@ -529,7 +538,7 @@
       <div class="panel" id="panel-pipeline">
         <div class="panel-header">
           <div class="panel-title">Quote Pipeline</div>
-          <div class="panel-sub">₱740,000 in active quotes — 9 prospects</div>
+          <div class="panel-sub">₱740,000 in active quotes: 9 prospects</div>
           <div class="panel-actions">
             <button class="pabtn primary">+ New Quote</button>
             <button class="pabtn">Site Visits</button>
@@ -543,7 +552,7 @@
                 <div class="pipeline-item">
                   <div><span class="badge quoted">Quoted</span></div>
                   <div class="pipeline-info">
-                    <div class="pipeline-name">Dela Cruz New Build — Nasugbu</div>
+                    <div class="pipeline-name">Dela Cruz New Build: Nasugbu</div>
                     <div class="pipeline-meta">General Construction · 3BR · Site visit Jun 12</div>
                   </div>
                   <div>
@@ -632,12 +641,12 @@
           <div class="panel-sub">Upcoming site visits, deadlines, and milestones</div>
         </div>
         <div class="widget">
-          <div class="widget-head"><span class="widget-title">June 2026 — Upcoming</span></div>
+          <div class="widget-head"><span class="widget-title">June 2026: Upcoming</span></div>
           <div class="widget-body">
             <div class="cal-item">
               <div class="cal-date"><div class="cal-day">11</div><div class="cal-month">Jun</div></div>
               <div class="cal-info">
-                <div class="cal-title">Macasaet Gate & Fence — Final Walkthrough</div>
+                <div class="cal-title">Macasaet Gate & Fence: Final Walkthrough</div>
                 <div class="cal-desc">IC-2406-006 · Lipa City · Client acceptance and handover</div>
               </div>
               <span class="badge active">Today</span>
@@ -645,7 +654,7 @@
             <div class="cal-item">
               <div class="cal-date"><div class="cal-day">12</div><div class="cal-month">Jun</div></div>
               <div class="cal-info">
-                <div class="cal-title">Site Visit — Dela Cruz New Build, Nasugbu</div>
+                <div class="cal-title">Site Visit: Dela Cruz New Build, Nasugbu</div>
                 <div class="cal-desc">Scope walk with client · 2:00 PM · Contact: 0912-XXX-XXXX</div>
               </div>
               <span class="badge quoted">Pending</span>
@@ -654,14 +663,14 @@
               <div class="cal-date"><div class="cal-day">14</div><div class="cal-month">Jun</div></div>
               <div class="cal-info">
                 <div class="cal-title">Hermosa Villa Quote Expiry</div>
-                <div class="cal-desc">Follow up or quote lapses — ₱230,000 at stake</div>
+                <div class="cal-desc">Follow up or quote lapses: ₱230,000 at stake</div>
               </div>
               <span class="badge overdue">Urgent</span>
             </div>
             <div class="cal-item">
               <div class="cal-date"><div class="cal-day">18</div><div class="cal-month">Jun</div></div>
               <div class="cal-info">
-                <div class="cal-title">Dela Torre Plumbing — Completion Target</div>
+                <div class="cal-title">Dela Torre Plumbing: Completion Target</div>
                 <div class="cal-desc">IC-2406-005 · Pending PVC fittings from supplier</div>
               </div>
               <span class="badge pending">At Risk</span>
@@ -669,7 +678,7 @@
             <div class="cal-item">
               <div class="cal-date"><div class="cal-day">22</div><div class="cal-month">Jun</div></div>
               <div class="cal-info">
-                <div class="cal-title">Luna Building Rewire — Phase 1 Complete</div>
+                <div class="cal-title">Luna Building Rewire: Phase 1 Complete</div>
                 <div class="cal-desc">IC-2406-003 · Milestone payment ₱19,000 due on sign-off</div>
               </div>
               <span class="badge active">On Track</span>
@@ -677,7 +686,7 @@
             <div class="cal-item">
               <div class="cal-date"><div class="cal-day">30</div><div class="cal-month">Jun</div></div>
               <div class="cal-info">
-                <div class="cal-title">Santos Full Renovation — Target Completion</div>
+                <div class="cal-title">Santos Full Renovation: Target Completion</div>
                 <div class="cal-desc">IC-2406-001 · Final invoice ₱55,000 on handover · Client out of town Jul 1</div>
               </div>
               <span class="badge active">Committed</span>
@@ -690,7 +699,7 @@
       <div class="panel" id="panel-revenue">
         <div class="panel-header">
           <div class="panel-title">Revenue Tracker</div>
-          <div class="panel-sub">June 2026 — Batangas Province operations</div>
+          <div class="panel-sub">June 2026: Batangas Province operations</div>
         </div>
         <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
           <div class="kpi-card">
@@ -706,11 +715,11 @@
           <div class="kpi-card">
             <div class="kpi-label">Outstanding</div>
             <div class="kpi-val" style="color:var(--white)">₱88,500</div>
-            <div class="kpi-sub">3 invoices unpaid — oldest 14 days</div>
+            <div class="kpi-sub">3 invoices unpaid: oldest 14 days</div>
           </div>
         </div>
         <div class="widget">
-          <div class="widget-head"><span class="widget-title">Monthly Revenue — 6-Month Trend</span></div>
+          <div class="widget-head"><span class="widget-title">Monthly Revenue: 6-Month Trend</span></div>
           <div class="rev-chart">
             <div class="rev-bars">
               <div class="rev-bar filled" style="height:42%"></div>
@@ -785,7 +794,7 @@
       <div class="panel" id="panel-crew">
         <div class="panel-header">
           <div class="panel-title">Crew Management</div>
-          <div class="panel-sub">18 active tradespeople — 7 crews deployed</div>
+          <div class="panel-sub">18 active tradespeople: 7 crews deployed</div>
         </div>
         <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
           <div class="kpi-card"><div class="kpi-label">Total Crew</div><div class="kpi-val" style="color:var(--amber)">18</div><div class="kpi-sub">All disciplines</div></div>
@@ -814,6 +823,23 @@
 </div>
 
 <script>
+  /* ─── THEME ─── */
+  (function(){
+    const saved = localStorage.getItem('adf-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
+    localStorage.setItem('adf-theme', next);
+  }
+
   function unlock() {
     const val = document.getElementById('gate-input').value.trim();
     const err = document.getElementById('gate-err');

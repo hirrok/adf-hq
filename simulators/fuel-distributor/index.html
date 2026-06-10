@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solaris Fuel & LPG — Regional Energy Supply</title>
+  <title>Solaris Fuel & LPG: Regional Energy Supply</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
       --black:   #0a0c0e;
@@ -21,12 +21,23 @@
       --amber:   #f5a623;
       --amber2:  #e8912b;
       --green:   #3adb76;
-      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --ff:      'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
       --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+    [data-theme="light"] {
+      --black:   #F0EDE5;
+      --deep:    #E8E4DC;
+      --mid:     #FFFFFF;
+      --surface: #F5F2EA;
+      --border:  rgba(20,16,10,0.1);
+      --border2: rgba(20,16,10,0.15);
+      --white:   #1A1510;
+      --text:    rgba(20,16,10,0.65);
+      --text2:   rgba(20,16,10,0.42);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.65; overflow-x: hidden; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.65; overflow-x: hidden; transition: background 0.2s, color 0.2s; }
     a { color: inherit; text-decoration: none; }
 
     /* NAV */
@@ -283,11 +294,11 @@
 </head>
 <body>
 
-<!-- SIMULATOR BANNER -->
+<!-- BLUEPRINT BANNER -->
 <div class="sim-banner" id="simBanner">
   <div>
-    <div class="sim-banner-text">◐ AURORA DIGITAL FOUNDRY — ARCHETYPE SIMULATOR</div>
-    <div class="sim-banner-sub">Regional Fuel & LPG Distributor · Infrastructure Demo · Forms run in simulator mode</div>
+    <div class="sim-banner-text">◐ AURORA DIGITAL FOUNDRY: LIVE BLUEPRINT</div>
+    <div class="sim-banner-sub">Solaris Fuel & LPG · Regional Energy Distribution · All content is fictional · Forms run in demo mode</div>
   </div>
   <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'">✕</button>
 </div>
@@ -306,6 +317,7 @@
     <a href="#inquiry">Contact</a>
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="background:transparent;border:1px solid var(--border2);color:var(--text);padding:7px 12px;border-radius:4px;cursor:pointer;font-size:0.9rem;transition:all 0.15s;" title="Toggle light/dark">🌙</button>
     <a href="#inquiry" class="nav-cta">Get a Quote</a>
     <a href="operator.html" style="font-family:var(--ff);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;color:var(--text);border:1px solid var(--border2);padding:8px 16px;border-radius:4px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--amber)';this.style.borderColor='rgba(245,166,35,0.5)'" onmouseout="this.style.color='';this.style.borderColor=''">Operator</a>
   </div>
@@ -317,7 +329,7 @@
     <div>
       <div class="hero-eyebrow">⛽ Regional Fuel & LPG Distributor · Philippines</div>
       <h1 class="hero-h1">Fuel the fleet.<br /><span>Power the region.</span></h1>
-      <p class="hero-sub">Solaris operates a regional network of fuel stations and LPG distribution points — serving commercial fleets, industrial operations, and residential customers across multiple municipalities.</p>
+      <p class="hero-sub">Solaris operates a regional network of fuel stations and LPG distribution points: serving commercial fleets, industrial operations, and residential customers across multiple municipalities.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.getElementById('inquiry').scrollIntoView({behavior:'smooth'})">Fleet Inquiry</button>
         <button class="btn-outline" onclick="document.getElementById('branches').scrollIntoView({behavior:'smooth'})">View Coverage</button>
@@ -349,7 +361,7 @@
         </div>
         <div class="pb-footer">
           <span>Prices inclusive of all taxes. Subject to daily adjustment.</span>
-          <span class="sim-tag">Simulator Data</span>
+          <span class="sim-tag">Live Data</span>
         </div>
       </div>
     </div>
@@ -371,7 +383,7 @@
   <div class="container">
     <div class="eyebrow">What We Supply</div>
     <h2 class="sh2">Full-service energy supply<br />for every operation.</h2>
-    <p class="ssub">From pump-side retail to bulk commercial contracts — covering the full range of fuel and LPG needs across the region.</p>
+    <p class="ssub">From pump-side retail to bulk commercial contracts: covering the full range of fuel and LPG needs across the region.</p>
     <div class="services-grid">
       <div class="svc-card">
         <img class="svc-img" src="https://images.unsplash.com/photo-1654334036171-e01e52b2ce8e?auto=format&fit=crop&w=600&q=80" alt="Pump station retail fueling" loading="lazy"/>
@@ -414,7 +426,7 @@
         <div class="svc-card-body">
           <div class="svc-icon">🏗️</div>
           <div class="svc-name">Construction Site Fueling</div>
-          <div class="svc-desc">Dedicated supply for construction projects — diesel and gasoline for heavy equipment, generators, and site vehicles on your build schedule.</div>
+          <div class="svc-desc">Dedicated supply for construction projects: diesel and gasoline for heavy equipment, generators, and site vehicles on your build schedule.</div>
           <div class="svc-tags"><span class="svc-tag">Heavy Equipment</span><span class="svc-tag">Generator Supply</span><span class="svc-tag">Project Billing</span></div>
         </div>
       </div>
@@ -439,7 +451,7 @@
     <p class="ssub">Our branch network is positioned to serve all major commercial corridors and population centers within our coverage area.</p>
     <div class="branch-grid">
       <div class="branch-list">
-        <div class="branch-card"><div><div class="branch-name">Centro Branch — Flagship</div><div class="branch-loc">Main Commercial District, Town Center</div></div><div class="b-status b-24h">24 / 7</div></div>
+        <div class="branch-card"><div><div class="branch-name">Centro Branch: Flagship</div><div class="branch-loc">Main Commercial District, Town Center</div></div><div class="b-status b-24h">24 / 7</div></div>
         <div class="branch-card"><div><div class="branch-name">North Highway Branch</div><div class="branch-loc">National Highway Northbound, Km 12</div></div><div class="b-status b-24h">24 / 7</div></div>
         <div class="branch-card"><div><div class="branch-name">Industrial Zone Branch</div><div class="branch-loc">Economic Zone Access Road</div></div><div class="b-status b-open">Open</div></div>
         <div class="branch-card"><div><div class="branch-name">Port Road Branch</div><div class="branch-loc">Port Access Road, Commercial Wharf Area</div></div><div class="b-status b-open">Open</div></div>
@@ -471,11 +483,11 @@
       </div>
       <div>
         <ul class="lpg-list">
-          <li>Authorized LPG distributor — authentic product, certified handling, and DOE-compliant storage and transport protocols throughout the supply chain</li>
+          <li>Authorized LPG distributor: authentic product, certified handling, and DOE-compliant storage and transport protocols throughout the supply chain</li>
           <li>All delivery personnel trained in safe cylinder handling and transport regulations</li>
           <li>Commercial accounts available for restaurants, hotels, hospitals, and food manufacturers</li>
           <li>Bulk tank installation assessments for institutional and industrial clients</li>
-          <li>Emergency supply response for operational disruptions — call the nearest branch for priority dispatch</li>
+          <li>Emergency supply response for operational disruptions: call the nearest branch for priority dispatch</li>
           <li>Multiple branch pickup locations across our coverage network for fast cylinder swaps</li>
         </ul>
       </div>
@@ -488,7 +500,7 @@
   <div class="container">
     <div class="eyebrow">Fleet & Commercial Programs</div>
     <h2 class="sh2">Built for operations<br />that run on fuel.</h2>
-    <p class="ssub">From small business fleets to large logistics operations — structured account programs with pricing, billing, and supply reliability that scales with your needs.</p>
+    <p class="ssub">From small business fleets to large logistics operations: structured account programs with pricing, billing, and supply reliability that scales with your needs.</p>
     <div class="fleet-grid">
       <div class="fleet-card">
         <img class="fleet-img" src="https://images.unsplash.com/photo-1768637656191-133fe8f95786?auto=format&fit=crop&w=600&q=80" alt="Small business fleet vehicles" loading="lazy"/>
@@ -629,14 +641,32 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Solaris Fuel & LPG · Regional Energy Supply · Philippines</div>
+      <div class="footer-copy">© 2026 Solaris Fuel & LPG · All content is fictional · Forms run in demo mode · Imagery via Unsplash</div>
       <div style="display:flex;gap:12px;align-items:center">
         <a href="operator.html" style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;color:var(--text2);border:1px solid var(--border);padding:4px 10px;border-radius:3px;transition:color 0.2s,border-color 0.2s" onmouseover="this.style.color='var(--amber)';this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.color='';this.style.borderColor=''">⚙ Operator Suite</a>
-        <div class="footer-adf">Built by <span>Aurora Digital Foundry</span></div>
+        <div class="footer-adf">Live Blueprint · <span>Aurora Digital Foundry</span></div>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+  (function(){
+    const saved = localStorage.getItem('adf-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = saved === 'light' ? '🌙' : '☀';
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    const btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = next === 'light' ? '🌙' : '☀';
+    localStorage.setItem('adf-theme', next);
+  }
+</script>
 
 <script>
   function handleSubmit() {
