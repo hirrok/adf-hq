@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ForgeHaus Fitness — Batangas, Philippines</title>
+<title>ForgeHaus Fitness — Baler, Aurora Province</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -27,13 +27,13 @@ textarea{resize:vertical;min-height:100px}
 const { useState, useEffect, useRef, useCallback } = React;
 
 const C = {
-  bg:'#070709',card:'#0F0F12',elev:'#14141A',hover:'#1A1A22',
+  bg:'var(--c-bg)',card:'var(--c-card)',elev:'var(--c-elev)',hover:'var(--c-hover)',
   red:'#EF4444',redDim:'rgba(239,68,68,0.12)',
   gold:'#F59E0B',goldDim:'rgba(245,158,11,0.12)',
   green:'#10B981',greenDim:'rgba(16,185,129,0.12)',
   purple:'#8B5CF6',blue:'#3B82F6',
-  border:'#1E1E28',borderBright:'#2A2A36',
-  text:'#F0F0F5',text2:'#A0A0B0',text3:'#50506A',
+  border:'var(--c-border)',borderBright:'var(--c-borderBright)',
+  text:'var(--c-text)',text2:'var(--c-text2)',text3:'var(--c-text3)',
 };
 
 const btn=(color=C.red,outline=false)=>({background:outline?'transparent':color,color:outline?C.text:'#fff',border:outline?`1px solid ${C.borderBright}`:'none',borderRadius:8,padding:'10px 18px',fontSize:14,fontWeight:600,cursor:'pointer'});
@@ -94,7 +94,7 @@ const REVIEWS=[
   {name:'Maria Santos',rating:5,date:'Jun 5',text:'Coach Ana completely changed how I think about training. Down 6kg in 3 months and I actually understand why. The check-ins keep me accountable like nothing else has.',plan:'Regular Monthly',photo:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80'},
   {name:'Carlo Reyes',rating:5,date:'May 28',text:"Hit a 100kg squat for the first time yesterday. Coach Jun's programming is systematic and it works. This gym is the real deal.",plan:'Annual',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80'},
   {name:'Jennica Aquino',rating:5,date:'Jun 1',text:"As a student I was worried about the cost but the student plan is worth every peso. The body scan every month shows the actual progress — not just the scale.",plan:'Student Monthly',photo:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80'},
-  {name:'Jason Bautista',rating:5,date:'Jun 3',text:"I've tried 3 gyms in Batangas. None of them had this level of structure and coaching. ForgeHaus is in a different category.",plan:'Annual',photo:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&h=80&q=80'},
+  {name:'Jason Bautista',rating:5,date:'Jun 3',text:"I've tried 3 gyms in Aurora Province. None of them had this level of structure and coaching. ForgeHaus is in a different category.",plan:'Annual',photo:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&h=80&q=80'},
   {name:'Liza Torres',rating:4,date:'May 20',text:"Coach Rica's HIIT class is unreal. I book 2 weeks in advance because it fills up so fast. Would recommend to anyone who wants to actually sweat.",plan:'Regular Monthly',photo:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=80&h=80&q=80'},
 ];
 
@@ -116,10 +116,10 @@ const FAQ_ITEMS=[
 ];
 
 const MARKETING_OUTPUTS={
-  facebook:`FACEBOOK POST — ForgeHaus June Update\n\n67 members. 4 coaches. One gym built for Batangas City.\n\nThis June we hit 87,500 in membership revenue — and we are not done.\n\nBut the number that matters more? 94% retention. That means people join ForgeHaus and they STAY.\n\nWhy?\n- Every member gets a dedicated coach\n- Weekly progress tracking with body comp scans\n- A community that keeps you accountable\n\nNext batch of free body assessments opens July 1. Limited to 12 spots.\n\n4F Noli Rose Bldg, J.P. Laurel Hwy, Batangas, Philippines\n+63 956 700 7785\n\n#IronTribe #IronTribeBatangas City #Batangas CityBatangas #GymLife`,
-  instagram:`INSTAGRAM CAPTION\n\n73% of people who walk through our doors become members.\n\nNot because of a sales pitch.\n\nBecause of this:\n- Free body composition scan on day 1\n- Dedicated coach from day 1\n- Program designed around YOUR goals, not a template\n\nThe assessment is free. The transformation is earned.\n\nBook yours through the link in bio.\n\n#IronTribeFitness #Batangas CityBatangas #FitnessGym #CoachingGym`,
+  facebook:`FACEBOOK POST — ForgeHaus June Update\n\n67 members. 4 coaches. One gym built for Baler, Aurora.\n\nThis June we hit 87,500 in membership revenue — and we are not done.\n\nBut the number that matters more? 94% retention. That means people join ForgeHaus and they STAY.\n\nWhy?\n- Every member gets a dedicated coach\n- Weekly progress tracking with body comp scans\n- A community that keeps you accountable\n\nNext batch of free body assessments opens July 1. Limited to 12 spots.\n\n3F Pacific Mall, National Highway, Baler, Aurora Province\n+63 956 700 7785\n\n#ForgeHaus #ForgeHausBaler #BalerAurora #GymLife`,
+  instagram:`INSTAGRAM CAPTION\n\n73% of people who walk through our doors become members.\n\nNot because of a sales pitch.\n\nBecause of this:\n- Free body composition scan on day 1\n- Dedicated coach from day 1\n- Program designed around YOUR goals, not a template\n\nThe assessment is free. The transformation is earned.\n\nBook yours through the link in bio.\n\n#ForgeHausFitness #BalerAurora #FitnessGym #CoachingGym`,
   campaign:`SOCIAL MEDIA CAMPAIGN — June 2026\n\nCAMPAIGN: "ForgeHaus June Challenge"\nDuration: June 9–30 · Platform: Facebook + Instagram\n\nWEEK 1 (Jun 9–15) — ANNOUNCE:\n· Post 1 (Tue): Iron Month challenge leaderboard reveal\n· Post 2 (Thu): Transformation story — Maria Santos (-6kg)\n· Post 3 (Sat): Community energy recap from Saturday class\n\nWEEK 2 (Jun 16–22) — EDUCATE:\n· Post 4 (Mon): "Why your gym needs a coach, not just equipment"\n· Post 5 (Wed): Coach spotlight — Coach Paolo calisthenics highlight\n· Post 6 (Fri): Member milestone shoutout\n\nWEEK 3 (Jun 23–30) — CONVERT:\n· Post 7 (Mon): Final 30-day challenge enrollment push\n· Post 8 (Wed): July promo preview\n· Post 9 (Sat): Iron Month final leaderboard + prize announcement\n\nCaption tone: Supportive, energetic, community-first.`,
-  sms:`SMS CAMPAIGN — June Promo\n\nBatch 1 — New Leads:\n"Hi [Name]! ForgeHaus here. Your free body assessment slot is still open this week. Reply YES to confirm — takes only 30 mins. Batangas, Philippines"\n\nBatch 2 — At-Risk Members:\n"Hey [Name], Coach [X] noticed you have been busy lately. Your slot is saved — come back anytime this week and let us check in on your progress."\n\nBatch 3 — Annual Renewal:\n"Hi [Name]! Your ForgeHaus membership renews this month. Renew now and lock in the current rate + get a free body comp scan. Reply RENEW."`,
+  sms:`SMS CAMPAIGN — June Promo\n\nBatch 1 — New Leads:\n"Hi [Name]! ForgeHaus here. Your free body assessment slot is still open this week. Reply YES to confirm — takes only 30 mins. Baler, Aurora Province"\n\nBatch 2 — At-Risk Members:\n"Hey [Name], Coach [X] noticed you have been busy lately. Your slot is saved — come back anytime this week and let us check in on your progress."\n\nBatch 3 — Annual Renewal:\n"Hi [Name]! Your ForgeHaus membership renews this month. Renew now and lock in the current rate + get a free body comp scan. Reply RENEW."`,
 };
 
 const AI_OUTPUTS={
@@ -169,7 +169,6 @@ function NavBar({page,goTo,adminMode,setAdminMode}){
       </div>
       <div style={{display:'flex',gap:8}}>
         <button style={{...btn(),fontSize:13,padding:'8px 14px'}} onClick={()=>goTo('join')}>Book Assessment</button>
-        <button style={{...btn(C.red,true),fontSize:12,padding:'7px 12px'}} onClick={()=>setAdminMode(true)}>Operator</button>
       </div>
     </nav>
   );
@@ -181,14 +180,14 @@ function HomePage({goTo}){
       <div style={{position:'relative',backgroundImage:"url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=80')",backgroundSize:'cover',backgroundPosition:'center top',minHeight:520}}>
         <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(7,7,9,0.90) 0%,rgba(7,7,9,0.60) 60%,rgba(7,7,9,0.80) 100%)'}}/>
         <div style={{...sec,paddingTop:100,paddingBottom:80,position:'relative',zIndex:1}}>
-        <span style={lbl}>Batangas, Philippines · Est. 2023</span>
-        <h1 style={{...DISPLAY,fontSize:64,fontWeight:800,lineHeight:1.0,margin:'10px 0 20px'}}>The Fitness Home<br/><span style={{color:C.red}}>for Batangas City.</span></h1>
+        <span style={lbl}>Baler, Aurora Province · Est. 2023</span>
+        <h1 style={{...DISPLAY,fontSize:64,fontWeight:800,lineHeight:1.0,margin:'10px 0 20px'}}>The Fitness Home<br/><span style={{color:C.red}}>for Baler, Aurora.</span></h1>
         <p style={{color:C.text2,fontSize:15,maxWidth:500,lineHeight:1.7,marginBottom:28}}>ForgeHaus is a coaching-led training environment. Every member gets a dedicated coach, a structured program, and a community that keeps you accountable.</p>
         <div style={{display:'flex',gap:10,marginBottom:14}}>
           <button style={{...btn(),padding:'13px 26px',fontSize:14}} onClick={()=>goTo('join')}>Book Free Assessment</button>
           <button style={{...btn(C.red,true),padding:'13px 26px',fontSize:14}} onClick={()=>goTo('memberships')}>View Plans</button>
         </div>
-        <div style={{fontSize:12,color:C.text3}}>4F Noli Rose Bldg, 474 J.P. Laurel Hwy, Batangas City · Open 8AM–10PM Daily</div>
+        <div style={{fontSize:12,color:C.text3}}>3F Pacific Mall, National Highway, Baler, Aurora · Open 8AM–10PM Daily</div>
         </div>
       </div>
       <div style={{background:C.card,borderTop:`1px solid ${C.border}`,borderBottom:`1px solid ${C.border}`}}>
@@ -419,11 +418,11 @@ function AboutPage({goTo}){
       <h1 style={h1s}>About ForgeHaus</h1>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:28,marginBottom:36}}>
         <div>
-          <p style={{color:C.text2,fontSize:14,lineHeight:1.8,marginBottom:16}}>ForgeHaus Fitness was built for the people of Batangas, Philippines. We saw a community full of people who wanted to train seriously — but had nowhere to go that took their goals as seriously as they did.</p>
+          <p style={{color:C.text2,fontSize:14,lineHeight:1.8,marginBottom:16}}>ForgeHaus Fitness was built for the people of Baler, Aurora Province. We saw a community full of people who wanted to train seriously — but had nowhere to go that took their goals as seriously as they did.</p>
           <p style={{color:C.text2,fontSize:14,lineHeight:1.8}}>So we built it. A coaching-led gym where every member gets a dedicated coach, a structured program, and a community that holds them accountable. No confusion. No guesswork. Just training that works.</p>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:14}}>
-          {[['Location','4F Noli Rose Bldg, 474 J.P. Laurel Hwy\nPoblacion, Batangas, Philippines 4233'],
+          {[['Location','4F Noli Rose Bldg, 474 J.P. Laurel Hwy\nPoblacion, Baler, Aurora Province 4233'],
             ['Hours','Monday–Sunday · 8:00 AM – 10:00 PM'],
             ['Contact','+63 956 700 7785'],
             ['Social','Facebook & Instagram: @irontribefitnessgym'],
@@ -461,7 +460,7 @@ function ContactPage(){
       <h1 style={h1s}>Contact</h1>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:28}}>
         <div>
-          {[['Visit Us','4F Noli Rose Bldg, 474 J.P. Laurel Highway\nPoblacion, Batangas, Philippines 4233'],
+          {[['Visit Us','4F Noli Rose Bldg, 474 J.P. Laurel Highway\nPoblacion, Baler, Aurora Province 4233'],
             ['Call or Text','+63 956 700 7785\nAvailable during business hours'],
             ['Business Hours','Monday – Sunday\n8:00 AM – 10:00 PM daily'],
             ['Social Media','Facebook: Iron-Tribe Fitness Gym\nInstagram: @irontribefitnessgym'],
@@ -604,7 +603,7 @@ function StoriesPage({goTo}){
         <button style={{...btn(),padding:'13px 28px',fontSize:14}} onClick={()=>goTo('join')}>Write Your Own Story</button>
       </div>
       <div style={{...card,marginTop:28,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-        <div><div style={{fontWeight:600,fontSize:14}}>Have a question or ready to visit?</div><div style={{fontSize:13,color:C.text2}}>+63 956 700 7785 · 4F Noli Rose Bldg, Batangas, Philippines</div></div>
+        <div><div style={{fontWeight:600,fontSize:14}}>Have a question or ready to visit?</div><div style={{fontSize:13,color:C.text2}}>+63 956 700 7785 · 3F Pacific Mall, Baler, Aurora Province</div></div>
         <button style={{...btn(C.red,true),fontSize:13}} onClick={()=>goTo('contact')}>Contact Us</button>
       </div>
     </div>
@@ -637,7 +636,7 @@ function AdminDashboard(){
   const pct=Math.round((METRICS.mtdRevenue/METRICS.target)*100);
   return(
     <div>
-      <div style={{marginBottom:22}}><span style={lbl}>Aurora Operator Suite</span><h2 style={h2s}>Dashboard</h2><div style={{fontSize:12,color:C.text3}}>Tuesday, June 9, 2026 · Batangas, Philippines</div></div>
+      <div style={{marginBottom:22}}><span style={lbl}>Aurora Operator Suite</span><h2 style={h2s}>Dashboard</h2><div style={{fontSize:12,color:C.text3}}>Tuesday, June 9, 2026 · Baler, Aurora Province</div></div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:20}}>
         {[['MTD Revenue',`₱${METRICS.mtdRevenue.toLocaleString()}`,`${pct}% of target`,C.green],
           ['Active Members',METRICS.active,'5 at risk of churn',C.gold],
@@ -912,7 +911,7 @@ function AdminSettings(){
     <div>
       <span style={lbl}>Configuration</span><h2 style={h2s}>Settings</h2>
       <div style={{display:'flex',flexDirection:'column',gap:14}}>
-        {[{label:'Gym Information',fields:[['Gym Name','ForgeHaus Fitness'],['Address','4F Noli Rose Bldg, 474 J.P. Laurel Hwy, Batangas, Philippines'],['Phone','+63 956 700 7785'],['Business Hours','8:00 AM – 10:00 PM daily']]},
+        {[{label:'Gym Information',fields:[['Gym Name','ForgeHaus Fitness'],['Address','3F Pacific Mall, National Highway, Baler, Aurora Province 3200'],['Phone','+63 956 700 7785'],['Business Hours','8:00 AM – 10:00 PM daily']]},
           {label:'Membership Pricing',fields:[['Student Monthly','799'],['Regular Monthly','999'],['Annual Regular','8000'],['Annual Student','6000']]},
         ].map(group=>(
           <div key={group.label} style={card}>

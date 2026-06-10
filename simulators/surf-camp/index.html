@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ═══ LOCAL SEO ═══ -->
-  <title>Alon Surf & Stay: Surf Camp & Resort | Siargao Island, Philippines</title>
-  <meta name="description" content="Premier surf camp and beachfront resort on Siargao Island, Philippines. Beginner to advanced surf lessons, multi-day surf packages, board rentals, and ocean-front accommodation minutes from Cloud 9.">
-  <meta name="keywords" content="surf camp Siargao, surf lessons Siargao Philippines, Cloud 9 surf school, Siargao resort stay, surf packages Philippines, beginner surf lessons Siargao, General Luna accommodation, Siargao Island resort, surfing Surigao del Norte">
+  <title>Alon Surf & Stay: Surf Camp & Resort | Baler, Aurora Province, Philippines</title>
+  <meta name="description" content="Premier surf camp and beachfront resort in Baler, Aurora Province, Philippines. Beginner to advanced surf lessons, multi-day surf packages, board rentals, and ocean-front accommodation minutes from Sabang Point.">
+  <meta name="keywords" content="surf camp Baler Aurora, surf lessons Baler Philippines, Sabang surf school, Aurora surf resort stay, surf packages Aurora Province, beginner surf lessons Baler, Baler accommodation, Aurora surf resort, surfing Aurora Province">
   <meta name="robots" content="index, follow">
-  <meta name="geo.region" content="PH-SUR">
-  <meta name="geo.placename" content="Siargao Island, Surigao del Norte">
-  <meta name="geo.position" content="9.8072;126.1580">
+  <meta name="geo.region" content="PH-AUR">
+  <meta name="geo.placename" content="Baler, Aurora Province">
+  <meta name="geo.position" content="15.7580;121.5612">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Alon Surf & Stay: Siargao Island, Philippines">
-  <meta property="og:description" content="Where the swell meets the soul. Surf lessons, board rentals & beachfront stays near Cloud 9, Siargao.">
+  <meta property="og:title" content="Alon Surf & Stay: Baler, Aurora Province, Philippines">
+  <meta property="og:description" content="Where the swell meets the soul. Surf lessons, board rentals & beachfront stays near Sabang Point, Baler.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_PH">
   <meta property="og:image" content="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200&q=80">
@@ -26,14 +26,14 @@
     "@context": "https://schema.org",
     "@type": ["SportsActivityLocation", "LodgingBusiness"],
     "name": "Alon Surf & Stay",
-    "description": "Premier surf camp and beachfront resort on Siargao Island, Philippines. Surf lessons, board rental, multi-day packages, and accommodation near Cloud 9.",
+    "description": "Premier surf camp and beachfront resort in Baler, Aurora Province, Philippines. Surf lessons, board rental, multi-day packages, and accommodation near Sabang Point.",
     "image": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Purok 3, Brgy. Tourism Road",
-      "addressLocality": "General Luna, Siargao Island",
-      "addressRegion": "Surigao del Norte",
-      "postalCode": "8417",
+      "streetAddress": "Sabang Beach Road",
+      "addressLocality": "Baler, Aurora Province",
+      "addressRegion": "Aurora Province",
+      "postalCode": "3200",
       "addressCountry": "PH"
     },
     "telephone": "+63-912-345-6789",
@@ -99,7 +99,7 @@
       transition: background 0.4s, border-bottom 0.4s, backdrop-filter 0.4s;
     }
     nav.scrolled {
-      background: rgba(5,16,30,0.96);
+      background: rgba(234,244,248,0.97);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -433,7 +433,7 @@
     .form-success p { color: var(--text); font-size: 0.92rem; line-height: 1.65; }
 
     /* ─────────── FOOTER ─────────── */
-    footer { background: #030c19; border-top: 1px solid var(--border); padding: 64px 40px 40px; }
+    footer { background: var(--deep); border-top: 1px solid var(--border); padding: 64px 40px 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 52px; }
     .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
@@ -521,6 +521,25 @@
       .gal-item:first-child { grid-row: auto; }
       .footer-top { grid-template-columns: 1fr; }
     }
+  
+    /* ── Light Mode: Hero & Nav Contrast Fixes ─────────────── */
+    /* Nav is initially transparent over dark hero overlay → white links */
+    .nav-links a { color: rgba(255,255,255,0.85); }
+    .nav-links a:hover { color: var(--coral); }
+    /* When scrolled, nav has light coastal bg → dark links */
+    nav.scrolled .nav-links a { color: var(--white); }
+    nav.scrolled .nav-links a:hover { color: var(--coral); }
+    nav.scrolled .nav-logo { filter: none; }
+    /* Hero overlay is always dark → white text */
+    .hero-headline { color: #FFFFFF; }
+    .hero-tag { color: rgba(255,255,255,0.60); }
+    .hero-sub { color: rgba(255,255,255,0.80); }
+    .btn-ghost { color: #FFFFFF; border-color: rgba(255,255,255,0.38); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.75); }
+    /* Footer text on light bg */
+    .footer-logo-name { color: var(--white); }
+    .footer-copy { color: var(--text2); }
+
   </style>
 </head>
 <body>
@@ -540,7 +559,6 @@
   </div>
   <div class="nav-right">
     <a href="#book" class="nav-cta">Book Now</a>
-    <a href="operator.html" class="nav-op">Operator</a>
   </div>
 </nav>
 
@@ -549,11 +567,11 @@
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-tag">General Luna · Siargao Island · Est. 2019</div>
+    <div class="hero-tag">Sabang, Baler · Aurora Province · Est. 2019</div>
     <h1 class="hero-headline">
-      Surf the<br><em>best waves</em><br>in the Philippines.
+      Surf the<br><em>best waves</em><br>on the Aurora Coast.
     </h1>
-    <p class="hero-sub">Alon is Siargao's premier surf camp and beachfront resort. Beginner-friendly lessons, expert coaching, and ocean-front accommodation: all minutes from the legendary Cloud 9 break.</p>
+    <p class="hero-sub">Alon is Aurora's premier surf camp and beachfront resort. Beginner-friendly lessons, expert coaching, and ocean-front accommodation: all minutes from the legendary Sabang Point break.</p>
     <div class="hero-actions">
       <a href="#book" class="btn-primary">Book a Package</a>
       <a href="#packages" class="btn-ghost">See Packages ↓</a>
@@ -568,26 +586,26 @@
     <div class="trust-divider"></div>
     <div class="trust-item"><div class="trust-num">5.0 ★</div><div class="trust-label">Google Rating</div></div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-num">6 Yrs</div><div class="trust-label">On Siargao</div></div>
+    <div class="trust-item"><div class="trust-num">6 Yrs</div><div class="trust-label">On Aurora</div></div>
     <div class="trust-divider"></div>
     <div class="trust-item"><div class="trust-num">28</div><div class="trust-label">Nationalities Hosted</div></div>
     <div class="trust-divider"></div>
     <div class="trust-item"><div class="trust-num">8</div><div class="trust-label">Certified Instructors</div></div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-num">5 min</div><div class="trust-label">To Cloud 9</div></div>
+    <div class="trust-item"><div class="trust-num">5 min</div><div class="trust-label">To Sabang Point</div></div>
   </div>
 </div>
 
 <!-- ═══════════ PACKAGES ═══════════ -->
 <section id="packages" class="bg-deep" aria-labelledby="pkg-heading">
   <div class="section-inner">
-    <p class="section-tag">Surf Packages · Siargao Island, Philippines</p>
+    <p class="section-tag">Surf Packages · Baler, Aurora Province</p>
     <h2 id="pkg-heading" class="section-title">Find your program.</h2>
-    <p class="section-sub">First wave or Cloud 9 regular: we have a package built around your level, your schedule, and what you want out of Siargao.</p>
+    <p class="section-sub">First wave or Sabang Point regular: we have a package built around your level, your schedule, and what you want out of Baler.</p>
     <div class="packages-grid">
 
       <div class="pkg-card fi">
-        <img class="pkg-img" src="https://images.unsplash.com/photo-1455264745730-cb3b76250f67?auto=format&fit=crop&w=600&q=80" alt="Beginner surf lesson on Siargao beach" loading="lazy">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1455264745730-cb3b76250f67?auto=format&fit=crop&w=600&q=80" alt="Beginner surf lesson on Baler beach" loading="lazy">
         <div class="pkg-body">
           <div class="pkg-name">Day Tripper</div>
           <div class="pkg-days">1 Day · Beginner</div>
@@ -604,7 +622,7 @@
       </div>
 
       <div class="pkg-card fi fi-d1">
-        <img class="pkg-img" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80" alt="Weekend surf camp Siargao Philippines" loading="lazy">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80" alt="Weekend surf camp Baler Philippines" loading="lazy">
         <div class="pkg-body">
           <div class="pkg-name">Weekend Warrior</div>
           <div class="pkg-days">3 Days · Beginner–Intermediate</div>
@@ -622,7 +640,7 @@
 
       <div class="pkg-card featured fi fi-d2">
         <div class="pkg-badge">Most Popular</div>
-        <img class="pkg-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="5-day surf and stay package Siargao" loading="lazy">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="5-day surf and stay package Baler" loading="lazy">
         <div class="pkg-body">
           <div class="pkg-name">Surf & Stay</div>
           <div class="pkg-days">5 Days · All Levels</div>
@@ -640,7 +658,7 @@
       </div>
 
       <div class="pkg-card fi fi-d3">
-        <img class="pkg-img" src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80" alt="Advanced surf immersion program Cloud 9 Siargao" loading="lazy">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80" alt="Advanced surf immersion program Sabang Point Baler" loading="lazy">
         <div class="pkg-body">
           <div class="pkg-name">Immersion</div>
           <div class="pkg-days">10 Days · Intermediate–Advanced</div>
@@ -648,7 +666,7 @@
             <li>Semi-private coaching (max 3)</li>
             <li>Beachfront loft suite</li>
             <li>All meals + evening snacks</li>
-            <li>Boat sessions at Cloud 9</li>
+            <li>Boat sessions at Sabang Point</li>
             <li>GoPro footage package</li>
             <li>Competition prep (optional)</li>
           </ul>
@@ -666,20 +684,20 @@
   <div class="section-inner">
     <div class="exp-grid">
       <div class="exp-visual fi">
-        <img class="exp-img" src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80" alt="Aerial view of Siargao Island surf camp and beachfront resort" loading="lazy">
-        <img class="exp-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Tropical beach Siargao Philippines" loading="lazy">
-        <img class="exp-img" src="https://images.unsplash.com/photo-1520116468816-95b69f847357?auto=format&fit=crop&w=600&q=80" alt="Surfboards lined up on Siargao beach" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80" alt="Aerial view of Baler, Aurora surf camp and beachfront resort" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Tropical beach Baler Philippines" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1520116468816-95b69f847357?auto=format&fit=crop&w=600&q=80" alt="Surfboards lined up on Baler beach" loading="lazy">
       </div>
       <div class="fi fi-d1">
-        <p class="section-tag">Why Alon · Siargao's Highest-Rated Surf Camp</p>
+        <p class="section-tag">Why Alon · Aurora's Highest-Rated Surf Camp</p>
         <h2 id="exp-heading" class="section-title">Built around the water.</h2>
         <p style="color:var(--text);line-height:1.75;font-size:1rem;margin-bottom:32px;">Most surf camps are businesses that happen to surf. We're surfers who built a camp. Every session, every room, every meal is designed around one goal: getting you up on the board and keeping you there.</p>
         <div class="exp-features">
           <div class="exp-feat">
             <div class="exp-icon">🌊</div>
             <div>
-              <h4>5 min from Cloud 9</h4>
-              <p>The Philippines' most famous reef break, right at your doorstep every session.</p>
+              <h4>5 min from Sabang Point</h4>
+              <p>Aurora Province's premier surf break, right at your doorstep every session.</p>
             </div>
           </div>
           <div class="exp-feat">
@@ -712,28 +730,28 @@
 <!-- ═══════════ GALLERY ═══════════ -->
 <section id="gallery" class="bg-deep" aria-labelledby="gal-heading">
   <div class="section-inner">
-    <p class="section-tag">Life at Alon · Siargao Surf Camp</p>
+    <p class="section-tag">Life at Alon · Baler Surf Camp</p>
     <h2 id="gal-heading" class="section-title">See the camp.</h2>
     <p class="section-sub" style="margin-bottom:40px;">Dawn sessions, island afternoons, and nights under the palms. This is what a week at Alon looks like.</p>
     <div class="gallery-grid">
       <div class="gal-item fi">
-        <img src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=800&q=80" alt="Dawn patrol surf session Cloud 9 Siargao" loading="lazy">
-        <div class="gal-label">Dawn Patrol · Cloud 9</div>
+        <img src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=800&q=80" alt="Dawn patrol surf session Sabang Point Baler" loading="lazy">
+        <div class="gal-label">Dawn Patrol · Sabang Point</div>
       </div>
       <div class="gal-item fi fi-d1">
-        <img src="https://images.unsplash.com/photo-1455264745730-cb3b76250f67?auto=format&fit=crop&w=700&q=80" alt="Surf lesson on General Luna beach Siargao Philippines" loading="lazy">
-        <div class="gal-label">Beginner Session · General Luna Beach</div>
+        <img src="https://images.unsplash.com/photo-1455264745730-cb3b76250f67?auto=format&fit=crop&w=700&q=80" alt="Surf lesson on Baler beach Baler Philippines" loading="lazy">
+        <div class="gal-label">Beginner Session · Sabang Beach</div>
       </div>
       <div class="gal-item fi fi-d2">
-        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=700&q=80" alt="Ocean cabana beachfront accommodation Siargao" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=700&q=80" alt="Ocean cabana beachfront accommodation Baler" loading="lazy">
         <div class="gal-label">Ocean Cabana · Beachfront</div>
       </div>
       <div class="gal-item fi fi-d1">
-        <img src="https://images.unsplash.com/photo-1552374187-6b99db30d890?auto=format&fit=crop&w=700&q=80" alt="Siargao Island palm trees tropical afternoon" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1552374187-6b99db30d890?auto=format&fit=crop&w=700&q=80" alt="Baler, Aurora palm trees tropical afternoon" loading="lazy">
         <div class="gal-label">Island Afternoon</div>
       </div>
       <div class="gal-item fi fi-d2">
-        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=700&q=80" alt="Intermediate surfing reef break Siargao Philippines" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=700&q=80" alt="Intermediate surfing reef break Baler Philippines" loading="lazy">
         <div class="gal-label">Intermediate Program · Reef Break</div>
       </div>
     </div>
@@ -743,12 +761,12 @@
 <!-- ═══════════ ACCOMMODATIONS ═══════════ -->
 <section id="stay" aria-labelledby="stay-heading">
   <div class="section-inner">
-    <p class="section-tag">Stay With Us · Siargao Island Accommodation</p>
+    <p class="section-tag">Stay With Us · Baler, Aurora Accommodation</p>
     <h2 id="stay-heading" class="section-title">Sleep near the swell.</h2>
     <p class="section-sub">Budget surf dorms to private beachfront suites: every room is clean, comfortable, and a short walk from the water.</p>
     <div class="rooms-grid">
       <div class="room-card fi">
-        <img class="room-img" src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="Surf camp dormitory Siargao" loading="lazy">
+        <img class="room-img" src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="Surf camp dormitory Baler" loading="lazy">
         <div class="room-body">
           <div class="room-type">Dormitory</div>
           <div class="room-name">Surf Dorm</div>
@@ -762,7 +780,7 @@
         </div>
       </div>
       <div class="room-card fi fi-d1">
-        <img class="room-img" src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=600&q=80" alt="Private garden room Siargao resort" loading="lazy">
+        <img class="room-img" src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=600&q=80" alt="Private garden room Baler resort" loading="lazy">
         <div class="room-body">
           <div class="room-type">Private Room</div>
           <div class="room-name">Garden Room</div>
@@ -777,7 +795,7 @@
         </div>
       </div>
       <div class="room-card fi fi-d2">
-        <img class="room-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" alt="Beachfront ocean cabana Siargao surf resort" loading="lazy">
+        <img class="room-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" alt="Beachfront ocean cabana Baler surf resort" loading="lazy">
         <div class="room-body">
           <div class="room-type">Cabana · Beachfront</div>
           <div class="room-name">Ocean Cabana</div>
@@ -792,7 +810,7 @@
         </div>
       </div>
       <div class="room-card fi fi-d3">
-        <img class="room-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Loft suite ocean view Siargao resort" loading="lazy">
+        <img class="room-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Loft suite ocean view Baler resort" loading="lazy">
         <div class="room-body">
           <div class="room-type">Suite · Ocean View</div>
           <div class="room-name">Loft Suite</div>
@@ -813,30 +831,30 @@
 <!-- ═══════════ INSTRUCTORS ═══════════ -->
 <section id="team" class="bg-deep" aria-labelledby="team-heading">
   <div class="section-inner">
-    <p class="section-tag">The Team · ISA-Certified · General Luna, Siargao</p>
+    <p class="section-tag">The Team · ISA-Certified · Baler, Aurora</p>
     <h2 id="team-heading" class="section-title">Your coaches.</h2>
-    <p class="section-sub">Siargao locals and national-level competitors who teach because they love it: not because it's a side job.</p>
+    <p class="section-sub">Aurora locals and national-level competitors who teach because they love it: not because it's a side job.</p>
     <div class="instructors-grid">
       <div class="instr-card fi">
-        <img class="instr-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Head surf instructor Siargao Philippines" loading="lazy">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Head surf instructor Baler Philippines" loading="lazy">
         <div class="instr-body">
           <div class="instr-name">Kuya Marco</div>
           <div class="instr-role">Head Coach · Founder</div>
-          <div class="instr-bio">Siargao native. 18 years on the water. Former national surfing team alternate. Marco founded Alon after a decade hosting surf guests at his family's beachfront property in General Luna.</div>
+          <div class="instr-bio">Aurora native. 18 years on the water. Former national surfing team alternate. Marco founded Alon after a decade hosting surf guests at his family's beachfront property in Sabang, Baler.</div>
           <div class="instr-cert">⚡ ISA Level 2 Certified</div>
         </div>
       </div>
       <div class="instr-card fi fi-d1">
-        <img class="instr-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80" alt="Female surf instructor women's program Siargao" loading="lazy">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80" alt="Female surf instructor women's program Baler" loading="lazy">
         <div class="instr-body">
           <div class="instr-name">Coach Lena</div>
           <div class="instr-role">Intermediate & Women's Program</div>
-          <div class="instr-bio">Lena runs our women-only surf clinics and intermediate program. Her coaching style is patient, technical, and built around ocean safety. 9 years in the water, 5 on Siargao.</div>
+          <div class="instr-bio">Lena runs our women-only surf clinics and intermediate program. Her coaching style is patient, technical, and built around ocean safety. 9 years in the water, 5 on Sabang Beach.</div>
           <div class="instr-cert">⚡ ISA Level 1 Certified</div>
         </div>
       </div>
       <div class="instr-card fi fi-d2">
-        <img class="instr-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Advanced surf coach reef break Cloud 9 Siargao" loading="lazy">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Advanced surf coach reef break Sabang Point Baler" loading="lazy">
         <div class="instr-body">
           <div class="instr-name">Coach Diego</div>
           <div class="instr-role">Advanced & Reef Break Specialist</div>
@@ -851,15 +869,15 @@
 <!-- ═══════════ TESTIMONIALS ═══════════ -->
 <section id="reviews" aria-labelledby="reviews-heading">
   <div class="section-inner">
-    <p class="section-tag">Guest Reviews · Siargao Surf Camp · Philippines</p>
+    <p class="section-tag">Guest Reviews · Baler Surf Camp · Philippines</p>
     <h2 id="reviews-heading" class="section-title">What guests say.</h2>
     <p class="section-sub" style="margin-bottom:44px;">Over 1,400 surfers from 28 countries. A few things they had to say after their week at Alon.</p>
     <div class="testi-grid">
       <div class="testi-card fi">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"I came to Siargao with zero surfing experience. After 5 days with Coach Marco, I was riding green waves on my own. The Surf & Stay package is worth every peso. The food, the coaching, the energy: nothing was half-hearted."</p>
+        <p class="testi-text">"I came to Baler with zero surfing experience. After 5 days with Coach Marco, I was riding green waves on my own. The Surf & Stay package is worth every peso. The food, the coaching, the energy: nothing was half-hearted."</p>
         <div class="testi-author">
-          <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80" alt="Sarah K.: Guest review Alon Surf Siargao" loading="lazy">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80" alt="Sarah K.: Guest review Alon Surf Baler" loading="lazy">
           <div>
             <div class="testi-name">Sarah K.</div>
             <div class="testi-loc">Melbourne, Australia</div>
@@ -868,7 +886,7 @@
       </div>
       <div class="testi-card fi fi-d1">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"The Immersion program changed the way I surf. Diego pushed me beyond what I thought I was capable of. Cloud 9 boat sessions, daily video review, small group so you actually get coached. Non-negotiable for anyone at an intermediate plateau."</p>
+        <p class="testi-text">"The Immersion program changed the way I surf. Diego pushed me beyond what I thought I was capable of. Sabang Point boat sessions, daily video review, small group so you actually get coached. Non-negotiable for anyone at an intermediate plateau."</p>
         <div class="testi-author">
           <img class="testi-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80" alt="Thomas R.: Alon Surf Camp review" loading="lazy">
           <div>
@@ -881,7 +899,7 @@
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">"Booked the Ocean Cabana for two weeks. Woke up to the sound of waves every morning. The staff are genuinely the warmest people. Alon doesn't feel like a business. It feels like a family's home that happens to have the best surf on the island."</p>
         <div class="testi-author">
-          <img class="testi-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="Mia L.: Siargao surf resort review" loading="lazy">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="Mia L.: Baler surf resort review" loading="lazy">
           <div>
             <div class="testi-name">Mia L.</div>
             <div class="testi-loc">Vancouver, Canada</div>
@@ -895,27 +913,27 @@
 <!-- ═══════════ LOCATION ═══════════ -->
 <section id="location" class="bg-deep" aria-labelledby="loc-heading">
   <div class="section-inner">
-    <p class="section-tag">Getting Here · General Luna · Siargao Island · Surigao del Norte</p>
+    <p class="section-tag">Getting Here · Sabang, Baler · Aurora Province</p>
     <h2 id="loc-heading" class="section-title">Find us.</h2>
     <div class="location-grid">
       <div class="fi">
         <div class="location-map">
-          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Siargao Island General Luna Philippines map location" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Baler Aurora Province Philippines map location" loading="lazy">
         </div>
-        <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);margin-top:10px;letter-spacing:0.1em;line-height:1.6;">PUROK 3 · BRGY. TOURISM ROAD · GENERAL LUNA<br>SIARGAO ISLAND · SURIGAO DEL NORTE 8417 · PHILIPPINES</p>
+        <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);margin-top:10px;letter-spacing:0.1em;line-height:1.6;">SABANG BEACH ROAD · SABANG<br>BALER · AURORA PROVINCE 3200 · PHILIPPINES</p>
       </div>
       <div class="location-details fi fi-d1">
         <div class="loc-item">
-          <h4>Flying to Siargao</h4>
-          <p>Fly direct to Sayak Airport (IAO) via Manila (MNL) or Cebu (CEB). Daily flights via Philippine Airlines, Cebu Pacific, and AirAsia. Manila to Siargao: ~2h. Cebu to Siargao: ~1h.</p>
+          <h4>Getting to Baler</h4>
+          <p>Baler is approximately 4 hours by bus or car from Manila via the NLEX-SCTEX-TPLEX and Baler-San Jose Road. Genesis Transport and other bus lines operate regular Manila-Baler routes from the Cubao terminal.</p>
         </div>
         <div class="loc-item">
-          <h4>Sayak Airport to Alon</h4>
+          <h4>From Cabanatuan to Alon</h4>
           <p>Complimentary airport transfer for all Surf & Stay and Immersion guests. For Day Tripper and dorm bookings, the van ride is 45 minutes and costs ₱200–₱300. We can also arrange pick-up: just message us.</p>
         </div>
         <div class="loc-item">
-          <h4>From General Luna Town Center</h4>
-          <p>10-minute tricycle ride from the main road. Tell your driver "Alon Surf Camp": everyone in General Luna knows us. Or call ahead and we'll send someone.</p>
+          <h4>From Baler Town Center</h4>
+          <p>10-minute tricycle ride from the town center. Tell your driver "Alon Surf Camp" along Sabang Beach Road. Or call ahead and we'll send someone.</p>
         </div>
         <div class="loc-item">
           <h4>Reach Us</h4>
@@ -931,7 +949,7 @@
   <div class="section-inner">
     <div class="book-grid">
       <div class="fi">
-        <p class="section-tag">Book Your Stay · Siargao Island, Philippines</p>
+        <p class="section-tag">Book Your Stay · Baler, Aurora Province</p>
         <h2 id="book-heading" style="font-family:var(--serif);font-size:clamp(2.2rem,4vw,3rem);line-height:1.1;margin-bottom:20px;">Ready to paddle out?</h2>
         <p style="color:var(--text);line-height:1.75;font-size:0.98rem;">Tell us when you're coming and what program you're after. We confirm availability and get your trip sorted within 24 hours.</p>
         <div class="book-perks">
@@ -1017,7 +1035,7 @@
         <div id="formSuccess" class="form-success">
           <div class="success-icon">🤙</div>
           <h3>Inquiry sent!</h3>
-          <p>We'll confirm your dates and package within 24 hours. Keep an eye on your email: and start getting stoked about Siargao.</p>
+          <p>We'll confirm your dates and package within 24 hours. Keep an eye on your email: and start getting stoked about Baler.</p>
         </div>
       </div>
     </div>
@@ -1033,11 +1051,11 @@
           <div class="footer-logo-mark">A</div>
           <div class="footer-logo-name">Alon Surf & Stay</div>
         </div>
-        <div class="footer-tagline">Where the swell meets the soul. Siargao Island's premier surf camp and beachfront resort since 2019.</div>
+        <div class="footer-tagline">Where the swell meets the soul. Aurora Province's premier surf camp and beachfront resort since 2019.</div>
         <div class="footer-addr">
-          PUROK 3 · BRGY. TOURISM ROAD<br>
-          GENERAL LUNA · SIARGAO ISLAND<br>
-          SURIGAO DEL NORTE 8417 · PHILIPPINES
+          SABANG BEACH ROAD<br>
+          SABANG · BALER, AURORA<br>
+          AURORA PROVINCE 3200 · PHILIPPINES
         </div>
       </div>
       <div class="footer-col">
@@ -1070,9 +1088,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2024 Alon Surf & Stay · All rights reserved · General Luna, Siargao Island</div>
+      <div class="footer-copy">© 2024 Alon Surf & Stay · All rights reserved · Baler, Aurora Province</div>
       <div class="footer-adf">Infrastructure by <a href="https://hirrok.github.io/adf-hq/foundry-hq.html" target="_blank" rel="noopener">Aurora Digital Foundry</a></div>
-      <a href="operator.html" class="footer-op">⚙ Operator Suite</a>
     </div>
   </div>
 </footer>

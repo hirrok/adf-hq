@@ -279,6 +279,15 @@
       .footer-top { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
     }
+  
+    /* ── Light Mode: Hero & Nav Contrast Fixes ─────────────── */
+    nav .nav-links a { color: rgba(255,255,255,0.82); }
+    nav .nav-links a:hover { color: var(--amber); }
+    nav .nav-logo-name { color: rgba(255,255,255,0.90); }
+    .hero .hero-h1 { color: #FFFFFF; }
+    .hero .hero-eyebrow { color: rgba(255,255,255,0.60); }
+    .hero .hero-sub, .hero p { color: rgba(255,255,255,0.72); }
+
   </style>
 </head>
 <body>
@@ -307,7 +316,6 @@
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
     <a href="#inquiry" class="nav-cta">Get a Quote</a>
-    <a href="operator.html" style="font-family:var(--ff);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;color:var(--text);border:1px solid var(--border2);padding:8px 16px;border-radius:4px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--amber)';this.style.borderColor='rgba(245,166,35,0.5)'" onmouseout="this.style.color='';this.style.borderColor=''">Operator</a>
   </div>
 </nav>
 
@@ -315,7 +323,7 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">⛽ Regional Fuel & LPG Distributor · Philippines</div>
+      <div class="hero-eyebrow">⛽ Fuel & LPG Distributor · Aurora Province, Philippines</div>
       <h1 class="hero-h1">Fuel the fleet.<br /><span>Power the region.</span></h1>
       <p class="hero-sub">Solaris operates a regional network of fuel stations and LPG distribution points: serving commercial fleets, industrial operations, and residential customers across multiple municipalities.</p>
       <div class="hero-actions">
@@ -631,6 +639,5 @@
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 Solaris Fuel & LPG · All content is fictional · Forms run in demo mode · Imagery via Unsplash</div>
       <div style="display:flex;gap:12px;align-items:center">
-        <a href="operator.html" style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;color:var(--text2);border:1px solid var(--border);padding:4px 10px;border-radius:3px;transition:color 0.2s,border-color 0.2s" onmouseover="this.style.color='var(--amber)';this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.color='';this.style.borderColor=''">⚙ Operator Suite</a>
         <div class="footer-adf">Live Blueprint · <span>Aurora Digital Foundry</span></div>
       </
