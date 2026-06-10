@@ -7,14 +7,19 @@
   <style>
     /* ─── TOKENS ─────────────────────────────────────────── */
     :root {
-      --black:   #0a0a0a;
-      --white:   #f5f4f0;
-      --aurora:  #00c9a7;
-      --aurora2: #845ec2;
-      --gold:    #e8c547;
-      --mid:     #1a1a1a;
+      /* Seasonal defaults — Habagat Dawn (Jun–Sep) */
+      --black:   #0b0918;
+      --white:   #fdf4ec;
+      --aurora:  #e8618c;
+      --aurora2: #f5a623;
+      --gold:    #f5a623;
+      --mid:     #150e2a;
       --border:  rgba(255,255,255,0.08);
-      --text:    rgba(245,244,240,0.75);
+      --text:    rgba(253,244,236,0.72);
+      --nav-bg:  rgba(11,9,24,0.88);
+      --a1-rgb:  232,97,140;
+      --a2-rgb:  245,166,35;
+      --a3-rgb:  168,85,247;
       --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
       --mono:    'JetBrains Mono', 'Fira Code', monospace;
     }
@@ -82,7 +87,7 @@
       background: var(--aurora);
       color: var(--black);
     }
-    .btn-primary:hover { background: #00e8c1; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,201,167,0.35); }
+    .btn-primary:hover { background: var(--aurora); filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(var(--a1-rgb),0.35); }
     .btn-ghost {
       background: transparent;
       color: var(--white);
@@ -95,7 +100,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(10,10,10,0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -152,15 +157,15 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(var(--a1-rgb),0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--a1-rgb),0.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
     .hero-glow {
       position: absolute;
       width: 600px; height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,201,167,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--a1-rgb),0.12) 0%, transparent 70%);
       top: 10%; right: -10%;
       pointer-events: none;
     }
@@ -168,7 +173,7 @@
       position: absolute;
       width: 400px; height: 400px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(132,94,194,0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--a2-rgb),0.1) 0%, transparent 70%);
       bottom: 15%; left: -5%;
       pointer-events: none;
     }
@@ -329,12 +334,12 @@
       transform-origin: left;
       transition: transform 0.3s;
     }
-    .service-card:hover { border-color: rgba(0,201,167,0.3); transform: translateY(-4px); }
+    .service-card:hover { border-color: rgba(var(--a1-rgb),0.3); transform: translateY(-4px); }
     .service-card:hover::before { transform: scaleX(1); }
     .service-icon {
       width: 48px; height: 48px;
-      background: rgba(0,201,167,0.08);
-      border: 1px solid rgba(0,201,167,0.2);
+      background: rgba(var(--a1-rgb),0.08);
+      border: 1px solid rgba(var(--a1-rgb),0.2);
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.4rem;
@@ -367,8 +372,8 @@
     .service-tag {
       font-size: 0.7rem;
       padding: 3px 10px;
-      background: rgba(0,201,167,0.06);
-      border: 1px solid rgba(0,201,167,0.15);
+      background: rgba(var(--a1-rgb),0.06);
+      border: 1px solid rgba(var(--a1-rgb),0.15);
       border-radius: 2px;
       color: var(--text);
       font-family: var(--mono);
@@ -424,7 +429,7 @@
     }
     .process-step:hover .process-node {
       border-color: var(--aurora);
-      background: rgba(0,201,167,0.1);
+      background: rgba(var(--a1-rgb),0.1);
     }
     .process-step-label {
       font-size: 0.75rem;
@@ -467,7 +472,7 @@
     }
     .layer-btn:hover, .layer-btn.active {
       border-color: var(--aurora);
-      background: rgba(0,201,167,0.05);
+      background: rgba(var(--a1-rgb),0.05);
     }
     .layer-num {
       font-family: var(--mono);
@@ -541,10 +546,10 @@
       overflow: hidden;
       transition: all 0.3s;
     }
-    .portfolio-card:hover { border-color: rgba(0,201,167,0.3); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+    .portfolio-card:hover { border-color: rgba(var(--a1-rgb),0.3); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
     .portfolio-thumb {
       height: 200px;
-      background: linear-gradient(135deg, rgba(0,201,167,0.1), rgba(132,94,194,0.1));
+      background: linear-gradient(135deg, rgba(var(--a1-rgb),0.1), rgba(var(--a2-rgb),0.1));
       display: flex; align-items: center; justify-content: center;
       border-bottom: 1px solid var(--border);
       font-size: 2.5rem;
@@ -571,8 +576,8 @@
       text-transform: uppercase;
     }
     .class-a { background: rgba(232,197,71,0.15); color: var(--gold); border: 1px solid rgba(232,197,71,0.3); }
-    .class-b { background: rgba(0,201,167,0.1); color: var(--aurora); border: 1px solid rgba(0,201,167,0.3); }
-    .class-c { background: rgba(132,94,194,0.1); color: var(--aurora2); border: 1px solid rgba(132,94,194,0.3); }
+    .class-b { background: rgba(var(--a1-rgb),0.1); color: var(--aurora); border: 1px solid rgba(var(--a1-rgb),0.3); }
+    .class-c { background: rgba(var(--a2-rgb),0.1); color: var(--aurora2); border: 1px solid rgba(var(--a2-rgb),0.3); }
     .portfolio-live-badge {
       position: absolute;
       top: 12px; left: 12px;
@@ -582,9 +587,9 @@
       padding: 3px 10px;
       border-radius: 2px;
       text-transform: uppercase;
-      background: rgba(0,201,167,0.12);
+      background: rgba(var(--a1-rgb),0.12);
       color: var(--aurora);
-      border: 1px solid rgba(0,201,167,0.45);
+      border: 1px solid rgba(var(--a1-rgb),0.45);
     }
     .portfolio-live-dot {
       display: inline-block;
@@ -611,12 +616,12 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-top: 14px;
-      border: 1px solid rgba(0,201,167,0.3);
+      border: 1px solid rgba(var(--a1-rgb),0.3);
       padding: 5px 14px;
       border-radius: 2px;
       transition: background 0.2s;
     }
-    .portfolio-link:hover { background: rgba(0,201,167,0.08); }
+    .portfolio-link:hover { background: rgba(var(--a1-rgb),0.08); }
     .portfolio-body { padding: 24px; }
     .portfolio-industry {
       font-family: var(--mono);
@@ -692,7 +697,7 @@
       position: absolute;
       width: 700px; height: 700px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,201,167,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--a1-rgb),0.08) 0%, transparent 70%);
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
@@ -772,8 +777,8 @@
     }
     .contact-icon {
       width: 40px; height: 40px; flex-shrink: 0;
-      background: rgba(0,201,167,0.08);
-      border: 1px solid rgba(0,201,167,0.2);
+      background: rgba(var(--a1-rgb),0.08);
+      border: 1px solid rgba(var(--a1-rgb),0.2);
       border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem;
@@ -820,7 +825,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.15em;
       color: var(--aurora);
-      border: 1px solid rgba(0,201,167,0.2);
+      border: 1px solid rgba(var(--a1-rgb),0.2);
       padding: 4px 12px;
       border-radius: 2px;
     }
@@ -853,7 +858,7 @@
     /* ─── OPERATOR SUITE ─────────────────────────────────── */
     #operator {
       padding: 120px 0;
-      background: linear-gradient(180deg, var(--black) 0%, rgba(0,201,167,0.03) 50%, var(--black) 100%);
+      background: linear-gradient(180deg, var(--black) 0%, rgba(var(--a1-rgb),0.03) 50%, var(--black) 100%);
     }
     /* ─── OPERATOR SUITE TEASER ─────────────────────────────── */
     .ops-teaser {
@@ -921,7 +926,7 @@
       filter: blur(6px);
       user-select: none;
     }
-    .ops-teaser-val.green { color: rgba(0,201,167,0.2); }
+    .ops-teaser-val.green { color: rgba(var(--a1-rgb),0.2); }
     .ops-teaser-val.gold  { color: rgba(232,197,71,0.2); }
     .ops-teaser-overlay {
       position: absolute;
@@ -930,7 +935,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: rgba(10,10,10,0.65);
+      background: rgba(var(--a1-rgb),0.04);
       backdrop-filter: blur(2px);
       gap: 20px;
       z-index: 2;
@@ -1159,8 +1164,8 @@
         </div>
       </div>
 
-      <div class="service-card" style="background: linear-gradient(135deg, rgba(0,201,167,0.06), rgba(132,94,194,0.06)); border-color: rgba(0,201,167,0.2);">
-        <div class="service-icon" style="background:rgba(0,201,167,0.12); border-color:rgba(0,201,167,0.3);">🏗️</div>
+      <div class="service-card" style="background: linear-gradient(135deg, rgba(var(--a1-rgb),0.06), rgba(var(--a2-rgb),0.06)); border-color: rgba(var(--a1-rgb),0.2);">
+        <div class="service-icon" style="background:rgba(var(--a1-rgb),0.12); border-color:rgba(var(--a1-rgb),0.3);">🏗️</div>
         <div class="service-layer" style="color:var(--gold);">Foundry Model</div>
         <div class="service-title">Prototype-First Sales</div>
         <div class="service-desc">You don't get a proposal — you get a working prototype of your future business before the sales conversation. Experience the outcome before you commit.</div>
@@ -1640,7 +1645,7 @@
           </div>
         </div>
 
-        <div style="margin-top:48px; padding:28px; background:var(--black); border:1px solid rgba(0,201,167,0.2); border-radius:8px;">
+        <div style="margin-top:48px; padding:28px; background:var(--black); border:1px solid rgba(var(--a1-rgb),0.2); border-radius:8px;">
           <div class="tag" style="margin-bottom:16px;">Foundry Promise</div>
           <p style="font-size:0.875rem; color:var(--text); line-height:1.7;">You experience your future business as a working prototype — before the proposal, before the invoice, before the commitment. If we can't show you the outcome, we don't deserve the work.</p>
         </div>
@@ -1661,12 +1666,78 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="footer-badge">Infrastructure · Not Websites</div>
+      <div class="footer-badge" style="margin-top:8px;opacity:0.5" id="season-badge"></div>
     </div>
   </div>
 </footer>
 
 <!-- ─── LAYER TABS SCRIPT ─────────────────────────────────────────────────────────── -->
 <script>
+  /* ─── AURORA SEASONAL ENGINE ──────────────────────────────────────────
+   * Philippine season calendar → CSS variable palette swap.
+   * Runs on page load. No server. No redeploy per season.
+   * Cockpit (cockpit.html) is unaffected — electric night stays.
+   * ─────────────────────────────────────────────────────────────────── */
+  (function() {
+    const PALETTES = {
+      habagat: {
+        name: 'Habagat Dawn', range: 'Jun–Sep',
+        black: '#0b0918', mid: '#150e2a', white: '#fdf4ec',
+        aurora: '#e8618c', aurora2: '#f5a623', gold: '#f5a623',
+        text: 'rgba(253,244,236,0.72)', nav: 'rgba(11,9,24,0.88)',
+        a1: '232,97,140', a2: '245,166,35', a3: '168,85,247',
+      },
+      veranum: {
+        name: 'Veranum Forge', range: 'Mar–May',
+        black: '#120800', mid: '#1f0f00', white: '#fff8f0',
+        aurora: '#ff6b35', aurora2: '#ffc020', gold: '#ffc020',
+        text: 'rgba(255,248,240,0.72)', nav: 'rgba(18,8,0,0.88)',
+        a1: '255,107,53', a2: '255,192,32', a3: '232,93,58',
+      },
+      bagyo: {
+        name: 'Bagyo Shift', range: 'Oct–Nov',
+        black: '#0d1117', mid: '#161c27', white: '#f8fafc',
+        aurora: '#e8743b', aurora2: '#94a3b8', gold: '#f5a623',
+        text: 'rgba(248,250,252,0.72)', nav: 'rgba(13,17,23,0.88)',
+        a1: '232,116,59', a2: '148,163,184', a3: '245,166,35',
+      },
+      amihan: {
+        name: 'Amihan Constellation', range: 'Dec–Feb',
+        black: '#050d1a', mid: '#0a1628', white: '#f0f8ff',
+        aurora: '#38bdf8', aurora2: '#7dd3fc', gold: '#e0f2fe',
+        text: 'rgba(240,248,255,0.72)', nav: 'rgba(5,13,26,0.88)',
+        a1: '56,189,248', a2: '125,211,252', a3: '186,230,253',
+      },
+    };
+    function getSeason(m) {
+      if (m >= 2 && m <= 4) return 'veranum';
+      if (m >= 5 && m <= 8) return 'habagat';
+      if (m >= 9 && m <= 10) return 'bagyo';
+      return 'amihan';
+    }
+    const p = PALETTES[getSeason(new Date().getMonth())];
+    const r = document.documentElement;
+    const s = r.style;
+    s.setProperty('--black',   p.black);
+    s.setProperty('--mid',     p.mid);
+    s.setProperty('--white',   p.white);
+    s.setProperty('--aurora',  p.aurora);
+    s.setProperty('--aurora2', p.aurora2);
+    s.setProperty('--gold',    p.gold);
+    s.setProperty('--text',    p.text);
+    s.setProperty('--nav-bg',  p.nav);
+    s.setProperty('--a1-rgb',  p.a1);
+    s.setProperty('--a2-rgb',  p.a2);
+    s.setProperty('--a3-rgb',  p.a3);
+    r.setAttribute('data-season', p.name);
+    r.setAttribute('data-season-range', p.range);
+    document.body.style.background = p.black;
+    document.addEventListener('DOMContentLoaded', function() {
+      const badge = document.getElementById('season-badge');
+      if (badge) badge.textContent = '◐ ' + p.name + ' · ' + p.range;
+    });
+  })();
+
   function showLayer(index) {
     const panels = document.querySelectorAll('.layer-panel');
     const btns = document.querySelectorAll('#layerNav .layer-btn');
