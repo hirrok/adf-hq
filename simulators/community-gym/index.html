@@ -19,7 +19,20 @@ textarea{resize:vertical;min-height:100px}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:#070709}
 ::-webkit-scrollbar-thumb{background:#1E1E28;border-radius:2px}
-</style>
+
+    /* ── ForgeHaus Mobile-First ─────────────── */
+    .fh-ham {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; background: none; border: none;
+      cursor: pointer; padding: 6px; color: var(--c-text);
+    }
+    @media (max-width: 640px) {
+      .fh-ham { display: flex !important; }
+      .fh-nav-links { display: none !important; }
+      .fh-nav-cta { display: none !important; }
+    }
+
+  </style>
 </head>
 <body>
 <div id="root"></div>
@@ -147,6 +160,9 @@ function useTypewriter(speed=10){
 
 function NavBar({page,goTo,adminMode,setAdminMode}){
   const links=[['home','Home'],['memberships','Memberships'],['coaching','Coaching'],['classes','Classes'],['transformations','Results'],['stories','Stories'],['about','About'],['faq','FAQ']];
+  const [menuOpen,setMenuOpen]=React.useState(false);
+  const closeMenu=()=>{setMenuOpen(false);document.body.style.overflow='';};
+  const openMenu=()=>{setMenuOpen(true);document.body.style.overflow='hidden';};
   if(adminMode)return(
     <nav style={{background:'#08080C',borderBottom:`1px solid ${C.border}`,padding:'0 24px',height:56,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:100}}>
       <div style={{display:'flex',alignItems:'center',gap:10}}>
@@ -157,20 +173,36 @@ function NavBar({page,goTo,adminMode,setAdminMode}){
     </nav>
   );
   return(
-    <nav style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:'0 20px',height:56,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:100}}>
-      <div style={{display:'flex',alignItems:'center',gap:6,cursor:'pointer'}} onClick={()=>goTo('home')}>
-        <span style={{...DISPLAY,color:C.red,fontWeight:800,fontSize:18}}>FORGEHAUS</span>
-        <span style={{color:C.text3,fontSize:11,marginLeft:4}}>FITNESS GYM</span>
-      </div>
-      <div style={{display:'flex',gap:2}}>
-        {links.map(([p,l])=>(
-          <span key={p} onClick={()=>goTo(p)} style={{cursor:'pointer',fontSize:13,color:page===p?C.text:C.text2,background:page===p?C.hover:'transparent',padding:'6px 10px',borderRadius:6,userSelect:'none'}}>{l}</span>
-        ))}
-      </div>
-      <div style={{display:'flex',gap:8}}>
-        <button style={{...btn(),fontSize:13,padding:'8px 14px'}} onClick={()=>goTo('join')}>Book Assessment</button>
-      </div>
-    </nav>
+    <>
+      <nav style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:'0 20px',height:56,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:100}}>
+        <div style={{display:'flex',alignItems:'center',gap:6,cursor:'pointer'}} onClick={()=>goTo('home')}>
+          <span style={{...DISPLAY,color:C.red,fontWeight:800,fontSize:18}}>FORGEHAUS</span>
+          <span style={{color:C.text3,fontSize:11,marginLeft:4}}>FITNESS GYM</span>
+        </div>
+        <div className="fh-nav-links" style={{display:'flex',gap:2}}>
+          {links.map(([p,l])=>(
+            <span key={p} onClick={()=>goTo(p)} style={{cursor:'pointer',fontSize:13,color:page===p?C.text:C.text2,background:page===p?C.hover:'transparent',padding:'6px 10px',borderRadius:6,userSelect:'none'}}>{l}</span>
+          ))}
+        </div>
+        <div style={{display:'flex',gap:8,alignItems:'center'}}>
+          <button className="fh-nav-cta" style={{...btn(),fontSize:13,padding:'8px 14px'}} onClick={()=>goTo('join')}>Book Assessment</button>
+          <button className="fh-ham" onClick={menuOpen?closeMenu:openMenu} aria-label="Menu">
+            <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',transform:menuOpen?'translateY(7px) rotate(45deg)':'none'}}></span>
+            <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',opacity:menuOpen?0:1}}></span>
+            <span style={{display:'block',width:22,height:2,background:'currentColor',borderRadius:2,transition:'0.25s',transform:menuOpen?'translateY(-7px) rotate(-45deg)':'none'}}></span>
+          </button>
+        </div>
+      </nav>
+      {menuOpen&&(
+        <div style={{position:'fixed',inset:0,zIndex:299,background:C.bg,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:4,padding:'80px 24px 40px'}}>
+          <button onClick={closeMenu} style={{position:'absolute',top:16,right:16,background:'none',border:'none',cursor:'pointer',fontSize:28,color:C.text2,width:44,height:44,display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
+          {links.map(([p,l])=>(
+            <div key={p} onClick={()=>{goTo(p);closeMenu();}} style={{cursor:'pointer',fontSize:'1.4rem',fontWeight:700,color:C.text,padding:'12px 0',width:'100%',textAlign:'center',borderBottom:`1px solid ${C.border}`}}>{l}</div>
+          ))}
+          <button style={{...btn(C.red,true),marginTop:24,fontSize:14,padding:'14px 32px',width:'100%'}} onClick={()=>{goTo('join');closeMenu();}}>Book Assessment</button>
+        </div>
+      )}
+    </>
   );
 }
 

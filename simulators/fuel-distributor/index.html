@@ -288,6 +288,40 @@
     .hero .hero-eyebrow { color: rgba(255,255,255,0.60); }
     .hero .hero-sub, .hero p { color: rgba(255,255,255,0.72); }
 
+  
+    /* ── Mobile-First: Hamburger Nav ─────────────── */
+    .nav-ham {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .nav-ham span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+    .nav-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; background: #0A0C0E;
+      padding: 80px 24px 48px;
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer-close { position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; padding: 10px; display: flex; flex-direction: column; gap: 0; align-items: center; }
+    .nav-drawer-close span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+    .nav-drawer-close span:nth-child(1) { transform: translateY(1px) rotate(45deg); }
+    .nav-drawer-close span:nth-child(2) { transform: translateY(-1px) rotate(-45deg); }
+    .nav-drawer-links { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+    .nav-drawer-links a { font-family: var(--ff); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.82); text-decoration: none; padding: 12px 20px; width: 100%; text-align: center; transition: color 0.2s; }
+    .nav-drawer-links a:hover { color: var(--amber); }
+    .nav-drawer-cta { margin-top: 24px; padding: 14px 40px; background: var(--amber); color: #0A0C0E; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 4px; }
+    @media (max-width: 560px) {
+      .nav-ham { display: flex; }
+      .nav-drawer { display: flex; }
+      .nav-links, .nav-cta { display: none !important; }
+      section { padding: 60px 16px; }
+      .hero-eyebrow { font-size: 0.6rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -316,6 +350,7 @@
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
     <a href="#inquiry" class="nav-cta">Get a Quote</a>
+    <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -640,4 +675,34 @@
       <div class="footer-copy">© 2026 Solaris Fuel & LPG · All content is fictional · Forms run in demo mode · Imagery via Unsplash</div>
       <div style="display:flex;gap:12px;align-items:center">
         <div class="footer-adf">Live Blueprint · <span>Aurora Digital Foundry</span></div>
-      </
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="nav-drawer" id="navDrawer" aria-modal="true">
+  <button class="nav-drawer-close" id="navDrawerClose"><span></span><span></span></button>
+  <nav class="nav-drawer-links">
+    <a href="#services">Services</a>
+    <a href="#branches">Coverage</a>
+    <a href="#lpg">LPG</a>
+    <a href="#fleet">Fleet</a>
+    <a href="#inquiry">Contact</a>
+  </nav>
+  <a href="#inquiry" class="nav-drawer-cta">Get a Quote</a>
+</div>
+<script>
+(function(){
+  var ham=document.getElementById('navHam');
+  var drawer=document.getElementById('navDrawer');
+  if(!ham||!drawer)return;
+  function openD(){ham.classList.add('open');drawer.classList.add('open');document.body.style.overflow='hidden';}
+  function closeD(){ham.classList.remove('open');drawer.classList.remove('open');document.body.style.overflow='';}
+  window.__closeNavDrawer=closeD;
+  ham.addEventListener('click',function(){drawer.classList.contains('open')?closeD():openD();});
+  var closeBtn=document.getElementById('navDrawerClose');
+  if(closeBtn)closeBtn.addEventListener('click',closeD);
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeD);});
+})();
+</script>
+</body>
+</html>
