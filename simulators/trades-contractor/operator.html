@@ -22,6 +22,13 @@
       --blue:    #4A9EF5;
       --mono:    'JetBrains Mono', monospace;
       --sans:    'Source Sans 3', sans-serif;
+      /* ── ADF Standard Operator Panel vars ── */
+      --accent:     var(--amber);
+      --accent-dim: rgba(232,160,32,0.1);
+      --elev:       var(--surface);
+      --text2:      var(--text);
+      --text3:      rgba(20,14,8,0.35);
+      --border2:    rgba(20,14,8,0.2);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -220,6 +227,36 @@
     .rev-labels { display: flex; gap: 6px; }
     .rev-lbl { flex: 1; font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); text-align: center; }
 
+    /* ── ADF STANDARD OPERATOR PANELS (Marketing / AI Console / Intelligence) ── */
+    .panel-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+    .card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 14px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+    .metric { background: var(--elev); border-radius: 10px; padding: 16px 20px; }
+    .metric-label { font-size: 0.65rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: var(--mono); }
+    .metric-value { font-size: 1.5rem; font-weight: 700; }
+    .btn-grid { display: grid; gap: 10px; margin-bottom: 20px; }
+    .btn-grid-2 { grid-template-columns: repeat(2,1fr); }
+    .btn-grid-3 { grid-template-columns: repeat(3,1fr); }
+    .action-btn { background: var(--mid); color: var(--white); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-align: left; transition: background 0.15s, color 0.15s, border-color 0.15s; font-family: var(--sans); line-height: 1.3; }
+    .action-btn:hover { background: var(--surface); border-color: var(--accent); }
+    .action-btn.active { background: var(--accent-dim); color: var(--amber2); border-color: var(--accent); }
+    .output-block { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+    .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .output-badge { background: var(--accent-dim); color: var(--amber); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 4px; font-family: var(--mono); }
+    .output-status { font-size: 0.7rem; color: var(--text3); }
+    .output-pre { font-size: 0.82rem; color: var(--text); white-space: pre-wrap; line-height: 1.8; font-family: var(--sans); min-height: 24px; }
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .chart-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 16px; color: var(--white); }
+    .bar-row { margin-bottom: 10px; }
+    .bar-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text); margin-bottom: 4px; }
+    .bar-track { height: 3px; background: var(--surface); border-radius: 2px; }
+    .bar-fill { height: 100%; border-radius: 2px; transition: width 0.7s ease; }
+    @media (max-width: 768px) {
+      .metric-grid { grid-template-columns: repeat(2,1fr); }
+      .btn-grid-2, .btn-grid-3 { grid-template-columns: 1fr 1fr; }
+      .chart-grid { grid-template-columns: 1fr; }
+    }
+
     /* SCROLLBAR */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -319,6 +356,11 @@
       <div class="sidebar-divider"></div>
       <div class="sidebar-section">Tools</div>
       <div class="sidebar-item" data-panel="crew"><span class="sidebar-icon">👷</span> Crew</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Growth</div>
+      <div class="sidebar-item" data-panel="marketing"><span class="sidebar-icon">📣</span> Marketing</div>
+      <div class="sidebar-item" data-panel="ai"><span class="sidebar-icon">🤖</span> AI Console</div>
+      <div class="sidebar-item" data-panel="intelligence"><span class="sidebar-icon">📊</span> Intelligence</div>
       <div class="sidebar-bottom">
         <div class="sidebar-footer-label">ADF Operator Suite v1</div>
       </div>
@@ -863,6 +905,69 @@
         </div>
       </div>
 
+      <!-- ─ MARKETING GENERATOR ─ -->
+      <div class="panel" id="panel-marketing">
+        <div class="panel-header">
+          <span class="panel-label">Content</span>
+          <div class="panel-title">Marketing Generator</div>
+          <div class="panel-sub">Ready-to-publish content for IronCrest Works' Facebook page and client outreach.</div>
+        </div>
+        <div class="btn-grid btn-grid-2" id="mktg-btns">
+          <button class="action-btn" onclick="generateContent('facebook')">📘 Facebook Post</button>
+          <button class="action-btn" onclick="generateContent('review')">⭐ Review Request</button>
+          <button class="action-btn" onclick="generateContent('announcement')">🏗️ Job Announcement</button>
+          <button class="action-btn" onclick="generateContent('sms')">💬 SMS Follow-Up</button>
+        </div>
+        <div id="mktg-output" style="display:none;" class="output-block">
+          <div class="output-header">
+            <span class="output-badge" id="mktg-badge">TYPE</span>
+            <span class="output-status" id="mktg-status">Generating...</span>
+          </div>
+          <pre class="output-pre" id="mktg-text"></pre>
+        </div>
+      </div>
+
+      <!-- ─ AI CONSOLE ─ -->
+      <div class="panel" id="panel-ai">
+        <div class="panel-header">
+          <span class="panel-label">Intelligence</span>
+          <div class="panel-title">AI Console</div>
+          <div class="panel-sub">Run AI-powered analysis on jobs, revenue, and the lead pipeline.</div>
+        </div>
+        <div class="btn-grid btn-grid-3" id="ai-btns">
+          <button class="action-btn" onclick="runAI('pipeline')">Pipeline Intelligence</button>
+          <button class="action-btn" onclick="runAI('revenue')">Revenue Intelligence</button>
+          <button class="action-btn" onclick="runAI('leads')">Lead Intelligence</button>
+        </div>
+        <div id="ai-output" style="display:none;" class="output-block">
+          <div class="output-header">
+            <span class="output-badge">AI ANALYSIS</span>
+            <span class="output-status" id="ai-status">Analyzing data...</span>
+          </div>
+          <pre class="output-pre" id="ai-text"></pre>
+        </div>
+      </div>
+
+      <!-- ─ BUSINESS INTELLIGENCE ─ -->
+      <div class="panel" id="panel-intelligence">
+        <div class="panel-header">
+          <span class="panel-label">Analytics</span>
+          <div class="panel-title">Business Intelligence</div>
+          <div class="panel-sub">Operational and revenue performance: June 2026</div>
+        </div>
+        <div class="metric-grid" id="kpi-grid"></div>
+        <div class="chart-grid">
+          <div class="card">
+            <div class="chart-title" id="chart-left-title">Revenue by Service</div>
+            <div id="chart-left"></div>
+          </div>
+          <div class="card">
+            <div class="chart-title" id="chart-right-title">Job Category Split</div>
+            <div id="chart-right"></div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -922,6 +1027,295 @@
         }
       });
     });
+  });
+
+  /* ═══════════════════════════════════════════════════════════════
+     ADF STANDARD OPERATOR PANELS — Marketing / AI Console / Intelligence
+     Source: _templates/ADF_OPERATOR_PANEL_STANDARD.html v1.0
+  ═══════════════════════════════════════════════════════════════ */
+
+  const BRAND    = 'IronCrest Works';
+  const LOCATION = 'Lipa City & Aurora Province';
+
+  const KPI_DATA = [
+    ['Revenue MTD',    '₱312,500', 'var(--green)'],
+    ['Target',         '₱400,000', 'var(--text2)'],
+    ['Progress',       '78%',      'var(--amber)'],
+    ['Active Jobs',    '7',        'var(--white)'],
+    ['Overdue Quotes', '1',        'var(--red)'  ],
+    ['Close Rate',     '27%',      'var(--green)'],
+  ];
+
+  const CHART_LEFT = {
+    title: 'Revenue by Service',
+    data: [
+      { label: 'General Construction', value: 185000, color: 'var(--amber)' },
+      { label: 'Steel & Welding',       value: 44000,  color: 'var(--green)' },
+      { label: 'Electrical',            value: 38000,  color: 'var(--blue)'  },
+    ]
+  };
+
+  const CHART_RIGHT = {
+    title: 'Job Category Split',
+    data: [
+      { label: 'Residential', pct: 43, color: 'var(--amber)' },
+      { label: 'Commercial',  pct: 29, color: 'var(--blue)'  },
+      { label: 'Emergency',   pct: 28, color: 'var(--red)'   },
+    ]
+  };
+
+  const MARKETING_OUTPUTS = {
+    facebook:
+`FACEBOOK POST — IronCrest Works Update
+
+🏗️ Another one near the finish line!
+
+The Macasaet Gate & Fence project (Lipa City) is at 85% — steel
+fabrication and welding done on schedule, final coat going on this
+week. Meanwhile, our Villanueva aircon install (Ibaan) is on the
+punch list and ready for handover.
+
+✅ 7 active jobs across Aurora Province
+✅ On-time delivery on 6 of 7 current projects
+✅ Licensed crew: PCAB, PRC, TESDA-certified specialists
+
+Need a quote for your renovation, electrical, plumbing, or steel
+work? Message us — site visits booked within 48 hours.
+
+📍 ${LOCATION}
+#IronCrestWorks #LipaCity #AuroraProvince #Construction #Renovation`,
+
+    review:
+`REVIEW REQUEST — Post-Handover Message
+
+Send to: B. Macasaet (Gate & Fence, near completion)
+         E. Villanueva (Aircon Install, punch list)
+
+---
+Hi [Client Name], this is IronCrest Works — thank you for trusting
+us with your [project type]! We hope you're happy with the result.
+
+If you have a minute, a quick Google review would mean a lot to our
+small crew and helps other homeowners in ${LOCATION} find us.
+
+⭐ [Insert Google review link]
+
+If anything needs a final touch-up, just reply here — we'll sort it
+before we close out the job. Thanks again, [Foreman Name].
+---
+
+SEND TO: 2 clients nearing handover this week (Macasaet, Villanueva)
+TIMING: Send within 24 hours of final walkthrough/sign-off`,
+
+    announcement:
+`JOB ANNOUNCEMENT — New Project Kickoff
+
+🚧 Groundbreaking: Cruz Extension Build, Tanauan City
+
+IronCrest Works has broken ground on a General + Steel extension
+project for the Cruz family in Tanauan City. Foundation work is
+underway, with structural steel and framing to follow.
+
+Project value: ₱420,000 · Timeline: Jun 5 – Aug 10
+Crew assigned: Gerry Lim (Structural Mason) + steel team
+
+This is our largest active build this quarter — proof that
+IronCrest is scaling beyond residential reno into multi-phase
+structural work across Aurora Province.
+
+Following along? We'll post progress photos weekly.
+📍 Tanauan City, Batangas
+#IronCrestWorks #NewBuild #Construction #AuroraProvince`,
+
+    sms:
+`SMS FOLLOW-UP — Quote & Lead Nudges
+
+Batch 1 — Expiring Quote (URGENT):
+"Hi [Client], this is IronCrest Works. Your quote for the Hermosa
+Villa Extension (₱230,000) expires Jun 14. Reply YES to lock in
+this rate, or let us know if you have questions — happy to revisit
+the scope with you."
+
+Batch 2 — New Lead Same-Day Contact:
+"Hi Ana, thanks for your kitchen reno inquiry via our website! This
+is IronCrest Works (Lipa City). We'd like to schedule a free site
+visit this week — what day works best for you?"
+
+Batch 3 — Referral Lead Warm-Up:
+"Hi Rodel, IronCrest Works here — we got your rewiring inquiry via
+Facebook referral. Our master electrician (PRC/PEC licensed) can do
+a free assessment. When's a good time to visit?"
+
+[SWAP] Adjust names/projects weekly from the New Leads panel.`,
+  };
+
+  const AI_OUTPUTS = {
+    pipeline:
+`PIPELINE INTELLIGENCE — June 2026
+
+ACTIVE PIPELINE: ₱740,000 across 9 quotes
+FUNNEL: 11 inquiries → 9 site visits → 7 quoted → 3 signed (27% close rate)
+
+AT-RISK FLAGGED:
+· Hermosa Villa Extension — ₱230,000 — quote expires Jun 14 (3 days)
+  Status: No response since quote sent. Assigned: Ely Dizon.
+· Manalang Warehouse Electrical — ₱145,000 — quoted May 30, no follow-up in 12 days
+
+RECOMMENDED ACTIONS (priority order):
+1. Immediate: Call Hermosa Villa client today — quote lapses in 3 days,
+   ₱230,000 at stake. Offer to revisit scope if budget is the blocker.
+2. Follow up Manalang Warehouse — 12 days silent on a ₱145,000 commercial
+   quote is past the typical 7-day decision window.
+3. Dela Cruz New Build (₱280,000) — site visit Jun 12, prep scope
+   document in advance to convert faster post-visit.
+
+PROJECTED IMPACT:
+If Hermosa Villa and Manalang both convert: +₱375,000 to pipeline value
+Current close rate (27%) applied to remaining ₱740K → ~₱200,000 expected
+Closing the 2 flagged quotes alone would lift close rate to ~45% this month.`,
+
+    revenue:
+`REVENUE INTELLIGENCE — June 2026
+
+MTD REVENUE: ₱312,500 (invoiced)
+TARGET:      ₱400,000
+GAP:         ₱87,500 (19 days remaining in June)
+COLLECTED:   ₱224,000 (72% collection rate)
+OUTSTANDING: ₱88,500 across 3 invoices
+
+TO CLOSE THE ₱87,500 GAP:
+· Convert 1 mid-size quote (e.g. Manalang Warehouse, ₱145,000), OR
+· Complete 2-3 smaller jobs currently in the 80-95% progress range
+  (Macasaet Gate ₱44,000, Villanueva Aircon ₱9,500, Reyes Fit-Out ₱94,000)
+
+OUTSTANDING INVOICE PRIORITY:
+· #2024-024 (W. Manalang, ₱15,500) — 14 days overdue. Follow up today.
+· #2024-027 (B. Cruz, ₱28,000) — 10 days, foundation milestone.
+· #2024-029 (M. Santos, ₱45,000) — 4 days, within normal terms.
+
+RECOMMENDATION:
+Invoice #2024-024 is the only one past the 10-day follow-up window.
+Send a payment reminder now — recovering ₱15,500 + collecting
+on the 2 near-complete jobs (Macasaet, Villanueva ≈ ₱53,500 combined)
+closes most of the remaining gap without new sales.`,
+
+    leads:
+`LEAD INTELLIGENCE — Current Pipeline
+
+TOTAL NEW LEADS (7 days): 11
+
+HIGH PRIORITY — Contact today:
+
+1. Ana Peralta — New, received today
+   Source: Website · Interest: Kitchen Reno (Lipa City)
+   Action: Same-day callback to book a site visit — fresh website
+   leads convert best within 24 hours.
+
+2. Rodel Sy — New, received yesterday
+   Source: Facebook referral · Interest: Rewiring (Aurora Province)
+   Action: Assign to Mark Santos (Master Electrician, PRC/PEC) for
+   a free assessment — referral leads have higher close rates.
+
+3. Marivic Torres — Contacted, Jun 9
+   Source: Referral · Interest: Full Reno (Taal) · 2 days no follow-up
+   Action: Escalate — call directly, full reno is high-value (~₱150K+).
+
+NEW LEADS — Same-day contact required:
+· Jun Bautista (Walk-in, Aircon x3, Malvar) — already quoted, confirm
+  install date this week.
+· Elma Dizon (Website, Fence & Gate, Lipa City) — site visit scheduled,
+  prep quote template from Macasaet Gate job (similar scope).`,
+  };
+
+  // ── Typewriter ──
+  function typeWriter(targetId, text, speed, onDone) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    el.textContent = '';
+    let i = 0;
+    const t = setInterval(() => {
+      i++;
+      el.textContent = text.slice(0, i);
+      if (i >= text.length) { clearInterval(t); if (onDone) onDone(); }
+    }, speed);
+  }
+
+  // ── Marketing Generator ──
+  let mktgTimer = null;
+  function generateContent(type) {
+    if (mktgTimer) clearInterval(mktgTimer);
+    document.querySelectorAll('#mktg-btns .action-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`#mktg-btns .action-btn[onclick="generateContent('${type}')"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    const output = document.getElementById('mktg-output');
+    output.style.display = 'block';
+    document.getElementById('mktg-badge').textContent = type.toUpperCase();
+    document.getElementById('mktg-status').textContent = 'Generating...';
+    document.getElementById('mktg-text').textContent = '';
+    typeWriter('mktg-text', MARKETING_OUTPUTS[type] || '[Output not defined for this type]', 5, () => {
+      document.getElementById('mktg-status').textContent = 'Done';
+    });
+  }
+
+  // ── AI Console ──
+  let aiTimer = null;
+  function runAI(type) {
+    if (aiTimer) clearInterval(aiTimer);
+    document.querySelectorAll('#ai-btns .action-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`#ai-btns .action-btn[onclick="runAI('${type}')"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    const output = document.getElementById('ai-output');
+    output.style.display = 'block';
+    document.getElementById('ai-status').textContent = 'Analyzing data...';
+    document.getElementById('ai-text').textContent = '';
+    setTimeout(() => {
+      typeWriter('ai-text', AI_OUTPUTS[type] || '[Output not defined for this type]', 7, () => {
+        document.getElementById('ai-status').textContent = 'Analysis complete';
+      });
+    }, 500);
+  }
+
+  // ── KPI tiles ──
+  function renderKPI() {
+    const grid = document.getElementById('kpi-grid');
+    if (!grid) return;
+    grid.innerHTML = KPI_DATA.map(([label, value, color]) => `
+      <div class="metric">
+        <div class="metric-label">${label}</div>
+        <div class="metric-value" style="color:${color}">${value}</div>
+      </div>`).join('');
+  }
+
+  // ── Bar charts ──
+  function renderChart(containerId, titleId, def, mode) {
+    const titleEl = document.getElementById(titleId);
+    const container = document.getElementById(containerId);
+    if (!titleEl || !container) return;
+    titleEl.textContent = def.title;
+    const maxVal = mode === 'value' ? Math.max(...def.data.map(d => d.value)) : 100;
+    container.innerHTML = def.data.map(row => {
+      const pct  = mode === 'value' ? Math.round((row.value / maxVal) * 100) : row.pct;
+      const disp = mode === 'value' ? `₱${row.value.toLocaleString()}` : `${row.pct}%`;
+      return `
+        <div class="bar-row">
+          <div class="bar-header"><span>${row.label}</span><span>${disp}</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:${row.color}"
+                 data-width="${pct}"></div>
+          </div>
+        </div>`;
+    }).join('');
+    requestAnimationFrame(() => {
+      container.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderKPI();
+    renderChart('chart-left',  'chart-left-title',  CHART_LEFT,  'value');
+    renderChart('chart-right', 'chart-right-title', CHART_RIGHT, 'pct');
   });
 
 </script>
