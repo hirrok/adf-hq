@@ -909,26 +909,26 @@
     const recons = OPS_DATA.reconRequests || [];
 
     document.getElementById('recon-total').textContent = recons.length || '0';
-    document.getElementById('recon-new').textContent   = recons.filter(r => r.status === 'New').length || '0';
+    document.getElementById('recon-new').textContent   = recons.filter(r => r.status === 'NEW').length || '0';
     document.getElementById('recon-latest').textContent = recons.length ? recons[recons.length - 1].business || '—' : '—';
     const industries = [...new Set(recons.map(r => r.industry).filter(Boolean))];
     document.getElementById('recon-industries').textContent = industries.length || '0';
 
     // Badge for tab if new items exist
-    const newCount = recons.filter(r => r.status === 'New').length;
+    const newCount = recons.filter(r => r.status === 'NEW').length;
     const tabEl = document.getElementById('tab-recon');
     if (tabEl && newCount > 0) tabEl.textContent = `Recon Inbox (${newCount})`;
 
     const tbody = document.getElementById('recon-tbody');
     tbody.innerHTML = recons.length
       ? [...recons].reverse().map(r => `<tr>
-          <td style="white-space:nowrap;">${r.timestamp}</td>
+          <td style="white-space:nowrap;">${r.receivedLabel || r.created_at || '—'}</td>
           <td><strong>${r.name}</strong></td>
           <td>${r.business}</td>
           <td>${r.industry}</td>
           <td><a href="mailto:${r.email}" style="color:var(--aurora);text-decoration:none;">${r.email}</a></td>
           <td style="max-width:280px;white-space:normal;font-size:0.78rem;color:var(--text);">${r.challenge}</td>
-          <td>${r.status === 'New'
+          <td>${r.status === 'NEW'
             ? '<span class="status-pill pill-hot">New</span>'
             : '<span class="status-pill pill-won">Done</span>'}</td>
         </tr>`).join('')
@@ -956,7 +956,4 @@
   // If already authenticated, boot immediately
   if (sessionStorage.getItem(SESSION_KEY) === '1') {
     boot();
-  }
-</script>
-</body>
-</html>
+ 

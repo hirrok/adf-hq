@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Operator Console — Sterling Ledger Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --black:   #F7F5F0;
+    --deep:    #EFEAE0;
+    --mid:     #FFFFFF;
+    --surface: #FBF8F3;
+    --elev:    #FFFFFF;
+    --border:  rgba(27,42,74,0.10);
+    --border2: rgba(27,42,74,0.18);
+    --white:   #1B2A4A;
+    --text:    rgba(27,42,74,0.64);
+    --text2:   rgba(27,42,74,0.40);
+    --text3:   rgba(27,42,74,0.22);
+    --gold:    #D4A24E;
+    --gold2:   #C18F3A;
+    --accent:  #D4A24E;
+    --accent-dim: rgba(212,162,78,0.12);
+    --green:   #3FA873;
+    --red:     #D9634F;
+    --navy:    #1B2A4A;
+    --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --hf:      'Fraunces', Georgia, serif;
+    --mono:    'JetBrains Mono', 'Fira Code', monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--ff);background:var(--black);color:var(--white);line-height:1.6;}
+  a{color:inherit;}
+
+  /* GATE */
+  #gate{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--navy);}
+  .gate-box{background:var(--mid);border-radius:12px;padding:44px 40px;width:100%;max-width:380px;text-align:center;border:1px solid var(--border2);}
+  .gate-mark{width:48px;height:48px;border-radius:8px;background:var(--gold);color:var(--navy);font-family:var(--hf);font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  .gate-title{font-family:var(--hf);font-size:1.3rem;font-weight:700;margin-bottom:6px;}
+  .gate-sub{font-size:0.8rem;color:var(--text2);margin-bottom:24px;}
+  .gate-input{width:100%;padding:13px 16px;border-radius:6px;border:1px solid var(--border2);background:var(--surface);color:var(--white);font-family:var(--mono);font-size:0.95rem;text-align:center;letter-spacing:0.15em;outline:none;margin-bottom:14px;}
+  .gate-input:focus{border-color:var(--gold);}
+  .gate-btn{width:100%;padding:13px;border-radius:6px;border:none;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;letter-spacing:0.04em;cursor:pointer;transition:opacity .2s;}
+  .gate-btn:hover{opacity:.85;}
+  .gate-error{color:var(--red);font-size:0.78rem;margin-top:10px;display:none;}
+  .gate-hint{font-family:var(--mono);font-size:0.65rem;color:var(--text3);margin-top:18px;}
+
+  /* SHELL */
+  #app{display:none;}
+  .topbar{position:fixed;top:0;left:0;right:0;height:60px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;}
+  .tb-left{display:flex;align-items:center;gap:12px;}
+  .tb-mark{width:30px;height:30px;border-radius:6px;background:var(--gold);color:var(--navy);font-family:var(--hf);font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;}
+  .tb-name{font-family:var(--hf);font-weight:700;font-size:0.95rem;color:#fff;}
+  .tb-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;color:var(--gold);border:1px solid rgba(212,162,78,0.35);padding:3px 8px;border-radius:3px;}
+  .tb-right{display:flex;align-items:center;gap:18px;}
+  .tb-clock{font-family:var(--mono);font-size:0.78rem;color:rgba(255,255,255,0.65);}
+  .tb-signout{font-family:var(--ff);font-size:0.78rem;color:rgba(255,255,255,0.6);background:none;border:1px solid rgba(255,255,255,0.18);padding:7px 14px;border-radius:5px;cursor:pointer;transition:color .2s,border-color .2s;}
+  .tb-signout:hover{color:#fff;border-color:rgba(255,255,255,0.4);}
+  .op-ham{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:4px;padding:6px;}
+  .op-ham span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;}
+
+  .layout{display:flex;padding-top:60px;min-height:100vh;}
+  .sidebar{width:230px;background:var(--mid);border-right:1px solid var(--border);padding:20px 0;position:fixed;top:60px;bottom:0;overflow-y:auto;}
+  .sidebar-section{padding:14px 20px 6px;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);}
+  .nav-item{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;font-size:0.85rem;color:var(--text);cursor:pointer;border-left:3px solid transparent;transition:background .15s,color .15s;}
+  .nav-item:hover{background:var(--surface);color:var(--white);}
+  .nav-item.active{background:var(--accent-dim);color:var(--white);border-left-color:var(--accent);font-weight:600;}
+  .nav-badge{background:var(--gold);color:var(--navy);font-family:var(--mono);font-size:0.6rem;font-weight:800;padding:1px 7px;border-radius:10px;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(27,42,74,0.5);z-index:90;}
+  .sidebar-overlay.active{display:block;}
+
+  .main{flex:1;margin-left:230px;padding:28px 32px 80px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .panel-head{margin-bottom:24px;}
+  .panel-title{font-family:var(--hf);font-size:1.5rem;font-weight:700;}
+  .panel-sub{font-size:0.85rem;color:var(--text2);margin-top:4px;}
+
+  /* CARDS / TABLES */
+  .card{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:22px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
+  .kpi-card{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+  .kpi-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+  .kpi-value{font-family:var(--hf);font-size:1.4rem;font-weight:700;}
+  .data-table{width:100%;border-collapse:collapse;}
+  .data-table th{text-align:left;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);padding:10px 14px;border-bottom:1px solid var(--border2);}
+  .data-table td{padding:13px 14px;font-size:0.84rem;border-bottom:1px solid var(--border);}
+  .data-table tr:last-child td{border-bottom:none;}
+  .badge{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:0.06em;padding:3px 9px;border-radius:4px;text-transform:uppercase;}
+  .b-current{background:rgba(63,168,115,0.14);color:var(--green);}
+  .b-due{background:rgba(212,162,78,0.16);color:var(--gold2);}
+  .b-overdue{background:rgba(217,99,79,0.14);color:var(--red);}
+  .b-pending{background:rgba(74,85,104,0.14);color:#4A5568;}
+  .b-received{background:rgba(63,168,115,0.14);color:var(--green);}
+  .tier-tag{font-family:var(--mono);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:3px;}
+  .tier-1{background:rgba(74,85,104,0.14);color:#4A5568;}
+  .tier-2{background:rgba(212,162,78,0.16);color:var(--gold2);}
+  .tier-3{background:rgba(63,168,115,0.14);color:var(--green);}
+
+  /* MARKETING / AI BUTTONS */
+  .btn-grid{display:grid;gap:12px;margin-bottom:20px;}
+  .btn-grid-2{grid-template-columns:1fr 1fr;}
+  .btn-grid-3{grid-template-columns:1fr 1fr 1fr;}
+  .action-btn-wide{background:var(--mid);border:1px solid var(--border2);border-radius:8px;padding:16px;text-align:left;cursor:pointer;transition:border-color .2s,background .2s;font-family:var(--ff);}
+  .action-btn-wide:hover{border-color:var(--accent);background:var(--accent-dim);}
+  .abw-title{font-weight:700;font-size:0.88rem;margin-bottom:4px;}
+  .abw-desc{font-size:0.76rem;color:var(--text2);}
+  .output-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:0.85rem;line-height:1.8;white-space:pre-wrap;min-height:120px;font-family:var(--ff);}
+  .output-box:empty::before{content:'Output will appear here.';color:var(--text3);}
+  .output-placeholder{color:var(--text3);}
+
+  /* CHARTS */
+  .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px;}
+  .chart-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .chart-bar-label{width:120px;font-size:0.78rem;color:var(--text);flex-shrink:0;}
+  .chart-bar-track{flex:1;height:10px;background:var(--surface);border-radius:5px;overflow:hidden;}
+  .chart-bar-fill{height:100%;border-radius:5px;}
+  .chart-bar-value{width:64px;text-align:right;font-family:var(--mono);font-size:0.75rem;color:var(--text2);flex-shrink:0;}
+
+  .sim-strip{position:fixed;bottom:0;left:0;right:0;background:var(--navy);color:rgba(255,255,255,0.55);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;padding:8px 24px;text-align:center;z-index:80;}
+  .sim-strip span{color:var(--gold);}
+
+  @media (max-width:980px){
+    .kpi-row{grid-template-columns:repeat(3,1fr);}
+    .chart-grid{grid-template-columns:1fr;}
+    .btn-grid-3{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:760px){
+    .op-ham{display:flex;}
+    .sidebar{transform:translateX(-100%);transition:transform .25s;z-index:95;}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;padding:20px 16px 80px;}
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .btn-grid-2,.btn-grid-3{grid-template-columns:1fr;}
+    .data-table{display:block;overflow-x:auto;white-space:nowrap;}
+  }
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-mark">SL</div>
+    <div class="gate-title">Operator Console</div>
+    <div class="gate-sub">Sterling Ledger Co. — Client Portal & Practice Management</div>
+    <input type="password" class="gate-input" id="gateInput" placeholder="Access Code" autocomplete="off" />
+    <button class="gate-btn" onclick="checkGate()">Enter Console</button>
+    <div class="gate-error" id="gateError">Incorrect access code. Try again.</div>
+    <div class="gate-hint">Aurora Digital Foundry · Live Blueprint Demo</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="op-ham" id="opHam"><span></span><span></span><span></span></button>
+      <div class="tb-mark">SL</div>
+      <div class="tb-name">Sterling Ledger Co.</div>
+      <div class="tb-tag">SIMULATOR</div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-clock" id="clock">--:--:--</div>
+      <button class="tb-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleOpSidebar()"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-section">Operations</div>
+    <div class="nav-item active" onclick="showTab('clients', this)">Client List</div>
+    <div class="nav-item" onclick="showTab('deadlines', this)">Deadline Tracker <span class="nav-badge">4</span></div>
+    <div class="nav-item" onclick="showTab('documents', this)">Document Requests <span class="nav-badge">3</span></div>
+    <div class="sidebar-section">Reports</div>
+    <div class="nav-item" onclick="showTab('overview', this)">Practice Overview</div>
+    <div class="sidebar-section">Growth</div>
+    <div class="nav-item" onclick="showTab('marketing', this)">Marketing</div>
+    <div class="nav-item" onclick="showTab('ai', this)">AI Console</div>
+    <div class="nav-item" onclick="showTab('intelligence', this)">Intelligence</div>
+  </div>
+
+  <div class="main">
+
+    <!-- CLIENT LIST -->
+    <div class="tab-panel active" id="tab-clients">
+      <div class="panel-head">
+        <div class="panel-title">Client List</div>
+        <div class="panel-sub">All active retainer clients across Aurora Province.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Client</th><th>Industry</th><th>Package</th><th>Software</th><th>Books Status</th><th>Last Reconciled</th></tr></thead>
+          <tbody>
+            <tr><td>Pulmano Hardware & Trading</td><td>Retail</td><td><span class="tier-tag tier-2">Growth</span></td><td>QuickBooks</td><td><span class="badge b-current">Current</span></td><td>Jun 9, 2026</td></tr>
+            <tr><td>Casa Marina Eatery</td><td>Food & Beverage</td><td><span class="tier-tag tier-1">Starter</span></td><td>Xero</td><td><span class="badge b-current">Current</span></td><td>Jun 8, 2026</td></tr>
+            <tr><td>Reyes Electrical Services</td><td>Trades / Contractor</td><td><span class="tier-tag tier-2">Growth</span></td><td>QuickBooks</td><td><span class="badge b-due">Due</span></td><td>May 28, 2026</td></tr>
+            <tr><td>BalerSurf Online Store</td><td>Online Seller</td><td><span class="tier-tag tier-1">Starter</span></td><td>Xero</td><td><span class="badge b-current">Current</span></td><td>Jun 10, 2026</td></tr>
+            <tr><td>Aurora Coastal Law Office</td><td>Professional Practice</td><td><span class="tier-tag tier-3">Established</span></td><td>QuickBooks</td><td><span class="badge b-current">Current</span></td><td>Jun 10, 2026</td></tr>
+            <tr><td>Dela Cruz Sari-Sari Store</td><td>Retail</td><td><span class="tier-tag tier-1">Starter</span></td><td>Manual → Xero</td><td><span class="badge b-overdue">Overdue</span></td><td>May 14, 2026</td></tr>
+            <tr><td>Ampil Construction Supply</td><td>Trades / Contractor</td><td><span class="tier-tag tier-3">Established</span></td><td>QuickBooks</td><td><span class="badge b-current">Current</span></td><td>Jun 9, 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DEADLINE TRACKER -->
+    <div class="tab-panel" id="tab-deadlines">
+      <div class="panel-head">
+        <div class="panel-title">Deadline Tracker</div>
+        <div class="panel-sub">Upcoming BIR, SEC, and government remittance deadlines across all clients.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Client</th><th>Filing</th><th>Form</th><th>Due Date</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Reyes Electrical Services</td><td>Quarterly Percentage Tax</td><td>2551Q</td><td>Jul 25, 2026</td><td><span class="badge b-due">Due in 14 Days</span></td></tr>
+            <tr><td>Dela Cruz Sari-Sari Store</td><td>Quarterly Income Tax</td><td>1701Q</td><td>Jun 15, 2026</td><td><span class="badge b-overdue">Overdue 4 Days</span></td></tr>
+            <tr><td>Casa Marina Eatery</td><td>Monthly VAT</td><td>2550M</td><td>Jun 20, 2026</td><td><span class="badge b-due">Due in 9 Days</span></td></tr>
+            <tr><td>Ampil Construction Supply</td><td>SSS / PhilHealth / Pag-IBIG Remittance</td><td>—</td><td>Jun 15, 2026</td><td><span class="badge b-overdue">Overdue 4 Days</span></td></tr>
+            <tr><td>Aurora Coastal Law Office</td><td>Withholding Tax</td><td>1601-EQ</td><td>Jul 31, 2026</td><td><span class="badge b-current">On Track</span></td></tr>
+            <tr><td>Pulmano Hardware & Trading</td><td>Annual Income Tax Return</td><td>1701</td><td>Apr 15, 2027</td><td><span class="badge b-current">On Track</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DOCUMENT REQUESTS -->
+    <div class="tab-panel" id="tab-documents">
+      <div class="panel-head">
+        <div class="panel-title">Document Requests</div>
+        <div class="panel-sub">Outstanding receipts, invoices, and statements requested from clients.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Client</th><th>Document Requested</th><th>Requested On</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Dela Cruz Sari-Sari Store</td><td>May bank statement (BDO)</td><td>Jun 5, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>Reyes Electrical Services</td><td>Supplier invoices — May (3 missing)</td><td>Jun 8, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>BalerSurf Online Store</td><td>Shopee/Lazada payout report — May</td><td>Jun 9, 2026</td><td><span class="badge b-received">Received</span></td></tr>
+            <tr><td>Casa Marina Eatery</td><td>Supplier OR for kitchen equipment</td><td>Jun 10, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>Ampil Construction Supply</td><td>Payroll timesheets — June 1-15</td><td>Jun 11, 2026</td><td><span class="badge b-received">Received</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRACTICE OVERVIEW -->
+    <div class="tab-panel" id="tab-overview">
+      <div class="panel-head">
+        <div class="panel-title">Practice Overview</div>
+        <div class="panel-sub">Snapshot of practice health across all retainer accounts.</div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Active Clients</div><div class="kpi-value">85</div></div>
+        <div class="kpi-card"><div class="kpi-label">MRR</div><div class="kpi-value">₱742K</div></div>
+        <div class="kpi-card"><div class="kpi-label">On-Time Filings</div><div class="kpi-value">97%</div></div>
+        <div class="kpi-card"><div class="kpi-label">Overdue Books</div><div class="kpi-value">3</div></div>
+        <div class="kpi-card"><div class="kpi-label">Open Doc Requests</div><div class="kpi-value">3</div></div>
+        <div class="kpi-card"><div class="kpi-label">Avg Onboarding</div><div class="kpi-value">4.2 days</div></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:14px;font-family:var(--hf);">Clients by Package Tier</div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Starter</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:38%;background:#4A5568;"></div></div><div class="chart-bar-value">32</div></div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Growth</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:46%;background:var(--gold);"></div></div><div class="chart-bar-value">39</div></div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Established</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:16%;background:var(--green);"></div></div><div class="chart-bar-value">14</div></div>
+      </div>
+    </div>
+
+    <!-- MARKETING -->
+    <div class="tab-panel" id="tab-marketing">
+      <div class="panel-head">
+        <div class="panel-title">Marketing Generator</div>
+        <div class="panel-sub">Generate ready-to-send content for client communications and lead nurturing.</div>
+      </div>
+      <div class="btn-grid btn-grid-2">
+        <button class="action-btn-wide" onclick="generateContent('deadlineReminder')">
+          <div class="abw-title">📅 Deadline Reminder Blast</div>
+          <div class="abw-desc">Email/SMS reminder for upcoming BIR filing deadlines, segmented by client tier.</div>
+        </button>
+        <button class="action-btn-wide" onclick="generateContent('newClientWelcome')">
+          <div class="abw-title">👋 New Client Welcome Sequence</div>
+          <div class="abw-desc">Onboarding email series for newly signed retainer clients.</div>
+        </button>
+        <button class="action-btn-wide" onclick="generateContent('seasonalPromo')">
+          <div class="abw-title">🏷️ Tax Season Promo</div>
+          <div class="abw-desc">Limited-time offer copy for free books review campaigns targeting local SMBs.</div>
+        </button>
+        <button class="action-btn-wide" onclick="generateContent('referralAsk')">
+          <div class="abw-title">🤝 Referral Request</div>
+          <div class="abw-desc">Friendly referral-ask copy for satisfied long-term clients.</div>
+        </button>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:12px;font-family:var(--hf);">Generated Output</div>
+        <div class="output-box" id="marketingOutput"></div>
+      </div>
+    </div>
+
+    <!-- AI CONSOLE -->
+    <div class="tab-panel" id="tab-ai">
+      <div class="panel-head">
+        <div class="panel-title">AI Console</div>
+        <div class="panel-sub">Run diagnostic queries against practice data for prioritized recommendations.</div>
+      </div>
+      <div class="btn-grid btn-grid-3">
+        <button class="action-btn-wide" onclick="runAI('overdueBooks')">
+          <div class="abw-title">⚠️ Overdue Books Triage</div>
+          <div class="abw-desc">Diagnose why client books are falling behind and recommend interventions.</div>
+        </button>
+        <button class="action-btn-wide" onclick="runAI('capacityPlanning')">
+          <div class="abw-title">📊 Capacity Planning</div>
+          <div class="abw-desc">Assess team bandwidth vs. client load ahead of tax season peaks.</div>
+        </button>
+        <button class="action-btn-wide" onclick="runAI('upsellOpportunities')">
+          <div class="abw-title">💡 Upsell Opportunities</div>
+          <div class="abw-desc">Identify Starter/Growth clients ready to move to a higher retainer tier.</div>
+        </button>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:12px;font-family:var(--hf);">Analysis Output</div>
+        <div class="output-box" id="aiOutput"></div>
+      </div>
+    </div>
+
+    <!-- INTELLIGENCE -->
+    <div class="tab-panel" id="tab-intelligence">
+      <div class="panel-head">
+        <div class="panel-title">Business Intelligence</div>
+        <div class="panel-sub">Revenue, retention, and compliance performance across the practice.</div>
+      </div>
+      <div id="kpi-grid" class="kpi-row"></div>
+      <div class="chart-grid">
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:14px;font-family:var(--hf);" id="chart-left-title"></div>
+          <div id="chart-left"></div>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:14px;font-family:var(--hf);" id="chart-right-title"></div>
+          <div id="chart-right"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="sim-strip">AURORA DIGITAL FOUNDRY · <span>LIVE BLUEPRINT</span> · Sterling Ledger Co. Operator Console · Sample Data Only</div>
+
+<script>
+/* ===== CONFIG ===== */
+const ACCESS = 'accounting2026';
+const BRAND = 'Sterling Ledger Co.';
+const LOCATION = 'Baler, Aurora Province';
+const ACCENT = '#D4A24E';
+
+/* ===== GATE ===== */
+function checkGate(){
+  const val = document.getElementById('gateInput').value.trim();
+  if(val === ACCESS){
+    sessionStorage.setItem('sl_auth','granted');
+    enterApp();
+  } else {
+    document.getElementById('gateError').style.display='block';
+  }
+}
+document.getElementById('gateInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') checkGate();
+});
+function enterApp(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').style.display='block';
+  startClock();
+  renderKPI();
+  renderChart('chart-left','chart-left-title',CHART_LEFT,'value');
+  renderChart('chart-right','chart-right-title',CHART_RIGHT,'pct');
+}
+function signOut(){
+  sessionStorage.removeItem('sl_auth');
+  location.reload();
+}
+if(sessionStorage.getItem('sl_auth') === 'granted'){
+  window.addEventListener('DOMContentLoaded', enterApp);
+}
+
+/* ===== CLOCK ===== */
+function startClock(){
+  function tick(){
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' · ' + LOCATION;
+  }
+  tick();
+  setInterval(tick,1000);
+}
+
+/* ===== SIDEBAR / TABS ===== */
+function showTab(name, el){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(window.innerWidth <= 760) toggleOpSidebar(true);
+}
+function toggleOpSidebar(forceClose){
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebarOverlay');
+  if(forceClose){ sb.classList.remove('open'); ov.classList.remove('active'); return; }
+  sb.classList.toggle('open');
+  ov.classList.toggle('active');
+}
+document.getElementById('opHam').addEventListener('click', ()=>toggleOpSidebar());
+
+/* ===== TYPEWRITER ===== */
+function typeWriter(elementId, text, speed=12){
+  const el = document.getElementById(elementId);
+  el.textContent='';
+  let i=0;
+  function step(){
+    if(i < text.length){
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(step, speed);
+    }
+  }
+  step();
+}
+
+/* ===== MARKETING GENERATOR ===== */
+const MARKETING_OUTPUTS = {
+  deadlineReminder: `SUBJECT: ⏰ Reminder — Your 2551Q is due July 25
+
+Hi [Client Name],
+
+Quick heads-up from the ${BRAND} team: your Quarterly Percentage Tax return (BIR Form 2551Q) is due on July 25, 2026.
+
+Here's where things stand on our end:
+- Your books are reconciled through May 31.
+- We're preparing your draft return now.
+- We just need: your June bank statement (if not yet sent).
+
+No action needed if you've already sent your June statement — we'll handle the filing and send you a copy of the confirmed return once submitted.
+
+Questions? Just reply to this email or message us on Viber.
+
+— Team ${BRAND}, ${LOCATION}`,
+
+  newClientWelcome: `SUBJECT: Welcome to ${BRAND} — here's what happens next
+
+Hi [Client Name],
+
+Welcome aboard! We're glad to be handling your books from here. Here's your onboarding roadmap for the next 5 business days:
+
+Day 1-2: We'll send you a secure document checklist (bank statements, prior financial statements, BIR Certificate of Registration, and any existing bookkeeping files).
+
+Day 3-4: Our team sets up your Xero/QuickBooks workspace and imports your historical data.
+
+Day 5: Kickoff call — we'll walk through your dashboard, confirm your filing calendar, and answer any questions.
+
+In the meantime, if you have last month's bank statement handy, feel free to send it over now to get a head start.
+
+Looking forward to taking the books off your plate.
+
+— Team ${BRAND}, ${LOCATION}`,
+
+  seasonalPromo: `SUBJECT: Tama ba ang books mo? Get a free books review this month.
+
+Hi [Name],
+
+If you're not 100% sure your books are BIR-ready, you're not alone — it's the #1 thing small business owners in ${LOCATION} tell us they worry about.
+
+This month, ${BRAND} is offering a free Books Health Review for local businesses:
+- We review your last 3 months of records
+- We flag any missing filings or red flags
+- You get a plain-language report — no jargon, no obligation
+
+Spots are limited to 10 reviews this month. Reply "BOOKS" to claim yours.
+
+— Team ${BRAND}, ${LOCATION}`,
+
+  referralAsk: `SUBJECT: A small favor?
+
+Hi [Client Name],
+
+It's been a pleasure handling your books these past months — and seeing your business stay on top of every BIR deadline without the usual stress.
+
+If you know another business owner in ${LOCATION} who's drowning in receipts or worried about their next filing, we'd love an introduction. As a thank-you, we'll knock 1 month off their first retainer invoice — and yours too, once they sign on.
+
+No pressure at all — just figured I'd ask while it's on my mind.
+
+— [Your Name], ${BRAND}`
+};
+
+function generateContent(type){
+  const text = MARKETING_OUTPUTS[type] || 'No content available.';
+  typeWriter('marketingOutput', text);
+}
+
+/* ===== AI CONSOLE ===== */
+const AI_OUTPUTS = {
+  overdueBooks: `DIAGNOSIS: 3 of 85 clients (3.5%) currently overdue on books reconciliation.
+
+Root causes identified:
+1. Dela Cruz Sari-Sari Store — owner manually tracks sales, slow to digitize records. Books overdue 28 days.
+2. Reyes Electrical Services — missing 3 supplier invoices for May, blocking reconciliation.
+3. Ampil Construction Supply — payroll timesheets submitted late, delaying SSS/PhilHealth/Pag-IBIG remittance.
+
+RANKED ACTIONS:
+1. (Highest impact) Offer Dela Cruz Sari-Sari Store a one-time "digitization assist" — send a staff member to photograph and log 2 weeks of receipts on-site. Converts a chronic delay into a one-time fix.
+2. Send automated document-request follow-up to Reyes Electrical (3rd reminder) with a 48-hour deadline before filing on estimates.
+3. Set a recurring calendar block for Ampil's payroll cutoff 2 days earlier to build in a buffer before remittance deadlines.
+
+PROJECTED OUTCOME: Resolving these 3 cases brings on-time books reconciliation to 100% and removes the only blocker to this quarter's 2551Q and remittance filings.`,
+
+  capacityPlanning: `DIAGNOSIS: Team capacity vs. client load ahead of Q3 BIR deadline cluster (July 25 - Aug 15).
+
+Current load:
+- 85 active clients across 3 tiers (32 Starter, 39 Growth, 14 Established)
+- Peak filing window: 22 quarterly returns due within a 3-week span in late July
+- Current team: 4 bookkeepers + 1 BIR-accredited tax agent
+
+RANKED ACTIONS:
+1. (Highest impact) Stagger client filing prep start dates — begin Established-tier clients (most complex) 10 days before Starter-tier, smoothing the workload curve instead of a single crunch week.
+2. Pre-build draft 2551Q/2550M templates for repeat clients using prior quarter data — cuts prep time per return by an estimated 30%.
+3. Flag the 3 currently-overdue accounts (see Overdue Books Triage) for resolution before July 1, so they don't compound the late-July crunch.
+
+PROJECTED OUTCOME: Smoothing intake reduces peak-week filing volume from 22 to roughly 14, keeping the team within normal capacity without overtime.`,
+
+  upsellOpportunities: `DIAGNOSIS: Scanning Starter and Growth tier clients for retainer upgrade signals (transaction volume, employee count, service requests outside scope).
+
+Candidates identified:
+1. BalerSurf Online Store (Starter, ₱6,500/mo) — transaction volume has grown ~40% over 6 months; now consistently exceeding the 50-transaction Starter cap. Strong fit for Growth tier (₱14,500/mo).
+2. Casa Marina Eatery (Starter, ₱6,500/mo) — recently hired 2 part-time staff; will need payroll processing, which is Growth-tier only.
+3. Pulmano Hardware & Trading (Growth, ₱14,500/mo) — requested ad-hoc cash flow forecasting twice this quarter (an Established-tier service); consistent advisory need suggests upgrade fit.
+
+RANKED ACTIONS:
+1. (Highest impact) Reach out to BalerSurf with a usage-based note: "Your transaction volume has grown — let's make sure your plan still fits." Frame as a fit conversation, not a sales pitch.
+2. Bundle a payroll setup offer for Casa Marina's 2 new hires as part of a Growth-tier upgrade conversation.
+3. Offer Pulmano a no-cost trial month of Established-tier advisory access to demonstrate value before the upsell ask.
+
+PROJECTED OUTCOME: Converting all 3 candidates to their next tier adds approximately ₱22,500/month in incremental MRR (~3% practice-wide increase).`
+};
+
+function runAI(type){
+  const text = AI_OUTPUTS[type] || 'No analysis available.';
+  typeWriter('aiOutput', text);
+}
+
+/* ===== INTELLIGENCE ===== */
+const KPI_DATA = [
+  ['Monthly Recurring Revenue','₱742,000','#D4A24E'],
+  ['Active Clients','85','#1B2A4A'],
+  ['On-Time Filing Rate','97%','#3FA873'],
+  ['Avg. Retainer Value','₱8,729','#1B2A4A'],
+  ['Client Retention (12mo)','94%','#3FA873'],
+  ['Overdue Accounts','3','#D9634F']
+];
+
+const CHART_LEFT = {
+  bars: [
+    ['Bookkeeping (Monthly)', 298000, '#D4A24E'],
+    ['Tax Compliance / BIR', 184000, '#1B2A4A'],
+    ['Payroll Processing', 152000, '#4A5568'],
+    ['Financial Statements', 71000, '#3FA873'],
+    ['Advisory / Consulting', 37000, '#C18F3A']
+  ]
+};
+
+const CHART_RIGHT = {
+  bars: [
+    ['Starter Tier', 38, '#4A5568'],
+    ['Growth Tier', 46, '#D4A24E'],
+    ['Established Tier', 16, '#3FA873']
+  ]
+};
+
+function renderKPI(){
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = KPI_DATA.map(([label,value,color])=>`
+    <div class="kpi-card">
+      <div class="kpi-label">${label}</div>
+      <div class="kpi-value" style="color:${color}">${value}</div>
+    </div>
+  `).join('');
+}
+
+function renderChart(containerId, titleId, def, mode){
+  const container = document.getElementById(containerId);
+  const title = document.getElementById(titleId);
+  if(containerId === 'chart-left'){
+    title.textContent = 'Revenue by Service Line (Monthly)';
+  } else {
+    title.textContent = 'Clients by Package Tier (%)';
+  }
+  const max = Math.max(...def.bars.map(b=>b[1]));
+  container.innerHTML = def.bars.map(([label,value,color])=>{
+    const pct = (value/max)*100;
+    const display = mode === 'pct' ? value+'%' : '₱'+value.toLocaleString();
+    return `
+      <div class="chart-bar-row">
+        <div class="chart-bar-label">${label}</div>
+        <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${pct}%;background:${color};"></div></div>
+        <div class="chart-bar-value">${display}</div>
+      </div>
+    `;
+  }).join('');
+}
+</script>
+</body>
+</html>

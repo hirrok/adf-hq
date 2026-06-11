@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sterling Ledger Co.: Bookkeeping & Tax Compliance, Aurora Province</title>
+  <meta name="description" content="Outsourced bookkeeping, BIR tax compliance, payroll processing, and financial reporting for small businesses in Baler and Aurora Province, Philippines. Xero & QuickBooks certified." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AccountingService",
+    "name": "Sterling Ledger Co.",
+    "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+    "description": "Outsourced bookkeeping, BIR tax compliance, payroll processing, and financial statement preparation for small businesses across Aurora Province, Philippines.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Baler", "addressRegion": "Aurora Province", "addressCountry": "PH" },
+    "areaServed": "Aurora Province, Philippines",
+    "priceRange": "₱₱",
+    "telephone": "+63 917 555 0142"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #F7F5F0;
+      --deep:    #EFEAE0;
+      --mid:     #FFFFFF;
+      --surface: #FBF8F3;
+      --border:  rgba(27,42,74,0.10);
+      --border2: rgba(27,42,74,0.18);
+      --white:   #1B2A4A;
+      --text:    rgba(27,42,74,0.64);
+      --text2:   rgba(27,42,74,0.40);
+      --gold:    #D4A24E;
+      --gold2:   #C18F3A;
+      --green:   #3FA873;
+      --navy:    #1B2A4A;
+      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --hf:      'Fraunces', Georgia, serif;
+      --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: var(--hf); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(27,42,74,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-mark {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--gold); color: var(--navy);
+      font-family: var(--hf); font-weight: 800; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-name { font-family: var(--hf); font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; color: #FFFFFF; }
+    .nav-links { display: flex; gap: 26px; font-size: 0.82rem; color: rgba(255,255,255,0.72); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 9px 18px; border-radius: 4px; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background:
+        linear-gradient(135deg, rgba(27,42,74,0.92) 0%, rgba(27,42,74,0.74) 55%, rgba(27,42,74,0.90) 100%),
+        url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      padding: 110px 32px 60px;
+    }
+    .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .hero-h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; margin-bottom: 22px; color: #FFFFFF; }
+    .hero-h1 span { color: var(--gold); font-style: italic; }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.74); line-height: 1.8; margin-bottom: 36px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent; color: #FFFFFF;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* BOOKS HEALTH PANEL */
+    .health-board {
+      background: var(--mid); border: 1px solid var(--border2); border-radius: 12px;
+      padding: 28px; position: relative; overflow: hidden;
+    }
+    .health-board::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+    }
+    .hb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .hb-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold2); }
+    .hb-live { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); }
+    .hb-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hb-rows { display: flex; flex-direction: column; gap: 3px; margin-bottom: 18px; }
+    .hb-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 14px; border-radius: 6px; background: var(--surface);
+    }
+    .hb-row:hover { background: rgba(212,162,78,0.07); }
+    .hb-item { display: flex; align-items: center; gap: 10px; }
+    .hb-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+    .hb-ok { background: rgba(63,168,115,0.15); color: var(--green); }
+    .hb-due { background: rgba(212,162,78,0.18); color: var(--gold2); }
+    .hb-late { background: rgba(217,99,79,0.15); color: #D9634F; }
+    .hb-name { font-size: 0.875rem; font-weight: 600; }
+    .hb-detail { font-family: var(--mono); font-size: 0.6rem; color: var(--text2); }
+    .hb-status { font-family: var(--mono); font-size: 0.62rem; font-weight: 700; text-align: right; }
+    .hb-score-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: var(--navy); border-radius: 8px; }
+    .hb-score-label { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+    .hb-score-value { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+    .hb-footer { margin-top: 14px; font-size: 0.7rem; color: var(--text2); display: flex; justify-content: space-between; align-items: center; }
+    .sim-tag {
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold2); border: 1px solid rgba(212,162,78,0.3); padding: 2px 7px; border-radius: 3px; opacity: 0.85;
+    }
+
+    /* SECTIONS */
+    section { padding: 96px 32px; }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .eyebrow { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold2); margin-bottom: 14px; }
+    .sh2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
+    .ssub { color: var(--text); font-size: 1rem; line-height: 1.8; max-width: 580px; margin-bottom: 52px; }
+    .bg-deep { background: var(--deep); }
+
+    /* TRUST BAR */
+    .trust-bar { background: var(--mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 32px; }
+    .trust-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; text-align: center; }
+    .ts-num { font-family: var(--hf); font-size: 2rem; font-weight: 700; color: var(--gold2); }
+    .ts-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
+    .badge-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+    .software-badge {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border2); border-radius: 4px; padding: 8px 16px; color: var(--text);
+    }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .svc-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+    }
+    .svc-card:hover { border-color: rgba(212,162,78,0.4); transform: translateY(-3px); }
+    .svc-card-body { padding: 22px 24px 24px; }
+    .svc-img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .svc-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .svc-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; font-family: var(--hf); }
+    .svc-desc { font-size: 0.875rem; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .svc-tag { font-family: var(--mono); font-size: 0.6rem; color: var(--text2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; }
+
+    /* INDUSTRIES */
+    .industry-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+    .industry-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; text-align: center; transition: border-color 0.3s, transform 0.3s;
+    }
+    .industry-card:hover { border-color: rgba(212,162,78,0.4); transform: translateY(-3px); }
+    .industry-img { width: 100%; height: 100px; object-fit: cover; display: block; }
+    .industry-body { padding: 16px 12px; }
+    .industry-icon { font-size: 1.4rem; margin-bottom: 6px; }
+    .industry-name { font-size: 0.82rem; font-weight: 700; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .price-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 12px;
+      padding: 32px 28px; display: flex; flex-direction: column;
+    }
+    .price-card.featured { border-color: var(--gold); box-shadow: 0 8px 30px rgba(212,162,78,0.15); position: relative; }
+    .price-badge {
+      position: absolute; top: -12px; right: 24px;
+      background: var(--gold); color: var(--navy);
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 3px; font-weight: 700;
+    }
+    .price-tier { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold2); margin-bottom: 10px; }
+    .price-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; font-family: var(--hf); }
+    .price-amount { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+    .price-amount span { font-size: 0.85rem; font-weight: 500; color: var(--text2); }
+    .price-desc { font-size: 0.82rem; color: var(--text); margin-bottom: 22px; }
+    .price-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; flex: 1; }
+    .price-list li { font-size: 0.85rem; color: var(--text); display: flex; align-items: flex-start; gap: 8px; }
+    .price-list li::before { content: '✓'; color: var(--green); font-size: 0.8rem; flex-shrink: 0; }
+    .price-btn {
+      width: 100%; padding: 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.04em; cursor: pointer; transition: opacity 0.2s; border: none;
+    }
+    .price-btn-primary { background: var(--gold); color: var(--navy); }
+    .price-btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border2) !important; }
+    .price-btn:hover { opacity: 0.8; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-img { width: 100%; border-radius: 12px; object-fit: cover; height: 380px; }
+    .about-creds { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .about-cred { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; color: var(--text); }
+    .about-cred-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .about-text { font-size: 0.95rem; color: var(--text); line-height: 1.85; margin-bottom: 8px; }
+
+    /* RESOURCES */
+    .resources-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .res-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: border-color 0.3s, transform 0.3s; }
+    .res-card:hover { border-color: rgba(212,162,78,0.4); transform: translateY(-3px); }
+    .res-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold2); margin-bottom: 12px; }
+    .res-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; font-family: var(--hf); }
+    .res-desc { font-size: 0.85rem; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+    .res-link { font-size: 0.78rem; font-weight: 700; color: var(--gold2); }
+
+    /* CONTACT */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+    .ct-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; }
+    .ct-info p { color: var(--text); font-size: 0.9rem; line-height: 1.8; margin-bottom: 28px; }
+    .ct-trust { display: flex; flex-direction: column; gap: 14px; }
+    .ct-trust-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.85rem; color: var(--text); }
+    .ct-trust-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .ct-form { background: var(--mid); border: 1px solid var(--border2); border-radius: 12px; padding: 36px; }
+    .form-title { font-weight: 700; font-size: 1rem; margin-bottom: 24px; font-family: var(--hf); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text2); }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--white); font-family: var(--ff); font-size: 0.875rem; padding: 12px 14px;
+      outline: none; transition: border-color 0.2s; width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 88px; }
+    .form-submit {
+      width: 100%; padding: 14px; background: var(--gold); color: var(--navy);
+      font-family: var(--ff); font-weight: 700; font-size: 0.875rem; letter-spacing: 0.04em;
+      border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s; margin-top: 6px;
+    }
+    .form-submit:hover { opacity: 0.85; }
+    .form-note { font-size: 0.7rem; color: var(--text2); margin-top: 10px; text-align: center; }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .form-success h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; font-family: var(--hf); }
+    .form-success p { font-size: 0.875rem; color: var(--text); }
+
+    /* FOOTER */
+    footer { background: var(--navy); padding: 48px 32px 32px; }
+    .footer-inner { max-width: 1120px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-top: 10px; }
+    .footer-col-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links li { font-size: 0.82rem; color: rgba(255,255,255,0.5); cursor: pointer; }
+    .footer-links li:hover { color: #FFFFFF; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+    .footer-adf { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 3px; }
+    .footer-adf span { color: var(--gold); }
+
+    /* SIM BANNER */
+    .sim-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(27,42,74,0.97); border-top: 1px solid rgba(212,162,78,0.35);
+      padding: 10px 24px; display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+    .sim-banner-text { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--gold); }
+    .sim-banner-sub { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 2px; }
+    .sim-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.1rem; padding: 4px 8px; }
+    .sim-close:hover { color: #FFFFFF; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero-inner, .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid, .pricing-grid, .resources-grid { grid-template-columns: 1fr 1fr; }
+      .industry-grid { grid-template-columns: repeat(3,1fr); }
+      .trust-inner { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 64px 20px; }
+      .services-grid, .pricing-grid, .resources-grid, .industry-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── Mobile-First: Hamburger Nav ─────────────── */
+    .nav-ham {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .nav-ham span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+    .nav-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; background: var(--navy);
+      padding: 80px 24px 48px;
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer-close { position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; padding: 10px; display: flex; flex-direction: column; gap: 0; align-items: center; }
+    .nav-drawer-close span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+    .nav-drawer-close span:nth-child(1) { transform: translateY(1px) rotate(45deg); }
+    .nav-drawer-close span:nth-child(2) { transform: translateY(-1px) rotate(-45deg); }
+    .nav-drawer-links { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+    .nav-drawer-links a { font-family: var(--hf); font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,0.85); text-decoration: none; padding: 12px 20px; width: 100%; text-align: center; transition: color 0.2s; }
+    .nav-drawer-links a:hover { color: var(--gold); }
+    .nav-drawer-cta { margin-top: 24px; padding: 14px 40px; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; text-decoration: none; border-radius: 4px; }
+    @media (max-width: 560px) {
+      .nav-ham { display: flex; }
+      .nav-drawer { display: flex; }
+      .nav-links, .nav-cta { display: none !important; }
+      section { padding: 60px 16px; }
+    }
+
+    /* ── Operator Access Link ─────────────── */
+    .nav-op {
+      font-family: var(--mono, monospace); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none;
+      padding: 6px 10px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-op:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.4); }
+    .nav-drawer-sep { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 16px 0 8px; }
+    .nav-drawer-op {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); text-decoration: none;
+      padding: 10px 20px; transition: color 0.2s;
+    }
+    .nav-drawer-op:hover { color: rgba(255,255,255,0.55); }
+  </style>
+</head>
+<body>
+
+<!-- BLUEPRINT BANNER -->
+<div class="sim-banner" id="simBanner">
+  <div>
+    <div class="sim-banner-text">◐ AURORA DIGITAL FOUNDRY: LIVE BLUEPRINT</div>
+    <div class="sim-banner-sub">Sterling Ledger Co. · Outsourced Bookkeeping & Tax Compliance · All content is fictional · Forms run in demo mode</div>
+  </div>
+  <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">SL</div>
+    <div class="nav-name">STERLING LEDGER CO.</div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#industries">Industries</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <a href="#resources">Resources</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="operator.html" class="nav-op" target="_blank">⚙ Operator</a>
+    <a href="#contact" class="nav-cta">Free Books Review</a>
+    <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">📊 Bookkeeping & Tax Compliance · Aurora Province, Philippines</div>
+      <h1 class="hero-h1">Tama ba ang books mo?<br /><span>Let's find out — for free.</span></h1>
+      <p class="hero-sub">Sterling Ledger Co. handles the books, the BIR deadlines, and the payroll runs for small businesses across Baler and Aurora Province — so you can run the business, not chase receipts.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Free Books Review</button>
+        <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">See Our Services</button>
+      </div>
+    </div>
+    <div>
+      <div class="health-board">
+        <div class="hb-header">
+          <div class="hb-title">Books Health Check</div>
+          <div class="hb-live"><span class="hb-dot"></span>Sample Client</div>
+        </div>
+        <div class="hb-rows">
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-ok">✓</div><div><div class="hb-name">Books Reconciled</div><div class="hb-detail">Last sync: May 31, 2026</div></div></div>
+            <div class="hb-status" style="color:var(--green)">CURRENT</div>
+          </div>
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-due">⏱</div><div><div class="hb-name">2551Q Percentage Tax</div><div class="hb-detail">Due: Jul 25, 2026</div></div></div>
+            <div class="hb-status" style="color:var(--gold2)">DUE IN 14 DAYS</div>
+          </div>
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-ok">✓</div><div><div class="hb-name">Payroll — June Run</div><div class="hb-detail">Processed: Jun 5, 2026</div></div></div>
+            <div class="hb-status" style="color:var(--green)">FILED</div>
+          </div>
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-late">!</div><div><div class="hb-name">Missing Receipts</div><div class="hb-detail">3 transactions flagged</div></div></div>
+            <div class="hb-status" style="color:#D9634F">ACTION NEEDED</div>
+          </div>
+        </div>
+        <div class="hb-score-row">
+          <div class="hb-score-label">Books Health Score</div>
+          <div class="hb-score-value">82 / 100</div>
+        </div>
+        <div class="hb-footer">
+          <span>Live snapshot view from your client portal.</span>
+          <span class="sim-tag">Sample Data</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div><div class="ts-num">11+</div><div class="ts-label">Years Serving Aurora Province SMBs</div></div>
+    <div><div class="ts-num">85+</div><div class="ts-label">Active Client Accounts</div></div>
+    <div><div class="ts-num">100%</div><div class="ts-label">On-Time BIR Filings (2025)</div></div>
+    <div><div class="ts-num">BIR</div><div class="ts-label">Accredited Tax Agent on Staff</div></div>
+  </div>
+  <div class="badge-row">
+    <div class="software-badge">Xero Certified Advisor</div>
+    <div class="software-badge">QuickBooks ProAdvisor</div>
+    <div class="software-badge">BIR eFPS / eBIRForms</div>
+    <div class="software-badge">SSS · PhilHealth · Pag-IBIG</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="eyebrow">What We Handle</div>
+    <h2 class="sh2">Six services. One team.<br />Books that are always ready.</h2>
+    <p class="ssub">From day-to-day bookkeeping to year-end financial statements — Sterling Ledger Co. covers the full back-office finance function so you're never scrambling before a deadline.</p>
+    <div class="services-grid">
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1554224311-beee415c201f?auto=format&fit=crop&w=600&q=80" alt="Monthly bookkeeping desk with laptop and calculator" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">📒</div>
+          <div class="svc-name">Monthly Bookkeeping</div>
+          <div class="svc-desc">Day-to-day transaction recording, bank and e-wallet reconciliation, and clean monthly books in Xero or QuickBooks — ready whenever you need them.</div>
+          <div class="svc-tags"><span class="svc-tag">Xero / QuickBooks</span><span class="svc-tag">Bank Reconciliation</span><span class="svc-tag">Monthly Close</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80" alt="Financial documents and tax forms review" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🧾</div>
+          <div class="svc-name">Tax Compliance & BIR Filing</div>
+          <div class="svc-desc">Monthly, quarterly, and annual BIR filings — VAT/percentage tax, withholding tax, and income tax — filed on time, every time, with a BIR-accredited tax agent on your file.</div>
+          <div class="svc-tags"><span class="svc-tag">2550M / 2551Q</span><span class="svc-tag">1701Q / 1701</span><span class="svc-tag">eFPS Filing</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80" alt="Payroll processing and payslips" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">💰</div>
+          <div class="svc-name">Payroll Processing</div>
+          <div class="svc-desc">End-to-end payroll: payslip generation, government contribution remittances (SSS, PhilHealth, Pag-IBIG), and 13th month / final pay computations.</div>
+          <div class="svc-tags"><span class="svc-tag">Payslips</span><span class="svc-tag">Gov't Remittances</span><span class="svc-tag">13th Month</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Financial statement charts and reports on screen" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">📈</div>
+          <div class="svc-name">Financial Statements & Reports</div>
+          <div class="svc-desc">Audited and management financial statements — balance sheet, income statement, cash flow — prepared for owners, lenders, and BIR annual filing requirements.</div>
+          <div class="svc-tags"><span class="svc-tag">Balance Sheet</span><span class="svc-tag">P&L</span><span class="svc-tag">Audit-Ready</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80" alt="Business registration documents and forms" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🏛️</div>
+          <div class="svc-name">Business Registration Assistance</div>
+          <div class="svc-desc">DTI/SEC registration, BIR Certificate of Registration (Form 2303), local business permits, and books of accounts setup for new and growing businesses.</div>
+          <div class="svc-tags"><span class="svc-tag">DTI / SEC</span><span class="svc-tag">BIR 2303</span><span class="svc-tag">Business Permits</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=600&q=80" alt="Advisory consulting meeting with small business owner" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🤝</div>
+          <div class="svc-name">Advisory & Consulting</div>
+          <div class="svc-desc">Cash flow planning, pricing and margin reviews, tax planning, and structuring guidance — plain-language advice so you understand the "why," not just the numbers.</div>
+          <div class="svc-tags"><span class="svc-tag">Cash Flow Planning</span><span class="svc-tag">Tax Planning</span><span class="svc-tag">Plain-English Advice</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="bg-deep" id="industries">
+  <div class="container">
+    <div class="eyebrow">Who We Serve</div>
+    <h2 class="sh2">Built for Aurora Province's<br />small business backbone.</h2>
+    <p class="ssub">Every industry has its own quirks — inventory accounting for retailers, tip and shift tracking for F&B, project costing for contractors. We adapt our process to yours.</p>
+    <div class="industry-grid">
+      <div class="industry-card">
+        <img class="industry-img" src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=400&q=80" alt="Filipino sari-sari store and retail shop" loading="lazy"/>
+        <div class="industry-body"><div class="industry-icon">🏪</div><div class="industry-name">Retail</div></div>
+      </div>
+      <div class="industry-card">
+        <img class="industry-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Restaurant and food service business interior" loading="lazy"/>
+        <div class="industry-body"><div class="industry-icon">🍴</div><div class="industry-name">Food & Beverage</div></div>
+      </div>
+      <div class="industry-card">
+        <img class="industry-img" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400&q=80" alt="Construction and trades contractor at work" loading="lazy"/>
+        <div class="industry-body"><div class="industry-icon">🔧</div><div class="industry-name">Trades & Contractors</div></div>
+      </div>
+      <div class="industry-card">
+        <img class="industry-img" src="https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=400&q=80" alt="Online seller packing boxes for shipping" loading="lazy"/>
+        <div class="industry-body"><div class="industry-icon">📦</div><div class="industry-name">Online Sellers</div></div>
+      </div>
+      <div class="industry-card">
+        <img class="industry-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="Modern professional office interior" loading="lazy"/>
+        <div class="industry-body"><div class="industry-icon">🏢</div><div class="industry-name">Professional Practices</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="eyebrow">Packages</div>
+    <h2 class="sh2">Predictable monthly retainers.<br />No surprise invoices.</h2>
+    <p class="ssub">Choose a tier based on your transaction volume and complexity. Every package includes monthly bookkeeping, BIR compliance filings, and a dedicated account manager.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Tier 1</div>
+        <div class="price-name">Starter</div>
+        <div class="price-amount">₱6,500 <span>/ month</span></div>
+        <div class="price-desc">For sole proprietors and micro-businesses with low transaction volume.</div>
+        <ul class="price-list">
+          <li>Up to 50 transactions / month</li>
+          <li>Monthly bookkeeping (Xero/QuickBooks)</li>
+          <li>Monthly & quarterly BIR filings</li>
+          <li>Bank reconciliation</li>
+          <li>Quarterly check-in call</li>
+        </ul>
+        <button class="price-btn price-btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-tier">Tier 2</div>
+        <div class="price-name">Growth</div>
+        <div class="price-amount">₱14,500 <span>/ month</span></div>
+        <div class="price-desc">For growing SMBs with employees, inventory, or multiple revenue streams.</div>
+        <ul class="price-list">
+          <li>Up to 200 transactions / month</li>
+          <li>Everything in Starter, plus:</li>
+          <li>Payroll processing (up to 10 staff)</li>
+          <li>Monthly financial statements</li>
+          <li>Government remittances (SSS/PhilHealth/Pag-IBIG)</li>
+          <li>Monthly check-in call</li>
+        </ul>
+        <button class="price-btn price-btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Tier 3</div>
+        <div class="price-name">Established</div>
+        <div class="price-amount">₱28,000 <span>/ month</span></div>
+        <div class="price-desc">For established businesses needing full back-office finance support.</div>
+        <ul class="price-list">
+          <li>Unlimited transactions</li>
+          <li>Everything in Growth, plus:</li>
+          <li>Payroll for unlimited staff</li>
+          <li>Audit-ready annual financial statements</li>
+          <li>Cash flow forecasting & advisory</li>
+          <li>Dedicated account manager + priority support</li>
+        </ul>
+        <button class="price-btn price-btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to Us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="bg-deep" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">Who's Behind the Numbers</div>
+        <h2 class="sh2">A Baler-based team of<br />licensed accountants.</h2>
+        <p class="about-text">Sterling Ledger Co. was founded by CPAs who grew up watching family-run sari-sari stores and small contractors struggle with the same recurring problem: nobody told them what the numbers meant, or when the deadlines were, until it was too late.</p>
+        <p class="about-text">Today our team supports over 85 small businesses across Aurora Province — from Baler's town center to coastal barangays — with the same plain-language approach: we explain the "why" behind every BIR requirement, not just the form.</p>
+        <div class="about-creds">
+          <div class="about-cred"><div class="about-cred-icon">🎓</div><span>Licensed CPAs and BIR-Accredited Tax Agents on staff</span></div>
+          <div class="about-cred"><div class="about-cred-icon">📍</div><span>Locally based in Baler, Aurora Province — no outsourced call centers</span></div>
+          <div class="about-cred"><div class="about-cred-icon">🔄</div><span>Certified on Xero and QuickBooks Online for cloud-based collaboration</span></div>
+          <div class="about-cred"><div class="about-cred-icon">🔒</div><span>Client data and financial records handled under strict confidentiality protocols</span></div>
+        </div>
+      </div>
+      <img class="about-img" src="https://images.unsplash.com/photo-1664575602554-2087b04935a5?auto=format&fit=crop&w=900&q=80" alt="Modern minimal office interior workspace" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="container">
+    <div class="eyebrow">Insights & Reminders</div>
+    <h2 class="sh2">Tax deadlines and tips,<br />in plain language.</h2>
+    <p class="ssub">A running library of bookkeeping tips and BIR deadline reminders for Aurora Province small business owners — no jargon, no guesswork.</p>
+    <div class="resources-grid">
+      <div class="res-card">
+        <div class="res-tag">BIR Deadline</div>
+        <div class="res-title">Q3 2026 Percentage Tax (2551Q) — Due July 25</div>
+        <div class="res-desc">If your business is non-VAT registered, your 2551Q quarterly percentage tax return and payment is due July 25. Here's what to prepare and how to avoid penalties.</div>
+        <span class="res-link">Read the checklist →</span>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Bookkeeping Tip</div>
+        <div class="res-title">Why "shoebox accounting" costs you more at year-end</div>
+        <div class="res-desc">Saving receipts in a box until tax season feels harmless — until your accountant bills you for the extra hours sorting twelve months of paper. Here's a simple weekly habit that fixes it.</div>
+        <span class="res-link">Read the article →</span>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Payroll Reminder</div>
+        <div class="res-title">13th Month Pay: computation rules every employer should know</div>
+        <div class="res-desc">13th month pay is mandatory and due on or before December 24. Here's how it's computed, who's covered, and common mistakes that trigger DOLE complaints.</div>
+        <span class="res-link">Read the guide →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="bg-deep" id="contact">
+  <div class="container">
+    <div class="eyebrow">Get in Touch</div>
+    <div class="contact-wrap">
+      <div class="ct-info">
+        <h3>Get a free books review.</h3>
+        <p>Send us your last month of records — bank statements, receipts, whatever you have — and we'll give you a free, no-obligation assessment of your books' health and BIR compliance status.</p>
+        <div class="ct-trust">
+          <div class="ct-trust-item"><div class="ct-trust-icon">⚡</div><span>Response within 24 hours on all inquiries</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">📋</div><span>Free books health review — no commitment required</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">📅</div><span>Onboarding completed within 5 business days</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">🔒</div><span>Your financial information is kept strictly confidential</span></div>
+        </div>
+      </div>
+      <div class="ct-form">
+        <div id="formContent">
+          <div class="form-title">Free Books Review Request</div>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Your first name" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Your last name" /></div>
+          </div>
+          <div class="form-group"><label>Business Name</label><input type="text" placeholder="Company or business name" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Mobile / Viber</label><input type="tel" placeholder="+63 9XX XXX XXXX" /></div>
+            <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Industry</label>
+              <select>
+                <option value="">Select your industry</option>
+                <option>Retail</option>
+                <option>Food & Beverage</option>
+                <option>Trades / Contractor</option>
+                <option>Online Selling</option>
+                <option>Professional Practice</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Current Bookkeeping Setup</label>
+              <select>
+                <option value="">Select current setup</option>
+                <option>None / Manual records</option>
+                <option>Excel / Spreadsheets</option>
+                <option>Xero</option>
+                <option>QuickBooks</option>
+                <option>In-house bookkeeper</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label>What's the biggest pain point right now?</label><textarea placeholder="e.g. missed BIR deadlines, no idea what we're earning, payroll headaches..."></textarea></div>
+          <button class="form-submit" onclick="handleSubmit()">Request Free Books Review</button>
+          <div class="form-note">By submitting, you agree to be contacted regarding your inquiry.</div>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✅</div>
+          <h4>Request received.</h4>
+          <p>Our team will reach out within 24 hours to schedule your free books review.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="nav-brand"><div class="nav-mark">SL</div><div class="nav-name">STERLING LEDGER CO.</div></div>
+        <div class="footer-brand-desc">Outsourced bookkeeping, BIR tax compliance, and payroll processing for small businesses across Baler and Aurora Province.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links"><li>Monthly Bookkeeping</li><li>Tax Compliance & BIR Filing</li><li>Payroll Processing</li><li>Financial Statements</li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links"><li>About Us</li><li>Industries We Serve</li><li>Pricing</li><li>Resources</li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links"><li>Free Books Review</li><li>General Inquiry</li><li>Client Portal</li><li>Baler, Aurora Province</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Sterling Ledger Co. · All content is fictional · Forms run in demo mode · Imagery via Unsplash</div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="footer-adf">Live Blueprint · <span>Aurora Digital Foundry</span></div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="nav-drawer" id="navDrawer" aria-modal="true">
+  <button class="nav-drawer-close" id="navDrawerClose"><span></span><span></span></button>
+  <nav class="nav-drawer-links">
+    <a href="#services">Services</a>
+    <a href="#industries">Industries</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <a href="#resources">Resources</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="nav-drawer-cta">Free Books Review</a>
+  <div class="nav-drawer-sep"></div>
+  <a href="operator.html" class="nav-drawer-op" target="_blank">⚙ Operator Login</a>
+</div>
+<script>
+function handleSubmit(){
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+}
+(function(){
+  var ham=document.getElementById('navHam');
+  var drawer=document.getElementById('navDrawer');
+  if(!ham||!drawer)return;
+  function openD(){ham.classList.add('open');drawer.classList.add('open');document.body.style.overflow='hidden';}
+  function closeD(){ham.classList.remove('open');drawer.classList.remove('open');document.body.style.overflow='';}
+  window.__closeNavDrawer=closeD;
+  ham.addEventListener('click',function(){drawer.classList.contains('open')?closeD():openD();});
+  var closeBtn=document.getElementById('navDrawerClose');
+  if(closeBtn)closeBtn.addEventListener('click',closeD);
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeD);});
+})();
+</script>
+</body>
+</html>

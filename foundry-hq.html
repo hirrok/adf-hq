@@ -2128,20 +2128,12 @@
     fields.forEach(f => f.disabled = true);
 
     try {
+      // Apps Script /exec does not return CORS headers, so a normal
+      // 'cors' fetch rejects with "Failed to fetch" even when the
+      // server processes the request successfully. 'no-cors' makes
+      // the response opaque (we can't read it) but lets the request
+      // through — the server still appends the row + sends the email.
       await fetch(OPS_SCRIPT_URL, {
         method: 'POST',
-        body: JSON.stringify(payload),
-      });
-      btn.textContent = '✓ Recon Request Submitted';
-      btn.style.background = '#28c840';
-    } catch {
-      btn.textContent = '✗ Send failed — email hirro.kuizon@gmail.com';
-      btn.style.background = '#ff5f57';
-      btn.disabled = false;
-      fields.forEach(f => f.disabled = false);
-    }
-  });
-</script>
-
-</body>
-</html>
+        mode: 'no-cors',
+        body: JSO
