@@ -749,7 +749,7 @@
 
   async function loadOpsData() {
     try {
-      const res  = await fetch(OPS_SCRIPT_URL);
+      const res  = await fetch(OPS_SCRIPT_URL + '?view=cockpit');
       const json = await res.json();
       OPS_DATA   = (json && !json.error) ? json : null;
     } catch {
