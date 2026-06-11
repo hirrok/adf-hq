@@ -2136,4 +2136,18 @@
       await fetch(OPS_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: JSO
+        body: JSON.stringify(payload),
+      });
+      btn.textContent = '✓ Recon Request Submitted';
+      btn.style.background = '#28c840';
+    } catch {
+      btn.textContent = '✗ Send failed — email hirro.kuizon@gmail.com';
+      btn.style.background = '#ff5f57';
+      btn.disabled = false;
+      fields.forEach(f => f.disabled = false);
+    }
+  });
+</script>
+
+</body>
+</html>
