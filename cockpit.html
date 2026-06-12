@@ -417,6 +417,7 @@
     .btn-grid{display:grid;gap:10px;margin-bottom:20px;}
     .btn-grid-2{grid-template-columns:repeat(2,1fr);}
     .btn-grid-3{grid-template-columns:repeat(3,1fr);}
+    .btn-grid-4{grid-template-columns:repeat(4,1fr);}
     .action-btn{background:var(--mid);color:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:0.82rem;font-weight:600;cursor:pointer;text-align:left;transition:all 0.15s;font-family:inherit;line-height:1.3;}
     .action-btn:hover{border-color:var(--aurora);color:var(--aurora);}
     .action-btn.active{background:rgba(0,201,167,0.1);color:var(--aurora);border-color:var(--aurora);}
@@ -759,10 +760,11 @@
           <div class="ops-live-badge">● LIVE</div>
         </div>
         <div style="padding:24px 24px 4px;">
-          <div class="btn-grid btn-grid-3" id="ai-btns">
+          <div class="btn-grid btn-grid-4" id="ai-btns">
             <button class="action-btn" onclick="runAI('pipeline')">Pipeline Intelligence</button>
             <button class="action-btn" onclick="runAI('revenue')">Revenue Intelligence</button>
             <button class="action-btn" onclick="runAI('recon')">Recon Intelligence</button>
+            <button class="action-btn" onclick="runAI('stratBrief')">⚡ Daily Strategic Brief</button>
           </div>
           <div id="ai-output" style="display:none;" class="output-block">
             <div class="output-header">
@@ -1225,6 +1227,52 @@ RECOMMENDED ACTIONS:
 
 [SWAP] As recon volume grows, segment by industry to spot
 archetype-reuse opportunities before starting from scratch.`,
+
+      stratBrief: (() => {
+        const clients   = (OPS_DATA && OPS_DATA.clients) || [];
+        const breakdown = (OPS_DATA && OPS_DATA.revenue && OPS_DATA.revenue.breakdown) || {};
+        const total     = Object.values(breakdown).reduce((s,v)=>s+(Number(v)||0),0);
+        const dominant  = Object.entries(breakdown).sort((a,b)=>b[1]-a[1])[0];
+        const stamp     = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'short', day:'numeric' });
+
+        const risks = [];
+        if (hot.length === 0) risks.push('Hot pipeline is empty — no near-term deals to close. Surface recon queue or re-warm Warm-stage leads.');
+        if (newRecon.length > 2) risks.push(`${newRecon.length} recon requests sitting unprocessed — triage backlog before it cools.`);
+        if (dominant && total && (dominant[1]/total) > 0.6) risks.push(`Revenue concentration: "${dominant[0]}" is ${Math.round((dominant[1]/total)*100)}% of total — single-stream dependency risk.`);
+        if (clients.length < 3) risks.push('Client roster under 3 — Foundry still in build-velocity phase, not yet retainer-stable.');
+
+        return `DAILY STRATEGIC BRIEF — ${stamp}
+First Mate Ops HUD · Foundry-Wide Synthesis
+
+STATE OF PLAY
+· Active leads: ${k.activeLeads ?? leads.length} · Hot: ${hot.length} · Won MTD: ${won.length}
+· Open jobs: ${k.openJobs ?? jobs.length} · Live clients: ${clients.length}
+· Revenue MTD: ${suiteFmt(k.revMTD||0)} · Recurring (MRR): ${suiteFmt(k.mrr||0)}
+· Hot pipeline value: ${suiteFmt(k.hotPipeline||0)}
+${dominant ? `· Largest revenue line: ${dominant[0]} (${suiteFmt(dominant[1])})` : ''}
+
+ASYMMETRIES (where effort yields disproportionate return)
+1. Archetype reuse — every new recon should be checked against the
+   existing simulator library (Solaris/ForgeHaus/Alon/Landmark/Iron Tribe/
+   Sterling Ledger) before scoping a fresh build. Re-skin > rebuild.
+2. Class B retainers compound — each closed Class B client adds to the
+   MRR baseline permanently; Class A showcases feed referral flow but
+   don't move MRR directly. Sequence closes accordingly.
+3. Recon-as-sales-asset — the prototype IS the pitch. Recon backlog
+   converting late is leverage left on the table.
+
+RISKS / WATCH ITEMS
+${risks.length ? risks.map(r => `⚠ ${r}`).join('\n') : '✓ No material risk flags from current data — clear to advance priority queue.'}
+
+PRIORITY QUEUE (next moves)
+1. ${newRecon.length ? `Triage ${newRecon.length} pending recon request(s) — classify Class A/B/C, match to archetype library.` : 'No recon backlog — focus on outbound to fill pipeline.'}
+2. ${hot.length ? `Push hot leads (${hot.map(l=>l.contact).join(', ')}) toward close this week.` : 'Re-activate Warm-stage leads via referral/portfolio outreach.'}
+3. Maintain build velocity on open jobs (${k.openJobs ?? jobs.length}) — protect delivery reputation, the compounding asset.
+
+— Generated from live Data Spine (OPS_DATA) at page load. Interim mode:
+First Mate-authored synthesis layered on live figures — full LLM-on-demand
+when API access is provisioned (see Foundry Scheduled Routines).`;
+      })(),
     };
   }
 
