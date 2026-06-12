@@ -408,6 +408,35 @@
       .ops-rev-grid, .ops-booking-grid { grid-template-columns: 1fr; }
       .cp-body { padding: 20px 16px; }
     }
+
+    /* ─── OPERATOR SUITE (Marketing / AI / Intelligence) ───── */
+    .suite-metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+    .suite-metric{background:var(--mid);padding:20px 24px;}
+    .suite-metric-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);margin-bottom:8px;}
+    .suite-metric-value{font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;color:var(--white);}
+    .btn-grid{display:grid;gap:10px;margin-bottom:20px;}
+    .btn-grid-2{grid-template-columns:repeat(2,1fr);}
+    .btn-grid-3{grid-template-columns:repeat(3,1fr);}
+    .action-btn{background:var(--mid);color:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:0.82rem;font-weight:600;cursor:pointer;text-align:left;transition:all 0.15s;font-family:inherit;line-height:1.3;}
+    .action-btn:hover{border-color:var(--aurora);color:var(--aurora);}
+    .action-btn.active{background:rgba(0,201,167,0.1);color:var(--aurora);border-color:var(--aurora);}
+    .output-block{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:8px;padding:20px 24px;}
+    .output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+    .output-badge{background:rgba(0,201,167,0.15);color:var(--aurora);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:3px 8px;border-radius:4px;font-family:var(--mono);}
+    .output-status{font-family:var(--mono);font-size:0.7rem;color:var(--text);}
+    .output-pre{font-size:0.85rem;color:rgba(245,244,240,0.85);white-space:pre-wrap;line-height:1.8;font-family:inherit;min-height:24px;}
+    .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+    .chart-card{background:var(--mid);padding:28px 28px 20px;}
+    .chart-title{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);margin-bottom:18px;}
+    .bar-row{margin-bottom:12px;}
+    .bar-header{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text);margin-bottom:5px;}
+    .bar-track{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;}
+    .bar-fill{height:100%;border-radius:2px;transition:width 0.7s ease;background:var(--aurora);}
+    @media(max-width:768px){
+      .suite-metric-grid{grid-template-columns:repeat(2,1fr);}
+      .btn-grid-2,.btn-grid-3{grid-template-columns:1fr;}
+      .chart-grid{grid-template-columns:1fr;}
+    }
   </style>
 </head>
 <body>
@@ -455,6 +484,9 @@
       <button class="ops-tab"        onclick="opsSwitch(2)">Revenue Board</button>
       <button class="ops-tab"        onclick="opsSwitch(3)">Booking Queue</button>
       <button class="ops-tab"        onclick="opsSwitch(4)" id="tab-recon">Recon Inbox</button>
+      <button class="ops-tab"        onclick="opsSwitch(5)">Marketing</button>
+      <button class="ops-tab"        onclick="opsSwitch(6)">AI Console</button>
+      <button class="ops-tab"        onclick="opsSwitch(7)">Intelligence</button>
     </div>
 
     <!-- ── Panel 0: OPS HUD ─────────────────────────────────── -->
@@ -684,6 +716,90 @@
           </table>
         </div>
         <div class="ops-notice" id="ops-notice-recon">⬡ Connecting to backend…</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 5: Marketing Generator ───────────────────────── -->
+    <div class="ops-panel" id="ops-panel-5">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / suite / marketing</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div style="padding:24px 24px 4px;">
+          <div class="btn-grid btn-grid-2" id="mktg-btns">
+            <button class="action-btn" onclick="generateContent('reconFollowup')">📋 Recon Follow-Up</button>
+            <button class="action-btn" onclick="generateContent('prospectOutreach')">🎯 Prospect Outreach</button>
+            <button class="action-btn" onclick="generateContent('portfolioShowcase')">🏆 Portfolio Showcase</button>
+            <button class="action-btn" onclick="generateContent('referralAsk')">🤝 Referral Ask</button>
+          </div>
+          <div id="mktg-output" style="display:none;" class="output-block">
+            <div class="output-header">
+              <span class="output-badge" id="mktg-badge">TYPE</span>
+              <span class="output-status" id="mktg-status">Generating...</span>
+            </div>
+            <pre class="output-pre" id="mktg-text"></pre>
+          </div>
+        </div>
+        <div class="ops-notice">⬡ Foundry outbound content — pulls live pipeline figures where available</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 6: AI Console ─────────────────────────────────── -->
+    <div class="ops-panel" id="ops-panel-6">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / suite / ai-console</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div style="padding:24px 24px 4px;">
+          <div class="btn-grid btn-grid-3" id="ai-btns">
+            <button class="action-btn" onclick="runAI('pipeline')">Pipeline Intelligence</button>
+            <button class="action-btn" onclick="runAI('revenue')">Revenue Intelligence</button>
+            <button class="action-btn" onclick="runAI('recon')">Recon Intelligence</button>
+          </div>
+          <div id="ai-output" style="display:none;" class="output-block">
+            <div class="output-header">
+              <span class="output-badge">AI ANALYSIS</span>
+              <span class="output-status" id="ai-status">Analyzing data...</span>
+            </div>
+            <pre class="output-pre" id="ai-text"></pre>
+          </div>
+        </div>
+        <div class="ops-notice">⬡ Analysis generated from live Spine data — recommendations are advisory</div>
+      </div>
+    </div>
+
+    <!-- ── Panel 7: Business Intelligence ──────────────────────── -->
+    <div class="ops-panel" id="ops-panel-7">
+      <div class="ops-shell">
+        <div class="ops-titlebar">
+          <div class="ops-dot ops-dot-r"></div>
+          <div class="ops-dot ops-dot-y"></div>
+          <div class="ops-dot ops-dot-g"></div>
+          <div class="ops-url">aurora.ops / suite / intelligence</div>
+          <div class="ops-live-badge">● LIVE</div>
+        </div>
+        <div style="padding:24px;">
+          <div class="suite-metric-grid" id="intel-kpi-grid"></div>
+          <div class="chart-grid">
+            <div class="chart-card">
+              <div class="chart-title" id="intel-chart-left-title">Pipeline by Stage</div>
+              <div id="intel-chart-left"></div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-title" id="intel-chart-right-title">Revenue by Class</div>
+              <div id="intel-chart-right"></div>
+            </div>
+          </div>
+        </div>
+        <div class="ops-notice" id="ops-notice-intel">⬡ Live data — Aurora Foundry Operator Suite</div>
       </div>
     </div>
 
@@ -937,10 +1053,296 @@
     document.getElementById('ops-notice-recon').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
   }
 
+  // ── OPERATOR SUITE: MARKETING / AI / INTELLIGENCE ──────────────
+  function typeWriter(targetId, text, speed, onDone) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    el.textContent = '';
+    let i = 0;
+    const t = setInterval(() => {
+      i++;
+      el.textContent = text.slice(0, i);
+      if (i >= text.length) { clearInterval(t); if (onDone) onDone(); }
+    }, speed);
+  }
+
+  function suiteFmt(n) { return '₱' + Number(n||0).toLocaleString(); }
+
+  function marketingOutputs() {
+    const k = (OPS_DATA && OPS_DATA.kpis) || {};
+    const recons = (OPS_DATA && OPS_DATA.reconRequests) || [];
+    const newRecon = recons.filter(r => r.status === 'NEW');
+    const clients = (OPS_DATA && OPS_DATA.clients) || [];
+    return {
+      reconFollowup:
+`EMAIL — Recon Follow-Up
+
+Subject: Your Aurora Digital Foundry recon — what we found
+
+Hi [Name],
+
+Thanks for walking us through ${recons.length ? '[Business]' : 'your business'} — we've
+completed recon (${newRecon.length} request${newRecon.length===1?'':'s'} currently in queue).
+
+Attached: a working prototype of your future-state infrastructure —
+not a mockup, a live demo you can click through. This is what
+"${clients.length}+ active Foundry clients" already run on.
+
+Next step: 20-minute walkthrough this week — I'll show you the
+gap between where you are and where category leaders already sit.
+
+— Aurora Digital Foundry`,
+
+      prospectOutreach:
+`COLD OUTREACH — Prospect (Class A/B/C)
+
+Subject: We built your business's website before you asked
+
+Hi [Name],
+
+Most agencies pitch a website. We build business infrastructure —
+lead capture, ops dashboards, growth systems — and we usually build
+the prototype BEFORE the sales call.
+
+Right now we run live production infrastructure for ${clients.length}
+client${clients.length===1?'':'s'} (fuel distribution, fitness) generating
+${suiteFmt(k.revMTD)} MTD plus ${suiteFmt(k.mrr||0)} in recurring revenue.
+
+Want us to build yours? Reply and we'll have a working prototype
+of your future-state site within days — no commitment required.
+
+— Aurora Digital Foundry`,
+
+      portfolioShowcase:
+`SOCIAL / WEBSITE — Portfolio Showcase Post
+
+🏗️ FROM PROTOTYPE TO PRODUCTION
+
+${clients.length} live infrastructure builds and counting — fuel &
+LPG distribution, fitness operations, hospitality, and more.
+
+Every Foundry engagement starts the same way: we build your
+future-state business BEFORE the pitch. You don't imagine it.
+You click through it.
+
+See the Foundry's live archetypes:
+· Fuel & LPG Distributor — Solaris
+· Community Gym — ForgeHaus / Iron Tribe
+· Surf Camp & Resort — Alon
+· Heritage Restaurant — The Landmark
+
+#AuroraDigitalFoundry #BusinessInfrastructure`,
+
+      referralAsk:
+`EMAIL/SMS — Referral Ask (warm client)
+
+Hi [Name],
+
+Glad the new system's working well — ${suiteFmt(k.mrr||0)} in
+recurring value says it's sticking.
+
+Quick favor: anyone in your network (fellow operators, suppliers,
+industry contacts) who's running their business off a static site
+or no system at all? We'll build them the same kind of working
+prototype, free of charge for the recon — and if it lands, there's
+a referral credit in it for you.
+
+Just reply with a name and we'll take it from there.
+
+— Aurora Digital Foundry`,
+    };
+  }
+
+  function aiOutputs() {
+    const k       = (OPS_DATA && OPS_DATA.kpis) || {};
+    const leads   = (OPS_DATA && OPS_DATA.leads) || [];
+    const jobs    = (OPS_DATA && OPS_DATA.jobs) || [];
+    const recons  = (OPS_DATA && OPS_DATA.reconRequests) || [];
+    const hot     = leads.filter(l => l.stage === 'Hot');
+    const won     = leads.filter(l => l.stage === 'Won');
+    const newRecon = recons.filter(r => r.status === 'NEW');
+    const industries = [...new Set(recons.map(r => r.industry).filter(Boolean))];
+
+    return {
+      pipeline:
+`PIPELINE INTELLIGENCE — Lead CRM
+
+TOTAL LEADS: ${leads.length}
+HOT PIPELINE: ${suiteFmt(k.hotPipeline||0)} across ${hot.length} lead${hot.length===1?'':'s'}
+WON THIS MONTH: ${won.length}
+
+${hot.length ? hot.map(l => `· ${l.contact} (${l.business}) — ${suiteFmt(l.value)} — last touch ${l.lastTouch}`).join('\n') : '· No hot leads currently — recon pipeline is the next feed (see Recon tab).'}
+
+RECOMMENDED ACTIONS:
+1. Hot leads >7 days since last touch → re-engage same-day
+2. New recon submissions (${newRecon.length} pending) → qualify within 48hrs and promote to Lead CRM
+3. Proposals out with no reply >5 days → follow-up sequence
+
+PROJECTED IMPACT:
+Closing 1 additional Class B client at current avg. deal size adds
+recurring MRR on top of the ${suiteFmt(k.mrr||0)} baseline already live.`,
+
+      revenue:
+`REVENUE INTELLIGENCE — Foundry-Wide
+
+REVENUE MTD: ${suiteFmt(k.revMTD||0)}
+RECURRING (MRR): ${suiteFmt(k.mrr||0)}
+ACTIVE LEADS: ${k.activeLeads ?? leads.length}
+OPEN JOBS: ${k.openJobs ?? jobs.length}
+
+REVENUE COMPOSITION:
+${(OPS_DATA && OPS_DATA.revenue && OPS_DATA.revenue.breakdown)
+  ? Object.entries(OPS_DATA.revenue.breakdown).map(([key,val]) => `· ${key}: ${suiteFmt(val)}`).join('\n')
+  : '· Breakdown not yet populated in Spine.'}
+
+GROWTH LEVERS:
+· Each new Class B client (revenue-class) typically adds
+  setup fee + recurring maintenance — compounds MRR baseline
+· Class A showcase builds (Iron Tribe, Alon, etc.) feed referral
+  pipeline rather than direct revenue — track conversion separately
+· Hot pipeline (${suiteFmt(k.hotPipeline||0)}) represents near-term
+  upside if proposals close within the quarter
+
+RECOMMENDATION:
+Prioritize closing Hot-stage leads before opening new recon —
+fastest path to moving MRR baseline upward.`,
+
+      recon:
+`RECON INTELLIGENCE — Inbound Requests
+
+TOTAL RECON REQUESTS: ${recons.length}
+NEW (UNPROCESSED): ${newRecon.length}
+INDUSTRIES REPRESENTED: ${industries.length} (${industries.join(', ') || '—'})
+
+${newRecon.length ? newRecon.map(r => `· ${r.name} — ${r.business} (${r.industry}) — "${(r.challenge||'').slice(0,80)}${(r.challenge||'').length>80?'…':''}"`).join('\n') : '· No new recon requests in queue.'}
+
+RECOMMENDED ACTIONS:
+1. Triage each NEW recon within 24hrs — classify Class A/B/C per doctrine
+2. For Class B (revenue) prospects: prioritize — recurring retainer potential
+3. For Class A (showcase) prospects: check against existing archetype
+   library first — may need only re-skinning, not a full build
+4. Mark processed recons via cockpit status update once prototype begins
+
+[SWAP] As recon volume grows, segment by industry to spot
+archetype-reuse opportunities before starting from scratch.`,
+    };
+  }
+
+  function generateContent(type) {
+    document.querySelectorAll('#mktg-btns .action-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector('#mktg-btns .action-btn[onclick="generateContent(\'' + type + '\')"]');
+    if (activeBtn) activeBtn.classList.add('active');
+    const output = document.getElementById('mktg-output');
+    output.style.display = 'block';
+    document.getElementById('mktg-badge').textContent = type.toUpperCase();
+    document.getElementById('mktg-status').textContent = 'Generating...';
+    document.getElementById('mktg-text').textContent = '';
+    const outputs = marketingOutputs();
+    typeWriter('mktg-text', outputs[type] || '[Output not defined for this type]', 5, () => {
+      document.getElementById('mktg-status').textContent = 'Done';
+    });
+  }
+
+  function runAI(type) {
+    document.querySelectorAll('#ai-btns .action-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector('#ai-btns .action-btn[onclick="runAI(\'' + type + '\')"]');
+    if (activeBtn) activeBtn.classList.add('active');
+    const output = document.getElementById('ai-output');
+    output.style.display = 'block';
+    document.getElementById('ai-status').textContent = 'Analyzing data...';
+    document.getElementById('ai-text').textContent = '';
+    setTimeout(() => {
+      const outputs = aiOutputs();
+      typeWriter('ai-text', outputs[type] || '[Output not defined for this type]', 7, () => {
+        document.getElementById('ai-status').textContent = 'Analysis complete';
+      });
+    }, 500);
+  }
+
+  // ── RENDER: BUSINESS INTELLIGENCE ──────────────────────────────
+  function renderIntelligence() {
+    const grid = document.getElementById('intel-kpi-grid');
+    if (!grid) return;
+    if (!OPS_DATA) {
+      document.getElementById('ops-notice-intel').textContent = '⬡ Backend unreachable — check GAS deployment.';
+      return;
+    }
+    const k       = OPS_DATA.kpis || {};
+    const leads   = OPS_DATA.leads || [];
+    const clients = OPS_DATA.clients || [];
+    const recons  = OPS_DATA.reconRequests || [];
+
+    const kpiData = [
+      ['Active Leads',  k.activeLeads ?? leads.length, 'var(--aurora)'],
+      ['Revenue MTD',   suiteFmt(k.revMTD||0), 'var(--white)'],
+      ['MRR',           suiteFmt(k.mrr||0), 'var(--aurora)'],
+      ['Hot Pipeline',  suiteFmt(k.hotPipeline||0), 'var(--gold)'],
+      ['Open Jobs',     k.openJobs ?? '0', 'var(--white)'],
+      ['Active Clients', clients.length, 'var(--aurora)'],
+      ['Recon — New',   recons.filter(r => r.status === 'NEW').length, 'var(--gold)'],
+      ['Recon — Total', recons.length, 'var(--white)'],
+    ];
+    grid.innerHTML = kpiData.map(([label, value, color]) => `
+      <div class="suite-metric">
+        <div class="suite-metric-label">${label}</div>
+        <div class="suite-metric-value" style="color:${color}">${value}</div>
+      </div>`).join('');
+
+    // Pipeline by stage
+    const stages = ['Hot','Warm','Proposal','Cold','Won'];
+    const stageData = stages.map(s => ({
+      label: s,
+      value: leads.filter(l => l.stage === s).length,
+    })).filter(d => d.value > 0);
+    renderSuiteChart('intel-chart-left', 'intel-chart-left-title', {
+      title: 'Pipeline by Stage',
+      data: stageData.length ? stageData : [{label:'No leads yet', value:0}]
+    }, 'count');
+
+    // Revenue by class (from clients)
+    const classMap = {};
+    clients.forEach(c => {
+      const cls = c.client_class || c.class || 'Unclassified';
+      classMap[cls] = (classMap[cls]||0) + (Number(c.monthly_retainer)||0);
+    });
+    const classData = Object.entries(classMap).map(([label,value]) => ({label, value}));
+    renderSuiteChart('intel-chart-right', 'intel-chart-right-title', {
+      title: 'Recurring Revenue by Client Class',
+      data: classData.length ? classData : [{label:'No client revenue yet', value:0}]
+    }, 'currency');
+
+    document.getElementById('ops-notice-intel').textContent = '⬡ Live data — Aurora Foundry Operator Suite';
+  }
+
+  function renderSuiteChart(containerId, titleId, def, mode) {
+    const titleEl = document.getElementById(titleId);
+    const container = document.getElementById(containerId);
+    if (!titleEl || !container) return;
+    titleEl.textContent = def.title;
+    const maxVal = Math.max(...def.data.map(d => d.value), 1);
+    container.innerHTML = def.data.map(row => {
+      const pct  = Math.round((row.value / maxVal) * 100);
+      const disp = mode === 'currency' ? suiteFmt(row.value) : String(row.value);
+      return `
+        <div class="bar-row">
+          <div class="bar-header"><span>${row.label}</span><span>${disp}</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;" data-width="${pct}"></div>
+          </div>
+        </div>`;
+    }).join('');
+    requestAnimationFrame(() => {
+      container.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    });
+  }
+
   // ── TAB SWITCH ────────────────────────────────────────────────
   function opsSwitch(index) {
     document.querySelectorAll('.ops-tab').forEach((t,i)   => t.classList.toggle('active', i===index));
     document.querySelectorAll('.ops-panel').forEach((p,i) => p.classList.toggle('active', i===index));
+    if (index === 7) renderIntelligence();
   }
 
   // ── BOOT (runs only after auth) ───────────────────────────────
@@ -951,6 +1353,7 @@
     renderRevenue();
     renderBookingQueue();
     renderReconInbox();
+    renderIntelligence();
   }
 
   // If already authenticated, boot immediately
