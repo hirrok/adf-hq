@@ -95,6 +95,20 @@
 
     @media (max-width: 1080px) { .panel-grid { grid-template-columns: 1fr; } .kpi-row { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 760px) { .app { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+    /* TABS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .nav-badge { font-family: var(--mono); font-size: 0.6rem; background: rgba(201,154,59,0.18); color: var(--gold2); padding: 2px 7px; border-radius: 99px; margin-left: auto; }
+    .sb-link { justify-content: flex-start; gap: 10px; }
+    .sb-link .nav-badge { margin-left: auto; }
+
+    /* GOVERNANCE */
+    .gov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 1080px) { .gov-grid { grid-template-columns: 1fr; } }
+    .vote-bar { display: flex; height: 8px; border-radius: 99px; overflow: hidden; background: var(--deep); margin-top: 8px; }
+    .vote-bar-fill { background: var(--green); }
+    .vote-meta { font-family: var(--mono); font-size: 0.65rem; color: var(--text2); margin-top: 6px; }
   </style>
 </head>
 <body>
@@ -107,12 +121,12 @@
           <div class="sb-sub">Operator Suite</div>
         </div>
       </div>
-      <div class="sb-link active"><span class="sb-icon">◆</span> Overview</div>
-      <div class="sb-link"><span class="sb-icon">👥</span> Member Directory</div>
-      <div class="sb-link"><span class="sb-icon">📅</span> Event Infrastructure</div>
-      <div class="sb-link"><span class="sb-icon">📰</span> Publications</div>
-      <div class="sb-link"><span class="sb-icon">🤝</span> Network Expansion</div>
-      <div class="sb-link"><span class="sb-icon">⚙</span> Governance</div>
+      <div class="sb-link active" onclick="showTab('overview', this)"><span class="sb-icon">◆</span> Overview</div>
+      <div class="sb-link" onclick="showTab('directory', this)"><span class="sb-icon">👥</span> Member Directory</div>
+      <div class="sb-link" onclick="showTab('events', this)"><span class="sb-icon">📅</span> Event Infrastructure</div>
+      <div class="sb-link" onclick="showTab('publications', this)"><span class="sb-icon">📰</span> Publications</div>
+      <div class="sb-link" onclick="showTab('network', this)"><span class="sb-icon">🤝</span> Network Expansion <span class="nav-badge">4</span></div>
+      <div class="sb-link" onclick="showTab('governance', this)"><span class="sb-icon">⚙</span> Governance</div>
       <div class="sb-foot">
         DATA SPINE · SYNCED HOURLY
         <div><a href="index.html" class="sb-back">← Back to Public Site</a></div>
@@ -121,10 +135,11 @@
 
     <main class="main">
       <div class="topbar">
-        <h1>Network Overview</h1>
+        <h1 id="page-title">Network Overview</h1>
         <div class="date">SUNDAY · JUNE 14, 2026</div>
       </div>
 
+      <div class="tab-panel active" id="tab-overview">
       <div class="kpi-row">
         <div class="kpi-card">
           <div class="kpi-label">Active Members</div>
@@ -152,7 +167,7 @@
         <div class="panel">
           <div class="panel-header">
             <div class="panel-title">Member Directory - Recent Activity</div>
-            <div class="panel-action">Manage Directory →</div>
+            <div class="panel-action" onclick="showTab('directory')">Manage Directory →</div>
           </div>
           <table>
             <thead>
@@ -172,7 +187,7 @@
         <div class="panel">
           <div class="panel-header">
             <div class="panel-title">Application Queue</div>
-            <div class="panel-action">Review →</div>
+            <div class="panel-action" onclick="showTab('directory')">Review →</div>
           </div>
           <div class="queue-list">
             <div class="queue-item">
@@ -199,7 +214,7 @@
         <div class="panel">
           <div class="panel-header">
             <div class="panel-title">Event Infrastructure</div>
-            <div class="panel-action">Manage Calendar →</div>
+            <div class="panel-action" onclick="showTab('events')">Manage Calendar →</div>
           </div>
           <div class="ev-list">
             <div class="ev-row">
@@ -223,7 +238,7 @@
         <div class="panel">
           <div class="panel-header">
             <div class="panel-title">Publication Queue</div>
-            <div class="panel-action">New Bulletin →</div>
+            <div class="panel-action" onclick="showTab('publications')">New Bulletin →</div>
           </div>
           <table>
             <thead>
@@ -238,66 +253,298 @@
           </table>
         </div>
       </div>
+      </div>
 
-      <div class="panel" style="margin-bottom: 20px;">
-        <div class="panel-header">
-          <div class="panel-title">Membership Inquiry Inbox</div>
-          <div class="panel-action">Open Inbox →</div>
+      <!-- MEMBER DIRECTORY -->
+      <div class="tab-panel" id="tab-directory">
+        <div class="panel" style="margin-bottom: 20px;">
+          <div class="panel-header">
+            <div class="panel-title">Verified Members</div>
+            <div class="panel-action">Export Directory →</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Organization</th><th>Sector</th><th>Members</th><th>Status</th><th>Updated</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Aurora Highlands Farmers Co-op</td><td>Agriculture Cooperative</td><td>120</td><td><span class="pill green">Verified</span></td><td>2 days ago</td></tr>
+              <tr><td>Baler Bay Fisherfolk Association</td><td>Fisheries Association</td><td>68</td><td><span class="pill green">Verified</span></td><td>5 days ago</td></tr>
+              <tr><td>Sabang Surf Operators Guild</td><td>Tourism Operators</td><td>24</td><td><span class="pill green">Verified</span></td><td>1 week ago</td></tr>
+              <tr><td>Aurora Builders Trade Group</td><td>Trade &amp; Construction</td><td>57</td><td><span class="pill green">Verified</span></td><td>1 week ago</td></tr>
+              <tr><td>Aurora Professionals Circle</td><td>Professional Services</td><td>19</td><td><span class="pill green">Verified</span></td><td>2 weeks ago</td></tr>
+              <tr><td>Provincial Suppliers Network</td><td>Retail &amp; Suppliers</td><td>33</td><td><span class="pill green">Verified</span></td><td>3 weeks ago</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="queue-list">
-          <div class="queue-item" style="align-items: flex-start;">
-            <div>
-              <div class="queue-name">Casiguran Seaweed Growers Co-op</div>
-              <div class="queue-meta">AGRICULTURE COOPERATIVE · maricel.santos@cscoop.ph</div>
-              <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"We're a 30-member seaweed farming cooperative looking to join the directory and connect with buyers across the province."</div>
-            </div>
-            <span class="pill gold">New</span>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Pending Applications</div>
+            <div class="panel-action">Review Queue →</div>
           </div>
-          <div class="queue-item" style="align-items: flex-start;">
-            <div>
-              <div class="queue-name">Dipaculao Eco-Tourism Collective</div>
-              <div class="queue-meta">TOURISM OPERATORS · jun.ramirez@dipaculaotourism.ph</div>
-              <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"Interested in membership and want to know about the August Trade Fair booth slots."</div>
+          <table>
+            <thead>
+              <tr><th>Organization</th><th>Sector</th><th>Submitted</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Casiguran Seaweed Growers Co-op</td><td>Agriculture Cooperative</td><td>Today</td><td><span class="pill gold">New</span></td><td>Approve / Request Info</td></tr>
+              <tr><td>Dipaculao Eco-Tourism Collective</td><td>Tourism Operators</td><td>Today</td><td><span class="pill gold">New</span></td><td>Approve / Request Info</td></tr>
+              <tr><td>San Luis Hardware Suppliers</td><td>Retail &amp; Suppliers</td><td>3 days ago</td><td><span class="pill gray">In Review</span></td><td>Awaiting DTI Registration</td></tr>
+              <tr><td>Maria Aurora Women's Weaving Guild</td><td>Trade &amp; Craft</td><td>4 days ago</td><td><span class="pill gray">In Review</span></td><td>Awaiting Co-op Documents</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EVENT INFRASTRUCTURE -->
+      <div class="tab-panel" id="tab-events">
+        <div class="panel-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Upcoming Events</div>
+              <div class="panel-action">+ New Event</div>
             </div>
-            <span class="pill gold">New</span>
+            <div class="ev-list">
+              <div class="ev-row">
+                <div class="ev-date">JUL 14</div>
+                <div class="ev-name">Quarterly General Assembly</div>
+                <span class="pill gray">Members Only</span>
+              </div>
+              <div class="ev-row">
+                <div class="ev-date">JUL 22</div>
+                <div class="ev-name">Cooperative Finance &amp; BIR Compliance Workshop</div>
+                <span class="pill green">Open Event</span>
+              </div>
+              <div class="ev-row">
+                <div class="ev-date">AUG 09</div>
+                <div class="ev-name">Aurora Province Trade Fair</div>
+                <span class="pill green">Public</span>
+              </div>
+              <div class="ev-row">
+                <div class="ev-date">AUG 28</div>
+                <div class="ev-name">New Member Orientation - Q3 Cohort</div>
+                <span class="pill gray">Members Only</span>
+              </div>
+            </div>
           </div>
-          <div class="queue-item" style="align-items: flex-start;">
-            <div>
-              <div class="queue-name">San Luis Hardware Suppliers</div>
-              <div class="queue-meta">RETAIL &amp; SUPPLIERS · admin@sanluishardware.ph</div>
-              <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"Following up on our application from last week - happy to provide DTI registration if needed."</div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Past Events - Attendance</div>
+              <div class="panel-action">Archive →</div>
             </div>
-            <span class="pill gray">Awaiting Reply</span>
-          </div>
-          <div class="queue-item" style="align-items: flex-start;">
-            <div>
-              <div class="queue-name">Maria Aurora Women's Weaving Guild</div>
-              <div class="queue-meta">TRADE &amp; CRAFT · weavingguild.mariaaurora@gmail.com</div>
-              <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"We'd like to be listed under Trade & Craft and explore co-publishing in the provincial bulletin."</div>
-            </div>
-            <span class="pill green">Replied</span>
+            <table>
+              <thead>
+                <tr><th>Event</th><th>Date</th><th>Attendance</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Q2 General Assembly</td><td>Apr 12</td><td>38 / 42</td></tr>
+                <tr><td>Cooperative Bookkeeping Basics</td><td>May 3</td><td>27</td></tr>
+                <tr><td>Inter-Cooperative Trade Mixer</td><td>May 30</td><td>61</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Network Expansion - Referral Pipeline</div>
-          <div class="panel-action">View All →</div>
+      <!-- PUBLICATIONS -->
+      <div class="tab-panel" id="tab-publications">
+        <div class="panel" style="margin-bottom: 20px;">
+          <div class="panel-header">
+            <div class="panel-title">Publication Queue</div>
+            <div class="panel-action">New Bulletin →</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Title</th><th>Type</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>July 2026 Provincial Bulletin</td><td>Monthly Bulletin</td><td><span class="pill gold">Drafting</span></td></tr>
+              <tr><td>Trade Fair Vendor Guide</td><td>Resource Guide</td><td><span class="pill gray">Queued</span></td></tr>
+              <tr><td>Q3 Grant Opportunities Digest</td><td>Policy Brief</td><td><span class="pill gray">Queued</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <table>
-          <thead>
-            <tr><th>Referred Organization</th><th>Referred By</th><th>Sector</th><th>Stage</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Dingalan Boat Builders Cooperative</td><td>Baler Bay Fisherfolk Association</td><td>Fisheries</td><td><span class="pill gold">Outreach Sent</span></td></tr>
-            <tr><td>Aurora Coffee Growers Circle</td><td>Aurora Highlands Farmers Co-op</td><td>Agriculture</td><td><span class="pill gray">Awaiting Response</span></td></tr>
-            <tr><td>Maria Aurora Tourism Council</td><td>Sabang Surf Operators Guild</td><td>Tourism</td><td><span class="pill green">Application Started</span></td></tr>
-          </tbody>
-        </table>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Published Archive</div>
+            <div class="panel-action">View All →</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Title</th><th>Type</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>June 2026 Provincial Bulletin</td><td>Monthly Bulletin</td><td><span class="pill green">Published</span></td></tr>
+              <tr><td>Cooperative Tax Incentives Guide 2026</td><td>Policy Brief</td><td><span class="pill green">Published</span></td></tr>
+              <tr><td>Member Onboarding Handbook</td><td>Resource Guide</td><td><span class="pill green">Published</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- NETWORK EXPANSION -->
+      <div class="tab-panel" id="tab-network">
+        <div class="panel" style="margin-bottom: 20px;">
+          <div class="panel-header">
+            <div class="panel-title">Membership Inquiry Inbox</div>
+            <div class="panel-action">Open Inbox →</div>
+          </div>
+          <div class="queue-list">
+            <div class="queue-item" style="align-items: flex-start;">
+              <div>
+                <div class="queue-name">Casiguran Seaweed Growers Co-op</div>
+                <div class="queue-meta">AGRICULTURE COOPERATIVE · maricel.santos@cscoop.ph</div>
+                <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"We're a 30-member seaweed farming cooperative looking to join the directory and connect with buyers across the province."</div>
+              </div>
+              <span class="pill gold">New</span>
+            </div>
+            <div class="queue-item" style="align-items: flex-start;">
+              <div>
+                <div class="queue-name">Dipaculao Eco-Tourism Collective</div>
+                <div class="queue-meta">TOURISM OPERATORS · jun.ramirez@dipaculaotourism.ph</div>
+                <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"Interested in membership and want to know about the August Trade Fair booth slots."</div>
+              </div>
+              <span class="pill gold">New</span>
+            </div>
+            <div class="queue-item" style="align-items: flex-start;">
+              <div>
+                <div class="queue-name">San Luis Hardware Suppliers</div>
+                <div class="queue-meta">RETAIL &amp; SUPPLIERS · admin@sanluishardware.ph</div>
+                <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"Following up on our application from last week - happy to provide DTI registration if needed."</div>
+              </div>
+              <span class="pill gray">Awaiting Reply</span>
+            </div>
+            <div class="queue-item" style="align-items: flex-start;">
+              <div>
+                <div class="queue-name">Maria Aurora Women's Weaving Guild</div>
+                <div class="queue-meta">TRADE &amp; CRAFT · weavingguild.mariaaurora@gmail.com</div>
+                <div style="font-size: 0.82rem; color: var(--text); margin-top: 6px;">"We'd like to be listed under Trade &amp; Craft and explore co-publishing in the provincial bulletin."</div>
+              </div>
+              <span class="pill green">Replied</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Referral Pipeline</div>
+            <div class="panel-action">View All →</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Referred Organization</th><th>Referred By</th><th>Sector</th><th>Stage</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Dingalan Boat Builders Cooperative</td><td>Baler Bay Fisherfolk Association</td><td>Fisheries</td><td><span class="pill gold">Outreach Sent</span></td></tr>
+              <tr><td>Aurora Coffee Growers Circle</td><td>Aurora Highlands Farmers Co-op</td><td>Agriculture</td><td><span class="pill gray">Awaiting Response</span></td></tr>
+              <tr><td>Maria Aurora Tourism Council</td><td>Sabang Surf Operators Guild</td><td>Tourism</td><td><span class="pill green">Application Started</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- GOVERNANCE -->
+      <div class="tab-panel" id="tab-governance">
+        <div class="gov-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Board of Directors</div>
+              <div class="panel-action">Manage Roster →</div>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Position</th><th>Represents</th><th>Term Ends</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Rosario T. Manalang</td><td>Chairperson</td><td>Aurora Highlands Farmers Co-op</td><td>2027</td></tr>
+                <tr><td>Edgar B. Lopez</td><td>Vice Chair</td><td>Baler Bay Fisherfolk Association</td><td>2027</td></tr>
+                <tr><td>Cristina Aquino</td><td>Treasurer</td><td>Aurora Professionals Circle</td><td>2026</td></tr>
+                <tr><td>Mario D. Santos</td><td>Secretary</td><td>Aurora Builders Trade Group</td><td>2026</td></tr>
+                <tr><td>Liwayway Reyes</td><td>Director-at-Large</td><td>Sabang Surf Operators Guild</td><td>2028</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Compliance &amp; Governing Documents</div>
+              <div class="panel-action">View All →</div>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Document</th><th>Last Updated</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Amended Bylaws</td><td>Jan 2026</td><td><span class="pill green">Current</span></td></tr>
+                <tr><td>CDA Registration</td><td>2025</td><td><span class="pill green">Active</span></td></tr>
+                <tr><td>2025 Annual Report</td><td>Mar 2026</td><td><span class="pill green">Filed</span></td></tr>
+                <tr><td>Code of Conduct Update</td><td>-</td><td><span class="pill gold">Drafting</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 20px;">
+          <div class="panel-header">
+            <div class="panel-title">Open Resolutions - Quarterly General Assembly (Jul 14)</div>
+            <div class="panel-action">Cast Vote →</div>
+          </div>
+          <div class="queue-list">
+            <div class="queue-item" style="align-items: flex-start; flex-direction: column; gap: 8px;">
+              <div style="display:flex; justify-content:space-between; width:100%;">
+                <div class="queue-name">Resolution 2026-04: Approve admission of Casiguran Seaweed Growers Co-op</div>
+                <span class="pill gold">Open for Vote</span>
+              </div>
+              <div class="vote-bar" style="width:100%;"><div class="vote-bar-fill" style="width:78%;"></div></div>
+              <div class="vote-meta">29 of 42 members voted - 78% in favor needed to close</div>
+            </div>
+            <div class="queue-item" style="align-items: flex-start; flex-direction: column; gap: 8px;">
+              <div style="display:flex; justify-content:space-between; width:100%;">
+                <div class="queue-name">Resolution 2026-05: Adjust annual membership dues for 2027</div>
+                <span class="pill gold">Open for Vote</span>
+              </div>
+              <div class="vote-bar" style="width:100%;"><div class="vote-bar-fill" style="width:41%;"></div></div>
+              <div class="vote-meta">17 of 42 members voted - closes Jul 14</div>
+            </div>
+            <div class="queue-item" style="align-items: flex-start; flex-direction: column; gap: 8px;">
+              <div style="display:flex; justify-content:space-between; width:100%;">
+                <div class="queue-name">Resolution 2026-03: Ratify Inter-Cooperative Trade Mixer partnership terms</div>
+                <span class="pill green">Passed</span>
+              </div>
+              <div class="vote-bar" style="width:100%;"><div class="vote-bar-fill" style="width:100%;"></div></div>
+              <div class="vote-meta">38 of 42 members voted - 91% in favor - closed May 30</div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
+
+  <script>
+    const pageTitles = {
+      overview: 'Network Overview',
+      directory: 'Member Directory',
+      events: 'Event Infrastructure',
+      publications: 'Publications',
+      network: 'Network Expansion',
+      governance: 'Governance'
+    };
+    function showTab(name, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      document.querySelectorAll('.sb-link').forEach(n => n.classList.remove('active'));
+      if (el) {
+        el.classList.add('active');
+      } else {
+        document.querySelectorAll('.sb-link').forEach(n => {
+          if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + name + "'")) n.classList.add('active');
+        });
+      }
+      document.getElementById('page-title').textContent = pageTitles[name] || 'Network Overview';
+    }
+  </script>
 </body>
 </html>
                           
