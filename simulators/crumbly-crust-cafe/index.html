@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══ LOCAL SEO ═══ -->
+  <title>Crumbly Crust Cafe & Cheesecakery PH | Marikina City, Philippines</title>
+  <meta name="description" content="Crumbly Crust Cafe in Marikina City — all-day breakfast, pasta, pizza, and home of Cheesecakery PH's signature cheesecakes. Dine-in, private events, and cheesecake pre-orders.">
+  <meta name="keywords" content="Crumbly Crust Cafe, Cheesecakery PH, cafe Marikina, cheesecake Marikina, mango cheesecake Manila, all day breakfast Marikina, private events Marikina cafe, San Roque Marikina cafe">
+  <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="PH-MM">
+  <meta name="geo.placename" content="Marikina City">
+  <meta name="geo.position" content="14.6324;121.1029">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Crumbly Crust Cafe & Cheesecakery PH | Marikina City">
+  <meta property="og:description" content="All-day breakfast, pasta & pizza, and the home of Cheesecakery PH's signature cheesecakes. Marikina City.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_PH">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80">
+
+  <!-- ═══ SCHEMA: LocalBusiness + CafeOrCoffeeShop ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["CafeOrCoffeeShop", "Bakery"],
+    "name": "Crumbly Crust Cafe",
+    "description": "All-day breakfast, pasta, pizza, and signature cheesecakes from Cheesecakery PH. Dine-in cafe with private event hosting in Marikina City.",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "5th Floor, Unit P2, NGR Building, 28 Dasdasan Avenue",
+      "addressLocality": "San Roque, Marikina City",
+      "addressRegion": "Metro Manila",
+      "postalCode": "1800",
+      "addressCountry": "PH"
+    },
+    "telephone": "+63-998-234-5200",
+    "openingHoursSpecification": [
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"15:00","closes":"23:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday","Sunday"],"opens":"10:00","closes":"23:00"}
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 14.6324,
+      "longitude": 121.1029
+    },
+    "priceRange": "₱₱",
+    "amenityFeature": [
+      {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Private Event Space", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Indoor & Outdoor Seating", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Cheesecake Pre-Orders", "value": true}
+    ],
+    "sameAs": [
+      "https://www.facebook.com/crumblycrustcafe",
+      "https://www.instagram.com/crumblycrustcafe",
+      "https://www.instagram.com/cheesecakeryph"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --void:   #FBF3EA;
+      --deep:   #F5E6D6;
+      --mid:    #EFDAC4;
+      --panel:  #FFFFFF;
+      --coral:  #d96a4f;
+      --coral2: #c4573e;
+      --cream:  #f0b942;
+      --gold:   #e0a73c;
+      --sand:   #f0dfc0;
+      --white:  #3A2A20;
+      --text:   rgba(58,42,32,0.72);
+      --text2:  rgba(58,42,32,0.45);
+      --border: rgba(58,42,32,0.1);
+      --border2:rgba(58,42,32,0.18);
+      --ff:     'Lato', 'Helvetica Neue', Arial, sans-serif;
+      --serif:  'Playfair Display', Georgia, serif;
+      --mono:   'JetBrains Mono', monospace;
+      --r:      8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff); background: var(--void); color: var(--white); line-height: 1.65; overflow-x: hidden; padding-bottom: 56px; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 0 40px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, border-bottom 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(251,243,234,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-logo {
+      width: 34px; height: 34px; border-radius: 6px;
+      background: var(--coral); color: #fff;
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 700; font-style: italic;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .nav-name { font-weight: 700; font-size: 0.82rem; letter-spacing: 0.07em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 28px; font-size: 0.8rem; color: var(--text); }
+    .nav-links a:hover { color: var(--white); transition: color 0.2s; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-cta {
+      background: var(--coral); color: #fff;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 9px 20px; border-radius: 4px; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--coral2); }
+    .nav-op {
+      font-size: 0.78rem; font-weight: 600; color: var(--text);
+      border: 1px solid var(--border2); padding: 8px 16px; border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-op:hover { color: var(--coral); border-color: rgba(217,106,79,0.45); }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: flex-end;
+      padding-bottom: 110px; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1920&q=85');
+      background-size: cover; background-position: center 40%;
+      transform: scale(1.03); transition: transform 8s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        170deg,
+        rgba(40,24,14,0.55) 0%,
+        rgba(40,24,14,0.20) 35%,
+        rgba(40,24,14,0.65) 65%,
+        rgba(40,24,14,0.96) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%;
+    }
+    .hero-tag {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.22em;
+      color: var(--coral); text-transform: uppercase;
+      margin-bottom: 22px; display: flex; align-items: center; gap: 12px;
+    }
+    .hero-tag::before { content: ''; display: block; width: 36px; height: 1px; background: var(--coral); }
+    h1.hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+      font-weight: 900; line-height: 1.05;
+      margin-bottom: 26px; max-width: 720px;
+      color: #FFFFFF;
+    }
+    h1.hero-headline em { font-style: italic; color: var(--coral); }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.82);
+      max-width: 540px; margin-bottom: 44px; line-height: 1.72;
+    }
+    .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--coral); color: #fff;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 30px; border-radius: 4px; transition: background 0.2s;
+      border: none; cursor: pointer; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--coral2); }
+    .btn-ghost {
+      background: transparent; color: #FFFFFF;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em;
+      padding: 13px 26px; border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.38);
+      transition: border-color 0.2s; cursor: pointer; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.75); }
+
+    /* ─────────── TRUST BAR ─────────── */
+    .trust {
+      background: var(--mid);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 28px 40px;
+    }
+    .trust-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .trust-item { text-align: center; }
+    .trust-num {
+      font-family: var(--serif); font-size: 1.75rem; font-weight: 800;
+      color: var(--coral); line-height: 1;
+    }
+    .trust-label {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em;
+      color: var(--text2); text-transform: uppercase; margin-top: 5px;
+    }
+    .trust-divider { width: 1px; height: 44px; background: var(--border); }
+
+    /* ─────────── SECTION CHROME ─────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.2em;
+      color: var(--coral); text-transform: uppercase; margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2.1rem, 4vw, 3.1rem);
+      font-weight: 800; line-height: 1.12; margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--text); font-size: 1rem;
+      max-width: 560px; line-height: 1.78; margin-bottom: 60px;
+    }
+    .bg-deep { background: var(--deep); }
+
+    /* ─────────── MENU / CHEESECAKES ─────────── */
+    .packages-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .pkg-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .pkg-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(58,42,32,0.18);
+      border-color: var(--border2);
+    }
+    .pkg-card.featured { border-color: var(--coral); }
+    .pkg-badge {
+      background: var(--coral); color: #fff;
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; text-align: center; padding: 7px;
+    }
+    .pkg-img { width: 100%; height: 165px; object-fit: cover; }
+    .pkg-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .pkg-name { font-weight: 800; font-size: 1.05rem; margin-bottom: 4px; }
+    .pkg-days {
+      font-family: var(--mono); font-size: 0.63rem; color: var(--coral);
+      letter-spacing: 0.13em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .pkg-includes {
+      list-style: none; font-size: 0.82rem; color: var(--text);
+      display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; flex: 1;
+    }
+    .pkg-includes li { display: flex; gap: 8px; align-items: flex-start; }
+    .pkg-includes li::before { content: '✓'; color: var(--coral); flex-shrink: 0; font-weight: 700; }
+    .pkg-price {
+      font-family: var(--serif); font-size: 1.65rem; font-weight: 800; color: var(--white);
+      border-top: 1px solid var(--border); padding-top: 16px;
+      display: flex; align-items: baseline; gap: 5px;
+    }
+    .pkg-price span { font-family: var(--ff); font-size: 0.75rem; color: var(--text2); font-weight: 400; }
+    .pkg-cta {
+      display: block; margin-top: 14px; text-align: center;
+      border: 1px solid var(--border2); color: var(--white);
+      padding: 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .pkg-card.featured .pkg-cta { background: var(--coral); border-color: var(--coral); color: #fff; }
+    .pkg-cta:hover { background: var(--coral); border-color: var(--coral); color: #fff; }
+
+    /* ─────────── EXPERIENCE / ABOUT ─────────── */
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .exp-visual {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 250px 165px; gap: 10px;
+    }
+    .exp-img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+    .exp-img:first-child { grid-row: span 2; }
+    .exp-features { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 36px; }
+    .exp-feat { display: flex; gap: 14px; align-items: flex-start; }
+    .exp-icon {
+      width: 38px; height: 38px; border-radius: 7px; flex-shrink: 0; margin-top: 2px;
+      background: rgba(217,106,79,0.12); border: 1px solid rgba(217,106,79,0.22);
+      display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+    }
+    .exp-feat h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+    .exp-feat p { font-size: 0.79rem; color: var(--text2); line-height: 1.55; }
+
+    /* ─────────── GALLERY ─────────── */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      grid-template-rows: minmax(200px,290px) minmax(150px,210px); gap: 10px;
+    }
+    .gal-item { overflow: hidden; border-radius: 6px; position: relative; cursor: pointer; }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gal-item:hover img { transform: scale(1.06); }
+    .gal-item:first-child { grid-row: span 2; }
+    .gal-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(40,24,14,0.85) 0%, transparent 100%);
+      padding: 24px 16px 14px;
+      font-family: var(--mono); font-size: 0.61rem; letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.8); text-transform: uppercase;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gal-item:hover .gal-label { opacity: 1; }
+
+    /* ─────────── PRIVATE EVENTS ─────────── */
+    .rooms-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .room-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .room-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(58,42,32,0.16); }
+    .room-img { width: 100%; height: 185px; object-fit: cover; }
+    .room-body { padding: 22px; }
+    .room-type {
+      font-family: var(--mono); font-size: 0.61rem; letter-spacing: 0.15em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .room-name { font-weight: 700; font-size: 0.97rem; margin-bottom: 8px; }
+    .room-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.55; margin-bottom: 16px; }
+    .room-price { font-family: var(--serif); font-size: 1.35rem; font-weight: 700; color: var(--coral); }
+    .room-price span { font-family: var(--ff); font-size: 0.74rem; color: var(--text2); font-weight: 400; }
+    .room-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .room-tag {
+      font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text2);
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 3px;
+    }
+
+    /* ─────────── CHEESECAKERY SPOTLIGHT ─────────── */
+    .instructors-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .instr-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+    }
+    .instr-img { width: 100%; height: 260px; object-fit: cover; object-position: top; }
+    .instr-body { padding: 24px; }
+    .instr-name { font-weight: 800; font-size: 1.05rem; margin-bottom: 4px; }
+    .instr-role {
+      font-family: var(--mono); font-size: 0.63rem; color: var(--coral);
+      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .instr-bio { font-size: 0.82rem; color: var(--text); line-height: 1.65; }
+    .instr-cert {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(224,167,60,0.12); border: 1px solid rgba(224,167,60,0.25);
+      padding: 4px 10px; border-radius: 3px;
+    }
+
+    /* ─────────── TESTIMONIALS ─────────── */
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .testi-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 30px;
+    }
+    .testi-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 16px; }
+    .testi-text {
+      font-size: 0.9rem; color: var(--text); line-height: 1.75;
+      margin-bottom: 22px; font-style: italic;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border2); }
+    .testi-name { font-weight: 700; font-size: 0.87rem; }
+    .testi-loc { font-size: 0.74rem; color: var(--text2); margin-top: 2px; }
+
+    /* ─────────── LOCATION ─────────── */
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 44px; }
+    .location-map { width: 100%; height: 380px; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
+    .location-map img { width: 100%; height: 100%; object-fit: cover; }
+    .location-details { display: flex; flex-direction: column; gap: 30px; }
+    .loc-item h4 {
+      font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.16em;
+      color: var(--coral); text-transform: uppercase; margin-bottom: 8px;
+    }
+    .loc-item p { font-size: 0.88rem; color: var(--text); line-height: 1.72; }
+
+    /* ─────────── RESERVATION / PRE-ORDER ─────────── */
+    .book-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .book-perks { display: flex; flex-direction: column; gap: 18px; margin-top: 36px; }
+    .book-perk { display: flex; gap: 14px; align-items: flex-start; }
+    .perk-check {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+      background: rgba(217,106,79,0.15); border: 1px solid rgba(217,106,79,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--coral);
+    }
+    .book-perk h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+    .book-perk p { font-size: 0.8rem; color: var(--text2); line-height: 1.55; }
+    .book-form {
+      background: var(--panel); border: 1px solid var(--border2);
+      border-radius: var(--r); padding: 38px;
+    }
+    .form-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 6px; }
+    .form-sub { font-size: 0.82rem; color: var(--text2); margin-bottom: 28px; }
+    .form-group { margin-bottom: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    label { display: block; font-size: 0.77rem; color: var(--text2); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.02em; }
+    input, select, textarea {
+      width: 100%; background: var(--mid); border: 1px solid var(--border2);
+      border-radius: 4px; padding: 10px 14px;
+      color: var(--white); font-family: var(--ff); font-size: 0.85rem;
+      transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
+    }
+    input::placeholder { color: var(--text2); }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--coral); }
+    select option { background: var(--deep); color: var(--white); }
+    textarea { resize: vertical; min-height: 84px; }
+    .form-submit {
+      width: 100%; margin-top: 8px;
+      background: var(--coral); color: #fff;
+      border: none; border-radius: 4px; padding: 14px;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.09em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--coral2); }
+    .form-success { display: none; text-align: center; padding: 48px 20px; }
+    .success-icon { font-size: 3.2rem; margin-bottom: 18px; }
+    .form-success h3 { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+    .form-success p { color: var(--text); font-size: 0.92rem; line-height: 1.65; }
+
+    /* ─────────── FOOTER ─────────── */
+    footer { background: var(--deep); border-top: 1px solid var(--border); padding: 64px 40px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 52px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .footer-logo-mark {
+      width: 38px; height: 38px; border-radius: 7px;
+      background: var(--coral); color: #fff;
+      font-family: var(--serif); font-size: 1.25rem; font-weight: 700; font-style: italic;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-name { font-weight: 700; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); }
+    .footer-tagline { font-size: 0.85rem; color: var(--text2); line-height: 1.72; max-width: 265px; }
+    .footer-addr {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text2); margin-top: 16px; line-height: 1.8;
+    }
+    .footer-col h5 {
+      font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.16em;
+      color: var(--text2); text-transform: uppercase; margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-col ul li a { font-size: 0.85rem; color: var(--text); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 26px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 0.77rem; color: var(--text2); }
+    .footer-adf { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.1em; color: var(--text2); }
+    .footer-adf a { color: var(--coral); transition: opacity 0.2s; }
+    .footer-adf a:hover { opacity: 0.75; }
+
+    /* ─────────── SIMULATOR BANNER ─────────── */
+    .sim-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+      background: rgba(40,24,14,0.96); border-top: 1px solid rgba(217,106,79,0.28);
+      padding: 10px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    .sim-text {
+      font-family: var(--mono); font-size: 0.61rem; letter-spacing: 0.18em;
+      color: rgba(217,106,79,0.85); text-transform: uppercase;
+    }
+    .sim-sub {
+      font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.45); margin-top: 2px;
+    }
+    .sim-close {
+      background: none; border: none; color: rgba(255,255,255,0.45); cursor: pointer;
+      font-size: 1rem; padding: 4px; line-height: 1; transition: color 0.2s;
+    }
+    .sim-close:hover { color: #fff; }
+
+    /* ─────────── FADE-IN ─────────── */
+    .fi { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fi.vis { opacity: 1; transform: translateY(0); }
+    .fi-d1 { transition-delay: 0.1s; }
+    .fi-d2 { transition-delay: 0.2s; }
+    .fi-d3 { transition-delay: 0.3s; }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width: 1100px) {
+      .packages-grid { grid-template-columns: repeat(2,1fr); }
+      .rooms-grid { grid-template-columns: repeat(2,1fr); }
+      .exp-grid { grid-template-columns: 1fr; }
+      .book-grid { grid-template-columns: 1fr; }
+      .location-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 72px 20px; }
+      .hero-content { padding: 0 20px; }
+      .trust { padding: 24px 20px; }
+      .packages-grid, .rooms-grid { grid-template-columns: 1fr; }
+      .testi-grid, .instructors-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gal-item:first-child { grid-row: auto; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    /* ── Nav link contrast over dark hero ─────────────── */
+    .nav-links a { color: rgba(255,255,255,0.85); }
+    .nav-links a:hover { color: var(--coral); }
+    nav.scrolled .nav-links a { color: var(--white); }
+    nav.scrolled .nav-links a:hover { color: var(--coral); }
+
+    /* ── Mobile-First: Hamburger Nav ─────────────── */
+    .nav-ham {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .nav-ham span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+    nav.scrolled .nav-ham span { background: var(--white); }
+    .nav-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; background: var(--void);
+      padding: 80px 24px 48px;
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer-close { position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; padding: 10px; display: flex; flex-direction: column; gap: 0; align-items: center; }
+    .nav-drawer-close span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+    .nav-drawer-close span:nth-child(1) { transform: translateY(1px) rotate(45deg); }
+    .nav-drawer-close span:nth-child(2) { transform: translateY(-1px) rotate(-45deg); }
+    .nav-drawer-links { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+    .nav-drawer-links a { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; padding: 12px 20px; width: 100%; text-align: center; transition: color 0.2s; }
+    .nav-drawer-links a:hover { color: var(--coral); }
+    .nav-drawer-cta { margin-top: 24px; padding: 14px 40px; background: var(--coral); color: #fff; font-family: var(--ff); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 6px; }
+    @media (max-width: 768px) {
+      .nav-ham { display: flex; }
+      .nav-drawer { display: flex; }
+      .nav-links, .nav-cta { display: none !important; }
+      .hero-content { padding: 0 16px; }
+      .trust { flex-wrap: wrap; gap: 16px; }
+      .trust-divider { display: none; }
+      section { padding: 64px 16px; }
+      .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+    }
+
+    /* ── Operator Access Link ─────────────── */
+    .nav-op {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none;
+      padding: 5px 9px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav.scrolled .nav-op { color: rgba(58,42,32,0.4); border-color: rgba(58,42,32,0.2); }
+    nav.scrolled .nav-op:hover { color: var(--white); border-color: var(--border2); }
+    .nav-op:hover { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.5); }
+    .nav-drawer-sep { width: 100%; height: 1px; background: rgba(58,42,32,0.12); margin: 16px 0 8px; }
+    .nav-drawer-op {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(58,42,32,0.35); text-decoration: none; padding: 10px 20px; transition: color 0.2s;
+    }
+    .nav-drawer-op:hover { color: var(--white); }
+
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <div class="nav-logo">C</div>
+    <div class="nav-name">Crumbly Crust Cafe</div>
+  </div>
+  <div class="nav-links" aria-label="Site navigation">
+    <a href="#menu">Menu</a>
+    <a href="#cheesecakery">Cheesecakery PH</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#events">Private Events</a>
+    <a href="#location">Location</a>
+  </div>
+  <div class="nav-right">
+    <a href="operator.html" class="nav-op" target="_blank">⚙ Operator</a>
+    <a href="#book" class="nav-cta">Reserve / Pre-Order</a>
+    <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">San Roque, Marikina City · Home of Cheesecakery PH</div>
+    <h1 class="hero-headline">
+      All-day comfort.<br><em>Cheesecake</em> that<br>started it all.
+    </h1>
+    <p class="hero-sub">Crumbly Crust Cafe serves all-day breakfast, pasta, and pizza in a cozy Marikina hideaway — and it's the home base of Cheesecakery PH, the cheesecake brand that built our following before we ever opened our doors.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-primary">Reserve a Table</a>
+      <a href="#menu" class="btn-ghost">See the Menu ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRUST BAR ═══════════ -->
+<div class="trust" aria-label="Key stats">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="trust-num">4.3 ★</div><div class="trust-label">Google Rating</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">13K+</div><div class="trust-label">Cheesecakery PH Followers</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">5th Flr</div><div class="trust-label">NGR Building, San Roque</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">7 Days</div><div class="trust-label">Open Weekly</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">Mango</div><div class="trust-label">Signature Cheesecake</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ MENU ═══════════ -->
+<section id="menu" class="bg-deep" aria-labelledby="menu-heading">
+  <div class="section-inner">
+    <p class="section-tag">On The Menu · Marikina City</p>
+    <h2 id="menu-heading" class="section-title">All-day, every craving.</h2>
+    <p class="section-sub">From breakfast plates at 3pm to pizza at midnight on weekends: comfort food built around the cheesecake that made us famous.</p>
+    <div class="packages-grid">
+
+      <div class="pkg-card fi">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=600&q=80" alt="All-day breakfast platter Crumbly Crust Cafe Marikina" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">All-Day Breakfast</div>
+          <div class="pkg-days">Served Open to Close</div>
+          <ul class="pkg-includes">
+            <li>Silog platters with rice & egg</li>
+            <li>Pancakes & waffles</li>
+            <li>Coffee, tea & fresh juice</li>
+            <li>Vegetarian options</li>
+          </ul>
+          <div class="pkg-price">₱200 <span>starting / person</span></div>
+          <a href="#book" class="pkg-cta">Reserve →</a>
+        </div>
+      </div>
+
+      <div class="pkg-card fi fi-d1">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80" alt="Pasta dishes Crumbly Crust Cafe Marikina" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Pasta</div>
+          <div class="pkg-days">Comfort Classics</div>
+          <ul class="pkg-includes">
+            <li>Creamy carbonara</li>
+            <li>Baked mac & cheese</li>
+            <li>Tomato basil & pesto options</li>
+            <li>Garlic bread side</li>
+          </ul>
+          <div class="pkg-price">₱250 <span>starting / person</span></div>
+          <a href="#book" class="pkg-cta">Reserve →</a>
+        </div>
+      </div>
+
+      <div class="pkg-card fi fi-d2">
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Pizza Crumbly Crust Cafe Marikina" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Pizza</div>
+          <div class="pkg-days">Thin Crust · Shareable</div>
+          <ul class="pkg-includes">
+            <li>Classic Margherita</li>
+            <li>Pepperoni & loaded meat</li>
+            <li>Veggie supreme</li>
+            <li>Great for groups</li>
+          </ul>
+          <div class="pkg-price">₱350 <span>starting</span></div>
+          <a href="#book" class="pkg-cta">Reserve →</a>
+        </div>
+      </div>
+
+      <div class="pkg-card featured fi fi-d3">
+        <div class="pkg-badge">Signature</div>
+        <img class="pkg-img" src="https://images.unsplash.com/photo-1567171466295-4afa63d45416?auto=format&fit=crop&w=600&q=80" alt="Mango cheesecake by Cheesecakery PH at Crumbly Crust Cafe" loading="lazy">
+        <div class="pkg-body">
+          <div class="pkg-name">Mango Cheesecake</div>
+          <div class="pkg-days">By Cheesecakery PH</div>
+          <ul class="pkg-includes">
+            <li>Our most-requested slice</li>
+            <li>Whole cakes by pre-order</li>
+            <li>Seasonal flavor drops</li>
+            <li>Take-home boxes available</li>
+          </ul>
+          <div class="pkg-price">₱180 <span>/ slice</span></div>
+          <a href="#book" class="pkg-cta">Pre-Order →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE / ABOUT ═══════════ -->
+<section id="experience" aria-labelledby="exp-heading">
+  <div class="section-inner">
+    <div class="exp-grid">
+      <div class="exp-visual fi">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=800&q=80" alt="Cozy cafe interior seating Crumbly Crust Cafe Marikina" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" alt="Coffee and pastry at Crumbly Crust Cafe" loading="lazy">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Cheesecake slices Cheesecakery PH" loading="lazy">
+      </div>
+      <div class="fi fi-d1">
+        <p class="section-tag">Why Crumbly Crust · 5th Floor, San Roque</p>
+        <h2 id="exp-heading" class="section-title">Built on a cheesecake.</h2>
+        <p style="color:var(--text);line-height:1.75;font-size:1rem;margin-bottom:32px;">Before Crumbly Crust had a roof, Cheesecakery PH had a following. We opened the cafe so our cheesecake regulars would have somewhere to sit, eat a real meal, and stay a while — rooftop air, good coffee, and a slice of the cake that started it all.</p>
+        <div class="exp-features">
+          <div class="exp-feat">
+            <div class="exp-icon">🏠</div>
+            <div>
+              <h4>5th Floor Hideaway</h4>
+              <p>NGR Building, 28 Dasdasan Avenue, San Roque — indoor & outdoor seating, elevator access.</p>
+            </div>
+          </div>
+          <div class="exp-feat">
+            <div class="exp-icon">🍰</div>
+            <div>
+              <h4>Cheesecakery PH Inside</h4>
+              <p>Every Cheesecakery flavor, available fresh by the slice or whole cake by pre-order.</p>
+            </div>
+          </div>
+          <div class="exp-feat">
+            <div class="exp-icon">📶</div>
+            <div>
+              <h4>WiFi & Power Outlets</h4>
+              <p>A real work-from-cafe spot — fast WiFi, outlets at every table, all-day menu.</p>
+            </div>
+          </div>
+          <div class="exp-feat">
+            <div class="exp-icon">🎉</div>
+            <div>
+              <h4>Private Functions</h4>
+              <p>Book the space for birthdays, reunions, and small celebrations — cheesecake included.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<section id="gallery" class="bg-deep" aria-labelledby="gal-heading">
+  <div class="section-inner">
+    <p class="section-tag">Life at Crumbly Crust · Marikina City</p>
+    <h2 id="gal-heading" class="section-title">See the cafe.</h2>
+    <p class="section-sub" style="margin-bottom:40px;">Breakfast plates, cheesecake drops, and rooftop afternoons. This is what a visit to Crumbly Crust looks like.</p>
+    <div class="gallery-grid">
+      <div class="gal-item fi">
+        <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=800&q=80" alt="Rooftop seating area Crumbly Crust Cafe Marikina" loading="lazy">
+        <div class="gal-label">Rooftop Seating</div>
+      </div>
+      <div class="gal-item fi fi-d1">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80" alt="Breakfast plate Crumbly Crust Cafe" loading="lazy">
+        <div class="gal-label">All-Day Breakfast</div>
+      </div>
+      <div class="gal-item fi fi-d2">
+        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=700&q=80" alt="Cheesecake slice Cheesecakery PH Marikina" loading="lazy">
+        <div class="gal-label">Cheesecakery PH Slice</div>
+      </div>
+      <div class="gal-item fi fi-d1">
+        <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=700&q=80" alt="Pizza night Crumbly Crust Cafe" loading="lazy">
+        <div class="gal-label">Pizza Night</div>
+      </div>
+      <div class="gal-item fi fi-d2">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=700&q=80" alt="Coffee and pastry corner Crumbly Crust Cafe" loading="lazy">
+        <div class="gal-label">Coffee Corner</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHEESECAKERY SPOTLIGHT ═══════════ -->
+<section id="cheesecakery" aria-labelledby="cheese-heading">
+  <div class="section-inner">
+    <p class="section-tag">The OG Brand · Cheesecakery PH</p>
+    <h2 id="cheese-heading" class="section-title">The cake that came first.</h2>
+    <p class="section-sub">Cheesecakery PH built a loyal following long before Crumbly Crust opened its doors. Today, every cake is baked for the cafe — and for pre-order pickup and delivery.</p>
+    <div class="instructors-grid">
+      <div class="instr-card fi">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80" alt="Mango cheesecake Cheesecakery PH signature flavor" loading="lazy">
+        <div class="instr-body">
+          <div class="instr-name">Mango Cheesecake</div>
+          <div class="instr-role">Signature · Most Requested</div>
+          <div class="instr-bio">The flavor that built the Cheesecakery PH following. Fresh mango folded into a dense, creamy base on a buttery crust. Available by the slice in-cafe or whole by pre-order.</div>
+          <div class="instr-cert">⚡ Bestseller</div>
+        </div>
+      </div>
+      <div class="instr-card fi fi-d1">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=600&q=80" alt="Classic baked cheesecake Cheesecakery PH" loading="lazy">
+        <div class="instr-body">
+          <div class="instr-name">Classic Baked</div>
+          <div class="instr-role">Timeless · Crowd Favorite</div>
+          <div class="instr-bio">Rich, dense, New York-style baked cheesecake on a graham crust. The flavor that proves Cheesecakery PH didn't need gimmicks — just technique.</div>
+          <div class="instr-cert">⚡ Staple</div>
+        </div>
+      </div>
+      <div class="instr-card fi fi-d2">
+        <img class="instr-img" src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=600&q=80" alt="Seasonal cheesecake flavor drop Cheesecakery PH" loading="lazy">
+        <div class="instr-body">
+          <div class="instr-name">Seasonal Drops</div>
+          <div class="instr-role">Limited Runs · Pre-Order Only</div>
+          <div class="instr-bio">From ube to matcha to chocolate hazelnut — Cheesecakery PH rotates limited flavors throughout the year. Follow @cheesecakeryph for drop announcements.</div>
+          <div class="instr-cert">⚡ Pre-Order</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRIVATE EVENTS ═══════════ -->
+<section id="events" class="bg-deep" aria-labelledby="stay-heading">
+  <div class="section-inner">
+    <p class="section-tag">Private Events · Marikina City</p>
+    <h2 id="stay-heading" class="section-title">Book the whole floor.</h2>
+    <p class="section-sub">Birthdays, reunions, team treats, and small celebrations — Crumbly Crust's indoor and rooftop areas are available for private bookings, cheesecake included.</p>
+    <div class="rooms-grid">
+      <div class="room-card fi">
+        <img class="room-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80" alt="Small celebration setup Crumbly Crust Cafe" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Intimate</div>
+          <div class="room-name">Birthday Booth</div>
+          <div class="room-desc">A reserved corner table setup for small birthday celebrations — up to 8 guests, with a mini cheesecake centerpiece.</div>
+          <div class="room-price">₱3,500 <span>/ booking</span></div>
+          <div class="room-tags">
+            <span class="room-tag">Up to 8</span>
+            <span class="room-tag">Mini Cake</span>
+          </div>
+        </div>
+      </div>
+      <div class="room-card fi fi-d1">
+        <img class="room-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=600&q=80" alt="Rooftop private event space Crumbly Crust Cafe" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Rooftop</div>
+          <div class="room-name">Rooftop Reservation</div>
+          <div class="room-desc">Reserve the rooftop seating area for sundowner gatherings, with a curated menu and dedicated service.</div>
+          <div class="room-price">₱8,000 <span>/ 3 hrs</span></div>
+          <div class="room-tags">
+            <span class="room-tag">Up to 20</span>
+            <span class="room-tag">Outdoor</span>
+          </div>
+        </div>
+      </div>
+      <div class="room-card fi fi-d2">
+        <img class="room-img" src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=600&q=80" alt="Group reunion event Crumbly Crust Cafe Marikina" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Group</div>
+          <div class="room-name">Reunion Package</div>
+          <div class="room-desc">Set-menu group dining for reunions and team treats, with shareable pasta, pizza, and a whole cheesecake.</div>
+          <div class="room-price">₱500 <span>/ head</span></div>
+          <div class="room-tags">
+            <span class="room-tag">Min 10</span>
+            <span class="room-tag">Set Menu</span>
+          </div>
+        </div>
+      </div>
+      <div class="room-card fi fi-d3">
+        <img class="room-img" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=600&q=80" alt="Full floor buyout event Crumbly Crust Cafe Marikina" loading="lazy">
+        <div class="room-body">
+          <div class="room-type">Exclusive</div>
+          <div class="room-name">Full-Floor Buyout</div>
+          <div class="room-desc">Exclusive use of the entire 5th floor — indoor and rooftop — for larger private functions and brand events.</div>
+          <div class="room-price">Custom <span>quote</span></div>
+          <div class="room-tags">
+            <span class="room-tag">Exclusive</span>
+            <span class="room-tag">Custom Menu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="reviews" aria-labelledby="reviews-heading">
+  <div class="section-inner">
+    <p class="section-tag">Guest Reviews · Marikina City</p>
+    <h2 id="reviews-heading" class="section-title">What guests say.</h2>
+    <p class="section-sub" style="margin-bottom:44px;">A 4.3-star favorite for regulars who come for the cheesecake and stay for the rooftop air.</p>
+    <div class="testi-grid">
+      <div class="testi-card fi">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The mango cheesecake is everything people say it is. We came for cake and ended up staying two hours — great coffee, comfortable seats, and the staff let us linger without rushing us."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80" alt="Anna P.: Crumbly Crust Cafe review" loading="lazy">
+          <div>
+            <div class="testi-name">Anna P.</div>
+            <div class="testi-loc">Marikina City</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fi fi-d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Booked the rooftop for my mom's birthday. They set up a mini cheesecake centerpiece and the whole spread was great value. Will definitely book again for our next family event."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=80&q=80" alt="Mark D.: Crumbly Crust private event review" loading="lazy">
+          <div>
+            <div class="testi-name">Mark D.</div>
+            <div class="testi-loc">Cainta, Rizal</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fi fi-d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I've been following Cheesecakery PH on IG for over a year before I found out they had a cafe. Pre-ordered a whole cake for pickup — fresh, generous slices, and the cafe itself is such a cozy find."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" alt="Jen T.: Cheesecakery PH review" loading="lazy">
+          <div>
+            <div class="testi-name">Jen T.</div>
+            <div class="testi-loc">Pasig City</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LOCATION ═══════════ -->
+<section id="location" class="bg-deep" aria-labelledby="loc-heading">
+  <div class="section-inner">
+    <p class="section-tag">Getting Here · San Roque, Marikina City</p>
+    <h2 id="loc-heading" class="section-title">Find us.</h2>
+    <div class="location-grid">
+      <div class="fi">
+        <div class="location-map">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Marikina City Philippines map location" loading="lazy">
+        </div>
+        <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);margin-top:10px;letter-spacing:0.1em;line-height:1.6;">5TH FLOOR, UNIT P2, NGR BUILDING<br>28 DASDASAN AVENUE · SAN ROQUE<br>MARIKINA CITY · METRO MANILA · PHILIPPINES</p>
+      </div>
+      <div class="location-details fi fi-d1">
+        <div class="loc-item">
+          <h4>Getting to Crumbly Crust</h4>
+          <p>NGR Building, 28 Dasdasan Avenue, San Roque, Marikina City. Take the elevator to the 5th floor — Unit P2. A short ride from Marikina Sports Center and SM Marikina.</p>
+        </div>
+        <div class="loc-item">
+          <h4>Hours</h4>
+          <p>Monday – Thursday: 3:00 PM – 11:00 PM<br>Friday – Sunday & Holidays: 10:00 AM – 11:00 PM<br>Last order at 10:00 PM.</p>
+        </div>
+        <div class="loc-item">
+          <h4>Parking</h4>
+          <p>Limited on-site parking available. Street parking and nearby paid lots recommended on busy weekends.</p>
+        </div>
+        <div class="loc-item">
+          <h4>Reach Us</h4>
+          <p>📞 0998 234 5200<br>💬 Facebook: @crumblycrustcafe<br>📸 Instagram: @crumblycrustcafe<br>🍰 Cheesecakery PH: @cheesecakeryph<br>🎵 TikTok: @crumblycrustcafe</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RESERVATION / PRE-ORDER FORM ═══════════ -->
+<section id="book" style="background:var(--mid);" aria-labelledby="book-heading">
+  <div class="section-inner">
+    <div class="book-grid">
+      <div class="fi">
+        <p class="section-tag">Reserve or Pre-Order · Marikina City</p>
+        <h2 id="book-heading" style="font-family:var(--serif);font-size:clamp(2.2rem,4vw,3rem);line-height:1.1;margin-bottom:20px;">Save your table or your cake.</h2>
+        <p style="color:var(--text);line-height:1.75;font-size:0.98rem;">Reserve a table, book a private event, or pre-order a whole Cheesecakery PH cake for pickup. We confirm within a few hours.</p>
+        <div class="book-perks">
+          <div class="book-perk">
+            <div class="perk-check">✓</div>
+            <div>
+              <h4>No payment to reserve</h4>
+              <p>Hold your table or cake order with just a message — settle in-cafe.</p>
+            </div>
+          </div>
+          <div class="book-perk">
+            <div class="perk-check">✓</div>
+            <div>
+              <h4>Pre-order lead time</h4>
+              <p>Whole cheesecakes need at least 24 hours' notice for fresh baking.</p>
+            </div>
+          </div>
+          <div class="book-perk">
+            <div class="perk-check">✓</div>
+            <div>
+              <h4>Private event planning</h4>
+              <p>Tell us your headcount and date — we'll put together a custom spread.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="book-form fi fi-d1">
+        <div id="formContent">
+          <div class="form-title">Reservation / Pre-Order Inquiry</div>
+          <div class="form-sub">We respond within a few hours.</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input id="fname" type="text" placeholder="Juana">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input id="lname" type="text" placeholder="dela Cruz">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone / Messenger</label>
+            <input id="phone" type="tel" placeholder="+63 998 234 5200">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="arrival">Date Needed</label>
+              <input id="arrival" type="date">
+            </div>
+            <div class="form-group">
+              <label for="guests">No. of Guests</label>
+              <select id="guests">
+                <option>1–2 people</option>
+                <option>3–4 people</option>
+                <option>5–8 people</option>
+                <option>10+ (private event)</option>
+                <option>Not dining — cake pickup only</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="package">What do you need?</label>
+            <select id="package">
+              <option value="">Select an option…</option>
+              <option>Table reservation</option>
+              <option>Birthday Booth: ₱3,500</option>
+              <option>Rooftop Reservation: ₱8,000 / 3hrs</option>
+              <option>Reunion Package: ₱500 / head</option>
+              <option>Full-Floor Buyout: custom quote</option>
+              <option>Whole cheesecake pre-order (Cheesecakery PH)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="msg">Message (optional)</label>
+            <textarea id="msg" placeholder="Cake flavor preference, dietary notes, occasion details…"></textarea>
+          </div>
+          <button class="form-submit" onclick="handleSubmit()">Send Inquiry</button>
+        </div>
+        <div id="formSuccess" class="form-success">
+          <div class="success-icon">🍰</div>
+          <h3>Inquiry sent!</h3>
+          <p>We'll confirm your reservation, event details, or cheesecake pre-order shortly. Thank you for choosing Crumbly Crust Cafe!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-mark">C</div>
+          <div class="footer-logo-name">Crumbly Crust Cafe</div>
+        </div>
+        <div class="footer-tagline">All-day breakfast, pasta & pizza — and the home of Cheesecakery PH's signature cheesecakes. San Roque, Marikina City.</div>
+        <div class="footer-addr">
+          5TH FLOOR, UNIT P2, NGR BUILDING<br>
+          28 DASDASAN AVENUE · SAN ROQUE<br>
+          MARIKINA CITY · METRO MANILA · PHILIPPINES
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Menu</h5>
+        <ul>
+          <li><a href="#menu">All-Day Breakfast</a></li>
+          <li><a href="#menu">Pasta</a></li>
+          <li><a href="#menu">Pizza</a></li>
+          <li><a href="#cheesecakery">Cheesecakery PH</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Visit</h5>
+        <ul>
+          <li><a href="#events">Private Events</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#location">Location & Hours</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Info</h5>
+        <ul>
+          <li><a href="#reviews">Guest Reviews</a></li>
+          <li><a href="#book">Reserve / Pre-Order</a></li>
+          <li><a href="operator.html">Operator Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Crumbly Crust Cafe · All rights reserved · Marikina City, Philippines</div>
+      <div class="footer-adf">Infrastructure by <a href="https://hirrok.github.io/adf-hq/foundry-hq.html" target="_blank" rel="noopener">Aurora Digital Foundry</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SIMULATOR BANNER ═══════════ -->
+<div class="sim-banner" id="simBanner">
+  <div>
+    <div class="sim-text">© Aurora Digital Foundry: Crumbly Crust Cafe · Live Operator Suite Demo</div>
+    <div class="sim-sub">All content is fictional / representative · No live backend · Forms run in demo mode · Imagery via Unsplash</div>
+  </div>
+  <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'" aria-label="Dismiss">✕</button>
+</div>
+
+<script>
+// Nav scroll behaviour
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Hero parallax pan
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('load', () => heroBg.classList.add('loaded'));
+
+  // Form: simulator mode
+  function handleSubmit() {
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  // Intersection Observer: fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fi').forEach(el => observer.observe(el));
+</script>
+
+
+<div class="nav-drawer" id="navDrawer" aria-modal="true">
+  <button class="nav-drawer-close" id="navDrawerClose"><span></span><span></span></button>
+  <nav class="nav-drawer-links">
+    <a href="#menu">Menu</a>
+    <a href="#cheesecakery">Cheesecakery PH</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#events">Private Events</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#location">Location</a>
+  </nav>
+  <a href="#book" class="nav-drawer-cta">Reserve / Pre-Order</a>
+  <div class="nav-drawer-sep"></div>
+  <a href="operator.html" class="nav-drawer-op" target="_blank">⚙ Operator Login</a>
+</div>
+
+<script>
+(function(){
+  var ham=document.getElementById('navHam');
+  var drawer=document.getElementById('navDrawer');
+  if(!ham||!drawer)return;
+  function openD(){ham.classList.add('open');drawer.classList.add('open');document.body.style.overflow='hidden';}
+  function closeD(){ham.classList.remove('open');drawer.classList.remove('open');document.body.style.overflow='';}
+  window.__closeNavDrawer=closeD;
+  ham.addEventListener('click',function(){drawer.classList.contains('open')?closeD():openD();});
+  var closeBtn=document.getElementById('navDrawerClose');
+  if(closeBtn)closeBtn.addEventListener('click',closeD);
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeD);});
+})();
+</script>
+
+</body>
+</html>
