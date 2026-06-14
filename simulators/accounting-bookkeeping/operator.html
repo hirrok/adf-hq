@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Operator Console — Sterling Ledger Co.</title>
+<title>Operator Console - Kuwenta & Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -144,13 +144,13 @@
 <!-- GATE -->
 <div id="gate">
   <div class="gate-box">
-    <div class="gate-mark">SL</div>
+    <div class="gate-mark">KC</div>
     <div class="gate-title">Operator Console</div>
-    <div class="gate-sub">Sterling Ledger Co. — Client Portal & Practice Management</div>
+    <div class="gate-sub">Kuwenta & Co. - Client Portal & Practice Management</div>
     <input type="password" class="gate-input" id="gateInput" placeholder="Access Code" autocomplete="off" />
     <button class="gate-btn" onclick="checkGate()">Enter Console</button>
     <div class="gate-error" id="gateError">Incorrect access code. Try again.</div>
-    <div class="gate-hint">Aurora Digital Foundry · Live Operator Suite Demo</div>
+    <div class="gate-hint">Aurora Digital Foundry · Live Operator Suite Demo<br>Demo Access Code: <strong>accounting2026</strong></div>
   </div>
 </div>
 
@@ -159,8 +159,8 @@
   <div class="topbar">
     <div class="tb-left">
       <button class="op-ham" id="opHam"><span></span><span></span><span></span></button>
-      <div class="tb-mark">SL</div>
-      <div class="tb-name">Sterling Ledger Co.</div>
+      <div class="tb-mark">KC</div>
+      <div class="tb-name">Kuwenta & Co.</div>
       <div class="tb-tag">SIMULATOR</div>
     </div>
     <div class="tb-right">
@@ -239,10 +239,10 @@
           <thead><tr><th>Client</th><th>Document Requested</th><th>Requested On</th><th>Status</th></tr></thead>
           <tbody>
             <tr><td>Dela Cruz Sari-Sari Store</td><td>May bank statement (BDO)</td><td>Jun 5, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
-            <tr><td>Reyes Electrical Services</td><td>Supplier invoices — May (3 missing)</td><td>Jun 8, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
-            <tr><td>BalerSurf Online Store</td><td>Shopee/Lazada payout report — May</td><td>Jun 9, 2026</td><td><span class="badge b-received">Received</span></td></tr>
+            <tr><td>Reyes Electrical Services</td><td>Supplier invoices - May (3 missing)</td><td>Jun 8, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>BalerSurf Online Store</td><td>Shopee/Lazada payout report - May</td><td>Jun 9, 2026</td><td><span class="badge b-received">Received</span></td></tr>
             <tr><td>Casa Marina Eatery</td><td>Supplier OR for kitchen equipment</td><td>Jun 10, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
-            <tr><td>Ampil Construction Supply</td><td>Payroll timesheets — June 1-15</td><td>Jun 11, 2026</td><td><span class="badge b-received">Received</span></td></tr>
+            <tr><td>Ampil Construction Supply</td><td>Payroll timesheets - June 1-15</td><td>Jun 11, 2026</td><td><span class="badge b-received">Received</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -348,12 +348,12 @@
   </div>
 </div>
 
-<div class="sim-strip">AURORA DIGITAL FOUNDRY · <span>LIVE BLUEPRINT</span> · Sterling Ledger Co. Operator Console · Sample Data Only</div>
+<div class="sim-strip">AURORA DIGITAL FOUNDRY · <span>LIVE BLUEPRINT</span> · Kuwenta & Co. Operator Console · Sample Data Only</div>
 
 <script>
 /* ===== CONFIG ===== */
 const ACCESS = 'accounting2026';
-const BRAND = 'Sterling Ledger Co.';
+const BRAND = 'Kuwenta & Co.';
 const LOCATION = 'Baler, Aurora Province';
 const ACCENT = '#D4A24E';
 
@@ -430,7 +430,7 @@ function typeWriter(elementId, text, speed=12){
 
 /* ===== MARKETING GENERATOR ===== */
 const MARKETING_OUTPUTS = {
-  deadlineReminder: `SUBJECT: ⏰ Reminder — Your 2551Q is due July 25
+  deadlineReminder: `SUBJECT: ⏰ Reminder - Your 2551Q is due July 25
 
 Hi [Client Name],
 
@@ -441,13 +441,13 @@ Here's where things stand on our end:
 - We're preparing your draft return now.
 - We just need: your June bank statement (if not yet sent).
 
-No action needed if you've already sent your June statement — we'll handle the filing and send you a copy of the confirmed return once submitted.
+No action needed if you've already sent your June statement - we'll handle the filing and send you a copy of the confirmed return once submitted.
 
 Questions? Just reply to this email or message us on Viber.
 
 — Team ${BRAND}, ${LOCATION}`,
 
-  newClientWelcome: `SUBJECT: Welcome to ${BRAND} — here's what happens next
+  newClientWelcome: `SUBJECT: Welcome to ${BRAND} - here's what happens next
 
 Hi [Client Name],
 
@@ -457,7 +457,7 @@ Day 1-2: We'll send you a secure document checklist (bank statements, prior fina
 
 Day 3-4: Our team sets up your Xero/QuickBooks workspace and imports your historical data.
 
-Day 5: Kickoff call — we'll walk through your dashboard, confirm your filing calendar, and answer any questions.
+Day 5: Kickoff call - we'll walk through your dashboard, confirm your filing calendar, and answer any questions.
 
 In the meantime, if you have last month's bank statement handy, feel free to send it over now to get a head start.
 
@@ -469,12 +469,12 @@ Looking forward to taking the books off your plate.
 
 Hi [Name],
 
-If you're not 100% sure your books are BIR-ready, you're not alone — it's the #1 thing small business owners in ${LOCATION} tell us they worry about.
+If you're not 100% sure your books are BIR-ready, you're not alone - it's the #1 thing small business owners in ${LOCATION} tell us they worry about.
 
 This month, ${BRAND} is offering a free Books Health Review for local businesses:
 - We review your last 3 months of records
 - We flag any missing filings or red flags
-- You get a plain-language report — no jargon, no obligation
+- You get a plain-language report - no jargon, no obligation
 
 Spots are limited to 10 reviews this month. Reply "BOOKS" to claim yours.
 
@@ -484,11 +484,11 @@ Spots are limited to 10 reviews this month. Reply "BOOKS" to claim yours.
 
 Hi [Client Name],
 
-It's been a pleasure handling your books these past months — and seeing your business stay on top of every BIR deadline without the usual stress.
+It's been a pleasure handling your books these past months - and seeing your business stay on top of every BIR deadline without the usual stress.
 
-If you know another business owner in ${LOCATION} who's drowning in receipts or worried about their next filing, we'd love an introduction. As a thank-you, we'll knock 1 month off their first retainer invoice — and yours too, once they sign on.
+If you know another business owner in ${LOCATION} who's drowning in receipts or worried about their next filing, we'd love an introduction. As a thank-you, we'll knock 1 month off their first retainer invoice - and yours too, once they sign on.
 
-No pressure at all — just figured I'd ask while it's on my mind.
+No pressure at all - just figured I'd ask while it's on my mind.
 
 — [Your Name], ${BRAND}`
 };
@@ -503,12 +503,12 @@ const AI_OUTPUTS = {
   overdueBooks: `DIAGNOSIS: 3 of 85 clients (3.5%) currently overdue on books reconciliation.
 
 Root causes identified:
-1. Dela Cruz Sari-Sari Store — owner manually tracks sales, slow to digitize records. Books overdue 28 days.
-2. Reyes Electrical Services — missing 3 supplier invoices for May, blocking reconciliation.
-3. Ampil Construction Supply — payroll timesheets submitted late, delaying SSS/PhilHealth/Pag-IBIG remittance.
+1. Dela Cruz Sari-Sari Store - owner manually tracks sales, slow to digitize records. Books overdue 28 days.
+2. Reyes Electrical Services - missing 3 supplier invoices for May, blocking reconciliation.
+3. Ampil Construction Supply - payroll timesheets submitted late, delaying SSS/PhilHealth/Pag-IBIG remittance.
 
 RANKED ACTIONS:
-1. (Highest impact) Offer Dela Cruz Sari-Sari Store a one-time "digitization assist" — send a staff member to photograph and log 2 weeks of receipts on-site. Converts a chronic delay into a one-time fix.
+1. (Highest impact) Offer Dela Cruz Sari-Sari Store a one-time "digitization assist" - send a staff member to photograph and log 2 weeks of receipts on-site. Converts a chronic delay into a one-time fix.
 2. Send automated document-request follow-up to Reyes Electrical (3rd reminder) with a 48-hour deadline before filing on estimates.
 3. Set a recurring calendar block for Ampil's payroll cutoff 2 days earlier to build in a buffer before remittance deadlines.
 
@@ -522,8 +522,8 @@ Current load:
 - Current team: 4 bookkeepers + 1 BIR-accredited tax agent
 
 RANKED ACTIONS:
-1. (Highest impact) Stagger client filing prep start dates — begin Established-tier clients (most complex) 10 days before Starter-tier, smoothing the workload curve instead of a single crunch week.
-2. Pre-build draft 2551Q/2550M templates for repeat clients using prior quarter data — cuts prep time per return by an estimated 30%.
+1. (Highest impact) Stagger client filing prep start dates - begin Established-tier clients (most complex) 10 days before Starter-tier, smoothing the workload curve instead of a single crunch week.
+2. Pre-build draft 2551Q/2550M templates for repeat clients using prior quarter data - cuts prep time per return by an estimated 30%.
 3. Flag the 3 currently-overdue accounts (see Overdue Books Triage) for resolution before July 1, so they don't compound the late-July crunch.
 
 PROJECTED OUTCOME: Smoothing intake reduces peak-week filing volume from 22 to roughly 14, keeping the team within normal capacity without overtime.`,
@@ -531,12 +531,12 @@ PROJECTED OUTCOME: Smoothing intake reduces peak-week filing volume from 22 to r
   upsellOpportunities: `DIAGNOSIS: Scanning Starter and Growth tier clients for retainer upgrade signals (transaction volume, employee count, service requests outside scope).
 
 Candidates identified:
-1. BalerSurf Online Store (Starter, ₱6,500/mo) — transaction volume has grown ~40% over 6 months; now consistently exceeding the 50-transaction Starter cap. Strong fit for Growth tier (₱14,500/mo).
-2. Casa Marina Eatery (Starter, ₱6,500/mo) — recently hired 2 part-time staff; will need payroll processing, which is Growth-tier only.
-3. Pulmano Hardware & Trading (Growth, ₱14,500/mo) — requested ad-hoc cash flow forecasting twice this quarter (an Established-tier service); consistent advisory need suggests upgrade fit.
+1. BalerSurf Online Store (Starter, ₱6,500/mo) - transaction volume has grown ~40% over 6 months; now consistently exceeding the 50-transaction Starter cap. Strong fit for Growth tier (₱14,500/mo).
+2. Casa Marina Eatery (Starter, ₱6,500/mo) - recently hired 2 part-time staff; will need payroll processing, which is Growth-tier only.
+3. Pulmano Hardware & Trading (Growth, ₱14,500/mo) - requested ad-hoc cash flow forecasting twice this quarter (an Established-tier service); consistent advisory need suggests upgrade fit.
 
 RANKED ACTIONS:
-1. (Highest impact) Reach out to BalerSurf with a usage-based note: "Your transaction volume has grown — let's make sure your plan still fits." Frame as a fit conversation, not a sales pitch.
+1. (Highest impact) Reach out to BalerSurf with a usage-based note: "Your transaction volume has grown - let's make sure your plan still fits." Frame as a fit conversation, not a sales pitch.
 2. Bundle a payroll setup offer for Casa Marina's 2 new hires as part of a Growth-tier upgrade conversation.
 3. Offer Pulmano a no-cost trial month of Established-tier advisory access to demonstrate value before the upsell ask.
 
