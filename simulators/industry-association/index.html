@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baler Trade &amp; Cooperative Alliance: Member Network, Aurora Province</title>
+  <meta name="description" content="Member directory, event calendar, publications, and network expansion infrastructure for the Baler Trade & Cooperative Alliance — connecting cooperatives, associations, and member businesses across Aurora Province, Philippines." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Baler Trade & Cooperative Alliance",
+    "description": "Regional industry association and cooperative network serving member businesses and cooperatives across Aurora Province, Philippines.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Baler", "addressRegion": "Aurora Province", "addressCountry": "PH" },
+    "areaServed": "Aurora Province, Philippines"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #F4F6F1;
+      --deep:    #E9EEE2;
+      --mid:     #FFFFFF;
+      --surface: #FAFBF6;
+      --border:  rgba(27,58,42,0.10);
+      --border2: rgba(27,58,42,0.18);
+      --navy:    #1B3A2A;
+      --text:    rgba(27,58,42,0.64);
+      --text2:   rgba(27,58,42,0.40);
+      --gold:    #C99A3B;
+      --gold2:   #B5872E;
+      --green:   #3FA873;
+      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --hf:      'Fraunces', Georgia, serif;
+      --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff); background: var(--black); color: var(--navy); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: var(--hf); }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(27,58,42,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-mark {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--gold); color: var(--navy);
+      font-family: var(--hf); font-weight: 800; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-name { font-family: var(--hf); font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; color: #FFFFFF; }
+    .nav-links { display: flex; gap: 26px; font-size: 0.82rem; color: rgba(255,255,255,0.72); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 9px 18px; border-radius: 4px; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+    @media (max-width: 860px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background:
+        linear-gradient(135deg, rgba(27,58,42,0.92) 0%, rgba(27,58,42,0.74) 55%, rgba(27,58,42,0.90) 100%),
+        url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      padding: 110px 32px 60px;
+    }
+    .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .hero-h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; margin-bottom: 22px; color: #FFFFFF; }
+    .hero-h1 span { color: var(--gold); font-style: italic; }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.74); line-height: 1.8; margin-bottom: 36px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent; color: #FFFFFF;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* NETWORK PANEL (hero right) */
+    .network-board {
+      background: var(--mid); border: 1px solid var(--border2); border-radius: 12px;
+      padding: 28px; position: relative; overflow: hidden;
+    }
+    .network-board::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+    }
+    .nb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .nb-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold2); }
+    .nb-live { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); }
+    .nb-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .nb-rows { display: flex; flex-direction: column; gap: 3px; margin-bottom: 18px; }
+    .nb-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 14px; border-radius: 6px; background: var(--surface);
+    }
+    .nb-row-label { font-size: 0.82rem; color: var(--text); }
+    .nb-row-val { font-family: var(--mono); font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+    .nb-row-val.gold { color: var(--gold2); }
+    .nb-row-val.green { color: var(--green); }
+    .nb-foot { font-family: var(--mono); font-size: 0.62rem; color: var(--text2); letter-spacing: 0.05em; text-align: center; padding-top: 6px; border-top: 1px solid var(--border); }
+
+    /* SECTIONS */
+    section { padding: 90px 0; }
+    .section-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold2); margin-bottom: 14px; }
+    .section-h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 18px; }
+    .section-lead { font-size: 1rem; color: var(--text); max-width: 640px; margin-bottom: 50px; }
+
+    /* MEMBER DIRECTORY */
+    .directory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .member-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .member-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .member-cat { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold2); margin-bottom: 10px; }
+    .member-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .member-desc { font-size: 0.85rem; color: var(--text); margin-bottom: 14px; }
+    .member-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; }
+    .member-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+    @media (max-width: 900px) { .directory-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .directory-grid { grid-template-columns: 1fr; } }
+
+    /* EVENTS */
+    .events-list { display: flex; flex-direction: column; gap: 14px; }
+    .event-row {
+      display: grid; grid-template-columns: 100px 1fr auto; gap: 24px; align-items: center;
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px;
+    }
+    .event-date { text-align: center; }
+    .event-day { font-family: var(--hf); font-size: 1.8rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .event-month { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold2); }
+    .event-name { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .event-meta { font-size: 0.82rem; color: var(--text); }
+    .event-tag {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--deep); color: var(--gold2); padding: 6px 12px; border-radius: 99px; white-space: nowrap;
+    }
+    @media (max-width: 700px) { .event-row { grid-template-columns: 60px 1fr; } .event-tag { display: none; } }
+
+    /* PUBLICATIONS */
+    .pub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pub-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+    .pub-type { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold2); margin-bottom: 10px; }
+    .pub-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .pub-desc { font-size: 0.85rem; color: var(--text); margin-bottom: 14px; }
+    .pub-link { font-family: var(--mono); font-size: 0.72rem; color: var(--green); font-weight: 600; }
+    @media (max-width: 900px) { .pub-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .pub-grid { grid-template-columns: 1fr; } }
+
+    /* OPERATOR SUITE STRIP */
+    .ops-strip {
+      background: var(--navy); color: #FFFFFF; padding: 70px 0; text-align: center;
+    }
+    .ops-strip .section-eyebrow { color: var(--gold); }
+    .ops-strip h2 { color: #FFFFFF; margin-bottom: 16px; }
+    .ops-strip p { color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto 32px; }
+
+    /* JOIN / CONTACT */
+    .join-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .join-list { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+    .join-item { display: flex; gap: 14px; align-items: flex-start; }
+    .join-icon {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--deep); color: var(--gold2);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .join-item-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+    .join-item-desc { font-size: 0.85rem; color: var(--text); }
+    .contact-form { background: var(--mid); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .form-row { margin-bottom: 16px; }
+    .form-row label { display: block; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text2); margin-bottom: 8px; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--border2); border-radius: 6px;
+      font-family: var(--ff); font-size: 0.9rem; background: var(--surface); color: var(--navy);
+    }
+    @media (max-width: 860px) { .join-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+    /* FOOTER */
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 40px 32px; text-align: center; font-size: 0.8rem; }
+    footer a { color: var(--gold); }
+    .footer-badge { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">
+      <div class="nav-mark">BT</div>
+      <div class="nav-name">Baler Trade &amp; Cooperative Alliance</div>
+    </div>
+    <div class="nav-links">
+      <a href="#directory">Member Directory</a>
+      <a href="#events">Events</a>
+      <a href="#publications">Publications</a>
+      <a href="#join">Join</a>
+    </div>
+    <a href="#join" class="nav-cta">Become a Member</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Regional Industry Association &amp; Cooperative Network</div>
+        <h1 class="hero-h1">One network. <span>Every member,</span> visible and connected.</h1>
+        <p class="hero-sub">A shared infrastructure for Aurora Province's cooperatives, associations, and member businesses — directory, events, publications, and growth tools in one place.</p>
+        <div class="hero-actions">
+          <a href="#directory" class="btn-primary">View Member Directory</a>
+          <a href="#join" class="btn-outline">Become a Member</a>
+        </div>
+      </div>
+      <div class="network-board">
+        <div class="nb-header">
+          <div class="nb-title">Network Status</div>
+          <div class="nb-live"><span class="nb-dot"></span>LIVE</div>
+        </div>
+        <div class="nb-rows">
+          <div class="nb-row"><span class="nb-row-label">Active Members</span><span class="nb-row-val">42</span></div>
+          <div class="nb-row"><span class="nb-row-label">Cooperatives Networked</span><span class="nb-row-val gold">11</span></div>
+          <div class="nb-row"><span class="nb-row-label">Upcoming Events</span><span class="nb-row-val">3</span></div>
+          <div class="nb-row"><span class="nb-row-label">Published Bulletins</span><span class="nb-row-val">7</span></div>
+          <div class="nb-row"><span class="nb-row-label">New Members (30d)</span><span class="nb-row-val green">+5</span></div>
+        </div>
+        <div class="nb-foot">DATA SPINE · SYNCED HOURLY</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="directory">
+    <div class="container">
+      <div class="section-eyebrow">Member Directory</div>
+      <h2 class="section-h2">Find every member, by sector.</h2>
+      <p class="section-lead">A searchable directory of cooperatives, associations, and businesses across Aurora Province — built so members find each other, and the public finds members.</p>
+      <div class="directory-grid">
+        <div class="member-card">
+          <div class="member-cat">Agriculture Cooperative</div>
+          <div class="member-name">Aurora Highlands Farmers Co-op</div>
+          <div class="member-desc">120-member coconut and rice producer cooperative serving the Casiguran corridor.</div>
+          <div class="member-badge"><span class="dot"></span>Verified Member</div>
+        </div>
+        <div class="member-card">
+          <div class="member-cat">Fisheries Association</div>
+          <div class="member-name">Baler Bay Fisherfolk Association</div>
+          <div class="member-desc">Coastal fishing community group coordinating sustainable catch and local distribution.</div>
+          <div class="member-badge"><span class="dot"></span>Verified Member</div>
+        </div>
+        <div class="member-card">
+          <div class="member-cat">Tourism Operators</div>
+          <div class="member-name">Sabang Surf Operators Guild</div>
+          <div class="member-desc">Collective of surf camps and tour operators along the Sabang coastline.</div>
+          <div class="member-badge"><span class="dot"></span>Verified Member</div>
+        </div>
+        <div class="member-card">
+          <div class="member-cat">Trade &amp; Construction</div>
+          <div class="member-name">Aurora Builders Trade Group</div>
+          <div class="member-desc">Network of licensed contractors, electricians, and tradespeople across the province.</div>
+          <div class="member-badge"><span class="dot"></span>Verified Member</div>
+        </div>
+        <div class="member-card">
+          <div class="member-cat">Professional Services</div>
+          <div class="member-name">Aurora Professionals Circle</div>
+          <div class="member-desc">Accountants, consultants, and legal practitioners offering member-rate services.</div>
+          <div class="member-badge"><span class="dot"></span>Verified Member</div>
+        </div>
+        <div class="member-card">
+          <div class="member-cat">Retail &amp; Suppliers</div>
+          <div class="member-name">Provincial Suppliers Network</div>
+          <div class="member-desc">Wholesale and retail suppliers coordinating bulk purchasing and logistics.</div>
+          <div class="member-badge"><span class="dot"></span>Verified Member</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="events" style="background: var(--deep);">
+    <div class="container">
+      <div class="section-eyebrow">Event Infrastructure</div>
+      <h2 class="section-h2">What's happening across the network.</h2>
+      <p class="section-lead">A shared calendar for member meetings, trainings, trade fairs, and community events — one place to publish, one place to find.</p>
+      <div class="events-list">
+        <div class="event-row">
+          <div class="event-date"><div class="event-day">14</div><div class="event-month">July</div></div>
+          <div><div class="event-name">Quarterly General Assembly</div><div class="event-meta">Baler Municipal Hall · All members</div></div>
+          <div class="event-tag">Members Only</div>
+        </div>
+        <div class="event-row">
+          <div class="event-date"><div class="event-day">22</div><div class="event-month">July</div></div>
+          <div><div class="event-name">Cooperative Finance &amp; BIR Compliance Workshop</div><div class="event-meta">Co-hosted with Aurora Professionals Circle</div></div>
+          <div class="event-tag">Open Event</div>
+        </div>
+        <div class="event-row">
+          <div class="event-date"><div class="event-day">09</div><div class="event-month">Aug</div></div>
+          <div><div class="event-name">Aurora Province Trade Fair</div><div class="event-meta">Provincial Capitol Grounds · Public</div></div>
+          <div class="event-tag">Public</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="container">
+      <div class="section-eyebrow">Publications &amp; Resources</div>
+      <h2 class="section-h2">The Alliance, in writing.</h2>
+      <p class="section-lead">Bulletins, policy briefs, and resource guides — published once, available to every member and the communities they serve.</p>
+      <div class="pub-grid">
+        <div class="pub-card">
+          <div class="pub-type">Monthly Bulletin</div>
+          <div class="pub-title">June 2026 Provincial Bulletin</div>
+          <div class="pub-desc">Member news, upcoming events, and grant opportunities for cooperatives and associations.</div>
+          <div class="pub-link">Read Bulletin →</div>
+        </div>
+        <div class="pub-card">
+          <div class="pub-type">Policy Brief</div>
+          <div class="pub-title">Cooperative Tax Incentives Guide 2026</div>
+          <div class="pub-desc">Plain-language summary of current BIR incentives available to registered cooperatives.</div>
+          <div class="pub-link">Read Brief →</div>
+        </div>
+        <div class="pub-card">
+          <div class="pub-type">Resource Guide</div>
+          <div class="pub-title">Member Onboarding Handbook</div>
+          <div class="pub-desc">Everything a new member needs — benefits, directory listing, and event access.</div>
+          <div class="pub-link">Read Guide →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ops-strip">
+    <div class="container">
+      <div class="section-eyebrow">Operator Suite</div>
+      <h2>One dashboard for the whole network.</h2>
+      <p>Member directory, event calendar, publication queue, and growth metrics — managed from a single Operator Suite, synced to a live data spine.</p>
+      <a href="operator.html" class="btn-primary">Explore Operator Suite ↗</a>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="container">
+      <div class="join-grid">
+        <div>
+          <div class="section-eyebrow">Network Expansion</div>
+          <h2 class="section-h2">Become a member.</h2>
+          <p class="section-lead" style="margin-bottom:0;">Membership gives your cooperative, association, or business a directory listing, event access, and a seat in the Alliance's growth network.</p>
+          <div class="join-list">
+            <div class="join-item">
+              <div class="join-icon">📋</div>
+              <div><div class="join-item-title">Directory Listing</div><div class="join-item-desc">Verified profile in the public member directory.</div></div>
+            </div>
+            <div class="join-item">
+              <div class="join-icon">📅</div>
+              <div><div class="join-item-title">Event Access</div><div class="join-item-desc">Member-only trainings, workshops, and assemblies.</div></div>
+            </div>
+            <div class="join-item">
+              <div class="join-icon">📰</div>
+              <div><div class="join-item-title">Publication Reach</div><div class="join-item-desc">Your news included in the monthly provincial bulletin.</div></div>
+            </div>
+            <div class="join-item">
+              <div class="join-icon">🤝</div>
+              <div><div class="join-item-title">Network Referrals</div><div class="join-item-desc">Connections to other verified members across sectors.</div></div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form">
+          <div class="form-row"><label>Organization Name</label><input type="text" placeholder="Your cooperative or association" /></div>
+          <div class="form-row"><label>Sector</label>
+            <select>
+              <option>Agriculture Cooperative</option>
+              <option>Fisheries Association</option>
+              <option>Tourism Operators</option>
+              <option>Trade &amp; Construction</option>
+              <option>Professional Services</option>
+              <option>Retail &amp; Suppliers</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row"><label>Contact Email</label><input type="email" placeholder="you@organization.com" /></div>
+          <div class="form-row"><label>Membership Interest</label><textarea rows="3" placeholder="Tell us about your organization and what you're looking for..."></textarea></div>
+          <button type="button" class="btn-primary" style="width:100%;">Submit Membership Inquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Baler Trade &amp; Cooperative Alliance · Aurora Province, Philippines</div>
+    <div class="footer-badge">Live Operator Suite Demo · <span>Aurora Digital Foundry</span></div>
+  </footer>
+
+</body>
+</html>

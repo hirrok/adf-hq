@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator Suite — Baler Trade & Cooperative Alliance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #F4F6F1;
+      --deep:    #E9EEE2;
+      --mid:     #FFFFFF;
+      --surface: #FAFBF6;
+      --border:  rgba(27,58,42,0.10);
+      --border2: rgba(27,58,42,0.18);
+      --navy:    #1B3A2A;
+      --text:    rgba(27,58,42,0.64);
+      --text2:   rgba(27,58,42,0.40);
+      --gold:    #C99A3B;
+      --gold2:   #B5872E;
+      --green:   #3FA873;
+      --red:     #C75C4A;
+      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --hf:      'Fraunces', Georgia, serif;
+      --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--ff); background: var(--black); color: var(--navy); }
+    a { color: inherit; text-decoration: none; }
+
+    .app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); color: #FFFFFF; padding: 24px 18px; display: flex; flex-direction: column; gap: 4px; }
+    .sb-brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 24px; }
+    .sb-mark { width: 30px; height: 30px; border-radius: 6px; background: var(--gold); color: var(--navy); font-family: var(--hf); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+    .sb-name { font-family: var(--hf); font-weight: 700; font-size: 0.85rem; line-height: 1.2; }
+    .sb-sub { font-family: var(--mono); font-size: 0.6rem; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 2px; }
+    .sb-link {
+      display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-radius: 6px;
+      font-size: 0.85rem; color: rgba(255,255,255,0.66); cursor: pointer; transition: background 0.15s, color 0.15s;
+    }
+    .sb-link:hover { background: rgba(255,255,255,0.06); color: #FFFFFF; }
+    .sb-link.active { background: rgba(201,154,59,0.16); color: var(--gold); font-weight: 600; }
+    .sb-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .sb-foot { margin-top: auto; padding: 14px 12px 4px; border-top: 1px solid rgba(255,255,255,0.08); font-family: var(--mono); font-size: 0.6rem; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; }
+    .sb-back { display: inline-block; margin-top: 10px; font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+    .sb-back:hover { color: var(--gold); }
+
+    /* MAIN */
+    .main { padding: 32px 40px; }
+    .topbar { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; }
+    .topbar h1 { font-family: var(--hf); font-size: 1.7rem; font-weight: 700; }
+    .topbar .date { font-family: var(--mono); font-size: 0.72rem; color: var(--text2); letter-spacing: 0.05em; }
+
+    /* KPI ROW */
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .kpi-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .kpi-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold2); margin-bottom: 10px; }
+    .kpi-value { font-family: var(--hf); font-size: 1.9rem; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .kpi-delta { font-family: var(--mono); font-size: 0.72rem; color: var(--green); }
+    .kpi-delta.down { color: var(--red); }
+
+    /* PANELS */
+    .panel-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .panel { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .panel-title { font-family: var(--hf); font-size: 1.05rem; font-weight: 700; }
+    .panel-action { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold2); cursor: pointer; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text2); padding: 0 0 10px; border-bottom: 1px solid var(--border); }
+    td { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    tr:last-child td { border-bottom: none; }
+    .pill { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; }
+    .pill.green { background: rgba(63,168,115,0.12); color: var(--green); }
+    .pill.gold { background: rgba(201,154,59,0.14); color: var(--gold2); }
+    .pill.gray { background: var(--deep); color: var(--text2); }
+    .pill.red { background: rgba(199,92,74,0.12); color: var(--red); }
+
+    /* QUEUE LIST */
+    .queue-list { display: flex; flex-direction: column; gap: 12px; }
+    .queue-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--surface); border-radius: 8px; }
+    .queue-name { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+    .queue-meta { font-family: var(--mono); font-size: 0.65rem; color: var(--text2); }
+
+    /* EVENT LIST */
+    .ev-list { display: flex; flex-direction: column; gap: 10px; }
+    .ev-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--surface); border-radius: 8px; }
+    .ev-date { font-family: var(--mono); font-size: 0.7rem; color: var(--gold2); font-weight: 600; min-width: 64px; }
+    .ev-name { font-size: 0.85rem; font-weight: 600; }
+
+    @media (max-width: 1080px) { .panel-grid { grid-template-columns: 1fr; } .kpi-row { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 760px) { .app { grid-template-columns: 1fr; } .sidebar { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sb-brand">
+        <div class="sb-mark">BT</div>
+        <div>
+          <div class="sb-name">Baler Trade &amp;<br/>Cooperative Alliance</div>
+          <div class="sb-sub">Operator Suite</div>
+        </div>
+      </div>
+      <div class="sb-link active"><span class="sb-icon">◆</span> Overview</div>
+      <div class="sb-link"><span class="sb-icon">👥</span> Member Directory</div>
+      <div class="sb-link"><span class="sb-icon">📅</span> Event Infrastructure</div>
+      <div class="sb-link"><span class="sb-icon">📰</span> Publications</div>
+      <div class="sb-link"><span class="sb-icon">🤝</span> Network Expansion</div>
+      <div class="sb-link"><span class="sb-icon">⚙</span> Governance</div>
+      <div class="sb-foot">
+        DATA SPINE · SYNCED HOURLY
+        <div><a href="index.html" class="sb-back">← Back to Public Site</a></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <h1>Network Overview</h1>
+        <div class="date">SUNDAY · JUNE 14, 2026</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">Active Members</div>
+          <div class="kpi-value">42</div>
+          <div class="kpi-delta">+5 this month</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Cooperatives Networked</div>
+          <div class="kpi-value">11</div>
+          <div class="kpi-delta">+1 this month</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Pending Applications</div>
+          <div class="kpi-value">4</div>
+          <div class="kpi-delta down">Awaiting review</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Upcoming Events</div>
+          <div class="kpi-value">3</div>
+          <div class="kpi-delta">Next in 30 days</div>
+        </div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Member Directory — Recent Activity</div>
+            <div class="panel-action">Manage Directory →</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Organization</th><th>Sector</th><th>Status</th><th>Updated</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Aurora Highlands Farmers Co-op</td><td>Agriculture Cooperative</td><td><span class="pill green">Verified</span></td><td>2 days ago</td></tr>
+              <tr><td>Baler Bay Fisherfolk Association</td><td>Fisheries Association</td><td><span class="pill green">Verified</span></td><td>5 days ago</td></tr>
+              <tr><td>Sabang Surf Operators Guild</td><td>Tourism Operators</td><td><span class="pill green">Verified</span></td><td>1 week ago</td></tr>
+              <tr><td>Aurora Builders Trade Group</td><td>Trade &amp; Construction</td><td><span class="pill green">Verified</span></td><td>1 week ago</td></tr>
+              <tr><td>Casiguran Seaweed Growers Co-op</td><td>Agriculture Cooperative</td><td><span class="pill gold">Pending Review</span></td><td>Today</td></tr>
+              <tr><td>Dipaculao Eco-Tourism Collective</td><td>Tourism Operators</td><td><span class="pill gold">Pending Review</span></td><td>Today</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Application Queue</div>
+            <div class="panel-action">Review →</div>
+          </div>
+          <div class="queue-list">
+            <div class="queue-item">
+              <div><div class="queue-name">Casiguran Seaweed Growers Co-op</div><div class="queue-meta">AGRICULTURE · SUBMITTED TODAY</div></div>
+              <span class="pill gold">New</span>
+            </div>
+            <div class="queue-item">
+              <div><div class="queue-name">Dipaculao Eco-Tourism Collective</div><div class="queue-meta">TOURISM · SUBMITTED TODAY</div></div>
+              <span class="pill gold">New</span>
+            </div>
+            <div class="queue-item">
+              <div><div class="queue-name">San Luis Hardware Suppliers</div><div class="queue-meta">RETAIL &amp; SUPPLIERS · 3 DAYS</div></div>
+              <span class="pill gray">In Review</span>
+            </div>
+            <div class="queue-item">
+              <div><div class="queue-name">Maria Aurora Women's Weaving Guild</div><div class="queue-meta">TRADE &amp; CRAFT · 4 DAYS</div></div>
+              <span class="pill gray">In Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Event Infrastructure</div>
+            <div class="panel-action">Manage Calendar →</div>
+          </div>
+          <div class="ev-list">
+            <div class="ev-row">
+              <div class="ev-date">JUL 14</div>
+              <div class="ev-name">Quarterly General Assembly</div>
+              <span class="pill gray">Members Only</span>
+            </div>
+            <div class="ev-row">
+              <div class="ev-date">JUL 22</div>
+              <div class="ev-name">Cooperative Finance &amp; BIR Compliance Workshop</div>
+              <span class="pill green">Open Event</span>
+            </div>
+            <div class="ev-row">
+              <div class="ev-date">AUG 09</div>
+              <div class="ev-name">Aurora Province Trade Fair</div>
+              <span class="pill green">Public</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Publication Queue</div>
+            <div class="panel-action">New Bulletin →</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Title</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>June 2026 Provincial Bulletin</td><td><span class="pill green">Published</span></td></tr>
+              <tr><td>Cooperative Tax Incentives Guide 2026</td><td><span class="pill green">Published</span></td></tr>
+              <tr><td>July 2026 Provincial Bulletin</td><td><span class="pill gold">Drafting</span></td></tr>
+              <tr><td>Trade Fair Vendor Guide</td><td><span class="pill gray">Queued</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Network Expansion — Referral Pipeline</div>
+          <div class="panel-action">View All →</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Referred Organization</th><th>Referred By</th><th>Sector</th><th>Stage</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Dingalan Boat Builders Cooperative</td><td>Baler Bay Fisherfolk Association</td><td>Fisheries</td><td><span class="pill gold">Outreach Sent</span></td></tr>
+            <tr><td>Aurora Coffee Growers Circle</td><td>Aurora Highlands Farmers Co-op</td><td>Agriculture</td><td><span class="pill gray">Awaiting Response</span></td></tr>
+            <tr><td>Maria Aurora Tourism Council</td><td>Sabang Surf Operators Guild</td><td>Tourism</td><td><span class="pill green">Application Started</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
