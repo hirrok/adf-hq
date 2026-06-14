@@ -1459,7 +1459,7 @@
         <div class="tag">Portfolio</div>
         <h2 class="section-title">Built. Shipped. Compounding.</h2>
       </div>
-      <p style="color:var(--text); max-width:360px; font-size:0.875rem; line-height:1.7;">Each Blueprint is a fully functional business infrastructure sample, built from ground-level experience across the Philippines and ready to tailor for your business.</p>
+      <p style="color:var(--text); max-width:360px; font-size:0.875rem; line-height:1.7;">Each Operator Suite Demo is a fully functional business infrastructure sample, built from ground-level experience across the Philippines and ready to tailor for your business.</p>
     </div>
     <div class="portfolio-grid">
 
@@ -1467,7 +1467,7 @@
       <div class="portfolio-card">
         <div class="portfolio-thumb">
           🏄
-          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Blueprint</div>
+          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Operator Suite Demo</div>
           <div class="portfolio-thumb-text">Tourism &amp; Hospitality</div>
         </div>
         <div class="portfolio-body">
@@ -1479,7 +1479,7 @@
             <span class="portfolio-layer-tag">Online Booking</span>
             <span class="portfolio-layer-tag">Search Visibility</span>
           </div>
-          <a href="simulators/surf-camp/" class="portfolio-link">Explore Blueprint ↗</a>
+          <a href="simulators/surf-camp/" class="portfolio-link">Explore Operator Suite ↗</a>
         </div>
       </div>
 
@@ -1487,7 +1487,7 @@
       <div class="portfolio-card">
         <div class="portfolio-thumb">
           🔧
-          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Blueprint</div>
+          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Operator Suite Demo</div>
           <div class="portfolio-thumb-text">Trades &amp; Construction</div>
         </div>
         <div class="portfolio-body">
@@ -1500,7 +1500,7 @@
             <span class="portfolio-layer-tag">Job Tracker</span>
             <span class="portfolio-layer-tag">Review System</span>
           </div>
-          <a href="simulators/trades-contractor/" class="portfolio-link">Explore Blueprint ↗</a>
+          <a href="simulators/trades-contractor/" class="portfolio-link">Explore Operator Suite ↗</a>
         </div>
       </div>
 
@@ -1508,7 +1508,7 @@
       <div class="portfolio-card">
         <div class="portfolio-thumb">
           💪
-          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Blueprint</div>
+          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Operator Suite Demo</div>
           <div class="portfolio-thumb-text">Fitness &amp; Wellness</div>
         </div>
         <div class="portfolio-body">
@@ -1520,7 +1520,7 @@
             <span class="portfolio-layer-tag">Memberships</span>
             <span class="portfolio-layer-tag">Operations</span>
           </div>
-          <a href="simulators/community-gym/" target="_blank" class="portfolio-link">Explore Blueprint ↗</a>
+          <a href="simulators/community-gym/" target="_blank" class="portfolio-link">Explore Operator Suite ↗</a>
         </div>
       </div>
 
@@ -1532,7 +1532,7 @@
         </div>
         <div class="portfolio-body">
           <div class="portfolio-industry">Professional Services</div>
-          <div class="portfolio-name">Professional Services Blueprint</div>
+          <div class="portfolio-name">Professional Services Operator Suite</div>
           <div class="portfolio-desc">Consultation booking, client intake system, client portal, and authority content stack built for law firms, consultancies, clinics, and independent professionals.</div>
           <div class="portfolio-layers">
             <span class="portfolio-layer-tag">Website</span>
@@ -1547,7 +1547,7 @@
       <div class="portfolio-card">
         <div class="portfolio-thumb">
           ⛽
-          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Blueprint</div>
+          <div class="portfolio-live-badge"><span class="portfolio-live-dot"></span>Operator Suite Demo</div>
           <div class="portfolio-thumb-text">LPG &amp; Energy Distribution</div>
         </div>
         <div class="portfolio-body">
@@ -1560,7 +1560,7 @@
             <span class="portfolio-layer-tag">Admin Dashboard</span>
             <span class="portfolio-layer-tag">Data Intelligence</span>
           </div>
-          <a href="simulators/fuel-distributor/" target="_blank" class="portfolio-link">Explore Blueprint ↗</a>
+          <a href="simulators/fuel-distributor/" target="_blank" class="portfolio-link">Explore Operator Suite ↗</a>
         </div>
       </div>
 
@@ -1572,7 +1572,7 @@
         </div>
         <div class="portfolio-body">
           <div class="portfolio-industry">Industry Associations &amp; Co-ops</div>
-          <div class="portfolio-name">Industry Association Blueprint</div>
+          <div class="portfolio-name">Industry Association Operator Suite</div>
           <div class="portfolio-desc">Member directory, event infrastructure, publication system, and network expansion tools built for regional industry associations, cooperatives, and community organizations.</div>
           <div class="portfolio-layers">
             <span class="portfolio-layer-tag">Website</span>
@@ -2116,61 +2116,4 @@
       });
     });
 
-    render('d0');
-  })();
-
-  // ↓ Replace with your deployed Apps Script URL after backend setup
-  const OPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtD_9fIe483qD-8_czsigAdBhf3UGbJRUoyDcIFMLqeqdYIPmV-GfdjQyCyTMdvNwC/exec';
-
-
-  /* ─── RECON FORM ─────────────────────────────────────────────────── */
-  document.querySelector('.contact-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('button[type="submit"]');
-    const fields = this.querySelectorAll('input, select, textarea');
-
-    const payload = {
-      type:      'recon',
-      name:      this.querySelector('input[type="text"]').value,
-      business:  this.querySelectorAll('input[type="text"]')[1]?.value,
-      email:     this.querySelector('input[type="email"]').value,
-      phone:     this.querySelector('input[type="tel"]').value,
-      industry:  this.querySelector('select').value,
-      website:   this.querySelector('input[type="url"]').value,
-      challenge: this.querySelector('textarea').value,
-    };
-
-    if (OPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
-      btn.textContent = '✓ Request Received (Demo Mode)';
-      btn.style.background = '#28c840';
-      return;
-    }
-
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    fields.forEach(f => f.disabled = true);
-
-    try {
-      // Apps Script /exec does not return CORS headers, so a normal
-      // 'cors' fetch rejects with "Failed to fetch" even when the
-      // server processes the request successfully. 'no-cors' makes
-      // the response opaque (we can't read it) but lets the request
-      // through — the server still appends the row + sends the email.
-      await fetch(OPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(payload),
-      });
-      btn.textContent = '✓ Recon Request Submitted';
-      btn.style.background = '#28c840';
-    } catch {
-      btn.textContent = '✗ Send failed — email hirro.kuizon@gmail.com';
-      btn.style.background = '#ff5f57';
-      btn.disabled = false;
-      fields.forEach(f => f.disabled = false);
-    }
-  });
-</script>
-
-</body>
-</html>
+    rend
