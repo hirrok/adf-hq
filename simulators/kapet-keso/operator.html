@@ -590,11 +590,21 @@
 <script>
   const ACCESS = 'kapetkeso2026';
   const SK = 'kapetkeso_auth';
+  let _memAuth = false;
+  function authGet() {
+    try { return sessionStorage.getItem(SK); } catch (e) { return _memAuth ? '1' : null; }
+  }
+  function authSet() {
+    try { sessionStorage.setItem(SK, '1'); } catch (e) { _memAuth = true; }
+  }
+  function authClear() {
+    try { sessionStorage.removeItem(SK); } catch (e) { _memAuth = false; }
+  }
 
   function unlock() {
     const v = document.getElementById('pwInput').value;
     if (v === ACCESS) {
-      sessionStorage.setItem(SK, '1');
+      authSet();
       document.getElementById('gate').style.display = 'none';
       document.getElementById('app').classList.add('visible');
       startClock();
@@ -607,11 +617,11 @@
   }
 
   function signOut() {
-    sessionStorage.removeItem(SK);
+    authClear();
     location.reload();
   }
 
-  if (sessionStorage.getItem(SK)) {
+  if (authGet()) {
     document.getElementById('gate').style.display = 'none';
     document.getElementById('app').classList.add('visible');
     startClock();

@@ -378,10 +378,20 @@ const LOCATION = 'Maria Aurora, Aurora Province';
 const ACCENT = '#C2603C';
 
 /* ===== GATE ===== */
+let _memAuth = false;
+function authGet(){
+  try { return sessionStorage.getItem('tr_auth'); } catch(e){ return _memAuth ? 'granted' : null; }
+}
+function authSet(){
+  try { sessionStorage.setItem('tr_auth','granted'); } catch(e){ _memAuth = true; }
+}
+function authClear(){
+  try { sessionStorage.removeItem('tr_auth'); } catch(e){ _memAuth = false; }
+}
 function checkGate(){
   const val = document.getElementById('gateInput').value.trim();
   if(val === ACCESS){
-    sessionStorage.setItem('tr_auth','granted');
+    authSet();
     enterApp();
   } else {
     document.getElementById('gateError').style.display='block';
@@ -399,10 +409,10 @@ function enterApp(){
   renderChart('chart-right','chart-right-title',CHART_RIGHT,'pct');
 }
 function signOut(){
-  sessionStorage.removeItem('tr_auth');
+  authClear();
   location.reload();
 }
-if(sessionStorage.getItem('tr_auth') === 'granted'){
+if(authGet() === 'granted'){
   window.addEventListener('DOMContentLoaded', enterApp);
 }
 
@@ -556,4 +566,71 @@ Candidates identified:
 3. Pulmano Boundary Dispute (once resolved) - client has expressed interest in formalizing property boundaries for two additional parcels; likely follow-on real estate work.
 
 RANKED ACTIONS:
-1. (Highest impact) Reach out to Aurora Coastal Resort with a retainer framing: "Since we're already handling your lease, a monthly retainer covers ongoing contract reviews and quick legal questions at a predictable cost." Frame as a fit conversation, not a sales pit
+1. (Highest impact) Reach out to Aurora Coastal Resort with a retainer framing: "Since we're already handling your lease, a monthly retainer covers ongoing contract reviews and quick legal questions at a predictable cost." Frame as a fit conversation, not a sales pitch.
+2. Flag the Norte Hardware Aurora contract-review inquiry as a retainer candidate during the next client check-in - their estate matter already has recurring legal touchpoints.
+3. Hold the Pulmano Boundary Dispute retainer conversation until the current matter resolves, then lead with the two additional parcels as the retainer's first scope.
+
+PROJECTED OUTCOME: Converting Aurora Coastal Resort alone adds ₱8,000/month in predictable retainer revenue; all three combined would roughly double current retainer-based income.`
+};
+
+function runAI(type){
+  const text = AI_OUTPUTS[type] || 'No analysis available.';
+  typeWriter('aiOutput', text);
+}
+
+/* ===== INTELLIGENCE ===== */
+const KPI_DATA = [
+  ['Active Matters', '18', null],
+  ['Hearings / Filings (5-wk cycle)', '5', 'gold'],
+  ['Document Checklist Completion', '94%', 'green'],
+  ['Avg. Matter Value', '₱45,000', null],
+  ['Retainer Clients', '1', 'gold'],
+  ['Client Retention (12mo)', '92%', 'green']
+];
+
+const CHART_LEFT = {
+  title: 'Active Matters by Practice Area',
+  bars: [
+    ['General Litigation', 7, 'var(--gold)'],
+    ['Family Law', 6, 'var(--navy)'],
+    ['Real Estate', 4, 'var(--green)'],
+    ['Estate & Succession', 1, 'var(--red)']
+  ]
+};
+
+const CHART_RIGHT = {
+  title: 'New Matter Source Mix',
+  bars: [
+    ['Referral', 55, 'var(--gold)'],
+    ['Walk-In / Phone', 25, 'var(--navy)'],
+    ['Online Inquiry', 20, 'var(--green)']
+  ]
+};
+
+function renderKPI(){
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = KPI_DATA.map(([label, value, color]) => `
+    <div class="metric">
+      <div class="metric-label">${label}</div>
+      <div class="metric-value" style="${color ? `color:var(--${color})` : ''}">${value}</div>
+    </div>
+  `).join('');
+}
+
+function renderChart(containerId, titleId, def, mode){
+  document.getElementById(titleId).textContent = def.title;
+  const max = mode === 'pct' ? 100 : Math.max(...def.bars.map(b => b[1]));
+  document.getElementById(containerId).innerHTML = def.bars.map(([label, val, color]) => {
+    const pct = mode === 'pct' ? val : (val / max * 100);
+    const display = mode === 'pct' ? val + '%' : val.toLocaleString();
+    return `
+      <div class="bar-row">
+        <div class="bar-header"><span>${label}</span><span>${display}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+      </div>
+    `;
+  }).join('');
+}
+</script>
+</body>
+</html>
