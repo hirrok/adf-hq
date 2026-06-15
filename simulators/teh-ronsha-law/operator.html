@@ -6,7 +6,7 @@
 <title>Operator Console - Teh Ronsha Law</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Work+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     --black:   #F7F5F0;
@@ -14,22 +14,22 @@
     --mid:     #FFFFFF;
     --surface: #FBF8F3;
     --elev:    #FFFFFF;
-    --border:  rgba(27,42,74,0.10);
-    --border2: rgba(27,42,74,0.18);
-    --white:   #1B2A4A;
-    --text:    rgba(27,42,74,0.64);
-    --text2:   rgba(27,42,74,0.40);
-    --text3:   rgba(27,42,74,0.22);
-    --gold:    #D4A24E;
-    --gold2:   #C18F3A;
-    --accent:  #D4A24E;
-    --accent-dim: rgba(212,162,78,0.12);
-    --green:   #3FA873;
+    --border:  rgba(58,33,42,0.10);
+    --border2: rgba(58,33,42,0.18);
+    --white:   #3A212A;
+    --text:    rgba(58,33,42,0.64);
+    --text2:   rgba(58,33,42,0.40);
+    --text3:   rgba(58,33,42,0.22);
+    --gold:    #C2603C;
+    --gold2:   #A4492C;
+    --accent:  #C2603C;
+    --accent-dim: rgba(194,96,60,0.12);
+    --green:   #6E8F6C;
     --red:     #D9634F;
-    --navy:    #1B2A4A;
-    --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
-    --hf:      'Fraunces', Georgia, serif;
-    --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    --navy:    #3A212A;
+    --ff:      'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+    --hf:      'Lora', Georgia, serif;
+    --mono:    'IBM Plex Mono', 'Fira Code', monospace;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:var(--ff);background:var(--black);color:var(--white);line-height:1.6;}
@@ -54,7 +54,7 @@
   .tb-left{display:flex;align-items:center;gap:12px;}
   .tb-mark{width:30px;height:30px;border-radius:6px;background:var(--gold);color:var(--navy);font-family:var(--hf);font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;}
   .tb-name{font-family:var(--hf);font-weight:700;font-size:0.95rem;color:#fff;}
-  .tb-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;color:var(--gold);border:1px solid rgba(212,162,78,0.35);padding:3px 8px;border-radius:3px;}
+  .tb-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;color:var(--gold);border:1px solid rgba(194,96,60,0.35);padding:3px 8px;border-radius:3px;}
   .tb-right{display:flex;align-items:center;gap:18px;}
   .tb-clock{font-family:var(--mono);font-size:0.78rem;color:rgba(255,255,255,0.65);}
   .tb-signout{font-family:var(--ff);font-size:0.78rem;color:rgba(255,255,255,0.6);background:none;border:1px solid rgba(255,255,255,0.18);padding:7px 14px;border-radius:5px;cursor:pointer;transition:color .2s,border-color .2s;}
@@ -69,7 +69,7 @@
   .nav-item:hover{background:var(--surface);color:var(--white);}
   .nav-item.active{background:var(--accent-dim);color:var(--white);border-left-color:var(--accent);font-weight:600;}
   .nav-badge{background:var(--gold);color:var(--navy);font-family:var(--mono);font-size:0.6rem;font-weight:800;padding:1px 7px;border-radius:10px;}
-  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(27,42,74,0.5);z-index:90;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(58,33,42,0.5);z-index:90;}
   .sidebar-overlay.active{display:block;}
 
   .main{flex:1;margin-left:230px;padding:28px 32px 80px;}
@@ -91,13 +91,13 @@
   .data-table tr:last-child td{border-bottom:none;}
   .badge{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:0.06em;padding:3px 9px;border-radius:4px;text-transform:uppercase;}
   .b-current{background:rgba(63,168,115,0.14);color:var(--green);}
-  .b-due{background:rgba(212,162,78,0.16);color:var(--gold2);}
+  .b-due{background:rgba(194,96,60,0.16);color:var(--gold2);}
   .b-overdue{background:rgba(217,99,79,0.14);color:var(--red);}
   .b-pending{background:rgba(74,85,104,0.14);color:#4A5568;}
   .b-received{background:rgba(63,168,115,0.14);color:var(--green);}
   .tier-tag{font-family:var(--mono);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:3px;}
   .tier-1{background:rgba(74,85,104,0.14);color:#4A5568;}
-  .tier-2{background:rgba(212,162,78,0.16);color:var(--gold2);}
+  .tier-2{background:rgba(194,96,60,0.16);color:var(--gold2);}
   .tier-3{background:rgba(63,168,115,0.14);color:var(--green);}
 
   /* MARKETING / AI BUTTONS */
@@ -286,7 +286,7 @@
         <div class="chart-bar-row"><div class="chart-bar-label">General Litigation</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:39%;background:#4A5568;"></div></div><div class="chart-bar-value">7</div></div>
         <div class="chart-bar-row"><div class="chart-bar-label">Family Law</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:33%;background:var(--gold);"></div></div><div class="chart-bar-value">6</div></div>
         <div class="chart-bar-row"><div class="chart-bar-label">Real Estate</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:22%;background:var(--green);"></div></div><div class="chart-bar-value">4</div></div>
-        <div class="chart-bar-row"><div class="chart-bar-label">Estate & Succession</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:6%;background:#1B2A4A;"></div></div><div class="chart-bar-value">1</div></div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Estate & Succession</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:6%;background:#3A212A;"></div></div><div class="chart-bar-value">1</div></div>
       </div>
     </div>
 
@@ -375,7 +375,7 @@
 const ACCESS = 'tehronsha2026';
 const BRAND = 'Teh Ronsha Law';
 const LOCATION = 'Maria Aurora, Aurora Province';
-const ACCENT = '#D4A24E';
+const ACCENT = '#C2603C';
 
 /* ===== GATE ===== */
 function checkGate(){
@@ -556,77 +556,4 @@ Candidates identified:
 3. Pulmano Boundary Dispute (once resolved) - client has expressed interest in formalizing property boundaries for two additional parcels; likely follow-on real estate work.
 
 RANKED ACTIONS:
-1. (Highest impact) Reach out to Aurora Coastal Resort with a retainer framing: "Since we're already handling your lease, a monthly retainer covers ongoing contract reviews and quick legal questions at a predictable cost." Frame as a fit conversation, not a sales pitch.
-2. Bundle a retainer quote with Norte Hardware Aurora's contract review response, given their existing active matter.
-3. After the Pulmano boundary matter closes, offer a no-cost follow-up consultation on the additional parcels to open the retainer conversation.
-
-PROJECTED OUTCOME: Converting Aurora Coastal Resort and Norte Hardware Aurora to retainers adds approximately ₱16,000/month in recurring revenue (~9% of current monthly retainer revenue).`
-};
-
-function runAI(type){
-  const text = AI_OUTPUTS[type] || 'No analysis available.';
-  typeWriter('aiOutput', text);
-}
-
-/* ===== INTELLIGENCE ===== */
-const KPI_DATA = [
-  ['Monthly Retainer Revenue','₱186,000','#D4A24E'],
-  ['Active Matters','18','#1B2A4A'],
-  ['On-Time Hearing/Filing Rate','100%','#3FA873'],
-  ['Avg. Matter Value','₱24,500','#1B2A4A'],
-  ['Client Retention (12mo)','91%','#3FA873'],
-  ['Overdue Checklist Items','1','#D9634F']
-];
-
-const CHART_LEFT = {
-  bars: [
-    ['Business Retainers (Monthly)', 96000, '#D4A24E'],
-    ['General Litigation', 168000, '#4A5568'],
-    ['Family Law', 142000, '#1B2A4A'],
-    ['Real Estate & Property', 118000, '#3FA873'],
-    ['Estate & Succession', 24500, '#D9634F']
-  ]
-};
-
-const CHART_RIGHT = {
-  bars: [
-    ['General Litigation', 39, '#4A5568'],
-    ['Family Law', 33, '#D4A24E'],
-    ['Real Estate', 22, '#3FA873'],
-    ['Estate & Succession', 6, '#1B2A4A']
-  ]
-};
-
-/* ===== RENDER: KPI GRID + CHARTS ===== */
-function renderKPI(){
-  const grid = document.getElementById('kpi-grid');
-  grid.innerHTML = KPI_DATA.map(([label, value, color]) => `
-    <div class="kpi-card" style="border-left:3px solid ${color};">
-      <div class="kpi-label">${label}</div>
-      <div class="kpi-value">${value}</div>
-    </div>
-  `).join('');
-}
-
-function renderChart(containerId, titleId, chartObj, valueType){
-  const container = document.getElementById(containerId);
-  const titleEl = document.getElementById(titleId);
-  if(titleEl){
-    titleEl.textContent = containerId === 'chart-left' ? 'Revenue by Practice Area' : 'Matters by Practice Area';
-  }
-  const max = Math.max(...chartObj.bars.map(b => b[1]));
-  container.innerHTML = chartObj.bars.map(([label, value, color]) => {
-    const pct = max > 0 ? (value / max) * 100 : 0;
-    const displayValue = valueType === 'pct' ? `${value}%` : `₱${value.toLocaleString('en-PH')}`;
-    return `
-      <div class="chart-bar-row">
-        <div class="chart-bar-label">${label}</div>
-        <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${pct}%;background:${color};"></div></div>
-        <div class="chart-bar-value">${displayValue}</div>
-      </div>
-    `;
-  }).join('');
-}
-</script>
-</body>
-</html>
+1. (Highest impact) Reach out to Aurora Coastal Resort with a retainer framing: "Since we're already handling your lease, a monthly retainer covers ongoing contract reviews and quick legal questions at a predictable cost." Frame as a fit conversation, not a sales pit

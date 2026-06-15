@@ -10,7 +10,7 @@
     "@context": "https://schema.org",
     "@type": "LegalService",
     "name": "Teh Ronsha Law",
-    "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
+    "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=1200&q=80",
     "description": "General litigation, family law, and real estate/property law services for individuals, families, and small businesses across Aurora Province, Philippines.",
     "address": { "@type": "PostalAddress", "addressLocality": "Maria Aurora", "addressRegion": "Aurora Province", "addressCountry": "PH" },
     "areaServed": "Aurora Province, Philippines",
@@ -20,25 +20,25 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Work+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --black:   #F7F5F0;
-      --deep:    #EFEAE0;
+      --black:   #FBF6EF;
+      --deep:    #F3E6DA;
       --mid:     #FFFFFF;
-      --surface: #FBF8F3;
-      --border:  rgba(27,42,74,0.10);
-      --border2: rgba(27,42,74,0.18);
-      --white:   #1B2A4A;
-      --text:    rgba(27,42,74,0.64);
-      --text2:   rgba(27,42,74,0.40);
-      --gold:    #D4A24E;
-      --gold2:   #C18F3A;
-      --green:   #3FA873;
-      --navy:    #1B2A4A;
-      --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
-      --hf:      'Fraunces', Georgia, serif;
-      --mono:    'JetBrains Mono', 'Fira Code', monospace;
+      --surface: #FDF9F3;
+      --border:  rgba(58,33,42,0.10);
+      --border2: rgba(58,33,42,0.18);
+      --white:   #3A212A;
+      --text:    rgba(58,33,42,0.64);
+      --text2:   rgba(58,33,42,0.40);
+      --gold:    #C2603C;
+      --gold2:   #A4492C;
+      --green:   #6E8F6C;
+      --navy:    #3A212A;
+      --ff:      'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+      --hf:      'Lora', Georgia, serif;
+      --mono:    'IBM Plex Mono', 'Fira Code', monospace;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -49,7 +49,7 @@
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(27,42,74,0.96); backdrop-filter: blur(12px);
+      background: rgba(58,33,42,0.96); backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
       padding: 0 32px; height: 64px;
       display: flex; align-items: center; justify-content: space-between;
@@ -74,17 +74,30 @@
     /* HERO */
     .hero {
       min-height: 100vh; display: flex; align-items: center;
-      background:
-        linear-gradient(135deg, rgba(27,42,74,0.92) 0%, rgba(27,42,74,0.74) 55%, rgba(27,42,74,0.90) 100%),
-        url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      background: linear-gradient(160deg, var(--navy) 0%, #532E3B 58%, var(--navy) 100%);
       padding: 110px 32px 60px;
     }
-    .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center; }
+    .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .hero-h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; margin-bottom: 22px; color: #FFFFFF; }
     .hero-h1 span { color: var(--gold); font-style: italic; }
     .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.74); line-height: 1.8; margin-bottom: 36px; max-width: 480px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-signoff { display: flex; align-items: center; gap: 14px; }
+    .hero-signoff-sig { font-family: var(--hf); font-style: italic; font-size: 1.4rem; color: var(--gold); border-right: 1px solid rgba(255,255,255,0.18); padding-right: 14px; }
+    .hero-signoff-text { font-size: 0.78rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+    .hero-signoff-text strong { color: #FFFFFF; display: block; font-size: 0.85rem; }
+    .hero-portrait-wrap { position: relative; }
+    .hero-portrait {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+    }
+    .hero-portrait-tag {
+      position: absolute; bottom: -20px; left: -20px; background: var(--gold); color: var(--navy);
+      padding: 14px 20px; border-radius: 10px; font-family: var(--hf); font-weight: 700; font-size: 0.95rem;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.3); line-height: 1.3;
+    }
+    .hero-portrait-tag span { display: block; font-family: var(--mono); font-weight: 500; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; margin-top: 3px; }
     .btn-primary {
       background: var(--gold); color: var(--navy);
       font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em;
@@ -118,11 +131,11 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 12px 14px; border-radius: 6px; background: var(--surface);
     }
-    .hb-row:hover { background: rgba(212,162,78,0.07); }
+    .hb-row:hover { background: rgba(194,96,60,0.07); }
     .hb-item { display: flex; align-items: center; gap: 10px; }
     .hb-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
     .hb-ok { background: rgba(63,168,115,0.15); color: var(--green); }
-    .hb-due { background: rgba(212,162,78,0.18); color: var(--gold2); }
+    .hb-due { background: rgba(194,96,60,0.18); color: var(--gold2); }
     .hb-late { background: rgba(217,99,79,0.15); color: #D9634F; }
     .hb-name { font-size: 0.875rem; font-weight: 600; }
     .hb-detail { font-family: var(--mono); font-size: 0.6rem; color: var(--text2); }
@@ -133,8 +146,10 @@
     .hb-footer { margin-top: 14px; font-size: 0.7rem; color: var(--text2); display: flex; justify-content: space-between; align-items: center; }
     .sim-tag {
       font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--gold2); border: 1px solid rgba(212,162,78,0.3); padding: 2px 7px; border-radius: 3px; opacity: 0.85;
+      color: var(--gold2); border: 1px solid rgba(194,96,60,0.3); padding: 2px 7px; border-radius: 3px; opacity: 0.85;
     }
+    .case-status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .case-status-grid .health-board::before { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
 
     /* SECTIONS */
     section { padding: 96px 32px; }
@@ -161,7 +176,7 @@
       background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
       overflow: hidden; transition: border-color 0.3s, transform 0.3s;
     }
-    .svc-card:hover { border-color: rgba(212,162,78,0.4); transform: translateY(-3px); }
+    .svc-card:hover { border-color: rgba(194,96,60,0.4); transform: translateY(-3px); }
     .svc-card-body { padding: 22px 24px 24px; }
     .svc-img { width: 100%; height: 150px; object-fit: cover; display: block; }
     .svc-icon { font-size: 1.5rem; margin-bottom: 12px; }
@@ -176,7 +191,7 @@
       background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
       overflow: hidden; text-align: center; transition: border-color 0.3s, transform 0.3s;
     }
-    .industry-card:hover { border-color: rgba(212,162,78,0.4); transform: translateY(-3px); }
+    .industry-card:hover { border-color: rgba(194,96,60,0.4); transform: translateY(-3px); }
     .industry-img { width: 100%; height: 100px; object-fit: cover; display: block; }
     .industry-body { padding: 16px 12px; }
     .industry-icon { font-size: 1.4rem; margin-bottom: 6px; }
@@ -188,7 +203,7 @@
       background: var(--mid); border: 1px solid var(--border); border-radius: 12px;
       padding: 32px 28px; display: flex; flex-direction: column;
     }
-    .price-card.featured { border-color: var(--gold); box-shadow: 0 8px 30px rgba(212,162,78,0.15); position: relative; }
+    .price-card.featured { border-color: var(--gold); box-shadow: 0 8px 30px rgba(194,96,60,0.15); position: relative; }
     .price-badge {
       position: absolute; top: -12px; right: 24px;
       background: var(--gold); color: var(--navy);
@@ -222,7 +237,7 @@
     /* RESOURCES */
     .resources-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
     .res-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: border-color 0.3s, transform 0.3s; }
-    .res-card:hover { border-color: rgba(212,162,78,0.4); transform: translateY(-3px); }
+    .res-card:hover { border-color: rgba(194,96,60,0.4); transform: translateY(-3px); }
     .res-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold2); margin-bottom: 12px; }
     .res-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; font-family: var(--hf); }
     .res-desc { font-size: 0.85rem; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
@@ -276,7 +291,7 @@
     /* SIM BANNER */
     .sim-banner {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(27,42,74,0.97); border-top: 1px solid rgba(212,162,78,0.35);
+      background: rgba(58,33,42,0.97); border-top: 1px solid rgba(194,96,60,0.35);
       padding: 10px 24px; display: flex; align-items: center; justify-content: space-between;
       backdrop-filter: blur(8px);
     }
@@ -287,7 +302,8 @@
 
     /* RESPONSIVE */
     @media (max-width: 960px) {
-      .hero-inner, .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .hero-inner, .about-grid, .contact-wrap, .case-status-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-portrait-wrap { order: -1; max-width: 320px; margin: 0 auto 20px; }
       .services-grid, .pricing-grid, .resources-grid { grid-template-columns: 1fr 1fr; }
       .industry-grid { grid-template-columns: repeat(3,1fr); }
       .trust-inner { grid-template-columns: 1fr 1fr; }
@@ -386,15 +402,34 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">⚖ Litigation · Family Law · Real Estate · Aurora Province, Philippines</div>
-      <h1 class="hero-h1">Clarity in conflict.<br /><span>Counsel that closes.</span></h1>
-      <p class="hero-sub">Teh Ronsha Law represents individuals, families, and small businesses across Maria Aurora and Aurora Province in litigation, family law, and real estate matters - with clear answers, honest timelines, and a case status you can actually check.</p>
+      <div class="hero-eyebrow">⚖ Atty. Teh Ronsha · Litigation · Family Law · Real Estate · Maria Aurora, Aurora Province</div>
+      <h1 class="hero-h1">Your lawyer.<br /><span>Not just your law firm.</span></h1>
+      <p class="hero-sub">I'm Atty. Teh Ronsha. For over a decade I've represented families, property owners, and small business owners across Aurora Province - in litigation, family law, and real estate matters. You'll deal with me directly, get a straight answer about where your case stands, and never wonder who's actually handling your file.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Consultation</button>
         <button class="btn-outline" onclick="document.getElementById('practice-areas').scrollIntoView({behavior:'smooth'})">See Practice Areas</button>
       </div>
+      <div class="hero-signoff">
+        <div class="hero-signoff-sig">Teh Ronsha</div>
+        <div class="hero-signoff-text"><strong>Atty. Teh Ronsha</strong>Founder &amp; Principal Counsel, Maria Aurora</div>
+      </div>
     </div>
-    <div>
+    <div class="hero-portrait-wrap">
+      <img class="hero-portrait" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80" alt="Atty. Teh Ronsha, founder of Teh Ronsha Law" loading="lazy" />
+      <div class="hero-portrait-tag">12+ years<span>Serving Aurora Province</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STATUS -->
+<section class="bg-deep" id="case-status">
+  <div class="container">
+    <div class="case-status-grid">
+      <div>
+        <div class="eyebrow">For Existing Clients</div>
+        <h2 class="sh2">Never wonder<br />where your case stands.</h2>
+        <p class="ssub">Every client gets access to a simple case status view - what's been filed, what's coming up, and what's still needed from you. No more calling the office just to ask "what's happening with my case?"</p>
+      </div>
       <div class="health-board">
         <div class="hb-header">
           <div class="hb-title">Case Status Board</div>
@@ -520,7 +555,7 @@
     <p class="ssub">Every client's situation is different - a family navigating custody, a landowner finalizing a sale, a small business signing its first lease. We adapt our process to your matter.</p>
     <div class="industry-grid">
       <div class="industry-card">
-        <img class="industry-img" src="https://images.unsplash.com/photo-1521566652839-697aa473761a?auto=format&fit=crop&w=400&q=80" alt="Family at home" loading="lazy"/>
+        <img class="industry-img" src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=400&q=80" alt="Filipino family at home" loading="lazy"/>
         <div class="industry-body"><div class="industry-icon">👨‍👩‍👧</div><div class="industry-name">Families</div></div>
       </div>
       <div class="industry-card">
@@ -600,10 +635,10 @@
   <div class="container">
     <div class="about-grid">
       <div>
-        <div class="eyebrow">Your Counsel</div>
-        <h2 class="sh2">A Maria Aurora-based<br />solo practice, built on trust.</h2>
-        <p class="about-text">Atty. Teh Ronsha founded this practice after years of seeing families and small business owners across Aurora Province delay legal help until a problem became a crisis - simply because they didn't know where to start, what it would cost, or what to expect.</p>
-        <p class="about-text">Today the practice has handled over 300 matters across litigation, family law, and real estate - with the same plain-language approach throughout: we explain what's happening with your case, what's next, and what it costs, before you ask.</p>
+        <div class="eyebrow">Meet Your Lawyer</div>
+        <h2 class="sh2">Atty. Teh Ronsha,<br />founder &amp; principal counsel.</h2>
+        <p class="about-text">After years of watching families and small business owners across Aurora Province delay legal help until a problem became a crisis - simply because they didn't know where to start, what it would cost, or what to expect - she opened her own practice in Maria Aurora to do things differently.</p>
+        <p class="about-text">She's personally handled over 300 matters across litigation, family law, and real estate - with the same plain-language approach every time: she explains what's happening with your case, what's next, and what it costs, before you have to ask.</p>
         <div class="about-creds">
           <div class="about-cred"><div class="about-cred-icon">🎓</div><span>Member, Integrated Bar of the Philippines (IBP) - Aurora Chapter</span></div>
           <div class="about-cred"><div class="about-cred-icon">📍</div><span>Locally based in Maria Aurora, Aurora Province - in-person consultations available</span></div>
@@ -611,7 +646,7 @@
           <div class="about-cred"><div class="about-cred-icon">🔒</div><span>All client matters handled under strict attorney-client confidentiality</span></div>
         </div>
       </div>
-      <img class="about-img" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80" alt="Lawyer's office with law books and desk" loading="lazy"/>
+      <img class="about-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80" alt="Atty. Teh Ronsha reviewing case documents at her desk" loading="lazy"/>
     </div>
   </div>
 </section>
