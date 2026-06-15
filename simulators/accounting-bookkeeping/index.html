@@ -81,23 +81,45 @@
     }
     .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center; }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-    .hero-h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; margin-bottom: 22px; color: #FFFFFF; }
+    .hero-h1 { font-size: clamp(2.8rem, 6.5vw, 4.6rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 22px; color: #FFFFFF; }
     .hero-h1 span { color: var(--gold); font-style: italic; }
+
+    /* PRODUCT-LED PREVIEW FRAME */
+    .preview-frame {
+      border-radius: 14px; overflow: hidden; border: 1px solid var(--border2);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35); background: var(--mid);
+    }
+    .preview-chrome {
+      display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+      background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .preview-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .preview-dot:nth-child(1) { background: #D9634F; }
+    .preview-dot:nth-child(2) { background: var(--gold); }
+    .preview-dot:nth-child(3) { background: var(--green); }
+    .preview-url {
+      margin-left: 10px; font-family: var(--mono); font-size: 0.65rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .preview-frame .health-board { border: none; border-radius: 0; }
     .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.74); line-height: 1.8; margin-bottom: 36px; max-width: 480px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-primary {
       background: var(--gold); color: var(--navy);
       font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em;
-      padding: 14px 28px; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.2s;
+      padding: 14px 28px; border-radius: 4px; border: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-primary:active { transform: translateY(0); }
     .btn-outline {
       background: transparent; color: #FFFFFF;
       font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em;
       padding: 14px 28px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
     }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .btn-outline:active { transform: translateY(0); }
 
     /* BOOKS HEALTH PANEL */
     .health-board {
@@ -333,6 +355,24 @@
       section { padding: 60px 16px; }
     }
 
+    /* ── Scroll Reveal ─────────────── */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger.visible .svc-card,
+    .reveal-stagger.visible .industry-card,
+    .reveal-stagger.visible .price-card,
+    .reveal-stagger.visible .res-card { opacity: 1; transform: translateY(0); }
+    .reveal-stagger .svc-card,
+    .reveal-stagger .industry-card,
+    .reveal-stagger .price-card,
+    .reveal-stagger .res-card { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal-stagger.visible .svc-card:nth-child(1), .reveal-stagger.visible .industry-card:nth-child(1), .reveal-stagger.visible .price-card:nth-child(1), .reveal-stagger.visible .res-card:nth-child(1) { transition-delay: 0.05s; }
+    .reveal-stagger.visible .svc-card:nth-child(2), .reveal-stagger.visible .industry-card:nth-child(2), .reveal-stagger.visible .price-card:nth-child(2), .reveal-stagger.visible .res-card:nth-child(2) { transition-delay: 0.12s; }
+    .reveal-stagger.visible .svc-card:nth-child(3), .reveal-stagger.visible .industry-card:nth-child(3), .reveal-stagger.visible .price-card:nth-child(3), .reveal-stagger.visible .res-card:nth-child(3) { transition-delay: 0.19s; }
+    .reveal-stagger.visible .svc-card:nth-child(4), .reveal-stagger.visible .industry-card:nth-child(4) { transition-delay: 0.26s; }
+    .reveal-stagger.visible .svc-card:nth-child(5), .reveal-stagger.visible .industry-card:nth-child(5) { transition-delay: 0.33s; }
+    .reveal-stagger.visible .svc-card:nth-child(6) { transition-delay: 0.4s; }
+
     /* ── Operator Access Link ─────────────── */
     .nav-op {
       font-family: var(--mono, monospace); font-size: 0.65rem; letter-spacing: 0.1em;
@@ -395,6 +435,11 @@
       </div>
     </div>
     <div>
+      <div class="preview-frame">
+        <div class="preview-chrome">
+          <div class="preview-dot"></div><div class="preview-dot"></div><div class="preview-dot"></div>
+          <div class="preview-url">operator.kuwenta.adf · live dashboard preview</div>
+        </div>
       <div class="health-board">
         <div class="hb-header">
           <div class="hb-title">Books Health Check</div>
@@ -427,6 +472,7 @@
           <span class="sim-tag">Sample Data</span>
         </div>
       </div>
+      </div>
     </div>
   </div>
 </section>
@@ -434,9 +480,9 @@
 <!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-inner">
-    <div><div class="ts-num">11+</div><div class="ts-label">Years Serving Aurora Province SMBs</div></div>
-    <div><div class="ts-num">85+</div><div class="ts-label">Active Client Accounts</div></div>
-    <div><div class="ts-num">100%</div><div class="ts-label">On-Time BIR Filings (2025)</div></div>
+    <div><div class="ts-num" data-count="11" data-suffix="+">0</div><div class="ts-label">Years Serving Aurora Province SMBs</div></div>
+    <div><div class="ts-num" data-count="85" data-suffix="+">0</div><div class="ts-label">Active Client Accounts</div></div>
+    <div><div class="ts-num" data-count="100" data-suffix="%">0</div><div class="ts-label">On-Time BIR Filings (2025)</div></div>
     <div><div class="ts-num">BIR</div><div class="ts-label">Accredited Tax Agent on Staff</div></div>
   </div>
   <div class="badge-row">
@@ -450,10 +496,10 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="container">
-    <div class="eyebrow">What We Handle</div>
-    <h2 class="sh2">Six services. One team.<br />Books that are always ready.</h2>
-    <p class="ssub">From day-to-day bookkeeping to year-end financial statements - Kuwenta & Co. covers the full back-office finance function so you're never scrambling before a deadline.</p>
-    <div class="services-grid">
+    <div class="eyebrow reveal">What We Handle</div>
+    <h2 class="sh2 reveal">Six services. One team.<br />Books that are always ready.</h2>
+    <p class="ssub reveal">From day-to-day bookkeeping to year-end financial statements - Kuwenta & Co. covers the full back-office finance function so you're never scrambling before a deadline.</p>
+    <div class="services-grid reveal-stagger">
       <div class="svc-card">
         <img class="svc-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&q=80" alt="Monthly bookkeeping desk with laptop and calculator" loading="lazy"/>
         <div class="svc-card-body">
@@ -515,10 +561,10 @@
 <!-- INDUSTRIES -->
 <section class="bg-deep" id="industries">
   <div class="container">
-    <div class="eyebrow">Who We Serve</div>
-    <h2 class="sh2">Built for Aurora Province's<br />small business backbone.</h2>
-    <p class="ssub">Every industry has its own quirks - inventory accounting for retailers, tip and shift tracking for F&B, project costing for contractors. We adapt our process to yours.</p>
-    <div class="industry-grid">
+    <div class="eyebrow reveal">Who We Serve</div>
+    <h2 class="sh2 reveal">Built for Aurora Province's<br />small business backbone.</h2>
+    <p class="ssub reveal">Every industry has its own quirks - inventory accounting for retailers, tip and shift tracking for F&B, project costing for contractors. We adapt our process to yours.</p>
+    <div class="industry-grid reveal-stagger">
       <div class="industry-card">
         <img class="industry-img" src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=400&q=80" alt="Filipino sari-sari store and retail shop" loading="lazy"/>
         <div class="industry-body"><div class="industry-icon">🏪</div><div class="industry-name">Retail</div></div>
@@ -546,10 +592,10 @@
 <!-- PRICING -->
 <section id="pricing">
   <div class="container">
-    <div class="eyebrow">Packages</div>
-    <h2 class="sh2">Predictable monthly retainers.<br />No surprise invoices.</h2>
-    <p class="ssub">Choose a tier based on your transaction volume and complexity. Every package includes monthly bookkeeping, BIR compliance filings, and a dedicated account manager.</p>
-    <div class="pricing-grid">
+    <div class="eyebrow reveal">Packages</div>
+    <h2 class="sh2 reveal">Predictable monthly retainers.<br />No surprise invoices.</h2>
+    <p class="ssub reveal">Choose a tier based on your transaction volume and complexity. Every package includes monthly bookkeeping, BIR compliance filings, and a dedicated account manager.</p>
+    <div class="pricing-grid reveal-stagger">
       <div class="price-card">
         <div class="price-tier">Tier 1</div>
         <div class="price-name">Starter</div>
@@ -603,7 +649,7 @@
 <section class="bg-deep" id="about">
   <div class="container">
     <div class="about-grid">
-      <div>
+      <div class="reveal">
         <div class="eyebrow">Who's Behind the Numbers</div>
         <h2 class="sh2">A Baler-based team of<br />licensed accountants.</h2>
         <p class="about-text">Kuwenta & Co. was founded by CPAs who grew up watching family-run sari-sari stores and small contractors struggle with the same recurring problem: nobody told them what the numbers meant, or when the deadlines were, until it was too late.</p>
@@ -623,10 +669,10 @@
 <!-- RESOURCES -->
 <section id="resources">
   <div class="container">
-    <div class="eyebrow">Insights & Reminders</div>
-    <h2 class="sh2">Tax deadlines and tips,<br />in plain language.</h2>
-    <p class="ssub">A running library of bookkeeping tips and BIR deadline reminders for Aurora Province small business owners - no jargon, no guesswork.</p>
-    <div class="resources-grid">
+    <div class="eyebrow reveal">Insights & Reminders</div>
+    <h2 class="sh2 reveal">Tax deadlines and tips,<br />in plain language.</h2>
+    <p class="ssub reveal">A running library of bookkeeping tips and BIR deadline reminders for Aurora Province small business owners - no jargon, no guesswork.</p>
+    <div class="resources-grid reveal-stagger">
       <div class="res-card">
         <div class="res-tag">BIR Deadline</div>
         <div class="res-title">Q3 2026 Percentage Tax (2551Q) - Due July 25</div>
@@ -774,6 +820,45 @@ function handleSubmit(){
   var closeBtn=document.getElementById('navDrawerClose');
   if(closeBtn)closeBtn.addEventListener('click',closeD);
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeD);});
+})();
+
+/* ── Scroll reveal + animated counters ─────────────── */
+(function(){
+  var targets = document.querySelectorAll('.reveal, .reveal-stagger');
+  if(!('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  targets.forEach(function(el){ io.observe(el); });
+
+  var counters = document.querySelectorAll('.ts-num[data-count]');
+  var counterIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var el = entry.target;
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var start = performance.now();
+      var duration = 900;
+      function tick(now){
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if(progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(function(el){ counterIO.observe(el); });
 })();
 </script>
 </body>
