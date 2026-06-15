@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Operator Console - Teh Ronsha Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --black:   #F7F5F0;
+    --deep:    #EFEAE0;
+    --mid:     #FFFFFF;
+    --surface: #FBF8F3;
+    --elev:    #FFFFFF;
+    --border:  rgba(27,42,74,0.10);
+    --border2: rgba(27,42,74,0.18);
+    --white:   #1B2A4A;
+    --text:    rgba(27,42,74,0.64);
+    --text2:   rgba(27,42,74,0.40);
+    --text3:   rgba(27,42,74,0.22);
+    --gold:    #D4A24E;
+    --gold2:   #C18F3A;
+    --accent:  #D4A24E;
+    --accent-dim: rgba(212,162,78,0.12);
+    --green:   #3FA873;
+    --red:     #D9634F;
+    --navy:    #1B2A4A;
+    --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --hf:      'Fraunces', Georgia, serif;
+    --mono:    'JetBrains Mono', 'Fira Code', monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--ff);background:var(--black);color:var(--white);line-height:1.6;}
+  a{color:inherit;}
+
+  /* GATE */
+  #gate{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--navy);}
+  .gate-box{background:var(--mid);border-radius:12px;padding:44px 40px;width:100%;max-width:380px;text-align:center;border:1px solid var(--border2);}
+  .gate-mark{width:48px;height:48px;border-radius:8px;background:var(--gold);color:var(--navy);font-family:var(--hf);font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  .gate-title{font-family:var(--hf);font-size:1.3rem;font-weight:700;margin-bottom:6px;}
+  .gate-sub{font-size:0.8rem;color:var(--text2);margin-bottom:24px;}
+  .gate-input{width:100%;padding:13px 16px;border-radius:6px;border:1px solid var(--border2);background:var(--surface);color:var(--white);font-family:var(--mono);font-size:0.95rem;text-align:center;letter-spacing:0.15em;outline:none;margin-bottom:14px;}
+  .gate-input:focus{border-color:var(--gold);}
+  .gate-btn{width:100%;padding:13px;border-radius:6px;border:none;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;letter-spacing:0.04em;cursor:pointer;transition:opacity .2s;}
+  .gate-btn:hover{opacity:.85;}
+  .gate-error{color:var(--red);font-size:0.78rem;margin-top:10px;display:none;}
+  .gate-hint{font-family:var(--mono);font-size:0.65rem;color:var(--text3);margin-top:18px;}
+
+  /* SHELL */
+  #app{display:none;}
+  .topbar{position:fixed;top:0;left:0;right:0;height:60px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;}
+  .tb-left{display:flex;align-items:center;gap:12px;}
+  .tb-mark{width:30px;height:30px;border-radius:6px;background:var(--gold);color:var(--navy);font-family:var(--hf);font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;}
+  .tb-name{font-family:var(--hf);font-weight:700;font-size:0.95rem;color:#fff;}
+  .tb-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;color:var(--gold);border:1px solid rgba(212,162,78,0.35);padding:3px 8px;border-radius:3px;}
+  .tb-right{display:flex;align-items:center;gap:18px;}
+  .tb-clock{font-family:var(--mono);font-size:0.78rem;color:rgba(255,255,255,0.65);}
+  .tb-signout{font-family:var(--ff);font-size:0.78rem;color:rgba(255,255,255,0.6);background:none;border:1px solid rgba(255,255,255,0.18);padding:7px 14px;border-radius:5px;cursor:pointer;transition:color .2s,border-color .2s;}
+  .tb-signout:hover{color:#fff;border-color:rgba(255,255,255,0.4);}
+  .op-ham{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:4px;padding:6px;}
+  .op-ham span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;}
+
+  .layout{display:flex;padding-top:60px;min-height:100vh;}
+  .sidebar{width:230px;background:var(--mid);border-right:1px solid var(--border);padding:20px 0;position:fixed;top:60px;bottom:0;overflow-y:auto;}
+  .sidebar-section{padding:14px 20px 6px;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);}
+  .nav-item{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;font-size:0.85rem;color:var(--text);cursor:pointer;border-left:3px solid transparent;transition:background .15s,color .15s;}
+  .nav-item:hover{background:var(--surface);color:var(--white);}
+  .nav-item.active{background:var(--accent-dim);color:var(--white);border-left-color:var(--accent);font-weight:600;}
+  .nav-badge{background:var(--gold);color:var(--navy);font-family:var(--mono);font-size:0.6rem;font-weight:800;padding:1px 7px;border-radius:10px;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(27,42,74,0.5);z-index:90;}
+  .sidebar-overlay.active{display:block;}
+
+  .main{flex:1;margin-left:230px;padding:28px 32px 80px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .panel-head{margin-bottom:24px;}
+  .panel-title{font-family:var(--hf);font-size:1.5rem;font-weight:700;}
+  .panel-sub{font-size:0.85rem;color:var(--text2);margin-top:4px;}
+
+  /* CARDS / TABLES */
+  .card{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:22px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
+  .kpi-card{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+  .kpi-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+  .kpi-value{font-family:var(--hf);font-size:1.4rem;font-weight:700;}
+  .data-table{width:100%;border-collapse:collapse;}
+  .data-table th{text-align:left;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);padding:10px 14px;border-bottom:1px solid var(--border2);}
+  .data-table td{padding:13px 14px;font-size:0.84rem;border-bottom:1px solid var(--border);}
+  .data-table tr:last-child td{border-bottom:none;}
+  .badge{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:0.06em;padding:3px 9px;border-radius:4px;text-transform:uppercase;}
+  .b-current{background:rgba(63,168,115,0.14);color:var(--green);}
+  .b-due{background:rgba(212,162,78,0.16);color:var(--gold2);}
+  .b-overdue{background:rgba(217,99,79,0.14);color:var(--red);}
+  .b-pending{background:rgba(74,85,104,0.14);color:#4A5568;}
+  .b-received{background:rgba(63,168,115,0.14);color:var(--green);}
+  .tier-tag{font-family:var(--mono);font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:3px;}
+  .tier-1{background:rgba(74,85,104,0.14);color:#4A5568;}
+  .tier-2{background:rgba(212,162,78,0.16);color:var(--gold2);}
+  .tier-3{background:rgba(63,168,115,0.14);color:var(--green);}
+
+  /* MARKETING / AI BUTTONS */
+  .btn-grid{display:grid;gap:12px;margin-bottom:20px;}
+  .btn-grid-2{grid-template-columns:1fr 1fr;}
+  .btn-grid-3{grid-template-columns:1fr 1fr 1fr;}
+  .action-btn-wide{background:var(--mid);border:1px solid var(--border2);border-radius:8px;padding:16px;text-align:left;cursor:pointer;transition:border-color .2s,background .2s;font-family:var(--ff);}
+  .action-btn-wide:hover{border-color:var(--accent);background:var(--accent-dim);}
+  .abw-title{font-weight:700;font-size:0.88rem;margin-bottom:4px;}
+  .abw-desc{font-size:0.76rem;color:var(--text2);}
+  .output-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:0.85rem;line-height:1.8;white-space:pre-wrap;min-height:120px;font-family:var(--ff);}
+  .output-box:empty::before{content:'Output will appear here.';color:var(--text3);}
+  .output-placeholder{color:var(--text3);}
+
+  /* CHARTS */
+  .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px;}
+  .chart-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .chart-bar-label{width:120px;font-size:0.78rem;color:var(--text);flex-shrink:0;}
+  .chart-bar-track{flex:1;height:10px;background:var(--surface);border-radius:5px;overflow:hidden;}
+  .chart-bar-fill{height:100%;border-radius:5px;}
+  .chart-bar-value{width:64px;text-align:right;font-family:var(--mono);font-size:0.75rem;color:var(--text2);flex-shrink:0;}
+
+  .sim-strip{position:fixed;bottom:0;left:0;right:0;background:var(--navy);color:rgba(255,255,255,0.55);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;padding:8px 24px;text-align:center;z-index:80;}
+  .sim-strip span{color:var(--gold);}
+
+  @media (max-width:980px){
+    .kpi-row{grid-template-columns:repeat(3,1fr);}
+    .chart-grid{grid-template-columns:1fr;}
+    .btn-grid-3{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:760px){
+    .op-ham{display:flex;}
+    .sidebar{transform:translateX(-100%);transition:transform .25s;z-index:95;}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;padding:20px 16px 80px;}
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .btn-grid-2,.btn-grid-3{grid-template-columns:1fr;}
+    .data-table{display:block;overflow-x:auto;white-space:nowrap;}
+  }
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-mark">TR</div>
+    <div class="gate-title">Operator Console</div>
+    <div class="gate-sub">Teh Ronsha Law - Client Portal & Practice Management</div>
+    <input type="password" class="gate-input" id="gateInput" placeholder="Access Code" autocomplete="off" />
+    <button class="gate-btn" onclick="checkGate()">Enter Console</button>
+    <div class="gate-error" id="gateError">Incorrect access code. Try again.</div>
+    <div class="gate-hint">Aurora Digital Foundry · Live Operator Suite Demo<br>Demo Access Code: <strong>tehronsha2026</strong></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="op-ham" id="opHam"><span></span><span></span><span></span></button>
+      <div class="tb-mark">TR</div>
+      <div class="tb-name">Teh Ronsha Law</div>
+      <div class="tb-tag">SIMULATOR</div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-clock" id="clock">--:--:--</div>
+      <button class="tb-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleOpSidebar()"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-section">Operations</div>
+    <div class="nav-item active" onclick="showTab('clients', this)">Matter Tracker</div>
+    <div class="nav-item" onclick="showTab('deadlines', this)">Hearings & Deadlines <span class="nav-badge">6</span></div>
+    <div class="nav-item" onclick="showTab('documents', this)">Document Checklist <span class="nav-badge">3</span></div>
+    <div class="nav-item" onclick="showTab('inquiries', this)">Consultation Inquiries <span class="nav-badge">3</span></div>
+    <div class="sidebar-section">Reports</div>
+    <div class="nav-item" onclick="showTab('overview', this)">Practice Overview</div>
+    <div class="sidebar-section">Growth</div>
+    <div class="nav-item" onclick="showTab('marketing', this)">Marketing</div>
+    <div class="nav-item" onclick="showTab('ai', this)">AI Console</div>
+    <div class="nav-item" onclick="showTab('intelligence', this)">Intelligence</div>
+  </div>
+
+  <div class="main">
+
+    <!-- MATTER TRACKER -->
+    <div class="tab-panel active" id="tab-clients">
+      <div class="panel-head">
+        <div class="panel-title">Matter Tracker</div>
+        <div class="panel-sub">All active matters across General Litigation, Family Law, and Real Estate.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Matter</th><th>Practice Area</th><th>Stage</th><th>Next Hearing / Deadline</th><th>Status</th><th>Last Update</th></tr></thead>
+          <tbody>
+            <tr><td>Reyes vs. Santos (Civil Case)</td><td>General Litigation</td><td>Pre-Trial</td><td>Jul 22, 2026</td><td><span class="tier-tag tier-2">Active</span></td><td>Jun 9, 2026</td></tr>
+            <tr><td>Dela Cruz Annulment Petition</td><td>Family Law</td><td>Pending Filing</td><td>Jun 30, 2026</td><td><span class="tier-tag tier-2">Active</span></td><td>Jun 8, 2026</td></tr>
+            <tr><td>Ampil-Bautista Property Sale</td><td>Real Estate</td><td>Document Review</td><td>Jun 18, 2026</td><td><span class="tier-tag tier-2">Active</span></td><td>Jun 10, 2026</td></tr>
+            <tr><td>Aurora Coastal Resort Lease</td><td>Real Estate / Contract</td><td>Drafting</td><td>Jun 20, 2026</td><td><span class="tier-tag tier-2">Active</span></td><td>Jun 10, 2026</td></tr>
+            <tr><td>Santos Custody & Support</td><td>Family Law</td><td>Mediation</td><td>Jul 5, 2026</td><td><span class="tier-tag tier-2">Active</span></td><td>Jun 11, 2026</td></tr>
+            <tr><td>Norte Hardware Estate Settlement</td><td>Estate & Succession</td><td>Document Collection</td><td>Jul 10, 2026</td><td><span class="tier-tag tier-1">Intake</span></td><td>Jun 11, 2026</td></tr>
+            <tr><td>Pulmano Boundary Dispute</td><td>General Litigation</td><td>Barangay Conciliation</td><td>Jun 25, 2026</td><td><span class="tier-tag tier-2">Active</span></td><td>Jun 12, 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HEARINGS & DEADLINES -->
+    <div class="tab-panel" id="tab-deadlines">
+      <div class="panel-head">
+        <div class="panel-title">Hearings & Deadlines</div>
+        <div class="panel-sub">Upcoming hearings, filings, and notarization deadlines across all matters.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Matter</th><th>Hearing / Filing</th><th>Venue</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Norte Hardware Estate Settlement</td><td>Heirs' Document Submission</td><td>TR Law Office</td><td>Jun 12, 2026</td><td><span class="badge b-overdue">Overdue 3 Days</span></td></tr>
+            <tr><td>Ampil-Bautista Property Sale</td><td>Deed Notarization</td><td>TR Law Office</td><td>Jun 18, 2026</td><td><span class="badge b-due">Due in 3 Days</span></td></tr>
+            <tr><td>Aurora Coastal Resort Lease</td><td>Lease Agreement Finalization</td><td>TR Law Office</td><td>Jun 20, 2026</td><td><span class="badge b-due">Due in 5 Days</span></td></tr>
+            <tr><td>Pulmano Boundary Dispute</td><td>Barangay Conciliation Hearing</td><td>Brgy. Hall, Maria Aurora</td><td>Jun 25, 2026</td><td><span class="badge b-due">Due in 10 Days</span></td></tr>
+            <tr><td>Dela Cruz Annulment Petition</td><td>Petition Filing</td><td>RTC Family Court, Baler</td><td>Jun 30, 2026</td><td><span class="badge b-current">On Track</span></td></tr>
+            <tr><td>Reyes vs. Santos (Civil Case)</td><td>Pre-Trial Conference</td><td>RTC Branch 1, Baler</td><td>Jul 22, 2026</td><td><span class="badge b-current">On Track</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DOCUMENT CHECKLIST -->
+    <div class="tab-panel" id="tab-documents">
+      <div class="panel-head">
+        <div class="panel-title">Document Checklist</div>
+        <div class="panel-sub">Outstanding documents requested from clients for active matters.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Matter</th><th>Document Requested</th><th>Requested On</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Dela Cruz Annulment Petition</td><td>Marriage Certificate (PSA copy)</td><td>Jun 5, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>Ampil-Bautista Property Sale</td><td>Updated Tax Declaration</td><td>Jun 8, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>Aurora Coastal Resort Lease</td><td>Notarized SPA from Co-Owner</td><td>Jun 9, 2026</td><td><span class="badge b-received">Received</span></td></tr>
+            <tr><td>Santos Custody & Support</td><td>Children's Birth Certificates</td><td>Jun 10, 2026</td><td><span class="badge b-pending">Pending</span></td></tr>
+            <tr><td>Norte Hardware Estate Settlement</td><td>Death Certificate & Heirs' Affidavit</td><td>Jun 11, 2026</td><td><span class="badge b-received">Received</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CONSULTATION INQUIRIES -->
+    <div class="tab-panel" id="tab-inquiries">
+      <div class="panel-head">
+        <div class="panel-title">Consultation Inquiries</div>
+        <div class="panel-sub">Consultation requests submitted via the Teh Ronsha Law website.</div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Submitted</th><th>Name</th><th>Case Type</th><th>Preferred Mode</th><th>Contact</th><th>Description</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Jun 13, 2026</td><td>Mariel Concepcion</td><td>Real Estate / Property</td><td>In-person (Maria Aurora office)</td><td>0917 442 0918 · mariel.concepcion@gmail.com</td><td>Need help reviewing a deed of sale before signing</td><td><span class="badge b-pending">New</span></td></tr>
+            <tr><td>Jun 12, 2026</td><td>Joel Bartolome</td><td>Family Law</td><td>Phone</td><td>0928 117 3345 · joelbartolome@gmail.com</td><td>Filing for child support, unsure of requirements</td><td><span class="badge b-pending">New</span></td></tr>
+            <tr><td>Jun 10, 2026</td><td>Norte Hardware Aurora</td><td>Contract Review</td><td>Video Call</td><td>0917 805 2230 · norteaurora.hw@yahoo.com</td><td>Need supplier contract reviewed before renewal</td><td><span class="badge b-received">Contacted</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRACTICE OVERVIEW -->
+    <div class="tab-panel" id="tab-overview">
+      <div class="panel-head">
+        <div class="panel-title">Practice Overview</div>
+        <div class="panel-sub">Snapshot of practice health across all active matters.</div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Active Matters</div><div class="kpi-value">18</div></div>
+        <div class="kpi-card"><div class="kpi-label">Monthly Retainer Revenue</div><div class="kpi-value">₱186K</div></div>
+        <div class="kpi-card"><div class="kpi-label">Hearing Attendance</div><div class="kpi-value">100%</div></div>
+        <div class="kpi-card"><div class="kpi-label">Overdue Items</div><div class="kpi-value">1</div></div>
+        <div class="kpi-card"><div class="kpi-label">Open Doc Requests</div><div class="kpi-value">3</div></div>
+        <div class="kpi-card"><div class="kpi-label">Avg Consult Response</div><div class="kpi-value">18 hrs</div></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:14px;font-family:var(--hf);">Matters by Practice Area</div>
+        <div class="chart-bar-row"><div class="chart-bar-label">General Litigation</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:39%;background:#4A5568;"></div></div><div class="chart-bar-value">7</div></div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Family Law</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:33%;background:var(--gold);"></div></div><div class="chart-bar-value">6</div></div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Real Estate</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:22%;background:var(--green);"></div></div><div class="chart-bar-value">4</div></div>
+        <div class="chart-bar-row"><div class="chart-bar-label">Estate & Succession</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:6%;background:#1B2A4A;"></div></div><div class="chart-bar-value">1</div></div>
+      </div>
+    </div>
+
+    <!-- MARKETING -->
+    <div class="tab-panel" id="tab-marketing">
+      <div class="panel-head">
+        <div class="panel-title">Marketing Generator</div>
+        <div class="panel-sub">Generate ready-to-send content for client communications and lead nurturing.</div>
+      </div>
+      <div class="btn-grid btn-grid-2">
+        <button class="action-btn-wide" onclick="generateContent('hearingReminder')">
+          <div class="abw-title">📅 Hearing Reminder</div>
+          <div class="abw-desc">Email/SMS reminder for upcoming hearings, filings, and document deadlines.</div>
+        </button>
+        <button class="action-btn-wide" onclick="generateContent('newClientWelcome')">
+          <div class="abw-title">👋 New Client Welcome Sequence</div>
+          <div class="abw-desc">Onboarding email series for newly engaged retainer clients.</div>
+        </button>
+        <button class="action-btn-wide" onclick="generateContent('consultationPromo')">
+          <div class="abw-title">🏷️ Free Consultation Promo</div>
+          <div class="abw-desc">Limited-time offer copy for free initial-consultation campaigns targeting Aurora Province residents.</div>
+        </button>
+        <button class="action-btn-wide" onclick="generateContent('referralAsk')">
+          <div class="abw-title">🤝 Referral Request</div>
+          <div class="abw-desc">Friendly referral-ask copy for satisfied long-term clients.</div>
+        </button>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:12px;font-family:var(--hf);">Generated Output</div>
+        <div class="output-box" id="marketingOutput"></div>
+      </div>
+    </div>
+
+    <!-- AI CONSOLE -->
+    <div class="tab-panel" id="tab-ai">
+      <div class="panel-head">
+        <div class="panel-title">AI Console</div>
+        <div class="panel-sub">Run diagnostic queries against practice data for prioritized recommendations.</div>
+      </div>
+      <div class="btn-grid btn-grid-3">
+        <button class="action-btn-wide" onclick="runAI('caseloadTriage')">
+          <div class="abw-title">⚠️ Caseload Triage</div>
+          <div class="abw-desc">Diagnose which matters risk missed deadlines and recommend interventions.</div>
+        </button>
+        <button class="action-btn-wide" onclick="runAI('capacityPlanning')">
+          <div class="abw-title">📊 Capacity Planning</div>
+          <div class="abw-desc">Assess practice bandwidth vs. matter load ahead of hearing-heavy weeks.</div>
+        </button>
+        <button class="action-btn-wide" onclick="runAI('retainerOpportunities')">
+          <div class="abw-title">💡 Retainer Opportunities</div>
+          <div class="abw-desc">Identify per-matter clients ready to move to a monthly business retainer.</div>
+        </button>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:12px;font-family:var(--hf);">Analysis Output</div>
+        <div class="output-box" id="aiOutput"></div>
+      </div>
+    </div>
+
+    <!-- INTELLIGENCE -->
+    <div class="tab-panel" id="tab-intelligence">
+      <div class="panel-head">
+        <div class="panel-title">Business Intelligence</div>
+        <div class="panel-sub">Revenue, retention, and compliance performance across the practice.</div>
+      </div>
+      <div id="kpi-grid" class="kpi-row"></div>
+      <div class="chart-grid">
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:14px;font-family:var(--hf);" id="chart-left-title"></div>
+          <div id="chart-left"></div>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:14px;font-family:var(--hf);" id="chart-right-title"></div>
+          <div id="chart-right"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="sim-strip">AURORA DIGITAL FOUNDRY · <span>LIVE BLUEPRINT</span> · Teh Ronsha Law Operator Console · Sample Data Only</div>
+
+<script>
+/* ===== CONFIG ===== */
+const ACCESS = 'tehronsha2026';
+const BRAND = 'Teh Ronsha Law';
+const LOCATION = 'Maria Aurora, Aurora Province';
+const ACCENT = '#D4A24E';
+
+/* ===== GATE ===== */
+function checkGate(){
+  const val = document.getElementById('gateInput').value.trim();
+  if(val === ACCESS){
+    sessionStorage.setItem('tr_auth','granted');
+    enterApp();
+  } else {
+    document.getElementById('gateError').style.display='block';
+  }
+}
+document.getElementById('gateInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') checkGate();
+});
+function enterApp(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').style.display='block';
+  startClock();
+  renderKPI();
+  renderChart('chart-left','chart-left-title',CHART_LEFT,'value');
+  renderChart('chart-right','chart-right-title',CHART_RIGHT,'pct');
+}
+function signOut(){
+  sessionStorage.removeItem('tr_auth');
+  location.reload();
+}
+if(sessionStorage.getItem('tr_auth') === 'granted'){
+  window.addEventListener('DOMContentLoaded', enterApp);
+}
+
+/* ===== CLOCK ===== */
+function startClock(){
+  function tick(){
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' · ' + LOCATION;
+  }
+  tick();
+  setInterval(tick,1000);
+}
+
+/* ===== SIDEBAR / TABS ===== */
+function showTab(name, el){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(window.innerWidth <= 760) toggleOpSidebar(true);
+}
+function toggleOpSidebar(forceClose){
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebarOverlay');
+  if(forceClose){ sb.classList.remove('open'); ov.classList.remove('active'); return; }
+  sb.classList.toggle('open');
+  ov.classList.toggle('active');
+}
+document.getElementById('opHam').addEventListener('click', ()=>toggleOpSidebar());
+
+/* ===== TYPEWRITER ===== */
+function typeWriter(elementId, text, speed=12){
+  const el = document.getElementById(elementId);
+  el.textContent='';
+  let i=0;
+  function step(){
+    if(i < text.length){
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(step, speed);
+    }
+  }
+  step();
+}
+
+/* ===== MARKETING GENERATOR ===== */
+const MARKETING_OUTPUTS = {
+  hearingReminder: `SUBJECT: ⏰ Reminder - Your hearing/filing is coming up
+
+Hi [Client Name],
+
+Quick heads-up from the ${BRAND} team: your matter has an upcoming date we want to make sure you're prepared for.
+
+Here's where things stand on our end:
+- We've reviewed the case file and confirmed all pleadings are on record.
+- We're finalizing the documents needed for this date.
+- We just need: any outstanding items from your document checklist (if not yet sent).
+
+No action needed if you've already sent everything - we'll handle the appearance/filing and update you right after.
+
+Questions? Just reply to this email or message us on Viber.
+
+— Atty. Teh Ronsha, ${BRAND}, ${LOCATION}`,
+
+  newClientWelcome: `SUBJECT: Welcome to ${BRAND} - here's what happens next
+
+Hi [Client Name],
+
+Welcome - we're glad to be handling your matter from here. Here's your roadmap for the next 5 business days:
+
+Day 1-2: We'll send you a secure document checklist specific to your case type (IDs, certificates, contracts, or titles as applicable).
+
+Day 3-4: Our team opens your case file, confirms the relevant deadlines and venue, and begins preparing initial drafts.
+
+Day 5: Kickoff call or meeting - we'll walk through the plan, confirm your hearing/filing calendar, and answer any questions.
+
+In the meantime, if you have any relevant documents on hand, feel free to send them over now to get a head start.
+
+Looking forward to working with you.
+
+— Atty. Teh Ronsha, ${BRAND}, ${LOCATION}`,
+
+  consultationPromo: `SUBJECT: Need a second opinion on a legal matter? First consultation is on us this month.
+
+Hi [Name],
+
+If you're sitting on a legal question - a property sale, a family matter, or a contract you're unsure about - you're not alone. It's the #1 thing residents across ${LOCATION} tell us they've been putting off.
+
+This month, ${BRAND} is offering a free initial consultation for local residents:
+- We review your situation and documents
+- We explain your options in plain language - no legalese
+- You leave with a clear next step, no obligation
+
+Slots are limited to 10 consultations this month. Reply "CONSULT" to book yours.
+
+— Atty. Teh Ronsha, ${BRAND}, ${LOCATION}`,
+
+  referralAsk: `SUBJECT: A small favor?
+
+Hi [Client Name],
+
+It's been a pleasure working on your matter these past months - and seeing it move forward with a clear plan instead of uncertainty.
+
+If you know someone in ${LOCATION} who's dealing with a legal question they've been putting off, we'd love an introduction. As a thank-you, we'll apply a discount to their first consultation - and a credit toward your next engagement, once they sign on.
+
+No pressure at all - just figured I'd ask while it's on my mind.
+
+— Atty. Teh Ronsha, ${BRAND}`
+};
+
+function generateContent(type){
+  const text = MARKETING_OUTPUTS[type] || 'No content available.';
+  typeWriter('marketingOutput', text);
+}
+
+/* ===== AI CONSOLE ===== */
+const AI_OUTPUTS = {
+  caseloadTriage: `DIAGNOSIS: 1 of 18 active matters (5.6%) currently overdue on a document/checklist item.
+
+Root causes identified:
+1. Norte Hardware Estate Settlement - heirs scattered across two provinces, slow to gather and submit death certificate and affidavit. Item overdue 3 days.
+2. Ampil-Bautista Property Sale - updated tax declaration request pending with the Maria Aurora Assessor's Office, notarization due in 3 days.
+3. Aurora Coastal Resort Lease - co-owner SPA received but lease finalization depends on a second signatory's availability.
+
+RANKED ACTIONS:
+1. (Highest impact) Call the lead heir on Norte Hardware Estate Settlement directly - a 28-day-old paper request has stalled; a phone follow-up with a same-week pickup offer converts a chronic delay into a one-time fix.
+2. Escalate the Ampil-Bautista tax declaration request with the Assessor's Office in person, given the 3-day notarization deadline.
+3. Confirm the second signatory's availability for Aurora Coastal Resort Lease this week to avoid the finalization deadline slipping.
+
+PROJECTED OUTCOME: Resolving these 3 items brings document-checklist completion to 100% and clears the only blockers ahead of this month's hearing and notarization dates.`,
+
+  capacityPlanning: `DIAGNOSIS: Practice capacity vs. matter load ahead of the late-June/July hearing cluster (Jun 18 - Jul 22).
+
+Current load:
+- 18 active matters across 4 practice areas (7 General Litigation, 6 Family Law, 4 Real Estate, 1 Estate & Succession)
+- Peak window: 5 hearings/filings/notarizations due within a 5-week span (Jun 18 - Jul 22)
+- Current team: Atty. Teh Ronsha + 1 paralegal + 1 administrative assistant
+
+RANKED ACTIONS:
+1. (Highest impact) Sequence prep by deadline proximity - prioritize Ampil-Bautista (Jun 18) and Aurora Coastal Resort Lease (Jun 20) this week, smoothing the workload curve instead of a single crunch week before Jul 22.
+2. Pre-draft pleadings for Reyes vs. Santos pre-trial conference now (due Jul 22) using the standard litigation template - cuts prep time by an estimated 30% closer to the date.
+3. Resolve the Norte Hardware Estate Settlement document gap (see Caseload Triage) before it compounds with the Jun 18-20 cluster.
+
+PROJECTED OUTCOME: Smoothing prep reduces the late-June crunch from 3 concurrent deadlines to a manageable sequence, keeping the practice within normal capacity without weekend work.`,
+
+  retainerOpportunities: `DIAGNOSIS: Scanning per-matter clients for monthly business retainer signals (repeat engagements, contract volume, ongoing advisory needs).
+
+Candidates identified:
+1. Aurora Coastal Resort - currently a per-matter lease engagement; resort operations regularly generate vendor contracts, lease renewals, and liability questions. Strong fit for the ₱8,000/month Business Retainer.
+2. Norte Hardware Aurora - submitted a consultation inquiry for contract review on top of the ongoing estate settlement matter; recurring legal touchpoints suggest retainer fit.
+3. Pulmano Boundary Dispute (once resolved) - client has expressed interest in formalizing property boundaries for two additional parcels; likely follow-on real estate work.
+
+RANKED ACTIONS:
+1. (Highest impact) Reach out to Aurora Coastal Resort with a retainer framing: "Since we're already handling your lease, a monthly retainer covers ongoing contract reviews and quick legal questions at a predictable cost." Frame as a fit conversation, not a sales pitch.
+2. Bundle a retainer quote with Norte Hardware Aurora's contract review response, given their existing active matter.
+3. After the Pulmano boundary matter closes, offer a no-cost follow-up consultation on the additional parcels to open the retainer conversation.
+
+PROJECTED OUTCOME: Converting Aurora Coastal Resort and Norte Hardware Aurora to retainers adds approximately ₱16,000/month in recurring revenue (~9% of current monthly retainer revenue).`
+};
+
+function runAI(type){
+  const text = AI_OUTPUTS[type] || 'No analysis available.';
+  typeWriter('aiOutput', text);
+}
+
+/* ===== INTELLIGENCE ===== */
+const KPI_DATA = [
+  ['Monthly Retainer Revenue','₱186,000','#D4A24E'],
+  ['Active Matters','18','#1B2A4A'],
+  ['On-Time Hearing/Filing Rate','100%','#3FA873'],
+  ['Avg. Matter Value','₱24,500','#1B2A4A'],
+  ['Client Retention (12mo)','91%','#3FA873'],
+  ['Overdue Checklist Items','1','#D9634F']
+];
+
+const CHART_LEFT = {
+  bars: [
+    ['Business Retainers (Monthly)', 96000, '#D4A24E'],
+    ['General Litigation', 168000, '#4A5568'],
+    ['Family Law', 142000, '#1B2A4A'],
+    ['Real Estate & Property', 118000, '#3FA873'],
+    ['Estate & Succession', 24500, '#D9634F']
+  ]
+};
+
+const CHART_RIGHT = {
+  bars: [
+    ['General Litigation', 39, '#4A5568'],
+    ['Family Law', 33, '#D4A24E'],
+    ['Real Estate', 22, '#3FA873'],
+    ['Estate & Succession', 6, '#1B2A4A']
+  ]
+};
+
+/* ===== RENDER: KPI GRID + CHARTS ===== */
+function renderKPI(){
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = KPI_DATA.map(([label, value, color]) => `
+    <div class="kpi-card" style="border-left:3px solid ${color};">
+      <div class="kpi-label">${label}</div>
+      <div class="kpi-value">${value}</div>
+    </div>
+  `).join('');
+}
+
+function renderChart(containerId, titleId, chartObj, valueType){
+  const container = document.getElementById(containerId);
+  const titleEl = document.getElementById(titleId);
+  if(titleEl){
+    titleEl.textContent = containerId === 'chart-left' ? 'Revenue by Practice Area' : 'Matters by Practice Area';
+  }
+  const max = Math.max(...chartObj.bars.map(b => b[1]));
+  container.innerHTML = chartObj.bars.map(([label, value, color]) => {
+    const pct = max > 0 ? (value / max) * 100 : 0;
+    const displayValue = valueType === 'pct' ? `${value}%` : `₱${value.toLocaleString('en-PH')}`;
+    return `
+      <div class="chart-bar-row">
+        <div class="chart-bar-label">${label}</div>
+        <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${pct}%;background:${color};"></div></div>
+        <div class="chart-bar-value">${displayValue}</div>
+      </div>
+    `;
+  }).join('');
+}
+</script>
+</body>
+</html>
