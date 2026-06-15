@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sagisag Aurora Multipurpose Cooperative: Savings, Loans & Produce Marketing, Baler</title>
+  <meta name="description" content="Sagisag Aurora Multipurpose Cooperative (SAMC) — CDA-registered savings, loans, agri-supply, and produce marketing cooperative serving farmers, fisherfolk, and small entrepreneurs across Aurora Province, Philippines." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sagisag Aurora Multipurpose Cooperative",
+    "image": "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&w=1200&q=80",
+    "description": "CDA-registered multipurpose cooperative offering savings and loans, agricultural produce marketing, agri-supply retail, and member insurance for farmers, fisherfolk, and small entrepreneurs in Baler and Aurora Province, Philippines.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Baler", "addressRegion": "Aurora Province", "addressCountry": "PH" },
+    "areaServed": "Aurora Province, Philippines"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #FAF7EF;
+      --deep:    #F1EAD9;
+      --mid:     #FFFFFF;
+      --surface: #FCFAF3;
+      --border:  rgba(74,55,40,0.10);
+      --border2: rgba(74,55,40,0.18);
+      --white:   #3A2E22;
+      --text:    rgba(58,46,34,0.66);
+      --text2:   rgba(58,46,34,0.42);
+      --gold:    #C9A227;
+      --gold2:   #A9871E;
+      --green:   #2F6B3C;
+      --green2:  #244F2D;
+      --brown:   #4A3728;
+      --navy:    #4A3728;
+      --ff:      'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+      --hf:      'Lora', Georgia, serif;
+      --mono:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: var(--hf); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(74,55,40,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-mark {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--gold); color: var(--brown);
+      font-family: var(--hf); font-weight: 800; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-name { font-family: var(--hf); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; color: #FFFFFF; }
+    .nav-links { display: flex; gap: 24px; font-size: 0.82rem; color: rgba(255,255,255,0.72); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--brown);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 9px 18px; border-radius: 4px; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background:
+        linear-gradient(135deg, rgba(47,107,60,0.90) 0%, rgba(74,55,40,0.78) 55%, rgba(47,107,60,0.92) 100%),
+        url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      padding: 110px 32px 60px;
+    }
+    .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .hero-h1 { font-size: clamp(2.3rem, 5vw, 3.4rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 22px; color: #FFFFFF; }
+    .hero-h1 span { color: var(--gold); font-style: italic; }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 36px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--brown);
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent; color: #FFFFFF;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.35); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* MEMBER SNAPSHOT PANEL */
+    .health-board {
+      background: var(--mid); border: 1px solid var(--border2); border-radius: 12px;
+      padding: 28px; position: relative; overflow: hidden;
+    }
+    .health-board::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+    }
+    .hb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .hb-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); }
+    .hb-live { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); }
+    .hb-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hb-rows { display: flex; flex-direction: column; gap: 3px; margin-bottom: 18px; }
+    .hb-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 14px; border-radius: 6px; background: var(--surface);
+    }
+    .hb-row:hover { background: rgba(201,162,39,0.08); }
+    .hb-item { display: flex; align-items: center; gap: 10px; }
+    .hb-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+    .hb-ok { background: rgba(47,107,60,0.14); color: var(--green); }
+    .hb-due { background: rgba(201,162,39,0.18); color: var(--gold2); }
+    .hb-late { background: rgba(217,99,79,0.15); color: #D9634F; }
+    .hb-name { font-size: 0.875rem; font-weight: 600; }
+    .hb-detail { font-family: var(--mono); font-size: 0.6rem; color: var(--text2); }
+    .hb-status { font-family: var(--mono); font-size: 0.62rem; font-weight: 700; text-align: right; }
+    .hb-score-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: var(--brown); border-radius: 8px; }
+    .hb-score-label { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+    .hb-score-value { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+    .hb-footer { margin-top: 14px; font-size: 0.7rem; color: var(--text2); display: flex; justify-content: space-between; align-items: center; }
+    .sim-tag {
+      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold2); border: 1px solid rgba(201,162,39,0.3); padding: 2px 7px; border-radius: 3px; opacity: 0.85;
+    }
+
+    /* SECTIONS */
+    section { padding: 96px 32px; }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .eyebrow { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold2); margin-bottom: 14px; }
+    .sh2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
+    .ssub { color: var(--text); font-size: 1rem; line-height: 1.8; max-width: 580px; margin-bottom: 52px; }
+    .bg-deep { background: var(--deep); }
+
+    /* TRUST BAR */
+    .trust-bar { background: var(--mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 32px; }
+    .trust-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; text-align: center; }
+    .ts-num { font-family: var(--hf); font-size: 2rem; font-weight: 700; color: var(--green); }
+    .ts-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
+    .badge-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+    .software-badge {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border2); border-radius: 4px; padding: 8px 16px; color: var(--text);
+    }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .svc-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+    }
+    .svc-card:hover { border-color: rgba(201,162,39,0.4); transform: translateY(-3px); }
+    .svc-card-body { padding: 22px 24px 24px; }
+    .svc-img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .svc-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .svc-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; font-family: var(--hf); }
+    .svc-desc { font-size: 0.875rem; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .svc-tag { font-family: var(--mono); font-size: 0.6rem; color: var(--text2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; }
+
+    /* PROGRAMS / NEWS GRID */
+    .programs-grid, .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .res-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: border-color 0.3s, transform 0.3s; }
+    .res-card:hover { border-color: rgba(201,162,39,0.4); transform: translateY(-3px); }
+    .res-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold2); margin-bottom: 12px; }
+    .res-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; font-family: var(--hf); }
+    .res-desc { font-size: 0.85rem; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+    .res-link { font-size: 0.78rem; font-weight: 700; color: var(--green); }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-img { width: 100%; border-radius: 12px; object-fit: cover; height: 380px; }
+    .about-creds { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .about-cred { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; color: var(--text); }
+    .about-cred-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .about-text { font-size: 0.95rem; color: var(--text); line-height: 1.85; margin-bottom: 8px; }
+
+    /* MEMBERSHIP */
+    .membership-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
+    .step-list { display: flex; flex-direction: column; gap: 18px; margin: 28px 0; }
+    .step-item { display: flex; gap: 16px; align-items: flex-start; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--green); color: #fff; font-family: var(--hf); font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-body h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .step-body p { font-size: 0.85rem; color: var(--text); line-height: 1.7; }
+    .benefit-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .benefit-tag { font-size: 0.78rem; background: rgba(47,107,60,0.10); color: var(--green2); border: 1px solid rgba(47,107,60,0.2); padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+
+    /* PRICING-style share capital cards */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .price-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 12px;
+      padding: 32px 28px; display: flex; flex-direction: column;
+    }
+    .price-card.featured { border-color: var(--gold); box-shadow: 0 8px 30px rgba(201,162,39,0.15); position: relative; }
+    .price-badge {
+      position: absolute; top: -12px; right: 24px;
+      background: var(--gold); color: var(--brown);
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 3px; font-weight: 700;
+    }
+    .price-tier { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold2); margin-bottom: 10px; }
+    .price-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; font-family: var(--hf); }
+    .price-amount { font-size: 1.7rem; font-weight: 800; margin-bottom: 4px; }
+    .price-amount span { font-size: 0.85rem; font-weight: 500; color: var(--text2); }
+    .price-desc { font-size: 0.82rem; color: var(--text); margin-bottom: 22px; }
+    .price-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; flex: 1; }
+    .price-list li { font-size: 0.85rem; color: var(--text); display: flex; align-items: flex-start; gap: 8px; }
+    .price-list li::before { content: '✓'; color: var(--green); font-size: 0.8rem; flex-shrink: 0; }
+    .price-btn {
+      width: 100%; padding: 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.04em; cursor: pointer; transition: opacity 0.2s; border: none;
+    }
+    .price-btn-primary { background: var(--gold); color: var(--brown); }
+    .price-btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border2) !important; }
+    .price-btn:hover { opacity: 0.8; }
+
+    /* CONTACT */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+    .ct-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; }
+    .ct-info p { color: var(--text); font-size: 0.9rem; line-height: 1.8; margin-bottom: 28px; }
+    .ct-trust { display: flex; flex-direction: column; gap: 14px; }
+    .ct-trust-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.85rem; color: var(--text); }
+    .ct-trust-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .ct-form { background: var(--mid); border: 1px solid var(--border2); border-radius: 12px; padding: 36px; }
+    .form-title { font-weight: 700; font-size: 1rem; margin-bottom: 24px; font-family: var(--hf); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text2); }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--white); font-family: var(--ff); font-size: 0.875rem; padding: 12px 14px;
+      outline: none; transition: border-color 0.2s; width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 88px; }
+    .form-submit {
+      width: 100%; padding: 14px; background: var(--gold); color: var(--brown);
+      font-family: var(--ff); font-weight: 700; font-size: 0.875rem; letter-spacing: 0.04em;
+      border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s; margin-top: 6px;
+    }
+    .form-submit:hover { opacity: 0.85; }
+    .form-note { font-size: 0.7rem; color: var(--text2); margin-top: 10px; text-align: center; }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .form-success h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; font-family: var(--hf); }
+    .form-success p { font-size: 0.875rem; color: var(--text); }
+
+    /* FOOTER */
+    footer { background: var(--brown); padding: 48px 32px 32px; }
+    .footer-inner { max-width: 1120px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-top: 10px; }
+    .footer-col-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links li { font-size: 0.82rem; color: rgba(255,255,255,0.5); cursor: pointer; }
+    .footer-links li:hover { color: #FFFFFF; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+    .footer-adf { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 3px; }
+    .footer-adf span { color: var(--gold); }
+
+    /* SIM BANNER */
+    .sim-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(74,55,40,0.97); border-top: 1px solid rgba(201,162,39,0.35);
+      padding: 10px 24px; display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+    .sim-banner-text { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--gold); }
+    .sim-banner-sub { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 2px; }
+    .sim-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.1rem; padding: 4px 8px; }
+    .sim-close:hover { color: #FFFFFF; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero-inner, .about-grid, .contact-wrap, .membership-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid, .pricing-grid, .programs-grid, .news-grid { grid-template-columns: 1fr 1fr; }
+      .trust-inner { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 64px 20px; }
+      .services-grid, .pricing-grid, .programs-grid, .news-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── Mobile-First: Hamburger Nav ─────────────── */
+    .nav-ham {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .nav-ham span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+    .nav-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; background: var(--brown);
+      padding: 80px 24px 48px;
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer-close { position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; padding: 10px; display: flex; flex-direction: column; gap: 0; align-items: center; }
+    .nav-drawer-close span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+    .nav-drawer-close span:nth-child(1) { transform: translateY(1px) rotate(45deg); }
+    .nav-drawer-close span:nth-child(2) { transform: translateY(-1px) rotate(-45deg); }
+    .nav-drawer-links { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+    .nav-drawer-links a { font-family: var(--hf); font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,0.85); text-decoration: none; padding: 12px 20px; width: 100%; text-align: center; transition: color 0.2s; }
+    .nav-drawer-links a:hover { color: var(--gold); }
+    .nav-drawer-cta { margin-top: 24px; padding: 14px 40px; background: var(--gold); color: var(--brown); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; text-decoration: none; border-radius: 4px; }
+    @media (max-width: 560px) {
+      .nav-ham { display: flex; }
+      .nav-drawer { display: flex; }
+      .nav-links, .nav-cta { display: none !important; }
+      section { padding: 60px 16px; }
+    }
+
+    /* ── Operator Access Link ─────────────── */
+    .nav-op {
+      font-family: var(--mono, monospace); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none;
+      padding: 6px 10px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-op:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.4); }
+    .nav-drawer-sep { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 16px 0 8px; }
+    .nav-drawer-op {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); text-decoration: none;
+      padding: 10px 20px; transition: color 0.2s;
+    }
+    .nav-drawer-op:hover { color: rgba(255,255,255,0.55); }
+  </style>
+</head>
+<body>
+
+<!-- BLUEPRINT BANNER -->
+<div class="sim-banner" id="simBanner">
+  <div>
+    <div class="sim-banner-text">◐ AURORA DIGITAL FOUNDRY: LIVE BLUEPRINT</div>
+    <div class="sim-banner-sub">Sagisag Aurora Multipurpose Cooperative · Savings, Loans & Produce Marketing · All content is fictional · Forms run in demo mode</div>
+  </div>
+  <button class="sim-close" onclick="document.getElementById('simBanner').style.display='none'">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">SA</div>
+    <div class="nav-name">SAGISAG AURORA MPC</div>
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#membership">Membership</a>
+    <a href="#services">Services</a>
+    <a href="#programs">Programs</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="operator.html" class="nav-op" target="_blank">⚙ Member Portal</a>
+    <a href="#membership" class="nav-cta">Apply for Membership</a>
+    <button class="nav-ham" id="navHam" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">🌾 Multipurpose Cooperative · Baler, Aurora Province</div>
+      <h1 class="hero-h1">Sama-samang pag-unlad.<br /><span>Collective growth, member by member.</span></h1>
+      <p class="hero-sub">Sagisag Aurora Multipurpose Cooperative (SAMC) is a CDA-registered cooperative serving farmers, fisherfolk, and small entrepreneurs across Aurora Province — savings and loans, fair-price produce marketing, and an agri-supply store owned by the people it serves.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('membership').scrollIntoView({behavior:'smooth'})">Apply for Membership</button>
+        <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Explore Services</button>
+      </div>
+    </div>
+    <div>
+      <div class="health-board">
+        <div class="hb-header">
+          <div class="hb-title">Cooperative Snapshot</div>
+          <div class="hb-live"><span class="hb-dot"></span>Sample Member View</div>
+        </div>
+        <div class="hb-rows">
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-ok">✓</div><div><div class="hb-name">CDA Registration</div><div class="hb-detail">Reg. No. 9520-141002345</div></div></div>
+            <div class="hb-status" style="color:var(--green)">ACTIVE</div>
+          </div>
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-ok">✓</div><div><div class="hb-name">Total Membership</div><div class="hb-detail">As of June 2026</div></div></div>
+            <div class="hb-status" style="color:var(--green2)">1,284 MEMBERS</div>
+          </div>
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-due">⏱</div><div><div class="hb-name">General Assembly</div><div class="hb-detail">Annual meeting</div></div></div>
+            <div class="hb-status" style="color:var(--gold2)">JUL 18, 2026</div>
+          </div>
+          <div class="hb-row">
+            <div class="hb-item"><div class="hb-icon hb-ok">✓</div><div><div class="hb-name">Patronage Refund</div><div class="hb-detail">CY 2025 declared</div></div></div>
+            <div class="hb-status" style="color:var(--green)">DISBURSED</div>
+          </div>
+        </div>
+        <div class="hb-score-row">
+          <div class="hb-score-label">Total Assets (Audited, 2025)</div>
+          <div class="hb-score-value">₱48.6M</div>
+        </div>
+        <div class="hb-footer">
+          <span>Live snapshot view from your member portal.</span>
+          <span class="sim-tag">Sample Data</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div><div class="ts-num">2009</div><div class="ts-label">Established &amp; Operating in Aurora Province</div></div>
+    <div><div class="ts-num">1,284</div><div class="ts-label">Active Members</div></div>
+    <div><div class="ts-num">₱48.6M</div><div class="ts-label">Total Assets (Audited, 2025)</div></div>
+    <div><div class="ts-num">CDA</div><div class="ts-label">Registered Cooperative — Good Standing</div></div>
+  </div>
+  <div class="badge-row">
+    <div class="software-badge">CDA Reg. No. 9520-141002345</div>
+    <div class="software-badge">Annual Audit: COA-Accredited Auditor</div>
+    <div class="software-badge">Member of Aurora Provincial Cooperatives Office Network</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="bg-deep" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">Who We Are</div>
+        <h2 class="sh2">Built by farmers and<br />fisherfolk, for each other.</h2>
+        <p class="about-text">Sagisag Aurora Multipurpose Cooperative was organized in 2009 by a small group of rice farmers and fishing families in Baler who pooled their savings to escape predatory lending — the informal "5-6" loans that kept many households trapped in debt during lean seasons.</p>
+        <p class="about-text">Today SAMC serves over 1,280 members across Aurora Province with savings and loan products, a produce marketing arm that buys members' harvest at fair, published prices, and an agri-supply store offering seeds, fertilizer, and fishing gear at member discounts. Every member is a part-owner — and every peso of surplus is returned to members as patronage refunds and dividends.</p>
+        <div class="about-creds">
+          <div class="about-cred"><div class="about-cred-icon">📜</div><span>Registered with the Cooperative Development Authority (CDA Reg. No. 9520-141002345)</span></div>
+          <div class="about-cred"><div class="about-cred-icon">🗳️</div><span>Governed by a 7-member Board of Directors elected annually by the General Assembly</span></div>
+          <div class="about-cred"><div class="about-cred-icon">📊</div><span>Audited annually by a COA-accredited independent auditor — financials published to members</span></div>
+          <div class="about-cred"><div class="about-cred-icon">🤝</div><span>Linked with the Aurora Provincial Cooperatives Office and regional cooperative federations</span></div>
+        </div>
+      </div>
+      <img class="about-img" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=80" alt="Community meeting of farmers and fisherfolk in the Philippines" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section id="membership">
+  <div class="container">
+    <div class="eyebrow">Join the Cooperative</div>
+    <h2 class="sh2">Become a member-owner<br />in four simple steps.</h2>
+    <p class="ssub">Membership is open to residents of Aurora Province who are at least 18 years old. As a member, you become a part-owner of the cooperative — with voting rights, access to savings and loan products, and a share in annual surplus through patronage refunds.</p>
+    <div class="membership-grid">
+      <div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body"><h4>Attend a Pre-Membership Education Seminar (PMES)</h4><p>A half-day orientation covering cooperative principles, member rights and responsibilities, and SAMC's products and services. Held monthly at the Baler main office and rotating barangay venues.</p></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body"><h4>Submit Your Membership Application</h4><p>Valid government ID, proof of residency in Aurora Province, 1x1 photo, and a completed application form (available below or at any branch).</p></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body"><h4>Pay Your Share Capital Contribution</h4><p>A minimum initial share capital of ₱1,000 (payable in installments) plus a one-time ₱100 membership fee. Share capital earns annual dividends based on cooperative performance.</p></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-body"><h4>Activate Your Member Account</h4><p>Once approved by the Board, your membership is activated — you can open a savings account, apply for loans, and sell produce through the marketing program immediately.</p></div>
+          </div>
+        </div>
+        <div class="benefit-tags">
+          <span class="benefit-tag">Voting Rights at General Assembly</span>
+          <span class="benefit-tag">Annual Patronage Refund</span>
+          <span class="benefit-tag">Share Capital Dividends</span>
+          <span class="benefit-tag">Preferential Loan Rates</span>
+          <span class="benefit-tag">Mortuary Aid (CMBA)</span>
+          <span class="benefit-tag">Free Seminars &amp; Training</span>
+        </div>
+      </div>
+      <div class="ct-form">
+        <div id="formContent">
+          <div class="form-title">Membership Application — Express Interest</div>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Your first name" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Your last name" /></div>
+          </div>
+          <div class="form-group"><label>Barangay / Municipality</label><input type="text" placeholder="e.g. Brgy. Buhangin, Baler" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Mobile / Viber</label><input type="tel" placeholder="+63 9XX XXX XXXX" /></div>
+            <div class="form-group"><label>Email Address (optional)</label><input type="email" placeholder="your@email.com" /></div>
+          </div>
+          <div class="form-group">
+            <label>Primary Livelihood</label>
+            <select>
+              <option value="">Select your livelihood</option>
+              <option>Farming (Rice / Coconut / Vegetables)</option>
+              <option>Fishing</option>
+              <option>Sari-Sari Store / Retail</option>
+              <option>Agri-Trading</option>
+              <option>Other Small Business</option>
+              <option>Employed / Salaried</option>
+            </select>
+          </div>
+          <div class="form-group"><label>What are you most interested in?</label><textarea placeholder="e.g. opening a savings account, applying for an agri-production loan, selling palay through the marketing program..."></textarea></div>
+          <button class="form-submit" onclick="handleSubmit()">Submit Application Interest</button>
+          <div class="form-note">A membership officer will contact you to schedule your Pre-Membership Education Seminar.</div>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✅</div>
+          <h4>Application interest received.</h4>
+          <p>A SAMC membership officer will contact you within 3 business days to schedule your Pre-Membership Education Seminar (PMES).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="bg-deep" id="services">
+  <div class="container">
+    <div class="eyebrow">What We Offer</div>
+    <h2 class="sh2">Six services, one cooperative.<br />Built around member livelihoods.</h2>
+    <p class="ssub">From everyday savings to harvest-season produce marketing, every SAMC service is designed around the real cash-flow rhythms of farming, fishing, and small-business households in Aurora Province.</p>
+    <div class="services-grid">
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1593672715438-d88a70629abe?auto=format&fit=crop&w=600&q=80" alt="Hands counting money for cooperative savings" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🏦</div>
+          <div class="svc-name">Savings &amp; Time Deposits</div>
+          <div class="svc-desc">Regular savings, "paluwagan"-style group savings clubs, and time deposit certificates with competitive member dividend rates — start with as little as ₱50.</div>
+          <div class="svc-tags"><span class="svc-tag">Regular Savings</span><span class="svc-tag">Group Savings Clubs</span><span class="svc-tag">Time Deposits</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" alt="Rice field farmer working in Aurora Province Philippines" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🌱</div>
+          <div class="svc-name">Agricultural Production Loans</div>
+          <div class="svc-desc">Seasonal loans for seeds, fertilizer, and labor — repayment scheduled around harvest, with rates well below informal "5-6" lenders.</div>
+          <div class="svc-tags"><span class="svc-tag">Crop Production</span><span class="svc-tag">Harvest-Aligned Repayment</span><span class="svc-tag">Low Interest</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=600&q=80" alt="Fishing boats on the coast near Baler Aurora" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🚤</div>
+          <div class="svc-name">Salary, Emergency &amp; Livelihood Loans</div>
+          <div class="svc-desc">Short-term salary and emergency loans for medical or family needs, plus livelihood loans for boat repair, equipment, or starting a small sideline business.</div>
+          <div class="svc-tags"><span class="svc-tag">Emergency Loans</span><span class="svc-tag">Livelihood Capital</span><span class="svc-tag">Salary Loans</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1488928741225-2aaf732c96cc?auto=format&fit=crop&w=600&q=80" alt="Harvest vegetables and produce at a Philippine market" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🌽</div>
+          <div class="svc-name">Produce Marketing &amp; Consolidation</div>
+          <div class="svc-desc">SAMC buys members' palay, copra, vegetables, and fish catch at fair, published prices and consolidates volume for bulk sale — cutting out predatory middlemen ("biyahero").</div>
+          <div class="svc-tags"><span class="svc-tag">Fair Published Prices</span><span class="svc-tag">Bulk Consolidation</span><span class="svc-tag">Direct Buyer Links</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="Agri-supply store shelves with seeds and fertilizer" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🧰</div>
+          <div class="svc-name">Agri-Supply Store</div>
+          <div class="svc-desc">Member-discounted seeds, fertilizer, feeds, and fishing gear at the SAMC Agri-Supply Center — quality inputs at fair prices, steps from the main office.</div>
+          <div class="svc-tags"><span class="svc-tag">Seeds &amp; Fertilizer</span><span class="svc-tag">Fishing Gear</span><span class="svc-tag">Member Discounts</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80" alt="Filipino family community support" loading="lazy"/>
+        <div class="svc-card-body">
+          <div class="svc-icon">🛡️</div>
+          <div class="svc-name">Mutual Benefit &amp; Mortuary Aid (CMBA)</div>
+          <div class="svc-desc">Cooperative Mutual Benefit Association coverage providing mortuary assistance and modest life coverage for members and immediate dependents.</div>
+          <div class="svc-tags"><span class="svc-tag">Mortuary Aid</span><span class="svc-tag">Member Coverage</span><span class="svc-tag">Dependent Coverage</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS & ADVOCACY -->
+<section id="programs">
+  <div class="container">
+    <div class="eyebrow">Programs &amp; Advocacy</div>
+    <h2 class="sh2">More than transactions —<br />a network that grows together.</h2>
+    <p class="ssub">SAMC reinvests in its members and community through training, youth and women's programs, and outreach — the cooperative difference is shared growth, not just shared services.</p>
+    <div class="programs-grid">
+      <div class="res-card">
+        <div class="res-tag">Training &amp; Seminars</div>
+        <div class="res-title">Financial Literacy &amp; Cooperative Education</div>
+        <div class="res-desc">Monthly seminars on budgeting, savings discipline, and cooperative governance — open to members and PMES applicants alike, held in Baler and rotating barangays.</div>
+        <span class="res-link">View seminar schedule →</span>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Youth &amp; Women's Programs</div>
+        <div class="res-title">Kabataan &amp; Kababaihan Livelihood Circles</div>
+        <div class="res-desc">Savings groups and micro-livelihood training (food processing, handicrafts, online selling) designed for the children and spouses of member-households.</div>
+        <span class="res-link">Learn about youth programs →</span>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Community Outreach</div>
+        <div class="res-title">Disaster Relief &amp; Calamity Assistance Fund</div>
+        <div class="res-desc">A standing fund providing emergency grants and loan moratoriums to members affected by typhoons and flooding — a recurring reality for coastal and farming communities in Aurora.</div>
+        <span class="res-link">Read about the relief fund →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS & ANNOUNCEMENTS -->
+<section class="bg-deep" id="news">
+  <div class="container">
+    <div class="eyebrow">News &amp; Announcements</div>
+    <h2 class="sh2">What's happening<br />at the cooperative.</h2>
+    <p class="ssub">General Assembly notices, dividend declarations, and harvest season bulletins — straight from the SAMC Board and Secretariat.</p>
+    <div class="news-grid">
+      <div class="res-card">
+        <div class="res-tag">General Assembly</div>
+        <div class="res-title">2026 Annual General Assembly — July 18</div>
+        <div class="res-desc">All members in good standing are invited to the Annual General Assembly at the SAMC Multipurpose Hall, Baler. Agenda includes the 2025 audited financial report, Board elections, and patronage refund ratification.</div>
+        <span class="res-link">View full agenda →</span>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Dividend Declaration</div>
+        <div class="res-title">CY 2025 Patronage Refund &amp; Dividends Disbursed</div>
+        <div class="res-desc">The Board approved a 6% dividend on share capital and patronage refunds averaging ₱1,840 per active member for CY2025 — disbursed at branch offices starting June 1.</div>
+        <span class="res-link">Check your patronage refund →</span>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Harvest Season Bulletin</div>
+        <div class="res-title">Palay Buying Price for July Harvest Announced</div>
+        <div class="res-desc">SAMC's published buying price for dry palay this harvest season is ₱24.50/kg — members can schedule pickup or deliver directly to the Buhangin consolidation center.</div>
+        <span class="res-link">See buying schedule →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="eyebrow">Visit Us</div>
+    <div class="contact-wrap">
+      <div class="ct-info">
+        <h3>Branches across Aurora Province.</h3>
+        <p>Visit any SAMC branch to apply for membership, deposit savings, apply for a loan, or deliver produce for marketing. Walk-ins welcome during office hours.</p>
+        <div class="ct-trust">
+          <div class="ct-trust-item"><div class="ct-trust-icon">📍</div><span><strong>Main Office:</strong> Sitio Centro, Brgy. Buhangin, Baler, Aurora Province</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">📍</div><span><strong>Sub-Office:</strong> Brgy. Poblacion, Casiguran, Aurora Province</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">🕐</div><span>Open Monday–Saturday, 8:00 AM – 5:00 PM</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">📞</div><span>+63 917 555 0188 · Viber &amp; SMS welcome</span></div>
+          <div class="ct-trust-item"><div class="ct-trust-icon">✉️</div><span>info@sagisagauroramp.coop (sample address)</span></div>
+        </div>
+      </div>
+      <div class="ct-form">
+        <div id="formContentContact">
+          <div class="form-title">General Inquiry</div>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your full name" /></div>
+            <div class="form-group"><label>Mobile / Viber</label><input type="tel" placeholder="+63 9XX XXX XXXX" /></div>
+          </div>
+          <div class="form-group">
+            <label>I'm inquiring about</label>
+            <select>
+              <option value="">Select a topic</option>
+              <option>Membership Application</option>
+              <option>Savings Account</option>
+              <option>Loan Products</option>
+              <option>Produce Marketing</option>
+              <option>Agri-Supply Store</option>
+              <option>General Assembly / Dividends</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message</label><textarea placeholder="How can we help?"></textarea></div>
+          <button class="form-submit" onclick="handleSubmitContact()">Send Inquiry</button>
+          <div class="form-note">By submitting, you agree to be contacted regarding your inquiry.</div>
+        </div>
+        <div class="form-success" id="formSuccessContact">
+          <div class="form-success-icon">✅</div>
+          <h4>Inquiry received.</h4>
+          <p>The SAMC Secretariat will respond within 2 business days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="nav-brand"><div class="nav-mark">SA</div><div class="nav-name">SAGISAG AURORA MPC</div></div>
+        <div class="footer-brand-desc">A CDA-registered multipurpose cooperative providing savings, loans, produce marketing, and agri-supply services to farmers, fisherfolk, and small entrepreneurs across Aurora Province.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links"><li>Savings &amp; Time Deposits</li><li>Loans</li><li>Produce Marketing</li><li>Agri-Supply Store</li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Cooperative</div>
+        <ul class="footer-links"><li>About SAMC</li><li>Membership</li><li>Programs &amp; Advocacy</li><li>News &amp; Announcements</li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links"><li>Apply for Membership</li><li>General Inquiry</li><li>Member Portal</li><li>Baler, Aurora Province</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Sagisag Aurora Multipurpose Cooperative · All content is fictional · Forms run in demo mode · Imagery via Unsplash</div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="footer-adf">Live Operator Suite Demo · <span>Aurora Digital Foundry</span></div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="nav-drawer" id="navDrawer" aria-modal="true">
+  <button class="nav-drawer-close" id="navDrawerClose"><span></span><span></span></button>
+  <nav class="nav-drawer-links">
+    <a href="#about">About</a>
+    <a href="#membership">Membership</a>
+    <a href="#services">Services</a>
+    <a href="#programs">Programs</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#membership" class="nav-drawer-cta">Apply for Membership</a>
+  <div class="nav-drawer-sep"></div>
+  <a href="operator.html" class="nav-drawer-op" target="_blank">⚙ Member Portal Login</a>
+</div>
+<script>
+function handleSubmit(){
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+}
+function handleSubmitContact(){
+  document.getElementById('formContentContact').style.display='none';
+  document.getElementById('formSuccessContact').style.display='block';
+}
+(function(){
+  var ham=document.getElementById('navHam');
+  var drawer=document.getElementById('navDrawer');
+  if(!ham||!drawer)return;
+  function openD(){ham.classList.add('open');drawer.classList.add('open');document.body.style.overflow='hidden';}
+  function closeD(){ham.classList.remove('open');drawer.classList.remove('open');document.body.style.overflow='';}
+  window.__closeNavDrawer=closeD;
+  ham.addEventListener('click',function(){drawer.classList.contains('open')?closeD():openD();});
+  var closeBtn=document.getElementById('navDrawerClose');
+  if(closeBtn)closeBtn.addEventListener('click',closeD);
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeD);});
+})();
+</script>
+</body>
+</html>

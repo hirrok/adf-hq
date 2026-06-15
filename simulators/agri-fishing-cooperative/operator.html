@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAMC Member &amp; Operations Portal — Sagisag Aurora Multipurpose Cooperative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --black:#FAF7EF; --deep:#F1EAD9; --mid:#FFFFFF; --surface:#FCFAF3;
+  --border:rgba(74,55,40,0.10); --border2:rgba(74,55,40,0.18);
+  --white:#3A2E22; --text:rgba(58,46,34,0.66); --text2:rgba(58,46,34,0.42);
+  --gold:#C9A227; --gold2:#A9871E; --green:#2F6B3C; --green2:#244F2D; --brown:#4A3728;
+  --ff:'Open Sans',Arial,sans-serif; --hf:'Lora',Georgia,serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--ff);background:var(--black);color:var(--white);line-height:1.6;}
+h1,h2,h3,h4{font-family:var(--hf);}
+
+/* GATE */
+#gate{position:fixed;inset:0;z-index:500;background:var(--brown);display:flex;align-items:center;justify-content:center;}
+.gate-box{background:var(--mid);border-radius:12px;padding:48px 40px;width:100%;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.gate-mark{width:48px;height:48px;border-radius:8px;background:var(--gold);color:var(--brown);font-family:var(--hf);font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.gate-box h2{font-size:1.3rem;margin-bottom:6px;}
+.gate-box p{font-size:0.85rem;color:var(--text);margin-bottom:24px;}
+.gate-input{width:100%;padding:13px 14px;border:1px solid var(--border2);border-radius:6px;font-size:0.95rem;font-family:var(--mono);text-align:center;letter-spacing:0.1em;outline:none;margin-bottom:14px;background:var(--surface);color:var(--white);}
+.gate-input:focus{border-color:var(--gold);}
+.gate-btn{width:100%;padding:13px;background:var(--gold);color:var(--brown);border:none;border-radius:6px;font-weight:700;font-size:0.9rem;letter-spacing:0.04em;cursor:pointer;}
+.gate-btn:hover{opacity:0.85;}
+.gate-error{color:#D9634F;font-size:0.8rem;margin-top:10px;display:none;}
+.gate-hint{font-family:var(--mono);font-size:0.65rem;color:var(--text2);margin-top:18px;}
+
+/* SHELL */
+#app{display:none;}
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;background:var(--brown);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100;}
+.topbar-left{display:flex;align-items:center;gap:10px;}
+.topbar-mark{width:30px;height:30px;border-radius:6px;background:var(--gold);color:var(--brown);font-family:var(--hf);font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;}
+.topbar-title{color:#fff;font-weight:700;font-size:0.9rem;font-family:var(--hf);}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.topbar-clock{font-family:var(--mono);font-size:0.75rem;color:rgba(255,255,255,0.6);}
+.signout{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);background:none;border:1px solid rgba(255,255,255,0.2);padding:6px 12px;border-radius:4px;cursor:pointer;}
+.signout:hover{color:#fff;border-color:rgba(255,255,255,0.5);}
+.toggle-sidebar{display:none;background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;}
+
+.sidebar{position:fixed;top:58px;left:0;bottom:0;width:230px;background:var(--mid);border-right:1px solid var(--border);padding:20px 0;overflow-y:auto;z-index:90;}
+.side-section{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text2);padding:14px 22px 8px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 22px;font-size:0.85rem;color:var(--text);cursor:pointer;border-left:3px solid transparent;transition:background 0.15s,color 0.15s;}
+.nav-item:hover{background:var(--surface);}
+.nav-item.active{background:rgba(47,107,60,0.08);color:var(--green2);border-left-color:var(--green);font-weight:600;}
+
+.main{margin-left:230px;margin-top:58px;padding:28px 32px;min-height:calc(100vh - 58px);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.panel-header{margin-bottom:24px;}
+.panel-header h2{font-size:1.5rem;margin-bottom:4px;}
+.panel-header p{font-size:0.85rem;color:var(--text);}
+
+.card{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:20px;}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+.kpi-card{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.kpi-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+.kpi-value{font-family:var(--hf);font-size:1.6rem;font-weight:700;}
+.kpi-delta{font-size:0.75rem;margin-top:4px;}
+.kpi-up{color:var(--green);}
+.kpi-down{color:#D9634F;}
+
+.data-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.data-table th{text-align:left;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);padding:10px 12px;border-bottom:1px solid var(--border2);}
+.data-table td{padding:12px;border-bottom:1px solid var(--border);}
+.data-table tr:last-child td{border-bottom:none;}
+.badge{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:3px;font-weight:700;}
+.b-current{background:rgba(47,107,60,0.12);color:var(--green2);}
+.b-due{background:rgba(201,162,39,0.16);color:var(--gold2);}
+.b-overdue{background:rgba(217,99,79,0.14);color:#D9634F;}
+.b-pending{background:rgba(58,46,34,0.08);color:var(--text);}
+.b-active{background:rgba(47,107,60,0.12);color:var(--green2);}
+
+.tier-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;padding:3px 8px;border-radius:3px;font-weight:700;}
+.tier-1{background:rgba(201,162,39,0.16);color:var(--gold2);}
+.tier-2{background:rgba(47,107,60,0.12);color:var(--green2);}
+.tier-3{background:rgba(58,46,34,0.08);color:var(--text);}
+
+.btn-grid{display:grid;gap:12px;}
+.btn-grid-2{grid-template-columns:1fr 1fr;}
+.btn-grid-3{grid-template-columns:1fr 1fr 1fr;}
+.action-btn-wide{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:left;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.action-btn-wide:hover{border-color:var(--gold);background:var(--mid);}
+.abw-title{font-weight:700;font-size:0.88rem;margin-bottom:4px;}
+.abw-desc{font-size:0.78rem;color:var(--text2);}
+
+.output-box{background:var(--brown);color:#f3ead8;border-radius:8px;padding:18px 20px;font-family:var(--mono);font-size:0.82rem;line-height:1.7;white-space:pre-wrap;min-height:80px;margin-top:16px;}
+
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.chart-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.chart-bar-label{font-size:0.78rem;width:120px;flex-shrink:0;color:var(--text);}
+.chart-bar-track{flex:1;background:var(--surface);border-radius:4px;height:18px;overflow:hidden;}
+.chart-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:4px;}
+.chart-bar-value{font-family:var(--mono);font-size:0.75rem;width:48px;text-align:right;color:var(--text2);}
+
+.sim-strip{position:fixed;bottom:0;left:230px;right:0;background:var(--brown);color:rgba(255,255,255,0.5);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;padding:8px 20px;text-align:center;z-index:80;}
+
+@media (max-width:980px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.25s;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .sim-strip{left:0;}
+  .toggle-sidebar{display:block;}
+  .kpi-row{grid-template-columns:1fr 1fr;}
+  .chart-grid{grid-template-columns:1fr;}
+}
+@media (max-width:760px){
+  .kpi-row,.btn-grid-2,.btn-grid-3{grid-template-columns:1fr;}
+  .main{padding:20px 14px;}
+  .data-table{font-size:0.75rem;}
+  .data-table th,.data-table td{padding:8px 6px;}
+}
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-mark">SA</div>
+    <h2>Member &amp; Operations Portal</h2>
+    <p>Sagisag Aurora Multipurpose Cooperative — staff &amp; member access</p>
+    <input type="password" class="gate-input" id="gateInput" placeholder="ACCESS CODE" />
+    <button class="gate-btn" onclick="checkGate()">Enter Portal</button>
+    <div class="gate-error" id="gateError">Incorrect access code. Try again.</div>
+    <div class="gate-hint">Demo access code: agrifishing2026</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="toggle-sidebar" onclick="toggleOpSidebar()">☰</button>
+      <div class="topbar-mark">SA</div>
+      <div class="topbar-title">SAMC Operations — Staff View</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-clock" id="clock"></div>
+      <button class="signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="side-section">Operations</div>
+    <div class="nav-item active" onclick="showTab('members')">👥 Member Accounts</div>
+    <div class="nav-item" onclick="showTab('loans')">💰 Loan Applications</div>
+    <div class="nav-item" onclick="showTab('marketing-program')">🌽 Produce Marketing</div>
+    <div class="side-section">Reports</div>
+    <div class="nav-item" onclick="showTab('growth')">📈 Membership Growth</div>
+    <div class="nav-item" onclick="showTab('overview')">🏛️ Co-op Overview</div>
+    <div class="side-section">Growth</div>
+    <div class="nav-item" onclick="showTab('marketing')">📣 Marketing Generator</div>
+    <div class="nav-item" onclick="showTab('ai')">🤖 AI Console</div>
+    <div class="nav-item" onclick="showTab('intelligence')">📊 Business Intelligence</div>
+  </div>
+
+  <div class="main">
+
+    <!-- MEMBER ACCOUNTS -->
+    <div class="tab-panel active" id="panel-members">
+      <div class="panel-header"><h2>Member Accounts</h2><p>Savings balances and account standing — sample data for demonstration.</p></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Active Members</div><div class="kpi-value">1,284</div><div class="kpi-delta kpi-up">▲ 38 this quarter</div></div>
+        <div class="kpi-card"><div class="kpi-label">Total Savings on Deposit</div><div class="kpi-value">₱21.4M</div><div class="kpi-delta kpi-up">▲ 4.1% vs last quarter</div></div>
+        <div class="kpi-card"><div class="kpi-label">Avg. Member Balance</div><div class="kpi-value">₱16,670</div><div class="kpi-delta kpi-up">▲ steady growth</div></div>
+        <div class="kpi-card"><div class="kpi-label">New Applications (PMES)</div><div class="kpi-value">14</div><div class="kpi-delta">awaiting Board approval</div></div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Member Name</th><th>Branch</th><th>Member Since</th><th>Savings Balance</th><th>Share Capital</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Reyes, Marivic S.</td><td>Baler Main</td><td>2011</td><td>₱48,200</td><td>₱5,000</td><td><span class="badge b-current">In Good Standing</span></td></tr>
+            <tr><td>Domingo, Eduardo P.</td><td>Casiguran</td><td>2014</td><td>₱12,750</td><td>₱2,500</td><td><span class="badge b-current">In Good Standing</span></td></tr>
+            <tr><td>Villanueva, Corazon T.</td><td>Baler Main</td><td>2018</td><td>₱6,300</td><td>₱1,000</td><td><span class="badge b-current">In Good Standing</span></td></tr>
+            <tr><td>Manalo, Ferdinand B.</td><td>Baler Main</td><td>2009</td><td>₱102,400</td><td>₱8,000</td><td><span class="badge b-current">In Good Standing</span></td></tr>
+            <tr><td>Castillo, Jonalyn R.</td><td>Casiguran</td><td>2022</td><td>₱2,150</td><td>₱1,000</td><td><span class="badge b-due">Share Capital Balance Due</span></td></tr>
+            <tr><td>Aquino, Bayani M.</td><td>Baler Main</td><td>2016</td><td>₱31,800</td><td>₱3,500</td><td><span class="badge b-current">In Good Standing</span></td></tr>
+            <tr><td>Santos, Lorna D.</td><td>Casiguran</td><td>2025</td><td>₱890</td><td>₱500</td><td><span class="badge b-pending">PMES Pending Approval</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LOAN APPLICATIONS -->
+    <div class="tab-panel" id="panel-loans">
+      <div class="panel-header"><h2>Loan Applications</h2><p>Active and pending loan requests across all branches — sample data.</p></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Loans Outstanding</div><div class="kpi-value">₱18.9M</div><div class="kpi-delta">across 412 active loans</div></div>
+        <div class="kpi-card"><div class="kpi-label">Pending Applications</div><div class="kpi-value">9</div><div class="kpi-delta">awaiting credit committee</div></div>
+        <div class="kpi-card"><div class="kpi-label">Repayment Rate</div><div class="kpi-value">94.2%</div><div class="kpi-delta kpi-up">▲ 1.3pp vs last quarter</div></div>
+        <div class="kpi-card"><div class="kpi-label">Avg. Loan Size</div><div class="kpi-value">₱45,800</div><div class="kpi-delta">agri-production loans</div></div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Applicant</th><th>Loan Type</th><th>Amount Requested</th><th>Purpose</th><th>Tier</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Garcia, Rolando F.</td><td>Agri-Production</td><td>₱60,000</td><td>Rice seed &amp; fertilizer, July planting</td><td><span class="tier-tag tier-1">Priority</span></td><td><span class="badge b-due">Credit Committee Review</span></td></tr>
+            <tr><td>Mendoza, Liza C.</td><td>Livelihood</td><td>₱25,000</td><td>Sari-sari store restock</td><td><span class="tier-tag tier-2">Standard</span></td><td><span class="badge b-current">Approved</span></td></tr>
+            <tr><td>Ramos, Teodoro A.</td><td>Emergency</td><td>₱8,000</td><td>Medical expenses</td><td><span class="tier-tag tier-1">Priority</span></td><td><span class="badge b-current">Disbursed</span></td></tr>
+            <tr><td>Bautista, Henry G.</td><td>Livelihood</td><td>₱40,000</td><td>Boat engine repair</td><td><span class="tier-tag tier-2">Standard</span></td><td><span class="badge b-due">Credit Committee Review</span></td></tr>
+            <tr><td>Cruz, Alma V.</td><td>Salary</td><td>₱15,000</td><td>School enrollment expenses</td><td><span class="tier-tag tier-3">Routine</span></td><td><span class="badge b-current">Approved</span></td></tr>
+            <tr><td>Pascual, Noel D.</td><td>Agri-Production</td><td>₱55,000</td><td>Copra production inputs</td><td><span class="tier-tag tier-1">Priority</span></td><td><span class="badge b-overdue">Documents Incomplete</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRODUCE MARKETING -->
+    <div class="tab-panel" id="panel-marketing-program">
+      <div class="panel-header"><h2>Produce Marketing Program</h2><p>Consolidation volumes and buying schedule — sample data.</p></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Palay Consolidated (This Season)</div><div class="kpi-value">186 MT</div><div class="kpi-delta kpi-up">▲ 12% vs last season</div></div>
+        <div class="kpi-card"><div class="kpi-label">Current Buying Price</div><div class="kpi-value">₱24.50/kg</div><div class="kpi-delta">dry palay, published rate</div></div>
+        <div class="kpi-card"><div class="kpi-label">Active Sellers This Cycle</div><div class="kpi-value">211</div><div class="kpi-delta">members + non-member partners</div></div>
+        <div class="kpi-card"><div class="kpi-label">Fish Catch Consolidated (MTD)</div><div class="kpi-value">4.2 MT</div><div class="kpi-delta">Casiguran landing site</div></div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead><tr><th>Member / Supplier</th><th>Commodity</th><th>Volume</th><th>Pickup Site</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Manalo, Ferdinand B.</td><td>Palay (Dry)</td><td>2.4 MT</td><td>Buhangin Consolidation Center</td><td><span class="badge b-current">Picked Up</span></td></tr>
+            <tr><td>Reyes, Marivic S.</td><td>Palay (Dry)</td><td>1.1 MT</td><td>Buhangin Consolidation Center</td><td><span class="badge b-due">Scheduled — Jul 22</span></td></tr>
+            <tr><td>Aquino, Bayani M.</td><td>Copra</td><td>0.8 MT</td><td>Casiguran Sub-Office</td><td><span class="badge b-current">Picked Up</span></td></tr>
+            <tr><td>Domingo, Eduardo P.</td><td>Fish (Mixed Catch)</td><td>320 kg</td><td>Casiguran Landing Site</td><td><span class="badge b-current">Sold to Buyer</span></td></tr>
+            <tr><td>Villanueva, Corazon T.</td><td>Vegetables (Assorted)</td><td>180 kg</td><td>Buhangin Consolidation Center</td><td><span class="badge b-pending">Awaiting Grading</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MEMBERSHIP GROWTH -->
+    <div class="tab-panel" id="panel-growth">
+      <div class="panel-header"><h2>Membership Growth</h2><p>New member trends across branches — sample data.</p></div>
+      <div class="card">
+        <h3 style="margin-bottom:16px;font-size:1rem;">New Members by Quarter</h3>
+        <div id="growthChart"></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:16px;font-size:1rem;">New Members by Livelihood Type</h3>
+        <div id="livelihoodChart"></div>
+      </div>
+    </div>
+
+    <!-- CO-OP OVERVIEW -->
+    <div class="tab-panel" id="panel-overview">
+      <div class="panel-header"><h2>Cooperative Overview</h2><p>High-level financial and governance snapshot — sample data, audited annually.</p></div>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Total Assets</div><div class="kpi-value">₱48.6M</div><div class="kpi-delta kpi-up">▲ 6.8% YoY</div></div>
+        <div class="kpi-card"><div class="kpi-label">Net Surplus (CY2025)</div><div class="kpi-value">₱3.2M</div><div class="kpi-delta kpi-up">▲ 11% YoY</div></div>
+        <div class="kpi-card"><div class="kpi-label">Patronage Refund Rate</div><div class="kpi-value">6.0%</div><div class="kpi-delta">on share capital, Board-approved</div></div>
+        <div class="kpi-card"><div class="kpi-label">Loan Portfolio at Risk</div><div class="kpi-value">5.8%</div><div class="kpi-delta kpi-down">▼ improved from 7.1%</div></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:14px;font-size:1rem;">Branch Snapshot</h3>
+        <table class="data-table">
+          <thead><tr><th>Branch</th><th>Members</th><th>Savings on Deposit</th><th>Loans Outstanding</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Baler Main Office</td><td>876</td><td>₱15.6M</td><td>₱13.2M</td><td><span class="badge b-active">Operating</span></td></tr>
+            <tr><td>Casiguran Sub-Office</td><td>408</td><td>₱5.8M</td><td>₱5.7M</td><td><span class="badge b-active">Operating</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MARKETING GENERATOR -->
+    <div class="tab-panel" id="panel-marketing">
+      <div class="panel-header"><h2>Marketing Generator</h2><p>Generate ready-to-post content for SAMC's Facebook page and SMS/Viber blasts to members.</p></div>
+      <div class="card">
+        <div class="btn-grid btn-grid-2">
+          <div class="action-btn-wide" onclick="generateContent('pmes')"><div class="abw-title">📋 PMES Seminar Announcement</div><div class="abw-desc">Promote the next Pre-Membership Education Seminar</div></div>
+          <div class="action-btn-wide" onclick="generateContent('palay')"><div class="abw-title">🌾 Palay Buying Price Bulletin</div><div class="abw-desc">Announce this season's published buying price</div></div>
+          <div class="action-btn-wide" onclick="generateContent('dividend')"><div class="abw-title">💵 Dividend &amp; Patronage Refund Notice</div><div class="abw-desc">Notify members that refunds are ready for release</div></div>
+          <div class="action-btn-wide" onclick="generateContent('assembly')"><div class="abw-title">🏛️ General Assembly Invitation</div><div class="abw-desc">Invite members to the Annual General Assembly</div></div>
+          <div class="action-btn-wide" onclick="generateContent('loan')"><div class="abw-title">💰 Loan Product Promotion</div><div class="abw-desc">Promote agri-production loans ahead of planting season</div></div>
+          <div class="action-btn-wide" onclick="generateContent('relief')"><div class="abw-title">🌧️ Calamity Assistance Reminder</div><div class="abw-desc">Remind members of the disaster relief fund &amp; moratorium policy</div></div>
+        </div>
+        <div class="output-box" id="marketingOutput">Select a content type above to generate ready-to-post copy.</div>
+      </div>
+    </div>
+
+    <!-- AI CONSOLE -->
+    <div class="tab-panel" id="panel-ai">
+      <div class="panel-header"><h2>AI Console</h2><p>Ask diagnostic questions about cooperative operations. Sample outputs for demonstration.</p></div>
+      <div class="card">
+        <div class="btn-grid btn-grid-2">
+          <div class="action-btn-wide" onclick="runAI('arrears')"><div class="abw-title">⚠️ Which loans are at risk of arrears?</div><div class="abw-desc">Flag accounts trending toward late payment</div></div>
+          <div class="action-btn-wide" onclick="runAI('inactive')"><div class="abw-title">😴 Which members have gone inactive?</div><div class="abw-desc">Identify members with no transactions in 6+ months</div></div>
+          <div class="action-btn-wide" onclick="runAI('cashflow')"><div class="abw-title">💧 What's our liquidity outlook this quarter?</div><div class="abw-desc">Project savings withdrawals vs loan disbursements</div></div>
+          <div class="action-btn-wide" onclick="runAI('harvest')"><div class="abw-title">🌾 What volume should we expect this harvest?</div><div class="abw-desc">Forecast palay consolidation based on member plantings</div></div>
+        </div>
+        <div class="output-box" id="aiOutput">Select a question above to run the diagnostic.</div>
+      </div>
+    </div>
+
+    <!-- BUSINESS INTELLIGENCE -->
+    <div class="tab-panel" id="panel-intelligence">
+      <div class="panel-header"><h2>Business Intelligence</h2><p>Cooperative-wide performance indicators — sample data, refreshed monthly.</p></div>
+      <div class="kpi-row" id="biKpiRow"></div>
+      <div class="chart-grid">
+        <div class="card"><h3 style="margin-bottom:14px;font-size:1rem;">Savings Growth by Branch (₱M)</h3><div id="chartLeft"></div></div>
+        <div class="card"><h3 style="margin-bottom:14px;font-size:1rem;">Loan Portfolio by Type (₱M)</h3><div id="chartRight"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="sim-strip" id="simStrip">SAGISAG AURORA MULTIPURPOSE COOPERATIVE · OPERATIONS PORTAL · LIVE BLUEPRINT — AURORA DIGITAL FOUNDRY · ALL DATA SAMPLE</div>
+
+<script>
+const CONFIG = { ACCESS: 'agrifishing2026', BRAND: 'Sagisag Aurora Multipurpose Cooperative', LOCATION: 'Baler, Aurora Province', ACCENT: '#2F6B3C' };
+
+function checkGate(){
+  const val = document.getElementById('gateInput').value.trim().toLowerCase();
+  if(val === CONFIG.ACCESS){
+    sessionStorage.setItem('samc_auth','1');
+    enterApp();
+  } else {
+    document.getElementById('gateError').style.display='block';
+  }
+}
+function enterApp(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').style.display='block';
+  startClock();
+  renderKPI();
+  renderChart('chartLeft', CHART_LEFT);
+  renderChart('chartRight', CHART_RIGHT);
+  renderChart('growthChart', GROWTH_DATA);
+  renderChart('livelihoodChart', LIVELIHOOD_DATA);
+}
+function signOut(){ sessionStorage.removeItem('samc_auth'); location.reload(); }
+window.addEventListener('DOMContentLoaded', () => {
+  if(sessionStorage.getItem('samc_auth') === '1'){ enterApp(); }
+  document.getElementById('gateInput').addEventListener('keydown', e => { if(e.key === 'Enter') checkGate(); });
+});
+
+function startClock(){
+  function tick(){
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleString('en-PH', { weekday:'short', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' }) + ' · Aurora Province (PHT)';
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(window.innerWidth <= 980){ document.getElementById('sidebar').classList.remove('open'); }
+}
+function toggleOpSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
+
+/* MARKETING GENERATOR */
+const MARKETING_OUTPUTS = {
+  pmes: "📋 PMES SEMINAR — FACEBOOK POST\n\nNew member? Start here. 🌱\n\nJoin our next Pre-Membership Education Seminar (PMES) at the SAMC Multipurpose Hall, Buhangin, Baler — learn about cooperative principles, savings & loan products, and how to become a member-owner of SAMC.\n\n📅 Every 2nd Saturday of the month, 9:00 AM\n📍 SAMC Main Office, Sitio Centro, Brgy. Buhangin, Baler\n\nBring 1 valid ID and your 1x1 photo. Walk-ins welcome!\n\n#SagisagAuroraMPC #CooperativeBaler #AuroraProvince",
+  palay: "🌾 PALAY BUYING PRICE — SMS/VIBER BLAST\n\n[SAMC] Magandang araw, kapatid! Ang aming buying price para sa tuyong palay ngayong season ay ₱24.50/kg, epektibo simula ngayon. I-schedule ang inyong delivery sa Buhangin Consolidation Center o sa inyong barangay coordinator. Salamat sa inyong tiwala sa kooperatiba! — SAMC Marketing Desk",
+  dividend: "💵 DIVIDEND & PATRONAGE REFUND — FACEBOOK POST\n\nGood news, SAMC family! 🎉\n\nThe Board has approved a 6% dividend on share capital and patronage refunds averaging ₱1,840 per active member for CY2025.\n\nClaim your refund at any branch starting June 1 — bring your member ID and passbook.\n\nThank you for growing with your cooperative. Sama-samang pag-unlad! 🌾\n\n#SagisagAuroraMPC #PatronageRefund2025",
+  assembly: "🏛️ GENERAL ASSEMBLY — FACEBOOK EVENT COPY\n\n📢 2026 Annual General Assembly\n📅 July 18, 2026 · 8:00 AM\n📍 SAMC Multipurpose Hall, Buhangin, Baler\n\nAgenda: 2025 audited financial report, Board of Directors elections, patronage refund ratification, and member open forum.\n\nAll members in good standing are encouraged to attend. Light meals will be served.\n\n#SAMCGeneralAssembly2026 #AuroraCooperative",
+  loan: "💰 LOAN PROMOTION — FACEBOOK POST\n\nPlanting season is coming. Are your inputs ready? 🌱\n\nApply now for a SAMC Agricultural Production Loan — competitive rates, repayment scheduled around your harvest, no hidden fees.\n\nVisit any branch or message us to apply. Skip the '5-6' — grow with your cooperative.\n\n#AgriLoanBaler #SagisagAuroraMPC #PlantingSeason2026",
+  relief: "🌧️ CALAMITY ASSISTANCE REMINDER — SMS/VIBER BLAST\n\n[SAMC] Paalala: May Disaster Relief & Calamity Assistance Fund ang ating kooperatiba para sa mga miyembrong apektado ng bagyo o baha. Kasama dito ang emergency grant at loan moratorium. Para sa katanungan, bisitahin ang malapit na branch o tawagan ang aming hotline. Laging handa, laging sama-sama. — SAMC"
+};
+function generateContent(key){
+  const out = document.getElementById('marketingOutput');
+  out.textContent = '';
+  let text = MARKETING_OUTPUTS[key] || '';
+  let i = 0;
+  function type(){ if(i < text.length){ out.textContent += text.charAt(i); i++; setTimeout(type, 8); } }
+  type();
+}
+
+/* AI CONSOLE */
+const AI_OUTPUTS = {
+  arrears: "⚠️ ARREARS RISK SCAN — 412 active loans analyzed\n\n12 accounts (2.9%) show payment-pattern drift consistent with early arrears risk:\n\n• Pascual, Noel D. — Agri-Production loan, documents incomplete, 14 days past application deadline\n• 6 members in Casiguran branch with 2 consecutive missed savings deposits (informal early-warning signal)\n• 5 members with loans maturing within 30 days and no scheduled produce delivery on file\n\nRecommended action: field officer follow-up calls within 5 business days, prioritizing Casiguran branch.",
+  inactive: "😴 INACTIVE MEMBER SCAN — 1,284 members analyzed\n\n47 members (3.7%) have had no savings deposits, withdrawals, or produce deliveries in 6+ months:\n\n• 31 are seasonal farmers — likely dormant between planting cycles (low concern)\n• 9 have relocated outside Aurora Province per last known address\n• 7 have share capital balances under ₱500 and may be at risk of automatic inactive reclassification\n\nRecommended action: SMS/Viber re-engagement blast + PMES refresher invite for the 7 at-risk members.",
+  cashflow: "💧 LIQUIDITY OUTLOOK — Q3 2026 PROJECTION\n\nProjected savings withdrawals: ₱2.1M (seasonal — pre-school-opening cash needs)\nProjected loan disbursements: ₱3.4M (agri-production loans, July planting season)\nProjected loan repayments: ₱2.8M\nProjected produce marketing payouts: ₱1.6M (palay consolidation, July-August)\n\nNet liquidity position: -₱2.3M before adjustments. Recommend drawing down 40% of the ₱5M emergency reserve fund or staggering loan disbursement releases over 3 weeks.",
+  harvest: "🌾 HARVEST VOLUME FORECAST — July 2026 Cycle\n\nBased on 211 active member plantings reported and historical yield averages (3.8 MT/hectare, 49 hectares enrolled):\n\nProjected palay volume: ~186 MT (consistent with last season +12%)\nProjected fish catch (Casiguran): ~12-15 MT over the cycle\n\nConsolidation center capacity (Buhangin): 220 MT — sufficient.\nRecommend confirming buyer commitments for at least 150 MT before the buying price bulletin goes out."
+};
+function runAI(key){
+  const out = document.getElementById('aiOutput');
+  out.textContent = '';
+  let text = AI_OUTPUTS[key] || '';
+  let i = 0;
+  function type(){ if(i < text.length){ out.textContent += text.charAt(i); i++; setTimeout(type, 8); } }
+  type();
+}
+
+/* BUSINESS INTELLIGENCE DATA */
+const KPI_DATA = [
+  { label: 'Total Membership', value: '1,284', delta: '▲ 3.0% QoQ', up: true },
+  { label: 'Total Assets', value: '₱48.6M', delta: '▲ 6.8% YoY', up: true },
+  { label: 'Loan Portfolio at Risk', value: '5.8%', delta: '▼ improved from 7.1%', up: false },
+  { label: 'Avg. Patronage Refund', value: '₱1,840', delta: '▲ 9% vs CY2024', up: true }
+];
+const CHART_LEFT = [
+  { label: 'Baler Main', value: 15.6, max: 20 },
+  { label: 'Casiguran', value: 5.8, max: 20 }
+];
+const CHART_RIGHT = [
+  { label: 'Agri-Production', value: 9.2, max: 12 },
+  { label: 'Livelihood', value: 4.6, max: 12 },
+  { label: 'Salary/Emergency', value: 3.1, max: 12 },
+  { label: 'Other', value: 2.0, max: 12 }
+];
+const GROWTH_DATA = [
+  { label: 'Q3 2025', value: 28, max: 50 },
+  { label: 'Q4 2025', value: 34, max: 50 },
+  { label: 'Q1 2026', value: 41, max: 50 },
+  { label: 'Q2 2026', value: 38, max: 50 }
+];
+const LIVELIHOOD_DATA = [
+  { label: 'Farming', value: 62, max: 80 },
+  { label: 'Fishing', value: 24, max: 80 },
+  { label: 'Retail/Sari-Sari', value: 18, max: 80 },
+  { label: 'Other', value: 9, max: 80 }
+];
+function renderKPI(){
+  const row = document.getElementById('biKpiRow');
+  row.innerHTML = KPI_DATA.map(k => `
+    <div class="kpi-card">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-delta ${k.up ? 'kpi-up' : 'kpi-down'}">${k.delta}</div>
+    </div>`).join('');
+}
+function renderChart(elId, data){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  el.innerHTML = data.map(d => `
+    <div class="chart-bar-row">
+      <div class="chart-bar-label">${d.label}</div>
+      <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${(d.value/d.max*100).toFixed(0)}%"></div></div>
+      <div class="chart-bar-value">${d.value}</div>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>
