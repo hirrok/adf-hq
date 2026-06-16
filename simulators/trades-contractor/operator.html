@@ -159,7 +159,7 @@
     /* TABLE */
     table { width: 100%; border-collapse: collapse; }
     th { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); }
-    td { font-size: 0.82rem; padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(240,237,230,0.85); }
+    td { font-size: 0.82rem; padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--white); }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(255,255,255,0.02); }
 
@@ -1370,30 +1370,4 @@ NEW LEADS — Same-day contact required:
 
 
   // ── P&L Data ────────────────────────────────────────────────
-  var PL_TREND = [["Jan", 68000, "var(--ocean)"], ["Feb", 74000, "var(--ocean)"], ["Mar", 80000, "var(--ocean)"], ["Apr", 78000, "var(--ocean)"], ["May", 86650, "var(--ocean)"], ["Jun MTD", 94250, "var(--amber)"]];
-  var PL_EXPENSE = [["Subcontractors", 109375, "var(--amber)"], ["Materials", 46875, "var(--ocean)"], ["Site Overhead", 28000, "var(--green)"], ["Vehicle/Equip", 14000, "var(--gold)"], ["Insurance", 8000, "var(--text)"], ["Office/Admin", 8000, "var(--text)"]];
-
-  function renderPLCharts() {
-    function _renderBars(id, data) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
-      el.innerHTML = data.map(function(d) {
-        var pct = (d[1] / max * 100).toFixed(1);
-        var display = '\u20b1' + d[1].toLocaleString();
-        return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
-               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
-      }).join('');
-    }
-    if (typeof PL_TREND !== 'undefined') _renderBars('chart-pl-trend', PL_TREND);
-    if (typeof PL_EXPENSE !== 'undefined') _renderBars('chart-pl-expense', PL_EXPENSE);
-  }
-
-
-  // ── P&L chart render on panel activate ─────────────────────
-  document.querySelectorAll('.sidebar-item[data-panel="pl"]').forEach(function(item) {
-    item.addEventListener('click', function() { renderPLCharts(); });
-  });
-</script>
-</body>
-</html>
+  var PL_TREND = [["Jan", 68000, "var(--ocean)"], ["Feb", 74000, "var(--ocean)"], ["Mar", 80000, "var(--ocean)"], ["Apr", 78000, "var(--ocean)"], ["May", 86650, "var(--ocean)"], ["Jun MTD", 94250, "var(--amber)"]]
