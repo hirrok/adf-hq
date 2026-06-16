@@ -178,6 +178,7 @@
     <div class="nav-item" onclick="showTab('inquiries', this)">Inquiries <span class="nav-badge">3</span></div>
     <div class="sidebar-section">Reports</div>
     <div class="nav-item" onclick="showTab('overview', this)">Practice Overview</div>
+    <div class="nav-item" onclick="showTab('pl', this)">Profit &amp; Loss</div>
     <div class="sidebar-section">Growth</div>
     <div class="nav-item" onclick="showTab('marketing', this)">Marketing</div>
     <div class="nav-item" onclick="showTab('ai', this)">AI Console</div>
@@ -367,7 +368,55 @@
   </div>
 </div>
 
-<div class="sim-strip">AURORA DIGITAL FOUNDRY · <span>LIVE BLUEPRINT</span> · Kuwenta & Co. Operator Console · Sample Data Only</div>
+
+      <!-- ── P&L ── -->
+      <div class="tab-panel" id="tab-pl">
+        <div class="page-header">
+          <div class="page-title">Profit &amp; Loss</div>
+          <div class="page-sub">June 2026 · Month-to-date practice financials</div>
+        </div>
+        <div class="kpi-row"><div class="kpi"><div class="kpi-label">MTD Revenue</div><div class="kpi-val">₱742,000</div><div class="kpi-meta">Jun MTD — retainer + project fees</div></div><div class="kpi"><div class="kpi-label">Gross Profit</div><div class="kpi-val">₱445,200</div><div class="kpi-meta">60% gross margin</div></div><div class="kpi"><div class="kpi-label">Net Profit</div><div class="kpi-val">₱371,000</div><div class="kpi-meta">50.0% net margin</div></div><div class="kpi"><div class="kpi-label">vs May MTD</div><div class="kpi-val">+₱28,400</div><div class="kpi-meta">Revenue ₱713,600 prior period</div></div></div>
+        <div class="rev-section">
+          <h3>Income Statement</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Line Item</th><th>Amount</th><th>% of Revenue</th><th>Status</th></tr></thead>
+              <tbody>
+              <tr style="background:rgba(212,162,78,0.07)"><td>REVENUE</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Monthly Retainer Fees</td><td>₱519,400</td><td>70%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Project-Based Engagements</td><td>₱148,400</td><td>20%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Advisory &amp; Compliance</td><td>₱74,200</td><td>10%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL REVENUE</td><td>₱742,000</td><td>100%</td><td></td></tr>
+              <tr style="background:rgba(212,162,78,0.07)"><td>COST OF SERVICES</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Staff Time — Billable (Direct)</td><td>₱222,600</td><td>30%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Software Tools &amp; Subscriptions</td><td>₱74,200</td><td>10%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL COS</td><td>₱296,800</td><td>40%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green)"><td>GROSS PROFIT</td><td>₱445,200</td><td>60%</td><td><span class="badge badge-new">Healthy</span></td></tr>
+              <tr style="background:rgba(212,162,78,0.07)"><td>OPERATING EXPENSES</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Non-Billable Staff</td><td>₱32,400</td><td>4%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Office Rent &amp; Utilities</td><td>₱24,000</td><td>3%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Training &amp; CPD</td><td>₱8,400</td><td>1%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Marketing</td><td>₱6,400</td><td>0.9%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Admin &amp; Misc</td><td>₱3,000</td><td>0.4%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL OPEX</td><td>₱74,200</td><td>10%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green);font-size:1rem"><td>NET PROFIT</td><td>₱371,000</td><td>50.0%</td><td><span class="badge badge-new">Strong</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-trend-title">6-Month Net Profit Trend</div>
+            <div id="chart-pl-trend"></div>
+          </div>
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-expense-title">Expense Breakdown</div>
+            <div id="chart-pl-expense"></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="sim-strip">AURORA DIGITAL FOUNDRY · <span>LIVE BLUEPRINT</span> · Kuwenta & Co. Operator Console · Sample Data Only</div>
 
 <script>
 /* ===== CONFIG ===== */
@@ -417,6 +466,7 @@ function startClock(){
 
 /* ===== SIDEBAR / TABS ===== */
 function showTab(name, el){
+    if (name === 'pl') { setTimeout(renderPLCharts, 50); }
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -626,6 +676,28 @@ function renderChart(containerId, titleId, def, mode){
     `;
   }).join('');
 }
+
+  // ── P&L Data ────────────────────────────────────────────────
+  var PL_TREND = [["Jan", 280000, "var(--ocean)"], ["Feb", 304000, "var(--ocean)"], ["Mar", 328000, "var(--ocean)"], ["Apr", 318000, "var(--ocean)"], ["May", 342600, "var(--ocean)"], ["Jun MTD", 371000, "var(--accent)"]];
+  var PL_EXPENSE = [["Billable Staff", 222600, "var(--accent)"], ["Software/Tools", 74200, "var(--ocean)"], ["Non-Billable Staff", 32400, "var(--green)"], ["Office/Rent", 24000, "var(--gold)"], ["Training", 8400, "var(--text)"], ["Marketing", 6400, "var(--text)"]];
+
+  // ── P&L Charts ──────────────────────────────────────────────
+  function renderPLCharts() {
+    function _bars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header" style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _bars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _bars('chart-pl-expense', PL_EXPENSE);
+  }
+
 </script>
 </body>
 </html>

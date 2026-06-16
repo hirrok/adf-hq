@@ -127,6 +127,7 @@
       <div class="sb-link" onclick="showTab('publications', this)"><span class="sb-icon">📰</span> Publications</div>
       <div class="sb-link" onclick="showTab('network', this)"><span class="sb-icon">🤝</span> Network Expansion <span class="nav-badge">4</span></div>
       <div class="sb-link" onclick="showTab('governance', this)"><span class="sb-icon">⚙</span> Governance</div>
+    <div class="sb-link" onclick="showTab('pl', this)"><span class="sb-icon">📊</span> Net Surplus</div>
       <div class="sb-foot">
         DATA SPINE · SYNCED HOURLY
         <div><a href="index.html" class="sb-back">← Back to Public Site</a></div>
@@ -519,6 +520,50 @@
           </div>
         </div>
       </div>
+    
+      <!-- ── P&L ── -->
+      <div class="tab-panel" id="tab-pl">
+        <div class="page-header">
+          <div class="page-title">Net Surplus Statement</div>
+          <div class="page-sub">FY 2025 · Annual operating results — Sandiwa Alliance Cooperative</div>
+        </div>
+        <div class="kpi-row"><div class="kpi"><div class="kpi-label">Total Income</div><div class="kpi-val">₱4.82M</div><div class="kpi-meta">Dues, fees, grants, trading</div></div><div class="kpi"><div class="kpi-label">Operating Expenses</div><div class="kpi-val">₱1.62M</div><div class="kpi-meta">Programs, admin, events</div></div><div class="kpi"><div class="kpi-label">Net Surplus</div><div class="kpi-val">₱3.20M</div><div class="kpi-meta">Allocated per Board resolution</div></div><div class="kpi"><div class="kpi-label">Surplus Rate</div><div class="kpi-val">66.4%</div><div class="kpi-meta">Of total income</div></div></div>
+        <div class="rev-section">
+          <h3>Income Statement</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Line Item</th><th>Amount</th><th>% of Revenue</th><th>Status</th></tr></thead>
+              <tbody>
+              <tr style="background:rgba(201,154,59,0.07)"><td>INCOME</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Member Dues &amp; Share Contributions</td><td>₱1,926,000</td><td>40%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Loan Interest Income</td><td>₱1,444,500</td><td>30%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Trading &amp; Service Fees</td><td>₱963,000</td><td>20%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Government Grants &amp; Subsidies</td><td>₱481,500</td><td>10%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL INCOME</td><td>₱4,815,000</td><td>100%</td><td></td></tr>
+              <tr style="background:rgba(201,154,59,0.07)"><td>OPERATING EXPENSES</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Member Programs &amp; Services</td><td>₱648,000</td><td>13%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Staff Salaries &amp; Benefits</td><td>₱486,000</td><td>10%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Events &amp; Assembly Costs</td><td>₱243,000</td><td>5%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Office &amp; Admin</td><td>₱162,000</td><td>3%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Training &amp; Capacity Building</td><td>₱81,000</td><td>2%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL OPEX</td><td>₱1,620,000</td><td>34%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green);font-size:1rem"><td>NET SURPLUS</td><td>₱3,195,000</td><td>66.4%</td><td><span class="badge">Board-Approved</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-trend-title">6-Month Net Surplus Trend</div>
+            <div id="chart-pl-trend"></div>
+          </div>
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-expense-title">Expense Breakdown</div>
+            <div id="chart-pl-expense"></div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 
@@ -532,6 +577,7 @@
       governance: 'Governance'
     };
     function showTab(name, el) {
+    if (name === 'pl') { setTimeout(renderPLCharts, 50); }
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('tab-' + name).classList.add('active');
       document.querySelectorAll('.sb-link').forEach(n => n.classList.remove('active'));
@@ -544,7 +590,29 @@
       }
       document.getElementById('page-title').textContent = pageTitles[name] || 'Network Overview';
     }
-  </script>
+  
+  // ── P&L Data ────────────────────────────────────────────────
+  var PL_TREND = [["2020", 1800000, "var(--gold)"], ["2021", 2100000, "var(--gold)"], ["2022", 2480000, "var(--gold)"], ["2023", 2750000, "var(--gold)"], ["2024", 2880000, "var(--gold)"], ["2025", 3195000, "var(--green)"]];
+  var PL_EXPENSE = [["Member Programs", 648000, "var(--green)"], ["Staff Salaries", 486000, "var(--ocean)"], ["Events/Assembly", 243000, "var(--gold)"], ["Office/Admin", 162000, "var(--text)"], ["Training", 81000, "var(--text)"]];
+
+  // ── P&L Charts ──────────────────────────────────────────────
+  function renderPLCharts() {
+    function _bars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header" style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _bars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _bars('chart-pl-expense', PL_EXPENSE);
+  }
+
+</script>
 </body>
 </html>
                           
