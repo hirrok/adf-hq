@@ -1070,4 +1070,25 @@
 
   // ── P&L Data ────────────────────────────────────────────────
   var PL_TREND = [["Jan", 420000, "var(--amber)"], ["Feb", 448000, "var(--amber)"], ["Mar", 512000, "var(--amber)"], ["Apr", 496000, "var(--amber)"], ["May", 548400, "var(--amber)"], ["Jun MTD", 596400, "var(--amber)"]];
-  var PL_EXPENSE = [["Fuel Procurement", 6896800, "var(--amber)"], ["Delivery Fuel", 341200, "var(--ocean)"], ["Staff/Depot", 32
+  var PL_EXPENSE = [["Fuel Procurement", 6896800, "var(--amber)"], ["Delivery Fuel", 341200, "var(--ocean)"], ["Staff/Depot", 320000, "var(--green)"], ["Fleet Maint", 148000, "var(--gold)"], ["Depot Rent", 112000, "var(--text)"], ["Admin", 64000, "var(--text)"]];
+
+  // ── P&L Charts ──────────────────────────────────────────────
+  function renderPLCharts() {
+    function _bars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header" style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _bars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _bars('chart-pl-expense', PL_EXPENSE);
+  }
+
+</script>
+</body>
+</html>
