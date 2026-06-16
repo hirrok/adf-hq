@@ -341,6 +341,9 @@
       <div class="sidebar-item" onclick="showTab('revenue',this)">
         <span class="sidebar-icon">₱</span> Revenue
       </div>
+      <div class="sidebar-item" onclick="showTab('pl',this)">
+        <span class="sidebar-icon">📊</span> Profit &amp; Loss
+      </div>
       <div class="sidebar-item" onclick="showTab('prices',this)">
         <span class="sidebar-icon">🏷</span> Menu &amp; Pricing
       </div>
@@ -580,6 +583,75 @@
         </div>
       </div>
 
+      <!-- ── PROFIT & LOSS ── -->
+      <div class="tab-pane" id="tab-pl">
+        <div class="page-header">
+          <div class="page-title">Profit &amp; Loss</div>
+          <div class="page-sub">June 2026 · Month-to-date income statement</div>
+        </div>
+
+        <!-- KPI strip -->
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">MTD Revenue</div><div class="kpi-val coral">₱98,400</div><div class="kpi-meta">Jun 1–15, 2026</div></div>
+          <div class="kpi"><div class="kpi-label">Gross Profit</div><div class="kpi-val green">₱68,880</div><div class="kpi-meta">70% gross margin</div></div>
+          <div class="kpi"><div class="kpi-label">Net Profit</div><div class="kpi-val green">₱18,080</div><div class="kpi-meta">+₱4,848 vs May MTD</div></div>
+          <div class="kpi"><div class="kpi-label">Net Margin</div><div class="kpi-val green">18.4%</div><div class="kpi-meta">↑ from 15.9% in May</div></div>
+        </div>
+
+        <!-- Income Statement -->
+        <div class="rev-section">
+          <h3>Income Statement — June MTD</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Line Item</th><th>Amount</th><th>% of Revenue</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr style="background:rgba(217,106,79,0.05)">
+                  <td><strong>REVENUE</strong></td><td></td><td></td><td></td>
+                </tr>
+                <tr><td style="padding-left:1.5rem">Cafe Dining</td><td>₱64,900</td><td>66%</td><td><span class="badge badge-conf">On Track</span></td></tr>
+                <tr><td style="padding-left:1.5rem">Keso Atelier (Cakes &amp; Slices)</td><td>₱33,500</td><td>34%</td><td><span class="badge badge-conf">On Track</span></td></tr>
+                <tr style="font-weight:700"><td>TOTAL REVENUE</td><td>₱98,400</td><td>100%</td><td></td></tr>
+
+                <tr style="background:rgba(217,106,79,0.05)">
+                  <td><strong>COST OF GOODS SOLD</strong></td><td></td><td></td><td></td>
+                </tr>
+                <tr><td style="padding-left:1.5rem">Food &amp; Ingredients</td><td>₱24,600</td><td>25%</td><td></td></tr>
+                <tr><td style="padding-left:1.5rem">Packaging &amp; Supplies</td><td>₱4,920</td><td>5%</td><td></td></tr>
+                <tr style="font-weight:700"><td>TOTAL COGS</td><td>₱29,520</td><td>30%</td><td></td></tr>
+                <tr style="font-weight:700;color:var(--green)"><td>GROSS PROFIT</td><td>₱68,880</td><td>70%</td><td><span class="badge badge-conf">Healthy</span></td></tr>
+
+                <tr style="background:rgba(217,106,79,0.05)">
+                  <td><strong>OPERATING EXPENSES</strong></td><td></td><td></td><td></td>
+                </tr>
+                <tr><td style="padding-left:1.5rem">Labor (3 staff · half month)</td><td>₱24,000</td><td>24%</td><td></td></tr>
+                <tr><td style="padding-left:1.5rem">Rent — 2F Pacifico Building</td><td>₱18,000</td><td>18%</td><td></td></tr>
+                <tr><td style="padding-left:1.5rem">Utilities (power, water, WiFi)</td><td>₱4,800</td><td>5%</td><td></td></tr>
+                <tr><td style="padding-left:1.5rem">Marketing &amp; Promotions</td><td>₱2,200</td><td>2%</td><td></td></tr>
+                <tr><td style="padding-left:1.5rem">Misc / Other</td><td>₱1,800</td><td>2%</td><td></td></tr>
+                <tr style="font-weight:700"><td>TOTAL OPEX</td><td>₱50,800</td><td>51%</td><td></td></tr>
+                <tr style="font-weight:700;color:var(--green);font-size:1rem"><td>NET PROFIT</td><td>₱18,080</td><td>18.4%</td><td><span class="badge badge-conf">Profitable</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 6-Month Trend -->
+        <div class="rev-section">
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-trend-title">6-Month Net Profit Trend</div>
+            <div id="chart-pl-trend"></div>
+          </div>
+        </div>
+
+        <!-- Expense Breakdown -->
+        <div class="rev-section">
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-expense-title">Expense Breakdown — June MTD</div>
+            <div id="chart-pl-expense"></div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /main -->
   </div><!-- /body-row -->
 </div><!-- /app -->
@@ -642,6 +714,10 @@
     document.getElementById('tab-' + name).classList.add('active');
     el.classList.add('active');
     if (name === 'orders') document.getElementById('newBadge').style.display = '';
+    if (name === 'pl') {
+      renderChart('chart-pl-trend', 'pl-trend-title', PL_TREND, 'value');
+      renderChart('chart-pl-expense', 'pl-expense-title', PL_EXPENSE, 'value');
+    }
   }
 
   function savePrice() {
@@ -712,6 +788,30 @@
     renderChart('chart-left', 'chart-left-title', CHART_LEFT, 'value');
     renderChart('chart-right', 'chart-right-title', CHART_RIGHT, 'pct');
   });
+
+  // ── P&L Chart Data ─────────────────────────────────────────
+  const PL_TREND = {
+    title: 'Net Profit — Jan to Jun MTD 2026',
+    bars: [
+      ['January',  12400, 'var(--ocean)'],
+      ['February', 14800, 'var(--ocean)'],
+      ['March',    16200, 'var(--ocean)'],
+      ['April',    15100, 'var(--ocean)'],
+      ['May',      13232, 'var(--ocean)'],
+      ['Jun MTD',  18080, 'var(--coral)'],
+    ],
+  };
+
+  const PL_EXPENSE = {
+    title: 'Operating Expense Breakdown — June MTD',
+    bars: [
+      ['Labor',              24000, 'var(--coral)'],
+      ['Rent',               18000, 'var(--ocean)'],
+      ['Utilities',           4800, 'var(--gold)'],
+      ['Marketing',           2200, 'var(--green)'],
+      ['Misc / Other',        1800, 'var(--text2)'],
+    ],
+  };
 
   // ── ADF Standard Operator Panel: Data ──────────────────────
   const BRAND = "Kape't Keso";
