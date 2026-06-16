@@ -1406,4 +1406,30 @@ NEW LEADS — Same-day contact required:
 
   // ── P&L Data ────────────────────────────────────────────────
   var PL_TREND = [["Jan", 72000, "var(--ocean)"], ["Feb", 78000, "var(--ocean)"], ["Mar", 84000, "var(--ocean)"], ["Apr", 82000, "var(--ocean)"], ["May", 92175, "var(--ocean)"], ["Jun MTD", 100375, "var(--amber)"]];
-  var PL_EXPENSE = [["Field Labor", 109375, "var(--amber)"], ["Materials", 31250, "var(--ocean)"], ["Overhead", 36000, "var(--green)"], ["Vehicle/Fuel", 12000, "var(--gold)"], ["Tools", 8000, "var(--text)"],
+  var PL_EXPENSE = [["Field Labor", 109375, "var(--amber)"], ["Materials", 31250, "var(--ocean)"], ["Overhead", 36000, "var(--green)"], ["Vehicle/Fuel", 12000, "var(--gold)"], ["Tools", 8000, "var(--text)"], ["Office/Admin", 6500, "var(--text)"]];
+
+  // ── P&L Charts ──────────────────────────────────────────────
+  function renderPLCharts() {
+    function _bars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header" style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _bars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _bars('chart-pl-expense', PL_EXPENSE);
+  }
+
+
+  // ── P&L chart render ─────────────────────────────────────
+  document.querySelectorAll('.sidebar-item[data-panel="pl"]').forEach(function(item) {
+    item.addEventListener('click', function() { setTimeout(renderPLCharts, 50); });
+  });
+</script>
+</body>
+</html>
