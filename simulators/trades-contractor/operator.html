@@ -352,6 +352,7 @@
       <div class="sidebar-divider"></div>
       <div class="sidebar-section">Revenue</div>
       <div class="sidebar-item" data-panel="revenue"><span class="sidebar-icon">₱</span> Revenue</div>
+      <div class="sidebar-item" data-panel="pl"><span class="sidebar-icon">📊</span> Profit &amp; Loss</div>
       <div class="sidebar-item" data-panel="leads"><span class="sidebar-icon">👤</span> New Leads</div>
       <div class="sidebar-divider"></div>
       <div class="sidebar-section">Tools</div>
@@ -968,6 +969,54 @@
         </div>
       </div>
 
+    
+      <!-- ── P&L ── -->
+      <div class="panel" id="panel-pl">
+        <div class="page-header">
+          <div class="page-title">Profit &amp; Loss</div>
+          <div class="page-sub">June 2026 · Month-to-date income statement</div>
+        </div>
+        <div class="kpi-row"><div class="kpi"><div class="kpi-label">MTD Revenue</div><div class="kpi-val amber">₱312,500</div><div class="kpi-meta">Jun MTD 2026</div></div><div class="kpi"><div class="kpi-label">Gross Profit</div><div class="kpi-val green">₱156,250</div><div class="kpi-meta">50% gross margin</div></div><div class="kpi"><div class="kpi-label">Net Profit</div><div class="kpi-val green">₱94,250</div><div class="kpi-meta">+₱7,600 vs May MTD</div></div><div class="kpi"><div class="kpi-label">Net Margin</div><div class="kpi-val green">30.2%</div><div class="kpi-meta">↑ from 27.8% in May</div></div></div>
+        <div class="rev-section">
+          <h3>Income Statement</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Line Item</th><th>Amount</th><th>% of Revenue</th><th>Status</th></tr></thead>
+              <tbody>
+              <tr style="background:rgba(232,160,32,0.07)"><td>REVENUE</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;General Construction Works</td><td>₱156,250</td><td>50%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Renovation &amp; Fit-Out</td><td>₱93,750</td><td>30%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Project Management Fees</td><td>₱62,500</td><td>20%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL REVENUE</td><td>₱312,500</td><td>100%</td><td></td></tr>
+              <tr style="background:rgba(232,160,32,0.07)"><td>COST OF GOODS SOLD</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Subcontractors &amp; Field Labor</td><td>₱109,375</td><td>35%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Materials &amp; Supplies</td><td>₱46,875</td><td>15%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL COGS</td><td>₱156,250</td><td>50%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green)"><td>GROSS PROFIT</td><td>₱156,250</td><td>50%</td><td><span class="badge badge-conf">On Track</span></td></tr>
+              <tr style="background:rgba(232,160,32,0.07)"><td>OPERATING EXPENSES</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Project Overhead (Site Admin)</td><td>₱28,000</td><td>9%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Vehicle &amp; Equipment Rental</td><td>₱14,000</td><td>4%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Office &amp; Admin</td><td>₱8,000</td><td>3%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Marketing &amp; BD</td><td>₱4,000</td><td>1%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Insurance &amp; Bonds</td><td>₱8,000</td><td>3%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL OPEX</td><td>₱62,000</td><td>20%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green);font-size:1rem"><td>NET PROFIT</td><td>₱94,250</td><td>30.2%</td><td><span class="badge badge-conf">Profitable</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="chart-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-trend-title">6-Month Net Profit Trend</div>
+            <div id="chart-pl-trend"></div>
+          </div>
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-expense-title">Expense Breakdown</div>
+            <div id="chart-pl-expense"></div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -1318,6 +1367,32 @@ NEW LEADS — Same-day contact required:
     renderChart('chart-right', 'chart-right-title', CHART_RIGHT, 'pct');
   });
 
+
+  // ── P&L Data ────────────────────────────────────────────────
+  var PL_TREND = [["Jan", 68000, "var(--ocean)"], ["Feb", 74000, "var(--ocean)"], ["Mar", 80000, "var(--ocean)"], ["Apr", 78000, "var(--ocean)"], ["May", 86650, "var(--ocean)"], ["Jun MTD", 94250, "var(--amber)"]];
+  var PL_EXPENSE = [["Subcontractors", 109375, "var(--amber)"], ["Materials", 46875, "var(--ocean)"], ["Site Overhead", 28000, "var(--green)"], ["Vehicle/Equip", 14000, "var(--gold)"], ["Insurance", 8000, "var(--text)"], ["Office/Admin", 8000, "var(--text)"]];
+
+  function renderPLCharts() {
+    function _renderBars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _renderBars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _renderBars('chart-pl-expense', PL_EXPENSE);
+  }
+
+
+  // ── P&L chart render on panel activate ─────────────────────
+  document.querySelectorAll('.sidebar-item[data-panel="pl"]').forEach(function(item) {
+    item.addEventListener('click', function() { renderPLCharts(); });
+  });
 </script>
 </body>
 </html>

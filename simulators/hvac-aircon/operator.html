@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FrostLine Aircon Services: Operator Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #EEF5FA;
+      --mid:     #FFFFFF;
+      --surface: #DDE9F2;
+      --border:  rgba(13,34,54,0.1);
+      --text:    rgba(13,34,54,0.55);
+      --white:   #0D2236;
+      --amber:   #1B8FCC;
+      --amber2:  #2AB8EE;
+      --green:   #2ECC71;
+      --red:     #E84040;
+      --blue:    #4A9EF5;
+      --mono:    'JetBrains Mono', monospace;
+      --sans:    'Source Sans 3', sans-serif;
+      --accent:     var(--amber);
+      --accent-dim: rgba(27,143,204,0.1);
+      --elev:       var(--surface);
+      --text2:      var(--text);
+      --text3:      rgba(13,34,54,0.35);
+      --border2:    rgba(13,34,54,0.2);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; }
+
+    /* ─── GATE ─── */
+    #gate {
+      position: fixed; inset: 0; background: var(--black); z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gate-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 16px;
+      padding: 48px 52px; width: 360px; text-align: center;
+    }
+    .gate-logo {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: var(--amber); display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.9rem; color: #FFFFFF; margin: 0 auto 20px;
+    }
+    .gate-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .gate-sub { font-size: 0.8rem; color: var(--text); margin-bottom: 28px; }
+    .gate-input {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); font-family: var(--sans); font-size: 0.9rem;
+      padding: 12px 16px; border-radius: 8px; outline: none;
+      text-align: center; letter-spacing: 0.1em; margin-bottom: 14px;
+      transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: rgba(27,143,204,0.5); }
+    .gate-btn {
+      width: 100%; background: var(--amber); color: #FFFFFF;
+      font-weight: 700; font-size: 0.88rem; padding: 13px; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.18s;
+    }
+    .gate-btn:hover { background: var(--amber2); }
+    .gate-sim-note {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-align: center;
+      color: var(--text2); margin-top: 18px; opacity: 0.7;
+    }
+    .gate-err { font-size: 0.75rem; color: var(--red); margin-top: 10px; min-height: 18px; }
+
+    /* ─── APP SHELL ─── */
+    #app { display: none; height: 100vh; overflow: hidden; flex-direction: column; }
+    #app.visible { display: flex; }
+
+    .topbar {
+      height: 52px; background: #0D2236; border-bottom: 1px solid rgba(27,143,204,0.2);
+      display: flex; align-items: center; padding: 0 20px; gap: 16px; flex-shrink: 0;
+    }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; }
+    .topbar-mark { width: 30px; height: 30px; border-radius: 5px; background: var(--amber); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; color: #FFFFFF; }
+    .topbar-name { font-weight: 700; font-size: 0.88rem; color: rgba(255,255,255,0.9); }
+    .topbar-name span { color: var(--amber); }
+    .topbar-sep { width: 1px; height: 20px; background: rgba(27,143,204,0.2); }
+    .topbar-badge { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .health-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .health-dot.green { background: var(--green); box-shadow: 0 0 6px rgba(46,204,113,0.5); }
+    .health-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .topbar-user { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+    .topbar-back { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 4px; text-decoration: none; transition: color 0.15s; }
+    .topbar-back:hover { color: rgba(255,255,255,0.8); }
+
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    .sidebar {
+      width: 200px; background: var(--mid); border-right: 1px solid var(--border);
+      flex-shrink: 0; display: flex; flex-direction: column; padding: 16px 0;
+    }
+    .sidebar-section { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); padding: 0 16px 8px; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px; font-size: 0.82rem; cursor: pointer;
+      color: var(--text); transition: all 0.15s; border-left: 2px solid transparent;
+    }
+    .sidebar-item:hover { color: var(--white); background: rgba(27,143,204,0.04); }
+    .sidebar-item.active { color: var(--white); background: rgba(27,143,204,0.08); border-left-color: var(--amber); }
+    .sidebar-icon { font-size: 0.9rem; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .sidebar-bottom { margin-top: auto; padding: 0 16px; }
+    .sidebar-footer-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+
+    .main { flex: 1; overflow-y: auto; padding: 28px 32px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .panel-header { margin-bottom: 28px; }
+    .panel-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+    .panel-sub { font-size: 0.82rem; color: var(--text); margin-top: 4px; }
+    .panel-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .pabtn {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 4px; cursor: pointer; border: 1px solid var(--border);
+      background: transparent; color: var(--text); transition: all 0.15s;
+    }
+    .pabtn:hover { border-color: rgba(27,143,204,0.4); color: var(--amber); }
+    .pabtn.primary { background: var(--amber); color: #FFFFFF; border-color: var(--amber); }
+    .pabtn.primary:hover { background: var(--amber2); border-color: var(--amber2); }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+    .kpi-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; position: relative; }
+    .kpi-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 10px; }
+    .kpi-val { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .kpi-sub { font-size: 0.72rem; color: var(--text); margin-top: 6px; }
+    .kpi-delta { position: absolute; top: 14px; right: 14px; font-family: var(--mono); font-size: 0.6rem; color: var(--green); background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2); padding: 2px 8px; border-radius: 3px; }
+    .kpi-delta.amber { color: var(--amber); background: rgba(27,143,204,0.1); border-color: rgba(27,143,204,0.2); }
+
+    .split-grid { display: grid; grid-template-columns: 1fr 340px; gap: 16px; }
+    .split-grid.rev { grid-template-columns: 1fr 1fr; }
+
+    .widget { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .widget-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .widget-title { font-size: 0.84rem; font-weight: 600; }
+    .widget-count { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; color: var(--text); }
+    .widget-body { padding: 0; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+    td { font-size: 0.82rem; padding: 11px 16px; border-bottom: 1px solid rgba(13,34,54,0.04); color: rgba(13,34,54,0.82); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(27,143,204,0.03); }
+
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+    .badge.new { color: var(--blue); background: rgba(74,158,245,0.12); border: 1px solid rgba(74,158,245,0.2); }
+    .badge.quoted { color: var(--amber); background: rgba(27,143,204,0.1); border: 1px solid rgba(27,143,204,0.2); }
+    .badge.active { color: var(--green); background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2); }
+    .badge.done { color: var(--text); background: rgba(13,34,54,0.04); border: 1px solid var(--border); }
+    .badge.overdue { color: var(--red); background: rgba(232,64,64,0.1); border: 1px solid rgba(232,64,64,0.2); }
+    .badge.pending { color: var(--amber); background: rgba(27,143,204,0.08); border: 1px solid rgba(27,143,204,0.15); }
+
+    .job-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .job-dot.active { background: var(--green); }
+    .job-dot.pending { background: var(--amber); }
+    .job-dot.done { background: var(--text); }
+
+    .prog-bar { height: 5px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+    .prog-fill { height: 100%; border-radius: 3px; background: var(--amber); }
+    .prog-fill.green { background: var(--green); }
+
+    .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .mini-stat { background: var(--mid); padding: 16px; text-align: center; }
+    .mini-stat-val { font-size: 1.2rem; font-weight: 800; color: var(--amber); }
+    .mini-stat-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-top: 3px; }
+
+    .activity-list { padding: 4px 0; }
+    .activity-item { display: flex; gap: 12px; padding: 10px 18px; border-bottom: 1px solid rgba(13,34,54,0.04); }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 5px; }
+    .activity-dot.green { background: var(--green); }
+    .activity-dot.blue { background: var(--blue); }
+    .activity-text { font-size: 0.8rem; color: rgba(13,34,54,0.8); line-height: 1.5; }
+    .activity-time { font-family: var(--mono); font-size: 0.58rem; color: var(--text); margin-top: 2px; }
+
+    .pipeline-item { display: flex; align-items: center; gap: 14px; padding: 13px 18px; border-bottom: 1px solid rgba(13,34,54,0.04); }
+    .pipeline-item:last-child { border-bottom: none; }
+    .pipeline-info { flex: 1; }
+    .pipeline-name { font-size: 0.84rem; font-weight: 600; margin-bottom: 2px; }
+    .pipeline-meta { font-size: 0.74rem; color: var(--text); }
+    .pipeline-amount { font-size: 0.88rem; font-weight: 700; color: var(--amber); text-align: right; }
+    .pipeline-amt-label { font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; color: var(--text); margin-top: 2px; text-align: right; }
+
+    .cal-item { display: flex; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgba(13,34,54,0.04); align-items: flex-start; }
+    .cal-item:last-child { border-bottom: none; }
+    .cal-date { background: var(--surface); border-radius: 6px; padding: 8px 10px; text-align: center; flex-shrink: 0; min-width: 46px; }
+    .cal-day { font-size: 1.1rem; font-weight: 800; color: var(--amber); line-height: 1; }
+    .cal-month { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+    .cal-info { flex: 1; }
+    .cal-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 2px; }
+    .cal-desc { font-size: 0.74rem; color: var(--text); }
+
+    .rev-chart { padding: 24px 18px; }
+    .rev-bars { display: flex; align-items: flex-end; gap: 6px; height: 100px; margin-bottom: 8px; }
+    .rev-bar { flex: 1; border-radius: 3px 3px 0 0; background: rgba(27,143,204,0.15); transition: background 0.2s; }
+    .rev-bar.filled { background: var(--amber); }
+    .rev-bar:hover { background: var(--amber2); }
+    .rev-labels { display: flex; gap: 6px; }
+    .rev-lbl { flex: 1; font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); text-align: center; }
+
+    /* ADF STANDARD OPERATOR PANELS */
+    .panel-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+    .card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 14px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+    .metric { background: var(--elev); border-radius: 10px; padding: 16px 20px; }
+    .metric-label { font-size: 0.65rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-family: var(--mono); }
+    .metric-value { font-size: 1.5rem; font-weight: 700; }
+    .btn-grid { display: grid; gap: 10px; margin-bottom: 20px; }
+    .btn-grid-2 { grid-template-columns: repeat(2,1fr); }
+    .btn-grid-3 { grid-template-columns: repeat(3,1fr); }
+    .action-btn { background: var(--mid); color: var(--white); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-align: left; transition: background 0.15s, color 0.15s, border-color 0.15s; font-family: var(--sans); line-height: 1.3; }
+    .action-btn:hover { background: var(--surface); border-color: var(--accent); }
+    .action-btn.active { background: var(--accent-dim); color: var(--amber2); border-color: var(--accent); }
+    .output-block { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+    .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .output-badge { background: var(--accent-dim); color: var(--amber); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 4px; font-family: var(--mono); }
+    .output-status { font-size: 0.7rem; color: var(--text3); }
+    .output-pre { font-size: 0.82rem; color: var(--text); white-space: pre-wrap; line-height: 1.8; font-family: var(--sans); min-height: 24px; }
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .chart-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 16px; color: var(--white); }
+    .bar-row { margin-bottom: 10px; }
+    .bar-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text); margin-bottom: 4px; }
+    .bar-track { height: 3px; background: var(--surface); border-radius: 2px; }
+    .bar-fill { height: 100%; border-radius: 2px; transition: width 0.7s ease; }
+
+    /* PM CONTRACT TABLE */
+    .pm-badge { display: inline-flex; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+    .pm-badge.active { color: var(--green); background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2); }
+    .pm-badge.renew { color: var(--amber); background: rgba(27,143,204,0.1); border: 1px solid rgba(27,143,204,0.2); }
+    .pm-badge.overdue { color: var(--red); background: rgba(232,64,64,0.1); border: 1px solid rgba(232,64,64,0.2); }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(13,34,54,0.12); border-radius: 2px; }
+
+    /* Mobile Responsive */
+    .op-ham {
+      display: none; background: none; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; color: rgba(255,255,255,0.55); cursor: pointer;
+      font-size: 18px; line-height: 1; padding: 5px 8px; flex-shrink: 0;
+    }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 199; }
+    .sidebar-overlay.active { display: block; }
+    @media (max-width: 768px) {
+      .op-ham { display: block !important; }
+      .topbar-badge, .topbar-sep, .health-label, .topbar-user { display: none; }
+      .sidebar { position: fixed !important; top: 52px; left: -220px; bottom: 0; width: 220px !important; z-index: 200; transition: left 0.25s ease; overflow-y: auto; }
+      .sidebar.open { left: 0; }
+      .main { padding: 16px 14px 60px !important; overflow-y: auto; }
+      .kpi-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .split-grid, .split-grid.rev { grid-template-columns: 1fr !important; }
+      table { display: block; overflow-x: auto; }
+      .chart-grid { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2,1fr); }
+      .btn-grid-2, .btn-grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .kpi-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── GATE ──────────────────────────────────────────────────── -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">FL</div>
+    <div class="gate-title">FrostLine Operator Suite</div>
+    <div class="gate-sub">Enter your operator passphrase to continue</div>
+    <input class="gate-input" type="password" id="gate-input" placeholder="••••••••••" autocomplete="off"/>
+    <button class="gate-btn" onclick="unlock()">Access Dashboard</button>
+    <div class="gate-err" id="gate-err"></div>
+    <div class="gate-sim-note">SIMULATOR MODE &middot; Use code: frostline2026</div>
+  </div>
+</div>
+
+<!-- ─── APP ───────────────────────────────────────────────────── -->
+<div id="app">
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleOpSidebar()"></div>
+  <div class="topbar">
+    <button class="op-ham" onclick="toggleOpSidebar()" aria-label="Open menu">☰</button>
+    <div class="topbar-logo">
+      <div class="topbar-mark">FL</div>
+      <div class="topbar-name">FrostLine <span>Aircon</span></div>
+    </div>
+    <div class="topbar-sep"></div>
+    <span class="topbar-badge">Operator Suite · Aurora Province</span>
+    <div class="topbar-right">
+      <div class="health-dot green"></div>
+      <span class="health-label">Systems Nominal</span>
+      <span class="topbar-user">Marco Reyes · Lead Technician</span>
+      <a href="index.html" class="topbar-back">← Site</a>
+    </div>
+  </div>
+
+  <div class="app-body">
+    <nav class="sidebar">
+      <div class="sidebar-section">Operations</div>
+      <div class="sidebar-item active" data-panel="dashboard"><span class="sidebar-icon">📊</span> Dashboard</div>
+      <div class="sidebar-item" data-panel="jobs"><span class="sidebar-icon">❄️</span> Active Jobs</div>
+      <div class="sidebar-item" data-panel="pm"><span class="sidebar-icon">📋</span> PM Contracts</div>
+      <div class="sidebar-item" data-panel="pipeline"><span class="sidebar-icon">🔧</span> Quote Pipeline</div>
+      <div class="sidebar-item" data-panel="schedule"><span class="sidebar-icon">📅</span> Schedule</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Revenue</div>
+      <div class="sidebar-item" data-panel="revenue"><span class="sidebar-icon">₱</span> Revenue</div>
+      <div class="sidebar-item" data-panel="pl"><span class="sidebar-icon">📊</span> Profit &amp; Loss</div>
+      <div class="sidebar-item" data-panel="leads"><span class="sidebar-icon">👤</span> New Leads</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Tools</div>
+      <div class="sidebar-item" data-panel="crew"><span class="sidebar-icon">👷</span> Technicians</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Growth</div>
+      <div class="sidebar-item" data-panel="marketing"><span class="sidebar-icon">📣</span> Marketing</div>
+      <div class="sidebar-item" data-panel="ai"><span class="sidebar-icon">🤖</span> AI Console</div>
+      <div class="sidebar-item" data-panel="intelligence"><span class="sidebar-icon">📊</span> Intelligence</div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-footer-label">ADF Operator Suite v1</div>
+      </div>
+    </nav>
+
+    <main class="main">
+
+      <!-- ─ DASHBOARD ─ -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="panel-header">
+          <div class="panel-title">Operations HUD</div>
+          <div class="panel-sub">Real-time overview: updated June 2026</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Active Jobs</div>
+            <div class="kpi-val" style="color:var(--amber)">14</div>
+            <div class="kpi-sub">5 Installs · 4 Cleans · 3 Repairs · 2 PM Visits</div>
+            <span class="kpi-delta">+3 vs last mo.</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Monthly Revenue</div>
+            <div class="kpi-val" style="color:var(--green)">₱287K</div>
+            <div class="kpi-sub">Invoiced this month · ₱198K collected</div>
+            <span class="kpi-delta">+22%</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">PM Contract MRR</div>
+            <div class="kpi-val" style="color:var(--white)">₱48K</div>
+            <div class="kpi-sub">8 active contracts · 2 renewing this month</div>
+            <span class="kpi-delta amber">2 renewing</span>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">New Leads (7 days)</div>
+            <div class="kpi-val" style="color:var(--blue)">9</div>
+            <div class="kpi-sub">5 website · 3 referral · 1 walk-in</div>
+            <span class="kpi-delta">+2 vs last wk.</span>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div>
+            <div class="widget">
+              <div class="widget-head">
+                <span class="widget-title">Active Jobs: Status</span>
+                <span class="widget-count">14 jobs running</span>
+              </div>
+              <div class="widget-body">
+                <table>
+                  <thead>
+                    <tr><th>Job</th><th>Client</th><th>Type</th><th>Progress</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="job-dot active"></span>Dela Cruz Residence: 3-Unit Install</td>
+                      <td>M. Dela Cruz · San Luis</td><td>Installation</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill green" style="width:90%"></div></div></td>
+                      <td><span class="badge active">Near Done</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Aurora Trading: Cassette Install</td>
+                      <td>Aurora Trading · Baler</td><td>Commercial Install</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill" style="width:55%"></div></div></td>
+                      <td><span class="badge active">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Santos Office: AC Repair</td>
+                      <td>J. Santos · San Luis</td><td>Repair</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill green" style="width:80%"></div></div></td>
+                      <td><span class="badge active">Parts Installed</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot active"></span>Luna Hotel: Quarterly PM</td>
+                      <td>Luna Hotel · Baler</td><td>PM Contract Visit</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill green" style="width:70%"></div></div></td>
+                      <td><span class="badge active">On Track</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="job-dot pending"></span>Villanueva Residence: Freon Refill</td>
+                      <td>R. Villanueva · Maria Aurora</td><td>Freon Refill</td>
+                      <td><div class="prog-bar" style="width:120px"><div class="prog-fill" style="width:40%"></div></div></td>
+                      <td><span class="badge pending">Awaiting Schedule</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="widget" style="margin-bottom:16px;">
+              <div class="widget-head"><span class="widget-title">Today's Activity</span></div>
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-dot green"></div>
+                  <div>
+                    <div class="activity-text">Dela Cruz install: 3rd unit commissioned, client walkthrough done.</div>
+                    <div class="activity-time">08:45 AM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot blue"></div>
+                  <div>
+                    <div class="activity-text">New lead: Reyes hardware store — 4-unit commercial installation inquiry.</div>
+                    <div class="activity-time">10:12 AM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot"></div>
+                  <div>
+                    <div class="activity-text">Invoice #FL-2406-018 sent to Aurora Trading: ₱62,000 milestone payment.</div>
+                    <div class="activity-time">11:30 AM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot green"></div>
+                  <div>
+                    <div class="activity-text">Luna Hotel PM visit: 8 units cleaned and inspected, report filed.</div>
+                    <div class="activity-time">02:20 PM</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot blue"></div>
+                  <div>
+                    <div class="activity-text">PM renewal reminder sent to Castillo Resort: contract expires Jun 30.</div>
+                    <div class="activity-time">04:05 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="widget">
+              <div class="widget-head"><span class="widget-title">June Revenue</span></div>
+              <div class="mini-stats">
+                <div class="mini-stat"><div class="mini-stat-val">₱287K</div><div class="mini-stat-label">Invoiced</div></div>
+                <div class="mini-stat"><div class="mini-stat-val">₱198K</div><div class="mini-stat-label">Collected</div></div>
+                <div class="mini-stat"><div class="mini-stat-val">₱89K</div><div class="mini-stat-label">Outstanding</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ JOBS ─ -->
+      <div class="panel" id="panel-jobs">
+        <div class="panel-header">
+          <div class="panel-title">Active Jobs</div>
+          <div class="panel-sub">14 jobs in progress across Aurora Province</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Job</button>
+            <button class="pabtn">Export</button>
+          </div>
+        </div>
+        <div class="widget">
+          <table>
+            <thead>
+              <tr><th>Job ID</th><th>Client</th><th>Location</th><th>Service</th><th>Unit Brand</th><th>Category</th><th>Value</th><th>Progress</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">FL-2406-001</td>
+                <td>M. Dela Cruz</td><td>San Luis</td><td>3-Unit Split Install</td><td>Daikin</td><td>Residential</td>
+                <td style="color:var(--amber);font-weight:700">₱78,000</td>
+                <td><div class="prog-bar" style="width:80px"><div class="prog-fill green" style="width:90%"></div></div></td>
+                <td><span class="badge active">Near Done</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">FL-2406-002</td>
+                <td>Aurora Trading</td><td>Baler</td><td>6-Unit Cassette Install</td><td>Carrier</td><td>Commercial</td>
+                <td style="color:var(--amber);font-weight:700">₱185,000</td>
+                <td><div class="prog-bar" style="width:80px"><div class="prog-fill" style="width:55%"></div></div></td>
+                <td><span class="badge active">In Progress</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">FL-2406-003</td>
+                <td>J. Santos</td><td>San Luis</td><td>Compressor Replacement</td><td>Midea</td><td>Residential</td>
+                <td style="color:var(--amber);font-weight:700">₱24,500</td>
+                <td><div class="prog-bar" style="width:80px"><div class="prog-fill" style="width:80%"></div></div></td>
+                <td><span class="badge active">Parts Installed</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">FL-2406-004</td>
+                <td>Luna Hotel</td><td>Baler</td><td>Quarterly PM (8 units)</td><td>Various</td><td>Commercial PM</td>
+                <td style="color:var(--amber);font-weight:700">₱18,000</td>
+                <td><div class="prog-bar" style="width:80px"><div class="prog-fill" style="width:70%"></div></div></td>
+                <td><span class="badge active">On Track</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">FL-2406-005</td>
+                <td>R. Villanueva</td><td>Maria Aurora</td><td>Freon Refill (R32)</td><td>Samsung</td><td>Residential</td>
+                <td style="color:var(--amber);font-weight:700">₱4,800</td>
+                <td><div class="prog-bar" style="width:80px"><div class="prog-fill" style="width:40%"></div></div></td>
+                <td><span class="badge pending">Scheduling</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">FL-2406-006</td>
+                <td>Aquino Supermart</td><td>San Luis</td><td>Chemical Wash (5 units)</td><td>LG</td><td>Commercial</td>
+                <td style="color:var(--amber);font-weight:700">₱9,500</td>
+                <td><div class="prog-bar" style="width:80px"><div class="prog-fill green" style="width:95%"></div></div></td>
+                <td><span class="badge active">Punch List</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ PM CONTRACTS ─ -->
+      <div class="panel" id="panel-pm">
+        <div class="panel-header">
+          <div class="panel-title">PM Contract Tracker</div>
+          <div class="panel-sub">8 active commercial PM contracts · ₱48,000/month MRR</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Contract</button>
+            <button class="pabtn">Send Renewals</button>
+          </div>
+        </div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="kpi-card"><div class="kpi-label">Active Contracts</div><div class="kpi-val" style="color:var(--amber)">8</div><div class="kpi-sub">Commercial clients</div></div>
+          <div class="kpi-card"><div class="kpi-label">Monthly MRR</div><div class="kpi-val" style="color:var(--green)">₱48,000</div><div class="kpi-sub">Recurring revenue</div></div>
+          <div class="kpi-card"><div class="kpi-label">Renewing This Month</div><div class="kpi-val" style="color:var(--amber)">2</div><div class="kpi-sub">₱12,000 MRR at stake</div></div>
+          <div class="kpi-card"><div class="kpi-label">Total Units Under PM</div><div class="kpi-val" style="color:var(--blue)">47</div><div class="kpi-sub">Across 8 contracts</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Active PM Contracts</span><span class="widget-count">8 contracts</span></div>
+          <table>
+            <thead>
+              <tr><th>Client</th><th>Location</th><th>Units</th><th>Frequency</th><th>Monthly Rate</th><th>Last Visit</th><th>Renewal</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:600">Luna Hotel</td><td>Baler</td><td>8</td><td>Quarterly</td>
+                <td style="color:var(--amber);font-weight:700">₱7,200</td>
+                <td style="color:var(--text);font-size:0.78rem">Jun 16, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Sep 2026</td>
+                <td><span class="pm-badge active">Active</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Castillo Resort</td><td>Dipaculao</td><td>12</td><td>Quarterly</td>
+                <td style="color:var(--amber);font-weight:700">₱9,600</td>
+                <td style="color:var(--text);font-size:0.78rem">Mar 28, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Jun 30, 2026</td>
+                <td><span class="pm-badge renew">Renew Now</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">San Luis Municipal Hall</td><td>San Luis</td><td>6</td><td>Quarterly</td>
+                <td style="color:var(--amber);font-weight:700">₱5,400</td>
+                <td style="color:var(--text);font-size:0.78rem">Apr 10, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Jul 2026</td>
+                <td><span class="pm-badge active">Active</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Aurora Medical Clinic</td><td>Baler</td><td>5</td><td>Monthly</td>
+                <td style="color:var(--amber);font-weight:700">₱6,000</td>
+                <td style="color:var(--text);font-size:0.78rem">Jun 5, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Ongoing</td>
+                <td><span class="pm-badge active">Active</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Aquino Supermart</td><td>San Luis</td><td>5</td><td>Quarterly</td>
+                <td style="color:var(--amber);font-weight:700">₱4,200</td>
+                <td style="color:var(--text);font-size:0.78rem">Jun 16, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Sep 2026</td>
+                <td><span class="pm-badge active">Active</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Baler Surf School</td><td>Baler</td><td>4</td><td>Semi-Annual</td>
+                <td style="color:var(--amber);font-weight:700">₱3,200</td>
+                <td style="color:var(--text);font-size:0.78rem">Jan 14, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Jun 28, 2026</td>
+                <td><span class="pm-badge renew">Renew Now</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Maria Aurora Cooperative</td><td>Maria Aurora</td><td>3</td><td>Quarterly</td>
+                <td style="color:var(--amber);font-weight:700">₱2,700</td>
+                <td style="color:var(--text);font-size:0.78rem">May 22, 2026</td>
+                <td style="color:var(--text);font-size:0.78rem">Aug 2026</td>
+                <td><span class="pm-badge active">Active</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Casiguran Eco Lodge</td><td>Casiguran</td><td>4</td><td>Semi-Annual</td>
+                <td style="color:var(--amber);font-weight:700">₱3,400</td>
+                <td style="color:var(--text);font-size:0.78rem">Dec 10, 2025</td>
+                <td style="color:var(--text);font-size:0.78rem">Jun 10, 2026</td>
+                <td><span class="pm-badge overdue">Overdue</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ PIPELINE ─ -->
+      <div class="panel" id="panel-pipeline">
+        <div class="panel-header">
+          <div class="panel-title">Quote Pipeline</div>
+          <div class="panel-sub">₱620,000 in active quotes: 7 prospects</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Quote</button>
+            <button class="pabtn">Site Visits</button>
+          </div>
+        </div>
+        <div class="split-grid rev">
+          <div>
+            <div class="widget">
+              <div class="widget-head"><span class="widget-title">Active Quotes</span><span class="widget-count">7 open</span></div>
+              <div class="widget-body">
+                <div class="pipeline-item">
+                  <div><span class="badge quoted">Quoted</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Reyes Hardware Store: 4-Unit Commercial Install</div>
+                    <div class="pipeline-meta">Commercial · Ceiling cassette, 4-ton each · Site visit Jun 18</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱240,000</div>
+                    <div class="pipeline-amt-label">Estimated</div>
+                  </div>
+                </div>
+                <div class="pipeline-item">
+                  <div><span class="badge new">New</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Torres Residence: 2-Unit Install (Inverter)</div>
+                    <div class="pipeline-meta">Residential · 2 bedrooms, 1.5HP each · Website inquiry today</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱68,000</div>
+                    <div class="pipeline-amt-label">Est. Range</div>
+                  </div>
+                </div>
+                <div class="pipeline-item">
+                  <div><span class="badge quoted">Quoted</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Baler Polytechnic College: Ducted System</div>
+                    <div class="pipeline-meta">Commercial · Ducted, 4 zones · Quote submitted Jun 8</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱312,000</div>
+                    <div class="pipeline-amt-label">Fixed Quote</div>
+                  </div>
+                </div>
+                <div class="pipeline-item">
+                  <div><span class="badge overdue">Expiring</span></div>
+                  <div class="pipeline-info">
+                    <div class="pipeline-name">Manalang Pension House: PM Contract Proposal</div>
+                    <div class="pipeline-meta">7 units, quarterly PM · Proposal valid until Jun 18</div>
+                  </div>
+                  <div>
+                    <div class="pipeline-amount">₱26,000</div>
+                    <div class="pipeline-amt-label">Annual Contract</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="widget">
+              <div class="widget-head"><span class="widget-title">Pipeline Funnel</span></div>
+              <div style="padding:16px 18px;">
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Inquiry Received</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">9</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+                </div>
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Site Visit Done</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">7</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill" style="width:78%"></div></div>
+                </div>
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Quote Sent</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">5</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill" style="width:56%"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span style="font-size:0.8rem;">Contract Signed</span>
+                    <span style="font-family:var(--mono);font-size:0.7rem;color:var(--green);">2</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill green" style="width:22%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ SCHEDULE ─ -->
+      <div class="panel" id="panel-schedule">
+        <div class="panel-header">
+          <div class="panel-title">Schedule</div>
+          <div class="panel-sub">Upcoming service calls, PM visits, and deadlines</div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">June 2026: Upcoming</span></div>
+          <div class="widget-body">
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">16</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Luna Hotel: Quarterly PM Visit (8 units)</div>
+                <div class="cal-desc">FL-2406-004 · Baler · Danny Aquino assigned · 8:00 AM start</div>
+              </div>
+              <span class="badge active">Today</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">18</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Site Visit: Reyes Hardware Store, San Luis</div>
+                <div class="cal-desc">4-unit commercial cassette scope walk · ₱240,000 quote pending · 2:00 PM</div>
+              </div>
+              <span class="badge quoted">Pending</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">18</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Manalang Pension House PM Proposal Expiry</div>
+                <div class="cal-desc">Follow up today or proposal lapses: ₱26,000 annual contract at stake</div>
+              </div>
+              <span class="badge overdue">Urgent</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">20</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Dela Cruz Residence: Final Commissioning & Handover</div>
+                <div class="cal-desc">FL-2406-001 · San Luis · Final invoice ₱18,000 on sign-off</div>
+              </div>
+              <span class="badge active">On Track</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">28</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Baler Surf School: PM Renewal Visit</div>
+                <div class="cal-desc">Semi-annual PM due · 4 units · Confirm renewal contract at visit</div>
+              </div>
+              <span class="badge quoted">Scheduled</span>
+            </div>
+            <div class="cal-item">
+              <div class="cal-date"><div class="cal-day">30</div><div class="cal-month">Jun</div></div>
+              <div class="cal-info">
+                <div class="cal-title">Castillo Resort: PM Contract Renewal Deadline</div>
+                <div class="cal-desc">12-unit quarterly PM · ₱9,600/mo MRR · Must renew by month-end</div>
+              </div>
+              <span class="badge overdue">Renewal Due</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ REVENUE ─ -->
+      <div class="panel" id="panel-revenue">
+        <div class="panel-header">
+          <div class="panel-title">Revenue Tracker</div>
+          <div class="panel-sub">June 2026: Aurora Province operations</div>
+        </div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="kpi-card">
+            <div class="kpi-label">Invoiced This Month</div>
+            <div class="kpi-val" style="color:var(--amber)">₱287,000</div>
+            <div class="kpi-sub">14 jobs · 18 invoices</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Collected</div>
+            <div class="kpi-val" style="color:var(--green)">₱198,000</div>
+            <div class="kpi-sub">69% collection rate</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Outstanding</div>
+            <div class="kpi-val" style="color:var(--white)">₱89,000</div>
+            <div class="kpi-sub">4 invoices unpaid: oldest 11 days</div>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Monthly Revenue: 6-Month Trend</span></div>
+          <div class="rev-chart">
+            <div class="rev-bars">
+              <div class="rev-bar filled" style="height:38%"></div>
+              <div class="rev-bar filled" style="height:52%"></div>
+              <div class="rev-bar filled" style="height:61%"></div>
+              <div class="rev-bar filled" style="height:75%"></div>
+              <div class="rev-bar filled" style="height:88%"></div>
+              <div class="rev-bar filled" style="height:100%"></div>
+            </div>
+            <div class="rev-labels">
+              <div class="rev-lbl">Jan</div>
+              <div class="rev-lbl">Feb</div>
+              <div class="rev-lbl">Mar</div>
+              <div class="rev-lbl">Apr</div>
+              <div class="rev-lbl">May</div>
+              <div class="rev-lbl" style="color:var(--amber)">Jun</div>
+            </div>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Outstanding Invoices</span><span class="widget-count">₱89,000</span></div>
+          <table>
+            <thead><tr><th>Invoice</th><th>Client</th><th>Service</th><th>Amount</th><th>Age</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">#FL-2406-018</td>
+                <td>Aurora Trading</td><td>Cassette Install Milestone</td>
+                <td style="color:var(--amber);font-weight:700">₱62,000</td>
+                <td style="color:var(--text);font-size:0.78rem">3 days</td>
+                <td><span class="badge pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">#FL-2406-015</td>
+                <td>J. Santos</td><td>Compressor Repair Deposit</td>
+                <td style="color:var(--amber);font-weight:700">₱12,000</td>
+                <td style="color:var(--text);font-size:0.78rem">8 days</td>
+                <td><span class="badge pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--mono);font-size:0.72rem;color:var(--text)">#FL-2406-012</td>
+                <td>Casiguran Eco Lodge</td><td>PM Contract (overdue visit)</td>
+                <td style="color:var(--amber);font-weight:700">₱15,000</td>
+                <td style="color:var(--text);font-size:0.78rem">11 days</td>
+                <td><span class="badge overdue">Follow Up</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ LEADS ─ -->
+      <div class="panel" id="panel-leads">
+        <div class="panel-header">
+          <div class="panel-title">New Leads</div>
+          <div class="panel-sub">9 leads received in the last 7 days</div>
+        </div>
+        <div class="widget">
+          <table>
+            <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Location</th><th>Source</th><th>Received</th><th>Stage</th></tr></thead>
+            <tbody>
+              <tr><td>Ana Torres</td><td>0917-XXX-1122</td><td>2-Unit Inverter Install</td><td>San Luis</td><td style="color:var(--text);font-size:0.78rem">Website</td><td style="color:var(--text);font-size:0.78rem">Today</td><td><span class="badge new">New</span></td></tr>
+              <tr><td>Rodel Reyes</td><td>0918-XXX-3344</td><td>4-Unit Commercial Install</td><td>San Luis</td><td style="color:var(--text);font-size:0.78rem">Referral</td><td style="color:var(--text);font-size:0.78rem">Today</td><td><span class="badge new">New</span></td></tr>
+              <tr><td>Marivic Luna</td><td>0926-XXX-5566</td><td>Aircon Repair (no cooling)</td><td>Baler</td><td style="color:var(--text);font-size:0.78rem">Facebook</td><td style="color:var(--text);font-size:0.78rem">Yesterday</td><td><span class="badge quoted">Contacted</span></td></tr>
+              <tr><td>Jun Manalang</td><td>0905-XXX-7788</td><td>PM Contract (Pension House)</td><td>Baler</td><td style="color:var(--text);font-size:0.78rem">Walk-in</td><td style="color:var(--text);font-size:0.78rem">Jun 14</td><td><span class="badge quoted">Quoted</span></td></tr>
+              <tr><td>Elma Cruz</td><td>0923-XXX-9900</td><td>Chemical Wash (3 units)</td><td>San Luis</td><td style="color:var(--text);font-size:0.78rem">Website</td><td style="color:var(--text);font-size:0.78rem">Jun 13</td><td><span class="badge quoted">Site Visit</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ TECHNICIANS ─ -->
+      <div class="panel" id="panel-crew">
+        <div class="panel-header">
+          <div class="panel-title">Technician Management</div>
+          <div class="panel-sub">8 TESDA-certified technicians: 3 crews deployed</div>
+        </div>
+        <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="kpi-card"><div class="kpi-label">Total Technicians</div><div class="kpi-val" style="color:var(--amber)">8</div><div class="kpi-sub">All TESDA certified</div></div>
+          <div class="kpi-card"><div class="kpi-label">On-Site Today</div><div class="kpi-val" style="color:var(--green)">6</div><div class="kpi-sub">3 active sites</div></div>
+          <div class="kpi-card"><div class="kpi-label">Available</div><div class="kpi-val" style="color:var(--white)">2</div><div class="kpi-sub">Ready for dispatch</div></div>
+          <div class="kpi-card"><div class="kpi-label">Emergency Standby</div><div class="kpi-val" style="color:var(--blue)">1</div><div class="kpi-sub">Danny Aquino on call</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="widget-title">Technician Roster</span></div>
+          <table>
+            <thead><tr><th>Name</th><th>Specialty</th><th>Certification</th><th>Current Assignment</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Marco Reyes</td><td>Lead Tech & Commercial</td><td>TESDA RAC NC II · PACU</td><td>Aurora Trading Cassette Install (FL-2406-002)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Nina Corpuz</td><td>Commercial PM Lead</td><td>TESDA RAC NC II · Daikin Auth.</td><td>PM Contracts Coordination</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Danny Aquino</td><td>Field Tech & Emergency</td><td>TESDA RAC NC II · Safety L1</td><td>Luna Hotel PM Visit (FL-2406-004)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Noel Bautista</td><td>Installation Tech</td><td>TESDA RAC NC II</td><td>Dela Cruz Residence Final Install (FL-2406-001)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Rico Dizon</td><td>Repair Technician</td><td>TESDA RAC NC II</td><td>Santos Office Repair (FL-2406-003)</td><td><span class="badge active">On Site</span></td></tr>
+              <tr><td>Allan Ramos</td><td>Cleaning & Maintenance</td><td>TESDA RAC NC II</td><td>Aquino Supermart Chemical Wash (FL-2406-006)</td><td><span class="badge active">Punch List</span></td></tr>
+              <tr><td>Bert Magno</td><td>Junior Tech</td><td>TESDA RAC NC I</td><td>Standby / Parts Run</td><td><span class="badge pending">Available</span></td></tr>
+              <tr><td>Leo Santos</td><td>Junior Tech</td><td>TESDA RAC NC I</td><td>Standby / Emergency Backup</td><td><span class="badge pending">Available</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ MARKETING ─ -->
+      <div class="panel" id="panel-marketing">
+        <div class="panel-header">
+          <span class="panel-label">Content</span>
+          <div class="panel-title">Marketing Generator</div>
+          <div class="panel-sub">Ready-to-publish content for FrostLine's Facebook page and client outreach.</div>
+        </div>
+        <div class="btn-grid btn-grid-2" id="mktg-btns">
+          <button class="action-btn" onclick="generateContent('summer')">☀️ Summer Peak Push</button>
+          <button class="action-btn" onclick="generateContent('pm')">📋 PM Contract Promo</button>
+          <button class="action-btn" onclick="generateContent('review')">⭐ Review Request</button>
+          <button class="action-btn" onclick="generateContent('commercial')">🏢 Commercial Downtime Risk</button>
+        </div>
+        <div id="mktg-output" style="display:none;" class="output-block">
+          <div class="output-header">
+            <span class="output-badge" id="mktg-badge">TYPE</span>
+            <span class="output-status" id="mktg-status">Generating...</span>
+          </div>
+          <pre class="output-pre" id="mktg-text"></pre>
+        </div>
+      </div>
+
+      <!-- ─ AI CONSOLE ─ -->
+      <div class="panel" id="panel-ai">
+        <div class="panel-header">
+          <span class="panel-label">Intelligence</span>
+          <div class="panel-title">AI Console</div>
+          <div class="panel-sub">AI-powered diagnostics: PM contracts, revenue, service lines, and technician utilization.</div>
+        </div>
+        <div class="btn-grid btn-grid-3" id="ai-btns">
+          <button class="action-btn" onclick="runAI('pm')">PM Contract Intelligence</button>
+          <button class="action-btn" onclick="runAI('revenue')">Revenue Intelligence</button>
+          <button class="action-btn" onclick="runAI('leads')">Lead Intelligence</button>
+        </div>
+        <div id="ai-output" style="display:none;" class="output-block">
+          <div class="output-header">
+            <span class="output-badge">AI ANALYSIS</span>
+            <span class="output-status" id="ai-status">Analyzing data...</span>
+          </div>
+          <pre class="output-pre" id="ai-text"></pre>
+        </div>
+      </div>
+
+      <!-- ─ BUSINESS INTELLIGENCE ─ -->
+      <div class="panel" id="panel-intelligence">
+        <div class="panel-header">
+          <span class="panel-label">Analytics</span>
+          <div class="panel-title">Business Intelligence</div>
+          <div class="panel-sub">Operational and revenue performance: June 2026</div>
+        </div>
+        <div class="metric-grid" id="kpi-grid"></div>
+        <div class="chart-grid">
+          <div class="card">
+            <div class="chart-title" id="chart-left-title">Revenue by Service Line</div>
+            <div id="chart-left"></div>
+          </div>
+          <div class="card">
+            <div class="chart-title" id="chart-right-title">Job Category Split</div>
+            <div id="chart-right"></div>
+          </div>
+        </div>
+      </div>
+
+    
+      <!-- ── P&L ── -->
+      <div class="panel" id="panel-pl">
+        <div class="page-header">
+          <div class="page-title">Profit &amp; Loss</div>
+          <div class="page-sub">June 2026 · Month-to-date income statement</div>
+        </div>
+        <div class="kpi-row"><div class="kpi"><div class="kpi-label">MTD Revenue</div><div class="kpi-val amber">₱287,000</div><div class="kpi-meta">Jun MTD 2026</div></div><div class="kpi"><div class="kpi-label">Gross Profit</div><div class="kpi-val green">₱166,460</div><div class="kpi-meta">58% gross margin</div></div><div class="kpi"><div class="kpi-label">Net Profit</div><div class="kpi-val green">₱92,460</div><div class="kpi-meta">+₱9,800 vs May MTD</div></div><div class="kpi"><div class="kpi-label">Net Margin</div><div class="kpi-val green">32.2%</div><div class="kpi-meta">↑ from 28.8% in May</div></div></div>
+        <div class="rev-section">
+          <h3>Income Statement</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Line Item</th><th>Amount</th><th>% of Revenue</th><th>Status</th></tr></thead>
+              <tbody>
+              <tr style="background:rgba(232,160,32,0.07)"><td>REVENUE</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Installation &amp; New Units</td><td>₱143,500</td><td>50%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;PM Contracts &amp; Maintenance</td><td>₱86,100</td><td>30%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Emergency Repair &amp; Cleaning</td><td>₱57,400</td><td>20%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL REVENUE</td><td>₱287,000</td><td>100%</td><td></td></tr>
+              <tr style="background:rgba(232,160,32,0.07)"><td>COST OF GOODS SOLD</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Field Labor — Technicians</td><td>₱100,450</td><td>35%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Parts, Refrigerant &amp; Supplies</td><td>₱20,090</td><td>7%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL COGS</td><td>₱120,540</td><td>42%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green)"><td>GROSS PROFIT</td><td>₱166,460</td><td>58%</td><td><span class="badge badge-conf">Healthy</span></td></tr>
+              <tr style="background:rgba(232,160,32,0.07)"><td>OPERATING EXPENSES</td><td></td><td></td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Overhead Labor (Admin/Dispatch)</td><td>₱32,000</td><td>11%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Vehicle &amp; Fuel</td><td>₱12,000</td><td>4%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Equipment &amp; Tools</td><td>₱10,000</td><td>3%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Office &amp; Admin</td><td>₱8,000</td><td>3%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Marketing</td><td>₱4,000</td><td>1%</td><td></td></tr>
+              <tr style=""><td>&nbsp;&nbsp;Insurance &amp; Licensing</td><td>₱8,000</td><td>3%</td><td></td></tr>
+              <tr style="font-weight:700"><td>TOTAL OPEX</td><td>₱74,000</td><td>26%</td><td></td></tr>
+              <tr style="font-weight:700;color:var(--green);font-size:1rem"><td>NET PROFIT</td><td>₱92,460</td><td>32.2%</td><td><span class="badge badge-conf">Profitable</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="chart-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-trend-title">6-Month Net Profit Trend</div>
+            <div id="chart-pl-trend"></div>
+          </div>
+          <div class="card" style="padding:24px;">
+            <div class="chart-title" id="pl-expense-title">Expense Breakdown</div>
+            <div id="chart-pl-expense"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  function unlock() {
+    const val = document.getElementById('gate-input').value.trim();
+    const err = document.getElementById('gate-err');
+    if (val === 'frostline2026') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+    } else {
+      err.textContent = 'Incorrect passphrase. Try again.';
+      document.getElementById('gate-input').value = '';
+      setTimeout(() => { err.textContent = ''; }, 3000);
+    }
+  }
+  document.getElementById('gate-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlock();
+  });
+
+  document.querySelectorAll('.sidebar-item[data-panel]').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById('panel-' + item.dataset.panel).classList.add('active');
+    });
+  });
+
+  function toggleOpSidebar() {
+    var sb = document.querySelector('.sidebar');
+    var ov = document.getElementById('sidebarOverlay');
+    if (!sb) return;
+    sb.classList.toggle('open');
+    if (ov) ov.classList.toggle('active');
+    document.body.style.overflow = sb.classList.contains('open') ? 'hidden' : '';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.sidebar-item').forEach(function(el) {
+      el.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          var sb = document.querySelector('.sidebar');
+          var ov = document.getElementById('sidebarOverlay');
+          if (sb && sb.classList.contains('open')) {
+            sb.classList.remove('open');
+            if (ov) ov.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    });
+  });
+
+  /* ═══════════════════════════════════════════════════════════════
+     ADF STANDARD OPERATOR PANELS — Marketing / AI Console / Intelligence
+     Source: _templates/ADF_OPERATOR_PANEL_STANDARD.html v1.0
+  ═══════════════════════════════════════════════════════════════ */
+
+  const BRAND    = 'FrostLine Aircon Services';
+  const LOCATION = 'San Luis & Aurora Province';
+
+  const KPI_DATA = [
+    ['Revenue MTD',        '₱287,000', 'var(--green)'],
+    ['Target',             '₱350,000', 'var(--text2)'],
+    ['Progress',           '82%',      'var(--amber)'],
+    ['PM Contract MRR',    '₱48,000',  'var(--white)'],
+    ['PM Contracts Due',   '2',        'var(--red)'  ],
+    ['Tech Utilization',   '75%',      'var(--green)'],
+  ];
+
+  const CHART_LEFT = {
+    title: 'Revenue by Service Line',
+    data: [
+      { label: 'Commercial Installs', value: 185000, color: 'var(--amber)' },
+      { label: 'PM Contracts (MRR)',  value: 48000,  color: 'var(--green)' },
+      { label: 'Residential Installs',value: 78000,  color: 'var(--blue)'  },
+      { label: 'Repair & Cleaning',   value: 42000,  color: 'var(--text)'  },
+    ]
+  };
+
+  const CHART_RIGHT = {
+    title: 'Job Category Split',
+    data: [
+      { label: 'Installation',          pct: 42, color: 'var(--amber)' },
+      { label: 'PM Contracts',          pct: 28, color: 'var(--green)' },
+      { label: 'Repair / Freon',        pct: 19, color: 'var(--blue)'  },
+      { label: 'Cleaning / Chemical',   pct: 11, color: 'var(--text)'  },
+    ]
+  };
+
+  const MARKETING_OUTPUTS = {
+    summer:
+`FACEBOOK POST — Summer Peak Push
+
+☀️ is your aircon ready for the hottest months?
+
+March through May is Aurora Province's peak cooling season — and nothing
+costs a family or a business more than an aircon failing in the middle of
+it. FrostLine Aircon Services offers same-day service for breakdowns AND
+scheduled pre-summer checkups so it doesn't come to that.
+
+✅ Free aircon assessment — we check before you need to call us at midnight
+✅ Freon refill + cleaning + full inspection in one visit
+✅ TESDA-certified technicians: 8 years serving San Luis & Aurora Province
+
+Don't wait for a hot Saturday night breakdown.
+
+Book a pre-summer check now — limited slots this month.
+📞 (042) 000-0000 · 24/7 Emergency Line
+📍 Serving ${LOCATION}
+#FrostLineAircon #SanLuisAurora #AirconServices #SummerReady #TESDACertified`,
+
+    pm:
+`FACEBOOK POST — PM Contract Promo (Commercial)
+
+🏢 attention hotel, resort, office, and retail owners in Aurora Province:
+
+A broken aircon unit is not just a repair call — it's lost revenue, unhappy
+guests, and a service disruption you could have prevented for less than the
+cost of one emergency callout.
+
+FrostLine's Commercial PM Contracts include:
+✅ Quarterly scheduled cleaning & inspection for all units
+✅ Refrigerant level check + filter service every visit
+✅ Priority emergency response for contract clients (2-hour SLA)
+✅ Annual contract pricing — predictable maintenance cost, no surprises
+
+We currently maintain ${47} commercial units across Aurora Province.
+Your operation could be next.
+
+Message us for a free commercial assessment and a PM contract proposal.
+📍 ${LOCATION}
+#FrostLineAircon #CommercialAircon #PMContract #AuroraProvince #PreventiveMaintenance`,
+
+    review:
+`REVIEW REQUEST — Post-Service Message
+
+Send to: M. Dela Cruz (3-unit install, near completion)
+         Aquino Supermart (chemical wash, punch list)
+
+---
+Hi [Client Name], salamat sa tiwala sa FrostLine Aircon Services!
+Thank you for trusting us with your aircon [install/cleaning/repair].
+We hope everything is running cool and smooth.
+
+If you have a minute, a quick Google review would mean so much to our
+team and helps homeowners and businesses in ${LOCATION}
+find reliable aircon service they can count on.
+
+⭐ [Insert Google review link]
+
+If anything still needs attention, please message us directly and we'll
+sort it before we close the job. Thank you again,
+Marco Reyes — FrostLine Aircon Services
+---
+
+SEND TO: Clients with completed or near-complete jobs this week
+TIMING: Send within 24 hours of commissioning / sign-off`,
+
+    commercial:
+`SMS / VIBER BATCH — Commercial Downtime Risk
+
+Batch 1 — PM Renewal (URGENT):
+"Hi [Client], this is FrostLine Aircon Services. Your PM contract is
+coming up for renewal this month. Reply to confirm and we'll schedule
+the next quarterly visit and lock in your rate. Don't let your units
+go without a scheduled check — we've seen 3 unplanned breakdowns at
+non-contract properties in Aurora this month."
+
+Batch 2 — Manalang Pension House (Expiring Quote):
+"Hi Jun, your PM contract proposal for Pension House expires Jun 18.
+7 units running without a maintenance schedule is the biggest
+breakdown risk you have. Reply YES to activate — annual rate is
+₱26,000, and the first visit is on us."
+
+Batch 3 — New Commercial Leads (Same-Day Contact):
+"Hi [Client], thanks for your commercial aircon inquiry! This is
+FrostLine Aircon Services (San Luis, Aurora). We'd like to schedule
+a free on-site assessment this week — what day works best?"
+
+[SWAP] Update client names from New Leads panel each week.`,
+  };
+
+  const AI_OUTPUTS = {
+    pm:
+`PM CONTRACT INTELLIGENCE — June 2026
+
+ACTIVE PM CONTRACTS: 8 · MRR: ₱48,000
+TOTAL UNITS UNDER MANAGEMENT: 47 across 8 clients
+
+CRITICAL — OVERDUE:
+· Casiguran Eco Lodge — #FL-2406-012 — PM visit overdue by 6 days
+  Invoice ₱15,000 outstanding 11 days. Unit count: 4. Last visit Dec 2025.
+  ACTION: Contact today. Overdue PM + outstanding invoice = churn risk.
+
+AT-RISK RENEWALS (this month):
+· Castillo Resort — 12 units — renewal Jun 30 — ₱9,600/mo MRR
+  No renewal confirmation received. 14 days to deadline.
+  ACTION: Call or visit in person — largest single contract by MRR.
+· Baler Surf School — 4 units — renewal Jun 28 — ₱3,200/mo MRR
+  Scheduled PM visit Jun 28. Bring contract paperwork to visit.
+
+REVENUE AT STAKE:
+If both renewals lapse: -₱12,800/month MRR (-27% of recurring base)
+If both renew: MRR holds at ₱48,000 through Q3
+
+PM CONTRACT UPSELL OPPORTUNITY:
+· Manalang Pension House — 7 units — quote expiring Jun 18
+  No PM contract in place. ₱26,000 annual proposal sent.
+  Converting this would add ₱2,167/month to MRR.
+  PRIORITY: Same-day follow-up before Jun 18.
+
+TECHNICIAN UTILIZATION:
+· 6 of 8 technicians on active assignments today (75% utilization)
+· Danny Aquino handles emergency standby — sufficient for current load
+· If Aurora Trading install (FL-2406-002) reaches full swing, consider
+  pre-assigning Bert Magno to reduce emergency response gap.`,
+
+    revenue:
+`REVENUE INTELLIGENCE — June 2026
+
+MTD REVENUE: ₱287,000 (invoiced)
+TARGET:      ₱350,000
+GAP:         ₱63,000 (14 days remaining in June)
+COLLECTED:   ₱198,000 (69% collection rate)
+OUTSTANDING: ₱89,000 across 4 invoices
+
+TOP REVENUE SERVICE LINES (MTD):
+· Commercial Installs — ₱185,000 (Aurora Trading cassette FL-2406-002)
+· PM Contracts (MRR) — ₱48,000 (8 contracts, recurring)
+· Residential Installs — ₱78,000 (Dela Cruz 3-unit FL-2406-001)
+· Repair & Cleaning — ₱42,000 (Santos repair + Aquino Supermart wash)
+
+SEASONAL NOTE:
+June is post-summer-peak but pre-rainy-season — demand dip is normal.
+Peak install months: March–May (pre-summer). Current install volume
+is running +22% vs last year, indicating strong referral base growth.
+
+TO CLOSE THE ₱63,000 REVENUE GAP:
+· Aurora Trading install milestone payment — ₱62,000 outstanding (3 days old)
+  Single follow-up call likely clears ₱62,000 of the gap.
+· Complete Dela Cruz final commissioning → invoice final ₱18,000
+· Collect Casiguran Eco Lodge overdue invoice ₱15,000 (11 days outstanding)
+
+OVERDUE INVOICE PRIORITY:
+· #FL-2406-012 (Casiguran Eco Lodge) — ₱15,000 — 11 days — escalate.
+· #FL-2406-015 (J. Santos) — ₱12,000 — 8 days — within normal terms.
+· #FL-2406-018 (Aurora Trading) — ₱62,000 — 3 days — standard follow-up.`,
+
+    leads:
+`LEAD INTELLIGENCE — June 2026
+
+NEW LEADS (7 days): 9
+SOURCE MIX: Website 5 (56%) · Referral 3 (33%) · Walk-in 1 (11%)
+Note: Referral rate (33%) is significantly above industry average for trades.
+This signals strong word-of-mouth from PM contract clients — protect that base.
+
+EMERGENCY SLA STATUS:
+· Target: <2hr on-site emergency response.
+· This month: 0 SLA breaches.
+· Risk flag: If active jobs exceed 10 concurrent with Danny Aquino
+  tied to PM visits, emergency response capacity tightens.
+  Pre-assign Leo Santos as emergency backup on high-PM-visit days.
+
+HIGH PRIORITY — Contact today:
+
+1. Ana Torres — New, website today
+   Service: 2-unit inverter install (San Luis)
+   Action: Same-day callback — new install leads convert 38% within 24 hours,
+   12% after 48 hours. Don't let this one cool.
+
+2. Rodel Reyes — New, referral today
+   Service: 4-unit commercial install (San Luis)
+   Estimated value: ₱240,000
+   Action: Priority site visit — referral leads close at 2x the rate of
+   website leads. Assign Marco Reyes directly.
+
+3. Jun Manalang — PM Contract, expiring proposal Jun 18
+   Action: Phone call today. ₱26,000 annual contract at stake.
+   Frame: "One unplanned emergency on 7 units costs more than a year's PM."
+
+PIPELINE CONVERSION RATE:
+Current: 22% (2 signed / 9 qualified leads)
+Target: 30% through end of Q2
+To hit target: Convert 1 more lead (Reyes Hardware or Baler Polytechnic).`,
+  };
+
+  function typeWriter(targetId, text, speed, onDone) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    el.textContent = '';
+    let i = 0;
+    const t = setInterval(() => {
+      i++;
+      el.textContent = text.slice(0, i);
+      if (i >= text.length) { clearInterval(t); if (onDone) onDone(); }
+    }, speed);
+  }
+
+  function generateContent(type) {
+    document.querySelectorAll('#mktg-btns .action-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`#mktg-btns .action-btn[onclick="generateContent('${type}')"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    const output = document.getElementById('mktg-output');
+    output.style.display = 'block';
+    document.getElementById('mktg-badge').textContent = type.toUpperCase();
+    document.getElementById('mktg-status').textContent = 'Generating...';
+    document.getElementById('mktg-text').textContent = '';
+    typeWriter('mktg-text', MARKETING_OUTPUTS[type] || '[Output not defined]', 5, () => {
+      document.getElementById('mktg-status').textContent = 'Done';
+    });
+  }
+
+  function runAI(type) {
+    document.querySelectorAll('#ai-btns .action-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`#ai-btns .action-btn[onclick="runAI('${type}')"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    const output = document.getElementById('ai-output');
+    output.style.display = 'block';
+    document.getElementById('ai-status').textContent = 'Analyzing data...';
+    document.getElementById('ai-text').textContent = '';
+    setTimeout(() => {
+      typeWriter('ai-text', AI_OUTPUTS[type] || '[Output not defined]', 7, () => {
+        document.getElementById('ai-status').textContent = 'Analysis complete';
+      });
+    }, 500);
+  }
+
+  function renderKPI() {
+    const grid = document.getElementById('kpi-grid');
+    if (!grid) return;
+    grid.innerHTML = KPI_DATA.map(([label, value, color]) => `
+      <div class="metric">
+        <div class="metric-label">${label}</div>
+        <div class="metric-value" style="color:${color}">${value}</div>
+      </div>`).join('');
+  }
+
+  function renderChart(containerId, titleId, def, mode) {
+    const titleEl = document.getElementById(titleId);
+    const container = document.getElementById(containerId);
+    if (!titleEl || !container) return;
+    titleEl.textContent = def.title;
+    const maxVal = mode === 'value' ? Math.max(...def.data.map(d => d.value)) : 100;
+    container.innerHTML = def.data.map(row => {
+      const pct  = mode === 'value' ? Math.round((row.value / maxVal) * 100) : row.pct;
+      const disp = mode === 'value' ? `₱${row.value.toLocaleString()}` : `${row.pct}%`;
+      return `
+        <div class="bar-row">
+          <div class="bar-header"><span>${row.label}</span><span>${disp}</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:0%;background:${row.color}" data-width="${pct}"></div>
+          </div>
+        </div>`;
+    }).join('');
+    requestAnimationFrame(() => {
+      container.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderKPI();
+    renderChart('chart-left',  'chart-left-title',  CHART_LEFT,  'value');
+    renderChart('chart-right', 'chart-right-title', CHART_RIGHT, 'pct');
+  });
+
+  // ── P&L Data ────────────────────────────────────────────────
+  var PL_TREND = [["Jan", 64000, "var(--ocean)"], ["Feb", 70000, "var(--ocean)"], ["Mar", 80000, "var(--ocean)"], ["Apr", 76000, "var(--ocean)"], ["May", 82660, "var(--ocean)"], ["Jun MTD", 92460, "var(--amber)"]];
+  var PL_EXPENSE = [["Field Labor", 100450, "var(--amber)"], ["Parts/Refrigerant", 20090, "var(--ocean)"], ["Overhead Labor", 32000, "var(--green)"], ["Vehicle/Fuel", 12000, "var(--gold)"], ["Equipment", 10000, "var(--text)"], ["Office/Admin", 8000, "var(--text)"]];
+
+  function renderPLCharts() {
+    function _renderBars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _renderBars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _renderBars('chart-pl-expense', PL_EXPENSE);
+  }
+
+
+  // ── P&L chart render on panel activate ─────────────────────
+  document.querySelectorAll('.sidebar-item[data-panel="pl"]').forEach(function(item) {
+    item.addEventListener('click', function() { renderPLCharts(); });
+  });
+</script>
+</body>
+</html>
