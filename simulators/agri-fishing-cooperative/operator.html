@@ -403,6 +403,7 @@ function showTab(id){
   document.getElementById('panel-' + id).classList.add('active');
   event.currentTarget.classList.add('active');
   if(window.innerWidth <= 980){ document.getElementById('sidebar').classList.remove('open'); }
+  if(id === 'surplus') setTimeout(renderPLCharts, 50);
 }
 function toggleOpSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
 
@@ -531,11 +532,6 @@ function renderChart(elId, data){
   }
 
   // Original showTab wrapper to fire renderPLCharts
-  var _origShowTab = showTab;
-  function showTab(id) {
-    _origShowTab(id);
-    if (id === 'surplus') setTimeout(renderPLCharts, 50);
-  }
 
 </script>
 </body>
