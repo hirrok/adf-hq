@@ -370,9 +370,9 @@
 
       <!-- ── P&L ── -->
       <div class="tab-panel" id="tab-pl">
-        <div class="page-header">
+        <div class="page-header" style="margin-bottom:32px;padding-top:4px;">
           <div class="page-title">Profit &amp; Loss</div>
-          <div class="page-sub">June 2026 · Month-to-date practice financials</div>
+          <div class="page-sub" style="margin-top:6px;">June 2026 · Month-to-date practice financials</div>
         </div>
         <div class="kpi-row"><div class="kpi"><div class="kpi-label">MTD Revenue</div><div class="kpi-val">₱742,000</div><div class="kpi-meta">Jun MTD — retainer + project fees</div></div><div class="kpi"><div class="kpi-label">Gross Profit</div><div class="kpi-val">₱445,200</div><div class="kpi-meta">60% gross margin</div></div><div class="kpi"><div class="kpi-label">Net Profit</div><div class="kpi-val">₱371,000</div><div class="kpi-meta">50.0% net margin</div></div><div class="kpi"><div class="kpi-label">vs May MTD</div><div class="kpi-val">+₱28,400</div><div class="kpi-meta">Revenue ₱713,600 prior period</div></div></div>
         <div class="rev-section">
@@ -690,16 +690,4 @@ function renderChart(containerId, titleId, def, mode){
       if (!el) return;
       var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
       el.innerHTML = data.map(function(d) {
-        var pct = (d[1] / max * 100).toFixed(1);
-        var display = '\u20b1' + d[1].toLocaleString();
-        return '<div class="bar-row"><div class="bar-header" style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
-               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
-      }).join('');
-    }
-    if (typeof PL_TREND !== 'undefined') _bars('chart-pl-trend', PL_TREND);
-    if (typeof PL_EXPENSE !== 'undefined') _bars('chart-pl-expense', PL_EXPENSE);
-  }
-
-</script>
-</body>
-</html>
+        var pct = (d[1

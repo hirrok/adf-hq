@@ -966,6 +966,63 @@ function AdminAIConsole(){
   );
 }
 
+function AdminPL(){
+  const C2={rev:'#10B981',cost:'#EF4444',gross:'#F59E0B',net:'#8B5CF6',total:'#94A3B8'};
+  const PL=[
+    {label:'Regular Monthly (32 × ₱999)',amt:'₱31,968',pct:'41.6%',cat:'rev'},
+    {label:'Student Monthly (25 × ₱399)',amt:'₱9,975',pct:'13.0%',cat:'rev'},
+    {label:'Annual Plan (10 × ₱900 equiv)',amt:'₱9,000',pct:'11.7%',cat:'rev'},
+    {label:'Trial & Assessment Fees',amt:'₱1,600',pct:'2.1%',cat:'rev'},
+    {label:'Merchandise & Supplements',amt:'₱4,257',pct:'5.5%',cat:'rev'},
+    {label:'TOTAL REVENUE',amt:'₱76,800',pct:'100%',cat:'total'},
+    {label:'Coach Allowances (4 coaches)',amt:'₱28,000',pct:'36.5%',cat:'cost'},
+    {label:'GROSS PROFIT',amt:'₱48,800',pct:'63.5%',cat:'gross'},
+    {label:'Rent & Utilities',amt:'₱14,000',pct:'18.2%',cat:'cost'},
+    {label:'Equipment Maintenance',amt:'₱4,200',pct:'5.5%',cat:'cost'},
+    {label:'Marketing & Social',amt:'₱3,500',pct:'4.6%',cat:'cost'},
+    {label:'Insurance & Admin',amt:'₱10,000',pct:'13.0%',cat:'cost'},
+    {label:'NET PROFIT',amt:'₱17,100',pct:'22.3%',cat:'net'},
+  ];
+  const kpis=[
+    {label:'MTD Revenue',val:'₱76,800',meta:'Jun MTD',col:'#F59E0B'},
+    {label:'Gross Profit',val:'₱48,800',meta:'63.5% margin',col:'#10B981'},
+    {label:'Net Profit',val:'₱17,100',meta:'22.3% margin',col:'#8B5CF6'},
+    {label:'vs May MTD',val:'+₱4,200',meta:'Revenue ₱72,600 prior',col:'#60A5FA'},
+  ];
+  const rowColor={rev:'rgba(16,185,129,0.07)',cost:'rgba(239,68,68,0.07)',gross:'rgba(245,158,11,0.12)',net:'rgba(139,92,246,0.15)',total:'rgba(148,163,184,0.08)'};
+  const rowFont={rev:'normal',cost:'normal',gross:'700',net:'700',total:'700'};
+  const rowCol={rev:'inherit',cost:'inherit',gross:C2.gross,net:C2.net,total:C2.total};
+  return(
+    <div>
+      <span style={lbl}>Financial Overview</span><h2 style={h2s}>Profit &amp; Loss</h2>
+      <p style={{color:C.text2,fontSize:'0.82rem',marginTop:4,marginBottom:20}}>June 2026 · Month-to-date gym financials</p>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:24}}>
+        {kpis.map(k=>(
+          <div key={k.label} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:'16px 20px'}}>
+            <div style={{fontSize:'0.65rem',letterSpacing:'0.1em',textTransform:'uppercase',color:C.text2,marginBottom:6}}>{k.label}</div>
+            <div style={{fontSize:'1.5rem',fontFamily:'Bebas Neue,sans-serif',color:k.col,letterSpacing:'0.04em'}}>{k.val}</div>
+            <div style={{fontSize:'0.72rem',color:C.text2,marginTop:4}}>{k.meta}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:20}}>
+        <div style={{fontSize:'0.65rem',letterSpacing:'0.1em',textTransform:'uppercase',color:C.text2,marginBottom:14}}>Income Statement</div>
+        <table style={{width:'100%',borderCollapse:'collapse',fontSize:'0.83rem'}}>
+          <thead><tr>{['Line Item','Amount','% of Revenue'].map(h=><th key={h} style={{textAlign:'left',fontFamily:'JetBrains Mono,monospace',fontSize:'0.6rem',letterSpacing:'0.1em',textTransform:'uppercase',color:C.text2,padding:'8px 12px',borderBottom:`1px solid ${C.border}`}}>{h}</th>)}</tr></thead>
+          <tbody>
+          {PL.map((r,i)=>(
+            <tr key={i} style={{background:rowColor[r.cat]||''}}>
+              <td style={{padding:'10px 12px',borderBottom:`1px solid ${C.border}`,fontWeight:rowFont[r.cat],color:rowCol[r.cat]}}>{r.label}</td>
+              <td style={{padding:'10px 12px',borderBottom:`1px solid ${C.border}`,fontWeight:rowFont[r.cat],color:rowCol[r.cat],fontFamily:'JetBrains Mono,monospace'}}>{r.amt}</td>
+              <td style={{padding:'10px 12px',borderBottom:`1px solid ${C.border}`,color:C.text2,fontFamily:'JetBrains Mono,monospace'}}>{r.pct}</td>
+            </tr>
+          ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 function AdminSettings(){
   return(
     <div>
@@ -991,8 +1048,8 @@ function AdminSettings(){
 
 function AdminSuite(){
   const [panel,setPanel]=useState('dashboard');
-  const nav=[['dashboard','Dashboard'],['leads','Leads'],['members','Members'],['coaches','Coaches'],['bookings','Bookings'],['challenges','Challenges'],['reviews','Reviews'],['marketing','Marketing'],['intelligence','Intelligence'],['ai','AI Console'],['settings','Settings']];
-  const panels={dashboard:AdminDashboard,leads:AdminLeads,members:AdminMembers,coaches:AdminCoaches,bookings:AdminBookings,challenges:AdminChallenges,reviews:AdminReviews,marketing:AdminMarketing,intelligence:AdminIntelligence,ai:AdminAIConsole,settings:AdminSettings};
+  const nav=[['dashboard','Dashboard'],['leads','Leads'],['members','Members'],['coaches','Coaches'],['bookings','Bookings'],['challenges','Challenges'],['reviews','Reviews'],['marketing','Marketing'],['intelligence','Intelligence'],['ai','AI Console'],['pl','Profit & Loss'],['settings','Settings']];
+  const panels={dashboard:AdminDashboard,leads:AdminLeads,members:AdminMembers,coaches:AdminCoaches,bookings:AdminBookings,challenges:AdminChallenges,reviews:AdminReviews,marketing:AdminMarketing,intelligence:AdminIntelligence,ai:AdminAIConsole,pl:AdminPL,settings:AdminSettings};
   const Panel=panels[panel]||AdminDashboard;
   return(
     <div className="fh-admin-wrap" style={{display:'flex',height:'calc(100vh - 56px)'}}>
@@ -1063,4 +1120,4 @@ function App(){
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

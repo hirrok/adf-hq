@@ -313,6 +313,7 @@ h1,h2,h3,h4{font-family:var(--hf);}
 </div>
 
     <!-- ── Net Surplus ── -->
+    <style>#panel-surplus .data-table{font-size:0.8rem;}#panel-surplus .data-table th:first-child,#panel-surplus .data-table td:first-child{min-width:210px;width:42%;}#panel-surplus .data-table th:nth-child(2),#panel-surplus .data-table td:nth-child(2){min-width:110px;white-space:nowrap;}</style>
     <div class="tab-panel" id="panel-surplus">
       <div class="panel-header"><h2>Net Surplus Statement</h2><p>CY 2025 · Annual financial results — Sagisag Aurora Agri-Fishing Cooperative</p></div>
       <div class="kpi-row">
@@ -527,12 +528,4 @@ function renderChart(elId, data){
                '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
       }).join('');
     }
-    _bars('chart-pl-trend', PL_TREND);
-    _bars('chart-pl-expense', PL_EXPENSE);
-  }
-
-  // Original showTab wrapper to fire renderPLCharts
-
-</script>
-</body>
-</html>
+  
