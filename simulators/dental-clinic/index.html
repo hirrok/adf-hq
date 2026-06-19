@@ -68,11 +68,11 @@
     .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-links a { font-size: 0.85rem; color: var(--ink2); font-weight: 500; transition: color 0.15s; }
     .nav-links a:hover { color: var(--teal); }
-    .nav-cta {
-      background: var(--teal); color: #fff; font-size: 0.82rem; font-weight: 600;
+    .nav-cta, a.nav-cta {
+      background: var(--teal); color: #fff !important; font-size: 0.82rem; font-weight: 600;
       padding: 10px 20px; border-radius: 6px; transition: background 0.18s;
     }
-    .nav-cta:hover { background: var(--teal2); color: #fff; }
+    .nav-cta:hover, a.nav-cta:hover { background: var(--teal2); color: #fff !important; }
 
     /* HERO */
     #hero {
@@ -349,6 +349,12 @@
     </div>
   </div>
   <div class="hero-visual reveal" style="transition-delay:0.15s">
+    <img
+      src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=700&q=80"
+      alt="Bright healthy smile — Perlas Dental Clinic"
+      style="width:100%;height:160px;object-fit:cover;object-position:center;border-radius:12px;margin-bottom:16px;position:relative;z-index:1;"
+      onerror="this.style.display='none'"
+    />
     <div class="visual-label">Services &amp; Pricing</div>
     <div class="visual-services">
       <div class="visual-svc"><span>Prophylaxis / Cleaning</span><span class="visual-svc-price">&#8369;800</span></div>
@@ -584,7 +590,9 @@
       <h2 class="section-title">Aurora's trusted<br>dental family.</h2>
     </div>
     <div class="about-wrap">
-      <div class="about-visual reveal">
+      <div class="about-visual reveal" style="background-image:url('https://images.unsplash.com/photo-1588776814546-1ffebb5e4e3b?auto=format&fit=crop&w=600&q=80');background-size:cover;background-position:center;position:relative;">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,76,108,0.88) 0%,rgba(10,58,82,0.92) 100%);border-radius:20px;"></div>
+        <div style="position:relative;z-index:1;">
         <div class="about-avatar">&#129463;</div>
         <div class="about-dr-name">Dr. Maricel R. Santos, DMD</div>
         <div class="about-dr-creds">Doctor of Dental Medicine &middot; PDA Member</div>
@@ -594,6 +602,7 @@
           <div class="about-cred">&#127942; 8 years clinical experience</div>
           <div class="about-cred">&#129463; Orthodontics certification &mdash; braces specialist</div>
         </div>
+        </div><!-- /z-index wrapper -->
       </div>
       <div class="about-content reveal">
         <p>Perlas Dental Clinic was founded with a single mission: to make professional dental care accessible to every family in Aurora Province. We believe a healthy smile is the foundation for confidence, health, and well-being &mdash; not a luxury.</p>
@@ -620,11 +629,14 @@
       <h2 class="section-title">Visit us in<br>San Luis, Aurora.</h2>
     </div>
     <div class="location-wrap">
-      <div class="map-placeholder reveal">
+      <div class="map-placeholder reveal" style="background-image:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=700&q=80');background-size:cover;background-position:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:rgba(235,243,249,0.82);"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;">
         <div class="map-icon">&#128205;</div>
         <div class="map-label">Perlas Dental Clinic</div>
         <div class="map-sub">Rizal St., San Luis, Aurora Province</div>
         <div style="margin-top:18px;"><a href="#" onclick="return false;" class="btn-primary" style="font-size:0.82rem;padding:10px 22px;">&#128205; Get Directions</a></div>
+        </div><!-- /z-index wrapper -->
       </div>
       <div class="location-info reveal">
         <div class="loc-item">
