@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perlas Dental: Operator Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #F4F9FC;
+      --mid:     #FFFFFF;
+      --surface: #EBF3F9;
+      --border:  rgba(11,76,108,0.12);
+      --text:    rgba(13,31,45,0.52);
+      --white:   #0D1F2D;
+      --amber:   #0B4C6C;
+      --amber2:  #0D5E86;
+      --green:   #16A34A;
+      --red:     #DC2626;
+      --gold:    #C9922A;
+      --blue:    #2563EB;
+      --mono:    'JetBrains Mono', monospace;
+      --sans:    'DM Sans', sans-serif;
+      --accent:     var(--amber);
+      --accent-dim: rgba(11,76,108,0.09);
+      --elev:       var(--surface);
+      --text2:      var(--text);
+      --text3:      rgba(13,31,45,0.32);
+      --border2:    rgba(11,76,108,0.2);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; }
+
+    /* GATE */
+    #gate {
+      position: fixed; inset: 0; background: var(--black); z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gate-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 16px;
+      padding: 48px 52px; width: 360px; text-align: center;
+    }
+    .gate-logo {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: var(--amber); display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: #fff; margin: 0 auto 20px;
+    }
+    .gate-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .gate-sub { font-size: 0.8rem; color: var(--text); margin-bottom: 28px; }
+    .gate-input {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); font-family: var(--sans); font-size: 0.9rem;
+      padding: 12px 16px; border-radius: 8px; outline: none;
+      text-align: center; letter-spacing: 0.1em; margin-bottom: 14px;
+      transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: rgba(11,76,108,0.4); }
+    .gate-btn {
+      width: 100%; background: var(--amber); color: #fff;
+      font-weight: 700; font-size: 0.88rem; padding: 13px; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.18s;
+    }
+    .gate-btn:hover { background: var(--amber2); }
+    .gate-err { font-size: 0.75rem; color: var(--red); margin-top: 10px; height: 18px; }
+    .gate-sim-note {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      color: var(--text2); margin-top: 18px; opacity: 0.7;
+    }
+
+    /* APP */
+    #app { display: none; height: 100vh; flex-direction: column; }
+    #app.visible { display: flex; }
+
+    .topbar {
+      height: 50px; background: var(--mid); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-logo {
+      width: 30px; height: 30px; background: var(--amber); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #fff;
+    }
+    .topbar-name { font-weight: 700; font-size: 0.88rem; }
+    .topbar-version { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-status {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); display: flex; align-items: center; gap: 6px;
+    }
+    .topbar-status::before { content:''; width:6px; height:6px; background:var(--green); border-radius:50%; display:inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+    .topbar-date { font-family: var(--mono); font-size: 0.62rem; color: var(--text); }
+    .logout-btn {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text); background: transparent; border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 0.15s;
+    }
+    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .workspace { display: flex; flex: 1; overflow: hidden; }
+
+    .sidebar {
+      width: 200px; background: var(--mid); border-right: 1px solid var(--border);
+      flex-shrink: 0; display: flex; flex-direction: column; padding: 16px 0;
+    }
+    .sidebar-section { font-family: var(--mono); font-size: 0.53rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); padding: 0 16px 8px; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px; font-size: 0.81rem; cursor: pointer;
+      color: var(--text); transition: all 0.15s; border-left: 2px solid transparent;
+    }
+    .sidebar-item:hover { color: var(--white); background: rgba(11,76,108,0.04); }
+    .sidebar-item.active { color: var(--white); background: rgba(11,76,108,0.08); border-left-color: var(--amber); }
+    .sidebar-icon { font-size: 0.9rem; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .sidebar-bottom { margin-top: auto; padding: 0 16px; }
+    .sidebar-footer-label { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+
+    .main { flex: 1; overflow-y: auto; padding: 28px 32px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .panel-header { margin-bottom: 28px; }
+    .panel-title { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
+    .panel-sub { font-size: 0.82rem; color: var(--text); margin-top: 4px; }
+    .panel-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .pabtn {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 4px; cursor: pointer; border: 1px solid var(--border);
+      background: transparent; color: var(--text); transition: all 0.15s;
+    }
+    .pabtn:hover { border-color: rgba(11,76,108,0.4); color: var(--amber); }
+    .pabtn.primary { background: var(--amber); color: #fff; border-color: var(--amber); }
+    .pabtn.primary:hover { background: var(--amber2); }
+
+    /* KPI GRID */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .kpi-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px;
+    }
+    .kpi-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 10px; }
+    .kpi-value { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em; }
+    .kpi-sub { font-size: 0.72rem; color: var(--text); margin-top: 4px; }
+    .kpi-up { color: var(--green); } .kpi-down { color: var(--red); }
+    .kpi-gold { color: var(--gold); }
+
+    /* GRID 2 */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+
+    /* WIDGET */
+    .widget {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+    }
+    .widget-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .widget-tag { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+
+    /* TABLE */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.81rem; }
+    .data-table th { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-align: left; padding: 0 14px 10px; border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 11px 14px; border-bottom: 1px solid rgba(11,76,108,0.06); color: var(--white); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(11,76,108,0.03); }
+
+    /* BADGE */
+    .badge {
+      display: inline-block; font-family: var(--mono); font-size: 0.57rem;
+      letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
+    }
+    .badge-green { background: rgba(22,163,74,0.12); color: var(--green); }
+    .badge-amber { background: rgba(201,146,42,0.12); color: var(--gold); }
+    .badge-blue  { background: rgba(37,99,235,0.12);  color: var(--blue); }
+    .badge-red   { background: rgba(220,38,38,0.12);  color: var(--red); }
+    .badge-grey  { background: rgba(11,76,108,0.08);  color: var(--text); }
+
+    /* SCHEDULE SLOT */
+    .sched-slot {
+      display: flex; align-items: center; gap: 14px; padding: 11px 0;
+      border-bottom: 1px solid rgba(11,76,108,0.06);
+    }
+    .sched-slot:last-child { border-bottom: none; }
+    .sched-time { font-family: var(--mono); font-size: 0.68rem; color: var(--text); width: 52px; flex-shrink: 0; }
+    .sched-patient { font-size: 0.82rem; font-weight: 600; }
+    .sched-service { font-size: 0.75rem; color: var(--text); }
+    .sched-right { margin-left: auto; }
+
+    /* PROGRESS BAR */
+    .progress-wrap { margin: 10px 0; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 6px; }
+    .progress-label span:last-child { color: var(--text); }
+    .progress-bar { height: 6px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; background: var(--amber); transition: width 0.6s ease; }
+    .progress-fill.green { background: var(--green); }
+    .progress-fill.gold { background: var(--gold); }
+
+    /* PL SPECIFIC */
+    .pl-section-header {
+      font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); padding: 10px 14px; background: var(--surface); border-radius: 6px;
+      margin-bottom: 2px; margin-top: 10px; font-weight: 600;
+    }
+    .pl-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; border-bottom: 1px solid rgba(11,76,108,0.05); font-size: 0.82rem; }
+    .pl-row:last-child { border-bottom: none; }
+    .pl-row.total { font-weight: 800; background: rgba(11,76,108,0.05); border-radius: 6px; margin-top: 6px; font-size: 0.88rem; }
+    .pl-row.gross { font-weight: 700; color: var(--green); }
+    .pl-row.net { font-weight: 800; color: var(--green); }
+    .pl-pct { font-family: var(--mono); font-size: 0.7rem; color: var(--text); width: 52px; text-align: right; }
+    .pl-amt { font-family: var(--mono); font-size: 0.82rem; font-weight: 600; }
+
+    /* CHARTS */
+    .chart-bar-container { display: flex; flex-direction: column; gap: 8px; }
+    .chart-bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; }
+    .chart-bar-label { width: 120px; flex-shrink: 0; color: var(--text); font-size: 0.73rem; }
+    .chart-bar-track { flex: 1; height: 10px; background: var(--surface); border-radius: 5px; overflow: hidden; }
+    .chart-bar-fill { height: 100%; border-radius: 5px; transition: width 0.7s ease; }
+    .chart-bar-val { width: 64px; text-align: right; font-family: var(--mono); font-size: 0.68rem; color: var(--text); flex-shrink: 0; }
+
+    canvas { max-width: 100%; }
+
+    @media(max-width:768px){
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">&#129463;</div>
+    <div class="gate-title">Perlas Dental Clinic</div>
+    <div class="gate-sub">Operator Suite &mdash; Staff Access Only</div>
+    <input class="gate-input" type="password" id="gate-input" placeholder="Access code" onkeydown="if(event.key==='Enter')unlock()"/>
+    <button class="gate-btn" onclick="unlock()">Enter</button>
+    <div class="gate-err" id="gate-err"></div>
+    <div class="gate-sim-note">ADF Simulator Demo &middot; Dental Archetype</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">&#129463;</div>
+      <div>
+        <div class="topbar-name">Perlas Dental Clinic</div>
+        <div class="topbar-version">Operator Suite v1.0</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-status">Clinic Open</div>
+      <div class="topbar-date" id="topbar-date"></div>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+  <div class="workspace">
+    <div class="sidebar">
+      <div class="sidebar-section">Main</div>
+      <div class="sidebar-item active" data-panel="dashboard" onclick="showPanel('dashboard',this)"><span class="sidebar-icon">&#9632;</span> Dashboard</div>
+      <div class="sidebar-item" data-panel="appointments" onclick="showPanel('appointments',this)"><span class="sidebar-icon">&#128197;</span> Appointments</div>
+      <div class="sidebar-item" data-panel="patients" onclick="showPanel('patients',this)"><span class="sidebar-icon">&#128101;</span> Patients</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Clinical</div>
+      <div class="sidebar-item" data-panel="treatments" onclick="showPanel('treatments',this)"><span class="sidebar-icon">&#129463;</span> Active Treatments</div>
+      <div class="sidebar-item" data-panel="payments" onclick="showPanel('payments',this)"><span class="sidebar-icon">&#128179;</span> Installments</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Finance</div>
+      <div class="sidebar-item" data-panel="pl" onclick="showPanel('pl',this)"><span class="sidebar-icon">&#128200;</span> Profit &amp; Loss</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Config</div>
+      <div class="sidebar-item" data-panel="settings" onclick="showPanel('settings',this)"><span class="sidebar-icon">&#9881;</span> Settings</div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-footer-label">San Luis, Aurora &middot; 2026</div>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Good morning, Dr. Santos.</div>
+          <div class="panel-sub">Here's today's clinic overview &mdash; June 19, 2026 (Thursday)</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Appointment</button>
+            <button class="pabtn">New Patient</button>
+            <button class="pabtn">Daily Report</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Today's Appointments</div>
+            <div class="kpi-value">8</div>
+            <div class="kpi-sub">3 completed &middot; 5 remaining</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Today's Revenue</div>
+            <div class="kpi-value">&#8369;7,400</div>
+            <div class="kpi-sub kpi-up">+12% vs last Thursday</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Active Braces Cases</div>
+            <div class="kpi-value">14</div>
+            <div class="kpi-sub">2 adjustments this week</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">MTD Revenue</div>
+            <div class="kpi-value kpi-gold">&#8369;84,200</div>
+            <div class="kpi-sub">Target: &#8369;95,000</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="widget">
+            <div class="widget-title">Today's Schedule<span class="widget-tag">June 19</span></div>
+            <div class="sched-slot">
+              <div class="sched-time">09:00</div>
+              <div><div class="sched-patient">Maria Santos</div><div class="sched-service">Prophylaxis / Cleaning</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">09:45</div>
+              <div><div class="sched-patient">Renaldo Cruz</div><div class="sched-service">Extraction (lower molar)</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">10:30</div>
+              <div><div class="sched-patient">Ana Reyes</div><div class="sched-service">Braces Adjustment #4</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">11:15</div>
+              <div><div class="sched-patient">Jose Dela Cruz</div><div class="sched-service">Oral Exam + X-ray</div></div>
+              <div class="sched-right"><span class="badge badge-amber">In Chair</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">13:00</div>
+              <div><div class="sched-patient">Liza Bautista</div><div class="sched-service">Composite Filling (x2)</div></div>
+              <div class="sched-right"><span class="badge badge-grey">Upcoming</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">14:00</div>
+              <div><div class="sched-patient">Ramon Aquino</div><div class="sched-service">Braces Consult (New)</div></div>
+              <div class="sched-right"><span class="badge badge-grey">Upcoming</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">15:00</div>
+              <div><div class="sched-patient">Nena Fernandez</div><div class="sched-service">Fluoride &amp; Sealants (PhilHealth)</div></div>
+              <div class="sched-right"><span class="badge badge-blue">YAKAP</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">16:00</div>
+              <div><div class="sched-patient">Danilo Mangosing</div><div class="sched-service">Crown Prep (Medicard HMO)</div></div>
+              <div class="sched-right"><span class="badge badge-blue">HMO</span></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="widget" style="margin-bottom:18px;">
+              <div class="widget-title">MTD Revenue Progress</div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>June Revenue</span><span>&#8369;84,200 / &#8369;95,000</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:88.6%"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>Fee-for-Service</span><span>&#8369;56,800</span></div>
+                <div class="progress-bar"><div class="progress-fill green" style="width:67.5%"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>Orthodontics</span><span>&#8369;21,000</span></div>
+                <div class="progress-bar"><div class="progress-fill gold" style="width:24.9%"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>PhilHealth / HMO</span><span>&#8369;6,400</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:7.6%"></div></div>
+              </div>
+            </div>
+            <div class="widget">
+              <div class="widget-title">Service Mix (MTD)</div>
+              <div class="chart-bar-container">
+                <div class="chart-bar-row"><div class="chart-bar-label">Braces (Ortho)</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:67%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;21,000</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Cleaning / Prophy</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:38%;background:var(--green)"></div></div><div class="chart-bar-val">&#8369;12,800</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Extractions</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:28%;background:var(--gold)"></div></div><div class="chart-bar-val">&#8369;9,400</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Fillings</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:22%;background:var(--blue)"></div></div><div class="chart-bar-val">&#8369;7,200</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Crowns / Bridges</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:18%;background:#8B5CF6"></div></div><div class="chart-bar-val">&#8369;6,000</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">PhilHealth / HMO</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:10%;background:#EC4899"></div></div><div class="chart-bar-val">&#8369;6,400</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Whitening / Other</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:9%;background:var(--gold)"></div></div><div class="chart-bar-val">&#8369;3,200</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPOINTMENTS -->
+      <div class="panel" id="panel-appointments">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Appointments</div>
+          <div class="panel-sub">Upcoming schedule and appointment management</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Appointment</button>
+            <button class="pabtn">Export</button>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Upcoming Appointments<span class="widget-tag">This Week</span></div>
+          <table class="data-table">
+            <thead><tr>
+              <th>Date / Time</th><th>Patient</th><th>Service</th><th>Duration</th><th>Insurance</th><th>Status</th>
+            </tr></thead>
+            <tbody>
+              <tr><td>Jun 19 &middot; 11:15</td><td>Jose Dela Cruz</td><td>Oral Exam + X-ray</td><td>45 min</td><td>Cash</td><td><span class="badge badge-amber">In Chair</span></td></tr>
+              <tr><td>Jun 19 &middot; 13:00</td><td>Liza Bautista</td><td>Composite Filling (x2)</td><td>60 min</td><td>Cash</td><td><span class="badge badge-grey">Upcoming</span></td></tr>
+              <tr><td>Jun 19 &middot; 14:00</td><td>Ramon Aquino</td><td>Braces Consult</td><td>45 min</td><td>Cash</td><td><span class="badge badge-grey">Upcoming</span></td></tr>
+              <tr><td>Jun 19 &middot; 15:00</td><td>Nena Fernandez</td><td>Fluoride &amp; Sealants</td><td>30 min</td><td>PhilHealth YAKAP</td><td><span class="badge badge-blue">YAKAP</span></td></tr>
+              <tr><td>Jun 19 &middot; 16:00</td><td>Danilo Mangosing</td><td>Crown Prep</td><td>90 min</td><td>Medicard HMO</td><td><span class="badge badge-blue">HMO</span></td></tr>
+              <tr><td>Jun 20 &middot; 09:00</td><td>Carmen Reyes</td><td>Braces Adjustment #6</td><td>30 min</td><td>Cash</td><td><span class="badge badge-grey">Scheduled</span></td></tr>
+              <tr><td>Jun 20 &middot; 10:00</td><td>Patrick Sison</td><td>Wisdom Tooth Extraction</td><td>60 min</td><td>Maxicare</td><td><span class="badge badge-blue">HMO</span></td></tr>
+              <tr><td>Jun 20 &middot; 13:30</td><td>Eleanor Santos</td><td>Denture Fitting</td><td>45 min</td><td>Cash</td><td><span class="badge badge-grey">Scheduled</span></td></tr>
+              <tr><td>Jun 21 &middot; 09:30</td><td>Rodrigo Buenaventura</td><td>Teeth Whitening</td><td>90 min</td><td>Cash</td><td><span class="badge badge-grey">Scheduled</span></td></tr>
+              <tr><td>Jun 21 &middot; 14:00</td><td>Mary Grace Lacson</td><td>Prophylaxis</td><td>30 min</td><td>PhilHealth YAKAP</td><td><span class="badge badge-blue">YAKAP</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PATIENTS -->
+      <div class="panel" id="panel-patients">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Patient Registry</div>
+          <div class="panel-sub">Active and registered patients</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Patient</button>
+            <button class="pabtn">Export List</button>
+          </div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total Patients</div><div class="kpi-value">312</div><div class="kpi-sub">Active records</div></div>
+          <div class="kpi-card"><div class="kpi-label">New This Month</div><div class="kpi-value kpi-up">28</div><div class="kpi-sub">+8 vs last month</div></div>
+          <div class="kpi-card"><div class="kpi-label">PhilHealth Enrolled</div><div class="kpi-value">89</div><div class="kpi-sub">28.5% of patients</div></div>
+          <div class="kpi-card"><div class="kpi-label">HMO Members</div><div class="kpi-value">44</div><div class="kpi-sub">6 networks</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Recent Patients<span class="widget-tag">Last 30 Days</span></div>
+          <table class="data-table">
+            <thead><tr><th>Patient</th><th>Age</th><th>Last Visit</th><th>Last Service</th><th>Insurance</th><th>Next Appt</th></tr></thead>
+            <tbody>
+              <tr><td>Maria Santos</td><td>34</td><td>Jun 19</td><td>Prophylaxis</td><td>Cash</td><td>Dec 2026</td></tr>
+              <tr><td>Renaldo Cruz</td><td>42</td><td>Jun 19</td><td>Extraction</td><td>Cash</td><td>PRN</td></tr>
+              <tr><td>Ana Reyes</td><td>19</td><td>Jun 19</td><td>Braces Adj. #4</td><td>Cash (Installment)</td><td>Jul 19</td></tr>
+              <tr><td>Jose Dela Cruz</td><td>28</td><td>Jun 19</td><td>Oral Exam</td><td>Cash</td><td>TBD</td></tr>
+              <tr><td>Nena Fernandez</td><td>55</td><td>Jun 18</td><td>Cleaning</td><td>PhilHealth YAKAP</td><td>Dec 2026</td></tr>
+              <tr><td>Danilo Mangosing</td><td>48</td><td>Jun 17</td><td>Crown Prep</td><td>Medicard HMO</td><td>Jun 26</td></tr>
+              <tr><td>Carmen Reyes</td><td>22</td><td>May 19</td><td>Braces Adj. #5</td><td>Cash (Installment)</td><td>Jun 20</td></tr>
+              <tr><td>Patrick Sison</td><td>25</td><td>Jun 10</td><td>Consult</td><td>Maxicare</td><td>Jun 20</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TREATMENTS -->
+      <div class="panel" id="panel-treatments">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Active Treatments</div>
+          <div class="panel-sub">Ongoing orthodontic and multi-visit treatment tracking</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Active Braces Cases</div><div class="kpi-value">14</div><div class="kpi-sub">Metal: 9 &middot; Ceramic: 5</div></div>
+          <div class="kpi-card"><div class="kpi-label">Avg Duration</div><div class="kpi-value">18 mo</div><div class="kpi-sub">Estimated treatment</div></div>
+          <div class="kpi-card"><div class="kpi-label">Ortho MRR</div><div class="kpi-value kpi-gold">&#8369;21,000</div><div class="kpi-sub">Monthly installments</div></div>
+          <div class="kpi-card"><div class="kpi-label">Due Adjustments</div><div class="kpi-value kpi-up">3</div><div class="kpi-sub">This week</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Active Orthodontic Cases<span class="widget-tag">Braces Tracker</span></div>
+          <table class="data-table">
+            <thead><tr><th>Patient</th><th>Type</th><th>Started</th><th>Month</th><th>Monthly</th><th>Balance</th><th>Next Adjustment</th></tr></thead>
+            <tbody>
+              <tr><td>Ana Reyes</td><td>Metal</td><td>Feb 2025</td><td>5/18</td><td><span class="kpi-gold">&#8369;1,500</span></td><td>&#8369;19,500</td><td><span class="badge badge-amber">Jun 20</span></td></tr>
+              <tr><td>Carmen Reyes</td><td>Ceramic</td><td>Jan 2025</td><td>6/20</td><td><span class="kpi-gold">&#8369;1,800</span></td><td>&#8369;25,200</td><td><span class="badge badge-amber">Jun 20</span></td></tr>
+              <tr><td>Miguel Bautista</td><td>Metal</td><td>Mar 2025</td><td>4/18</td><td><span class="kpi-gold">&#8369;1,500</span></td><td>&#8369;21,000</td><td><span class="badge badge-grey">Jul 1</span></td></tr>
+              <tr><td>Jessa Tolentino</td><td>Metal</td><td>Apr 2025</td><td>3/18</td><td><span class="kpi-gold">&#8369;1,500</span></td><td>&#8369;22,500</td><td><span class="badge badge-grey">Jul 8</span></td></tr>
+              <tr><td>Kevin Manalo</td><td>Ceramic</td><td>Dec 2024</td><td>7/20</td><td><span class="kpi-gold">&#8369;1,800</span></td><td>&#8369;23,400</td><td><span class="badge badge-green">Done</span></td></tr>
+              <tr><td>Sofia Mendoza</td><td>Metal</td><td>May 2025</td><td>2/18</td><td><span class="kpi-gold">&#8369;1,500</span></td><td>&#8369;24,000</td><td><span class="badge badge-amber">Jun 26</span></td></tr>
+              <tr><td>Patrick Castro</td><td>Metal</td><td>Jun 2025</td><td>1/18</td><td><span class="kpi-gold">&#8369;1,500</span></td><td>&#8369;25,500</td><td><span class="badge badge-grey">Jul 15</span></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAYMENTS / INSTALLMENTS -->
+      <div class="panel" id="panel-payments">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Installment Payments</div>
+          <div class="panel-sub">Orthodontic and multi-session payment tracking</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">Record Payment</button>
+            <button class="pabtn">Send Reminder</button>
+          </div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Active Installments</div><div class="kpi-value">14</div><div class="kpi-sub">Braces + multi-session</div></div>
+          <div class="kpi-card"><div class="kpi-label">Collected This Month</div><div class="kpi-value kpi-up">&#8369;19,800</div><div class="kpi-sub">94.3% collection rate</div></div>
+          <div class="kpi-card"><div class="kpi-label">Overdue</div><div class="kpi-value kpi-down">1</div><div class="kpi-sub">1 account &mdash; 15 days</div></div>
+          <div class="kpi-card"><div class="kpi-label">Outstanding Balance</div><div class="kpi-value kpi-gold">&#8369;186,400</div><div class="kpi-sub">Total contracted ortho</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Installment Accounts<span class="widget-tag">Current Month</span></div>
+          <table class="data-table">
+            <thead><tr><th>Patient</th><th>Plan</th><th>Monthly Due</th><th>Due Date</th><th>Paid</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Ana Reyes</td><td>Braces Metal 18mo</td><td>&#8369;1,500</td><td>Jun 15</td><td>Jun 14</td><td><span class="badge badge-green">Paid</span></td></tr>
+              <tr><td>Carmen Reyes</td><td>Braces Ceramic 20mo</td><td>&#8369;1,800</td><td>Jun 10</td><td>Jun 9</td><td><span class="badge badge-green">Paid</span></td></tr>
+              <tr><td>Miguel Bautista</td><td>Braces Metal 18mo</td><td>&#8369;1,500</td><td>Jun 20</td><td>&mdash;</td><td><span class="badge badge-amber">Due Soon</span></td></tr>
+              <tr><td>Jessa Tolentino</td><td>Braces Metal 18mo</td><td>&#8369;1,500</td><td>Jun 25</td><td>&mdash;</td><td><span class="badge badge-grey">Upcoming</span></td></tr>
+              <tr><td>Kevin Manalo</td><td>Braces Ceramic 20mo</td><td>&#8369;1,800</td><td>Jun 5</td><td>Jun 5</td><td><span class="badge badge-green">Paid</span></td></tr>
+              <tr><td>Sofia Mendoza</td><td>Braces Metal 18mo</td><td>&#8369;1,500</td><td>Jun 28</td><td>&mdash;</td><td><span class="badge badge-grey">Upcoming</span></td></tr>
+              <tr><td>Patrick Castro</td><td>Braces Metal 18mo</td><td>&#8369;1,500</td><td>Jun 3</td><td>&mdash;</td><td><span class="badge badge-red">Overdue</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- P&L -->
+      <div class="panel" id="panel-pl">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Profit &amp; Loss</div>
+          <div class="panel-sub">Monthly financial summary &mdash; June 2026 (MTD)</div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Total Revenue</div>
+            <div class="kpi-value kpi-gold">&#8369;95,000</div>
+            <div class="kpi-sub">Jun 2026 projected</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Gross Profit</div>
+            <div class="kpi-value kpi-up">&#8369;68,400</div>
+            <div class="kpi-sub">72.0% gross margin</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Net Profit</div>
+            <div class="kpi-value kpi-up">&#8369;38,700</div>
+            <div class="kpi-sub">40.7% net margin</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Operating Expenses</div>
+            <div class="kpi-value kpi-down">&#8369;29,700</div>
+            <div class="kpi-sub">31.3% of revenue</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="widget">
+            <div class="widget-title" style="margin-bottom:4px;">Income Statement<span class="widget-tag">June 2026</span></div>
+
+            <div class="pl-section-header">REVENUE</div>
+            <div class="pl-row"><span>Fee-for-Service (cleaning, extraction, fillings)</span><span class="pl-amt">&#8369;48,000</span><span class="pl-pct">50.5%</span></div>
+            <div class="pl-row"><span>Orthodontics (installments collected)</span><span class="pl-amt">&#8369;24,000</span><span class="pl-pct">25.3%</span></div>
+            <div class="pl-row"><span>Crowns, Bridges &amp; Prosthetics</span><span class="pl-amt">&#8369;12,000</span><span class="pl-pct">12.6%</span></div>
+            <div class="pl-row"><span>Cosmetic (whitening, veneers)</span><span class="pl-amt">&#8369;5,000</span><span class="pl-pct">5.3%</span></div>
+            <div class="pl-row"><span>PhilHealth YAKAP claims</span><span class="pl-amt">&#8369;4,200</span><span class="pl-pct">4.4%</span></div>
+            <div class="pl-row"><span>HMO billings (co-pay collections)</span><span class="pl-amt">&#8369;1,800</span><span class="pl-pct">1.9%</span></div>
+            <div class="pl-row total"><span>TOTAL REVENUE</span><span class="pl-amt">&#8369;95,000</span><span class="pl-pct">100%</span></div>
+
+            <div class="pl-section-header">COST OF SERVICES</div>
+            <div class="pl-row"><span>Dental materials &amp; consumables</span><span class="pl-amt">&#8369;14,500</span><span class="pl-pct">15.3%</span></div>
+            <div class="pl-row"><span>Lab fees (crowns, dentures outsourced)</span><span class="pl-amt">&#8369;8,200</span><span class="pl-pct">8.6%</span></div>
+            <div class="pl-row"><span>Sterilization supplies</span><span class="pl-amt">&#8369;3,900</span><span class="pl-pct">4.1%</span></div>
+            <div class="pl-row gross"><span>GROSS PROFIT</span><span class="pl-amt">&#8369;68,400</span><span class="pl-pct">72.0%</span></div>
+
+            <div class="pl-section-header">OPERATING EXPENSES</div>
+            <div class="pl-row"><span>Dental assistant salary</span><span class="pl-amt">&#8369;12,000</span><span class="pl-pct">12.6%</span></div>
+            <div class="pl-row"><span>Clinic rent</span><span class="pl-amt">&#8369;8,000</span><span class="pl-pct">8.4%</span></div>
+            <div class="pl-row"><span>Utilities (power, water)</span><span class="pl-amt">&#8369;4,200</span><span class="pl-pct">4.4%</span></div>
+            <div class="pl-row"><span>PhilHealth / BIR compliance fees</span><span class="pl-amt">&#8369;2,500</span><span class="pl-pct">2.6%</span></div>
+            <div class="pl-row"><span>Equipment maintenance</span><span class="pl-amt">&#8369;1,800</span><span class="pl-pct">1.9%</span></div>
+            <div class="pl-row"><span>Marketing / social media</span><span class="pl-amt">&#8369;800</span><span class="pl-pct">0.8%</span></div>
+            <div class="pl-row"><span>Miscellaneous</span><span class="pl-amt">&#8369;400</span><span class="pl-pct">0.4%</span></div>
+            <div class="pl-row net"><span>NET PROFIT</span><span class="pl-amt">&#8369;38,700</span><span class="pl-pct">40.7%</span></div>
+          </div>
+
+          <div>
+            <div class="widget" style="margin-bottom:18px;">
+              <div class="widget-title">Revenue by Stream</div>
+              <div class="chart-bar-container" id="pl-rev-chart"></div>
+            </div>
+            <div class="widget">
+              <div class="widget-title">Margin Breakdown</div>
+              <div class="chart-bar-container" id="pl-margin-chart"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="widget" style="margin-bottom:28px;">
+          <div class="widget-title">Monthly Revenue Trend<span class="widget-tag">Jan &ndash; Jun 2026</span></div>
+          <div class="chart-bar-container">
+            <div class="chart-bar-row"><div class="chart-bar-label">January</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:62%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;58,800</div></div>
+            <div class="chart-bar-row"><div class="chart-bar-label">February</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:68%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;64,200</div></div>
+            <div class="chart-bar-row"><div class="chart-bar-label">March</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:74%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;70,500</div></div>
+            <div class="chart-bar-row"><div class="chart-bar-label">April</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:78%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;74,000</div></div>
+            <div class="chart-bar-row"><div class="chart-bar-label">May</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:86%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;81,600</div></div>
+            <div class="chart-bar-row"><div class="chart-bar-label">June (proj.)</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%;background:var(--green)"></div></div><div class="chart-bar-val">&#8369;95,000</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="panel-header" style="margin-bottom:32px;padding-top:4px;">
+          <div class="panel-title">Clinic Settings</div>
+          <div class="panel-sub">System configuration and accreditation information</div>
+        </div>
+        <div class="grid-2">
+          <div class="widget">
+            <div class="widget-title">Clinic Information</div>
+            <table class="data-table">
+              <tbody>
+                <tr><td style="color:var(--text);width:40%">Clinic Name</td><td>Perlas Dental Clinic</td></tr>
+                <tr><td style="color:var(--text)">Dentist</td><td>Dr. Maricel R. Santos, DMD</td></tr>
+                <tr><td style="color:var(--text)">Location</td><td>Rizal St., San Luis, Aurora 3209</td></tr>
+                <tr><td style="color:var(--text)">Contact</td><td>+63 917 XXX XXXX</td></tr>
+                <tr><td style="color:var(--text)">Hours</td><td>Mon&ndash;Fri 9AM&ndash;6PM, Sat 9AM&ndash;4PM</td></tr>
+                <tr><td style="color:var(--text)">License No.</td><td>PRC-DMD-XXXXX (2025)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="widget">
+            <div class="widget-title">Accreditation Status</div>
+            <table class="data-table">
+              <tbody>
+                <tr><td style="color:var(--text);width:50%">PhilHealth YAKAP</td><td><span class="badge badge-green">Active</span></td></tr>
+                <tr><td style="color:var(--text)">Maxicare Dental</td><td><span class="badge badge-green">Active</span></td></tr>
+                <tr><td style="color:var(--text)">PhilCare</td><td><span class="badge badge-green">Active</span></td></tr>
+                <tr><td style="color:var(--text)">Medicard</td><td><span class="badge badge-green">Active</span></td></tr>
+                <tr><td style="color:var(--text)">Intellicare</td><td><span class="badge badge-amber">Renewal Due</span></td></tr>
+                <tr><td style="color:var(--text)">Cocolife</td><td><span class="badge badge-green">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="widget" style="margin-top:20px;">
+          <div class="widget-title">Operator Suite Info</div>
+          <table class="data-table">
+            <tbody>
+              <tr><td style="color:var(--text);width:30%">Archetype</td><td>Dental Clinic &mdash; Class B Revenue</td></tr>
+              <tr><td style="color:var(--text)">Built</td><td>Aurora Digital Foundry &middot; June 2026</td></tr>
+              <tr><td style="color:var(--text)">Gate Code</td><td><span style="font-family:var(--mono);font-size:0.8rem;">perlas2026</span></td></tr>
+              <tr><td style="color:var(--text)">Layers Active</td><td>Public Presence, Lead Capture, Operations, Growth, Intelligence</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /workspace -->
+</div><!-- /app -->
+
+<script>
+  const ACCESS = 'perlas2026';
+
+  function unlock() {
+    const val = document.getElementById('gate-input').value.trim();
+    if(val === ACCESS) {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      initDate();
+      renderPLCharts();
+    } else {
+      document.getElementById('gate-err').textContent = 'Incorrect access code.';
+      document.getElementById('gate-input').value = '';
+    }
+  }
+
+  function logout() {
+    document.getElementById('gate').style.display = 'flex';
+    document.getElementById('app').classList.remove('visible');
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-err').textContent = '';
+  }
+
+  function showPanel(id, el) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    el.classList.add('active');
+    if(id === 'pl') setTimeout(renderPLCharts, 50);
+  }
+
+  function initDate() {
+    const d = new Date();
+    document.getElementById('topbar-date').textContent =
+      d.toLocaleDateString('en-PH', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
+  }
+
+  function renderPLCharts() {
+    const revData = [
+      { label: 'Fee-for-Service', val: 48000, max: 48000, color: 'var(--amber)' },
+      { label: 'Orthodontics', val: 24000, max: 48000, color: 'var(--green)' },
+      { label: 'Crowns & Prosthetics', val: 12000, max: 48000, color: 'var(--gold)' },
+      { label: 'Cosmetic', val: 5000, max: 48000, color: 'var(--blue)' },
+      { label: 'PhilHealth YAKAP', val: 4200, max: 48000, color: '#8B5CF6' },
+      { label: 'HMO Billings', val: 1800, max: 48000, color: '#EC4899' },
+    ];
+    const revEl = document.getElementById('pl-rev-chart');
+    if(revEl) {
+      revEl.innerHTML = revData.map(r => `
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">${r.label}</div>
+          <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${Math.round((r.val/r.max)*100)}%;background:${r.color}"></div></div>
+          <div class="chart-bar-val">&#8369;${r.val.toLocaleString()}</div>
+        </div>`).join('');
+    }
+    const mgData = [
+      { label: 'Gross Margin', val: 72.0, color: 'var(--green)' },
+      { label: 'Net Margin', val: 40.7, color: 'var(--amber)' },
+      { label: 'Cost of Services', val: 28.0, color: 'var(--red)' },
+      { label: 'OpEx Ratio', val: 31.3, color: 'var(--gold)' },
+    ];
+    const mgEl = document.getElementById('pl-margin-chart');
+    if(mgEl) {
+      mgEl.innerHTML = mgData.map(r => `
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">${r.label}</div>
+          <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${r.val}%;background:${r.color}"></div></div>
+          <div class="chart-bar-val">${r.val}%</div>
+        </div>`).join('');
+    }
+  }
+</script>
+</body>
+</html>
