@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sinag Studio | Hair Salon — San Luis, Aurora</title>
+  <meta name="description" content="Sinag Studio — Aurora Province's premier hair salon. Professional cuts, color, rebond, keratin, bridal packages. Book your appointment today in San Luis, Aurora."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"HairSalon","name":"Sinag Studio","description":"Professional hair salon in San Luis, Aurora Province.","address":{"@type":"PostalAddress","addressLocality":"San Luis","addressRegion":"Aurora","addressCountry":"PH"},"openingHours":["Tu-Su 09:00-19:00"],"priceRange":"PP"}
+  </script>
+  <style>
+    :root {
+      --ink:     #1A1018;
+      --ink2:    #5A4050;
+      --ink3:    #9A7E8A;
+      --rose:    #C9758A;
+      --rose2:   #E8B4C0;
+      --gold:    #C9A86C;
+      --bg:      #FBF7F8;
+      --white:   #FFFFFF;
+      --surface: #F3ECF0;
+      --border:  rgba(26,16,24,0.1);
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'DM Sans', sans-serif;
+      --mono:    'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(251,247,248,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 66px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 14px; }
+    .nav-logo {
+      width: 38px; height: 38px; background: var(--ink); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.2rem; color: var(--rose2); font-weight: 300; letter-spacing: 0.02em;
+    }
+    .nav-name { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; letter-spacing: 0.04em; color: var(--ink); }
+    .nav-tagline { font-size: 0.68rem; color: var(--ink3); letter-spacing: 0.06em; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 0.84rem; color: var(--ink2); font-weight: 500; transition: color 0.15s; letter-spacing: 0.01em; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta, a.nav-cta {
+      background: var(--ink); color: var(--rose2) !important; font-size: 0.82rem; font-weight: 600;
+      padding: 10px 22px; border-radius: 6px; transition: background 0.18s; letter-spacing: 0.02em;
+    }
+    .nav-cta:hover, a.nav-cta:hover { background: #2C1A28; color: var(--rose2) !important; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; padding-top: 66px;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .hero-left {
+      background: var(--ink); padding: 80px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-left::before {
+      content: ''; position: absolute; top: -120px; left: -120px;
+      width: 400px; height: 400px; background: rgba(201,117,138,0.06); border-radius: 50%;
+    }
+    .hero-left::after {
+      content: ''; position: absolute; bottom: -80px; right: -80px;
+      width: 300px; height: 300px; background: rgba(201,168,108,0.05); border-radius: 50%;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rose); margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before { content:''; display:inline-block; width:32px; height:1px; background:var(--rose); }
+    .hero-title {
+      font-family: var(--serif); font-size: 4.2rem; line-height: 1.04;
+      color: #fff; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 28px;
+    }
+    .hero-title em { font-style: italic; color: var(--rose2); }
+    .hero-sub {
+      font-size: 0.95rem; color: rgba(255,255,255,0.58); line-height: 1.75;
+      max-width: 420px; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--rose); color: #fff; font-weight: 600; font-size: 0.88rem;
+      padding: 14px 28px; border-radius: 6px; transition: background 0.18s; letter-spacing: 0.02em; display: inline-block;
+    }
+    .btn-primary:hover { background: #B5647A; }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.7); font-weight: 500; font-size: 0.88rem;
+      padding: 14px 28px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.18);
+      transition: all 0.18s; letter-spacing: 0.02em; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
+    .hero-stats { display: flex; gap: 36px; }
+    .hero-stat {}
+    .hero-stat-num { font-family: var(--serif); font-size: 2.2rem; color: var(--rose2); font-weight: 300; line-height: 1; }
+    .hero-stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.04em; }
+
+    .hero-right {
+      position: relative; overflow: hidden; min-height: 600px;
+    }
+    .hero-right img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    }
+    .hero-right-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(26,16,24,0.35) 0%, transparent 50%);
+    }
+    .hero-right-badge {
+      position: absolute; bottom: 36px; right: 36px;
+      background: rgba(251,247,248,0.95); backdrop-filter: blur(12px);
+      border-radius: 12px; padding: 20px 24px; min-width: 200px;
+    }
+    .hrb-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 8px; }
+    .hrb-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .hrb-service { font-size: 0.78rem; color: var(--ink2); }
+    .hrb-price { font-family: var(--mono); font-size: 0.82rem; color: var(--rose); font-weight: 600; margin-top: 8px; }
+
+    /* SECTIONS */
+    section { padding: 88px 48px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rose); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-eyebrow::before { content:''; display:inline-block; width:24px; height:1px; background:var(--rose); }
+    .section-title { font-family: var(--serif); font-size: 2.8rem; line-height: 1.1; color: var(--ink); margin-bottom: 16px; font-weight: 400; }
+    .section-title em { font-style: italic; color: var(--rose); }
+    .section-sub { font-size: 0.95rem; color: var(--ink2); max-width: 520px; line-height: 1.72; }
+    .divider { height: 1px; background: var(--border); }
+
+    /* SERVICES */
+    #services { background: var(--white); }
+    .services-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; margin-top: 56px; align-items: start; }
+    .services-sidebar {}
+    .services-sidebar p { font-size: 0.88rem; color: var(--ink2); line-height: 1.75; margin-bottom: 24px; }
+    .services-note {
+      background: var(--surface); border-radius: 10px; padding: 20px;
+      font-size: 0.8rem; color: var(--ink2); line-height: 1.65; margin-top: 8px;
+    }
+    .services-note strong { display: block; color: var(--ink); margin-bottom: 6px; font-size: 0.83rem; }
+    .services-categories { display: flex; flex-direction: column; gap: 32px; }
+    .service-cat-title {
+      font-family: var(--serif); font-size: 1.3rem; color: var(--ink); font-weight: 400; margin-bottom: 14px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
+    }
+    .service-cat-title .cat-icon { font-size: 1rem; }
+    .service-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 9px 0; border-bottom: 1px solid rgba(26,16,24,0.05);
+      font-size: 0.86rem;
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-row-name { color: var(--ink2); }
+    .service-row-price { font-family: var(--mono); font-size: 0.78rem; color: var(--rose); font-weight: 600; }
+    .service-row-note { font-size: 0.72rem; color: var(--ink3); margin-left: 8px; }
+
+    /* GALLERY */
+    #gallery { background: var(--bg); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .gallery-item {
+      border-radius: 12px; overflow: hidden; aspect-ratio: 3/4;
+      background: var(--surface); position: relative;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(26,16,24,0.85) 0%, transparent 100%);
+      padding: 32px 18px 18px;
+      font-family: var(--serif); font-size: 0.95rem; color: #fff; font-style: italic; font-weight: 300;
+    }
+
+    /* BRIDAL */
+    #bridal {
+      background: var(--ink);
+    }
+    .bridal-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .bridal-content {}
+    .bridal-eyebrow {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rose); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .bridal-eyebrow::before { content:''; display:inline-block; width:24px; height:1px; background:var(--rose); }
+    .bridal-title { font-family: var(--serif); font-size: 2.8rem; line-height: 1.1; color: #fff; margin-bottom: 20px; font-weight: 300; }
+    .bridal-title em { font-style: italic; color: var(--rose2); }
+    .bridal-sub { font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 36px; }
+    .bridal-packages { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .bridal-pkg {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 18px 22px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .bridal-pkg-name { font-weight: 600; font-size: 0.88rem; color: #fff; margin-bottom: 4px; }
+    .bridal-pkg-inc { font-size: 0.76rem; color: rgba(255,255,255,0.45); }
+    .bridal-pkg-price { font-family: var(--mono); font-size: 0.9rem; color: var(--rose2); font-weight: 600; flex-shrink: 0; }
+    .bridal-visual {
+      border-radius: 16px; overflow: hidden; min-height: 480px; position: relative;
+    }
+    .bridal-visual img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .bridal-visual-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(26,16,24,0.9) 0%, transparent 60%);
+      padding: 36px 28px 28px;
+    }
+    .bvo-quote { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: #fff; margin-bottom: 8px; }
+    .bvo-name { font-size: 0.76rem; color: rgba(255,255,255,0.5); }
+
+    /* BOOKING */
+    #booking { background: var(--white); }
+    .booking-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; margin-top: 56px; }
+    .booking-info {}
+    .booking-info-item { display: flex; gap: 18px; margin-bottom: 28px; }
+    .booking-icon {
+      width: 44px; height: 44px; background: var(--surface); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .booking-text strong { display: block; font-weight: 700; font-size: 0.88rem; margin-bottom: 3px; }
+    .booking-text span { font-size: 0.81rem; color: var(--ink2); line-height: 1.6; }
+    .booking-form {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 36px;
+    }
+    .form-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 24px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.76rem; font-weight: 600; color: var(--ink2); letter-spacing: 0.02em; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--ink); font-family: var(--sans); font-size: 0.87rem;
+      padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: rgba(201,117,138,0.4); }
+    .form-group textarea { resize: vertical; min-height: 72px; }
+    .form-submit {
+      width: 100%; margin-top: 18px; background: var(--ink); color: var(--rose2);
+      font-weight: 700; font-size: 0.88rem; padding: 14px; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.18s; letter-spacing: 0.03em;
+    }
+    .form-submit:hover { background: #2C1A28; }
+    .form-note { font-size: 0.71rem; color: var(--ink3); margin-top: 12px; text-align: center; }
+
+    /* ABOUT */
+    #about { background: var(--bg); }
+    .about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 56px; }
+    .about-photo { border-radius: 16px; overflow: hidden; }
+    .about-photo img { width: 100%; height: 460px; object-fit: cover; object-position: center top; }
+    .about-content {}
+    .about-content p { font-size: 0.9rem; color: var(--ink2); line-height: 1.78; margin-bottom: 18px; }
+    .stylists-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+    .stylist-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px;
+    }
+    .stylist-avatar { font-size: 1.5rem; margin-bottom: 8px; }
+    .stylist-name { font-weight: 700; font-size: 0.88rem; color: var(--ink); margin-bottom: 2px; }
+    .stylist-role { font-size: 0.74rem; color: var(--rose); font-weight: 600; margin-bottom: 4px; }
+    .stylist-spec { font-size: 0.74rem; color: var(--ink3); }
+
+    /* LOCATION */
+    #location { background: var(--white); }
+    .location-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 56px; }
+    .map-box {
+      background: var(--surface); border-radius: 16px; overflow: hidden; position: relative;
+      height: 340px;
+    }
+    .map-box img { width: 100%; height: 100%; object-fit: cover; }
+    .map-box-overlay {
+      position: absolute; inset: 0; background: rgba(26,16,24,0.35);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    }
+    .map-box-name { font-family: var(--serif); font-size: 1.2rem; color: #fff; font-weight: 400; }
+    .map-box-addr { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+    .location-details { display: flex; flex-direction: column; gap: 22px; }
+    .loc-item { display: flex; gap: 18px; }
+    .loc-icon {
+      width: 42px; height: 42px; background: var(--surface); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .loc-text strong { display: block; font-weight: 700; font-size: 0.87rem; margin-bottom: 3px; }
+    .loc-text span { font-size: 0.8rem; color: var(--ink2); line-height: 1.6; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.55); padding: 56px 48px 36px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto 40px; }
+    .footer-brand-name { font-family: var(--serif); font-size: 1.4rem; color: var(--rose2); font-weight: 300; margin-bottom: 12px; letter-spacing: 0.04em; }
+    .footer-desc { font-size: 0.79rem; color: rgba(255,255,255,0.38); line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-size: 0.76rem; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { font-size: 0.8rem; color: rgba(255,255,255,0.4); transition: color 0.15s; }
+    .footer-col ul li a:hover { color: rgba(255,255,255,0.85); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; font-size: 0.79rem; }
+    .footer-note { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.16); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media(max-width:900px){
+      #hero, .services-layout, .bridal-wrap, .booking-wrap, .about-wrap, .location-wrap { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      section { padding: 60px 20px; }
+      .hero-left { padding: 60px 28px; }
+      .hero-title { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">S</div>
+    <div>
+      <div class="nav-name">Sinag Studio</div>
+      <div class="nav-tagline">San Luis, Aurora Province</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#bridal">Bridal</a>
+    <a href="#about">About</a>
+    <a href="#location">Visit</a>
+    <a href="#booking" class="nav-cta">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding:0;">
+  <div class="hero-left reveal">
+    <div class="hero-eyebrow">Aurora Province &middot; Est. 2021</div>
+    <h1 class="hero-title">
+      Your best hair,<br>
+      <em>every time.</em>
+    </h1>
+    <p class="hero-sub">
+      Sinag Studio is Aurora Province's premier hair salon &mdash; where professional artistry meets genuine care. Cuts, color, keratin, and bridal styling, tailored to every face and every occasion.
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn-ghost">View Services &amp; Prices</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">800+</div><div class="hero-stat-label">Clients Styled</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Expert Stylists</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5 yrs</div><div class="hero-stat-label">In Aurora</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img
+      src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80"
+      alt="Hair salon interior — Sinag Studio Aurora"
+      onerror="this.parentElement.style.background='linear-gradient(135deg,#3A1A28,#2C1018)'"
+    />
+    <div class="hero-right-overlay"></div>
+    <div class="hero-right-badge">
+      <div class="hrb-label">Featured Look</div>
+      <div class="hrb-name">The Aurora Wave</div>
+      <div class="hrb-service">Balayage + Blowout</div>
+      <div class="hrb-price">from &#8369;2,800</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Services &amp; Pricing</div>
+      <h2 class="section-title">Honest prices,<br><em>expert hands.</em></h2>
+    </div>
+    <div class="services-layout">
+      <div class="reveal">
+        <p>We believe in transparent pricing &mdash; no surprises at checkout. Prices vary by hair length and complexity. Our stylists will always confirm before starting.</p>
+        <div class="services-note">
+          <strong>Pricing Notes</strong>
+          Short = above shoulder &middot; Medium = shoulder to bra strap &middot; Long = below bra strap. Long hair pricing applies a +&#8369;300&ndash;&#8369;500 add-on. Senior stylist rates may vary.
+        </div>
+        <div style="margin-top:24px;padding:20px;background:var(--ink);border-radius:10px;">
+          <div style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--rose);margin-bottom:10px;">Payment</div>
+          <div style="font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.65;">GCash &middot; Cash<br>No cards — GCash preferred</div>
+        </div>
+      </div>
+      <div class="services-categories reveal" style="transition-delay:0.1s">
+        <div>
+          <div class="service-cat-title"><span class="cat-icon">&#9986;</span> Cuts &amp; Blowout</div>
+          <div class="service-row"><span class="service-row-name">Haircut (Short)</span><span><span class="service-row-price">&#8369;150</span></span></div>
+          <div class="service-row"><span class="service-row-name">Haircut (Medium)</span><span><span class="service-row-price">&#8369;200</span></span></div>
+          <div class="service-row"><span class="service-row-name">Haircut (Long)</span><span><span class="service-row-price">&#8369;250</span></span></div>
+          <div class="service-row"><span class="service-row-name">Blowdry / Blowout</span><span><span class="service-row-price">&#8369;150 &ndash; &#8369;350</span></span></div>
+          <div class="service-row"><span class="service-row-name">Cut + Blowdry</span><span><span class="service-row-price">&#8369;280 &ndash; &#8369;550</span></span></div>
+        </div>
+        <div>
+          <div class="service-cat-title"><span class="cat-icon">&#127774;</span> Color &amp; Highlights</div>
+          <div class="service-row"><span class="service-row-name">Full Hair Color (global)</span><span><span class="service-row-price">&#8369;900 &ndash; &#8369;2,500</span></span></div>
+          <div class="service-row"><span class="service-row-name">Highlights (partial)</span><span><span class="service-row-price">&#8369;1,200 &ndash; &#8369;2,500</span></span></div>
+          <div class="service-row"><span class="service-row-name">Balayage / Ombre</span><span><span class="service-row-price">&#8369;2,000 &ndash; &#8369;5,000</span></span></div>
+          <div class="service-row"><span class="service-row-name">Fashion / Vivid Color</span><span><span class="service-row-price">&#8369;2,500 &ndash; &#8369;6,000</span></span></div>
+          <div class="service-row"><span class="service-row-name">Toning / Gloss</span><span><span class="service-row-price">&#8369;800 &ndash; &#8369;1,800</span></span></div>
+        </div>
+        <div>
+          <div class="service-cat-title"><span class="cat-icon">&#10024;</span> Treatments &amp; Styling</div>
+          <div class="service-row"><span class="service-row-name">Rebonding / Straightening</span><span><span class="service-row-price">&#8369;1,500 &ndash; &#8369;4,000</span></span></div>
+          <div class="service-row"><span class="service-row-name">Keratin Treatment</span><span><span class="service-row-price">&#8369;2,500 &ndash; &#8369;5,500</span></span></div>
+          <div class="service-row"><span class="service-row-name">Hair Spa / Conditioning</span><span><span class="service-row-price">&#8369;450 &ndash; &#8369;1,200</span></span></div>
+          <div class="service-row"><span class="service-row-name">Perming</span><span><span class="service-row-price">&#8369;1,500 &ndash; &#8369;3,500</span></span></div>
+          <div class="service-row"><span class="service-row-name">Scalp Treatment</span><span><span class="service-row-price">&#8369;500 &ndash; &#8369;1,000</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Our Work</div>
+      <h2 class="section-title">Every client,<br><em>a transformation.</em></h2>
+      <p class="section-sub">Browse our gallery of cuts, colors, and styles crafted right here in Aurora Province.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80" alt="Balayage highlight look" onerror="this.parentElement.style.background='var(--surface)'"/>
+        <div class="gallery-item-label">Balayage &amp; Waves</div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay:0.08s">
+        <img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=500&q=80" alt="Blowout and styling" onerror="this.parentElement.style.background='var(--surface)'"/>
+        <div class="gallery-item-label">Blowout &amp; Curl</div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay:0.16s">
+        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=500&q=80" alt="Hair color treatment" onerror="this.parentElement.style.background='var(--surface)'"/>
+        <div class="gallery-item-label">Color &amp; Treatment</div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=500&q=80" alt="Bridal hair styling" onerror="this.parentElement.style.background='var(--surface)'"/>
+        <div class="gallery-item-label">Bridal Updo</div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay:0.08s">
+        <img src="https://images.unsplash.com/photo-1500840216050-6ffa99d75160?auto=format&fit=crop&w=500&q=80" alt="Keratin treatment" onerror="this.parentElement.style.background='var(--surface)'"/>
+        <div class="gallery-item-label">Keratin Smooth</div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay:0.16s">
+        <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=500&q=80" alt="Haircut and style" onerror="this.parentElement.style.background='var(--surface)'"/>
+        <div class="gallery-item-label">Precision Cut</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BRIDAL -->
+<section id="bridal" style="padding:88px 48px;">
+  <div class="container">
+    <div class="bridal-wrap">
+      <div class="reveal">
+        <div class="bridal-eyebrow">Bridal Packages</div>
+        <h2 class="bridal-title">Your wedding day<br><em>hair, perfected.</em></h2>
+        <p class="bridal-sub">We specialize in bridal hair for Aurora Province weddings &mdash; from intimate ceremonies to grand celebrations. Book your trial session and let us create the look you've always imagined.</p>
+        <div class="bridal-packages">
+          <div class="bridal-pkg">
+            <div><div class="bridal-pkg-name">Pearl Package</div><div class="bridal-pkg-inc">Bridal hair + 1 entourage</div></div>
+            <div class="bridal-pkg-price">&#8369;3,500</div>
+          </div>
+          <div class="bridal-pkg">
+            <div><div class="bridal-pkg-name">Aurora Package</div><div class="bridal-pkg-inc">Bridal hair + 3 entourage + trial</div></div>
+            <div class="bridal-pkg-price">&#8369;7,500</div>
+          </div>
+          <div class="bridal-pkg">
+            <div><div class="bridal-pkg-name">Sinag Package</div><div class="bridal-pkg-inc">Bridal + 6 entourage + trial + touch-ups</div></div>
+            <div class="bridal-pkg-price">&#8369;14,000</div>
+          </div>
+        </div>
+        <a href="#booking" class="btn-primary" style="display:inline-block;">Inquire About Bridal</a>
+      </div>
+      <div class="bridal-visual reveal" style="transition-delay:0.12s">
+        <img
+          src="https://images.unsplash.com/photo-1470116945706-e6bf5d5a53ca?auto=format&fit=crop&w=700&q=80"
+          alt="Bridal hair styling"
+          onerror="this.parentElement.style.background='#2C1A28'"
+        />
+        <div class="bridal-visual-overlay">
+          <div class="bvo-quote">"She made me feel like the most beautiful version of myself."</div>
+          <div class="bvo-name">&mdash; Marian, San Luis bride, March 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Book an Appointment</div>
+      <h2 class="section-title">Reserve your chair,<br><em>online anytime.</em></h2>
+    </div>
+    <div class="booking-wrap">
+      <div class="reveal">
+        <div class="booking-info-item">
+          <div class="booking-icon">&#128197;</div>
+          <div class="booking-text"><strong>Salon Hours</strong><span>Tuesday &ndash; Sunday: 9:00 AM &ndash; 7:00 PM<br>Closed Mondays</span></div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-icon">&#128241;</div>
+          <div class="booking-text"><strong>Contact &amp; GCash</strong><span>+63 917 XXX XXXX (Viber / Messenger)<br>GCash: 09XX XXX XXXX</span></div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-icon">&#9203;</div>
+          <div class="booking-text"><strong>Confirmation</strong><span>We'll confirm your appointment within 2 hours via SMS or Messenger.</span></div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-icon">&#128204;</div>
+          <div class="booking-text"><strong>Walk-ins Welcome</strong><span>Walk-ins are accepted based on availability. Booking is strongly recommended on weekends.</span></div>
+        </div>
+      </div>
+      <div class="booking-form reveal">
+        <div class="form-title">Appointment Request</div>
+        <form id="booking-form" onsubmit="handleBooking(event)">
+          <div class="form-grid">
+            <div class="form-group"><label>First Name *</label><input type="text" required placeholder="Maria"/></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" required placeholder="Santos"/></div>
+            <div class="form-group"><label>Mobile / Messenger *</label><input type="tel" required placeholder="09XX XXX XXXX"/></div>
+            <div class="form-group"><label>Preferred Date *</label><input type="date" id="f-date" required/></div>
+            <div class="form-group full">
+              <label>Service *</label>
+              <select required>
+                <option value="">Select a service...</option>
+                <option>Haircut</option>
+                <option>Blowdry / Blowout</option>
+                <option>Cut + Blowdry</option>
+                <option>Hair Color (global)</option>
+                <option>Balayage / Ombre</option>
+                <option>Highlights</option>
+                <option>Rebonding / Straightening</option>
+                <option>Keratin Treatment</option>
+                <option>Hair Spa / Conditioning</option>
+                <option>Perming</option>
+                <option>Bridal Package &mdash; Inquiry</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Hair Length</label>
+              <select>
+                <option>Short (above shoulder)</option>
+                <option>Medium (shoulder to bra strap)</option>
+                <option>Long (below bra strap)</option>
+                <option>Extra Long</option>
+              </select>
+            </div>
+            <div class="form-group full"><label>Notes (optional)</label><textarea placeholder="Preferred time, reference photo, special requests..."></textarea></div>
+          </div>
+          <button type="submit" class="form-submit">Submit Request</button>
+          <p class="form-note">&#128241; Confirmation via SMS / Messenger within 2 hours.</p>
+        </form>
+        <div id="booking-success" style="display:none;text-align:center;padding:40px 0;">
+          <div style="font-size:2.5rem;margin-bottom:14px;">&#10024;</div>
+          <div style="font-family:var(--serif);font-size:1.3rem;color:var(--ink);margin-bottom:8px;font-weight:400;">Appointment Request Sent!</div>
+          <div style="font-size:0.83rem;color:var(--ink2)">We'll confirm your slot within 2 hours.<br>See you at Sinag Studio!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Our Team</div>
+      <h2 class="section-title">Rooted in Aurora,<br><em>trained to impress.</em></h2>
+    </div>
+    <div class="about-wrap">
+      <div class="about-photo reveal">
+        <img
+          src="https://images.unsplash.com/photo-1582095133179-bfd08e2fb6b8?auto=format&fit=crop&w=700&q=80"
+          alt="Sinag Studio team at work"
+          onerror="this.parentElement.style.background='var(--surface)'"
+        />
+      </div>
+      <div class="about-content reveal" style="transition-delay:0.1s">
+        <p>Sinag Studio was born from a simple belief: that every person in Aurora Province deserves access to world-class hair care &mdash; not just those who can travel to Manila.</p>
+        <p>Our team trained in professional styling, color science, and bridal artistry. We bring metropolitan skill to a provincial salon setting &mdash; with the personal touch you can only get at home.</p>
+        <p>We are proud to be the first salon in Aurora to offer online booking, transparent pricing, and a dedicated bridal program. Your hair, your story.</p>
+        <div class="stylists-grid">
+          <div class="stylist-card">
+            <div class="stylist-avatar">&#128105;</div>
+            <div class="stylist-name">Carla Mendez</div>
+            <div class="stylist-role">Creative Director</div>
+            <div class="stylist-spec">Color &amp; balayage specialist</div>
+          </div>
+          <div class="stylist-card">
+            <div class="stylist-avatar">&#128105;</div>
+            <div class="stylist-name">Joy Reyes</div>
+            <div class="stylist-role">Senior Stylist</div>
+            <div class="stylist-spec">Cuts &amp; keratin specialist</div>
+          </div>
+          <div class="stylist-card">
+            <div class="stylist-avatar">&#128105;</div>
+            <div class="stylist-name">Rina Bautista</div>
+            <div class="stylist-role">Bridal Specialist</div>
+            <div class="stylist-spec">Bridal &amp; special events</div>
+          </div>
+          <div class="stylist-card">
+            <div class="stylist-avatar">&#128104;</div>
+            <div class="stylist-name">Mark Santos</div>
+            <div class="stylist-role">Junior Stylist</div>
+            <div class="stylist-spec">Cuts &amp; treatments</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Find Us</div>
+      <h2 class="section-title">Visit Sinag Studio<br><em>in San Luis, Aurora.</em></h2>
+    </div>
+    <div class="location-wrap">
+      <div class="map-box reveal">
+        <img
+          src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=700&q=80"
+          alt="San Luis, Aurora Province location"
+          onerror="this.parentElement.style.background='var(--surface)'"
+        />
+        <div class="map-box-overlay">
+          <div style="font-size:2rem;">&#128205;</div>
+          <div class="map-box-name">Sinag Studio</div>
+          <div class="map-box-addr">Quezon Street, San Luis, Aurora 3209</div>
+          <a href="#" onclick="return false;" class="btn-primary" style="font-size:0.8rem;padding:9px 20px;margin-top:12px;display:inline-block;">Get Directions</a>
+        </div>
+      </div>
+      <div class="location-details reveal">
+        <div class="loc-item">
+          <div class="loc-icon">&#128205;</div>
+          <div class="loc-text"><strong>Address</strong><span>Quezon Street, San Luis<br>Aurora Province 3209</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">&#128345;</div>
+          <div class="loc-text"><strong>Hours</strong><span>Tue &ndash; Fri: 9:00 AM &ndash; 7:00 PM<br>Sat &ndash; Sun: 8:00 AM &ndash; 7:00 PM<br>Closed Mondays</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">&#128241;</div>
+          <div class="loc-text"><strong>Contact</strong><span>+63 917 XXX XXXX<br>Viber / Messenger / GCash</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">&#128663;</div>
+          <div class="loc-text"><strong>Getting Here</strong><span>Walk-ins welcome. 5 minutes from San Luis market. Free parking at the corner.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Sinag Studio</div>
+      <p class="footer-desc">Aurora Province's premier hair salon &mdash; professional cuts, color, keratin, and bridal styling in San Luis, Aurora.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Cuts &amp; Blowout</a></li>
+        <li><a href="#services">Color &amp; Balayage</a></li>
+        <li><a href="#services">Keratin &amp; Rebond</a></li>
+        <li><a href="#services">Hair Treatments</a></li>
+        <li><a href="#bridal">Bridal Packages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">Our Team</a></li>
+        <li><a href="#booking">Book Appointment</a></li>
+        <li><a href="#location">Find Us</a></li>
+        <li><a href="operator.html">Staff Login</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Sinag Studio. San Luis, Aurora Province.</span>
+    <span class="footer-note">ADF Simulator &middot; Hair Salon Archetype &middot; sinag2026</span>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function handleBooking(e) {
+    e.preventDefault();
+    document.getElementById('booking-form').style.display = 'none';
+    document.getElementById('booking-success').style.display = 'block';
+  }
+
+  const fd = document.getElementById('f-date');
+  if(fd){ const t = new Date(); t.setDate(t.getDate()+1); fd.min = t.toISOString().split('T')[0]; }
+</script>
+</body>
+</html>
