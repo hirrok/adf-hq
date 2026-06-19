@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sinag Studio: Operator Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #FBF7F8;
+      --mid:     #FFFFFF;
+      --surface: #F3ECF0;
+      --border:  rgba(26,16,24,0.1);
+      --text:    rgba(26,16,24,0.48);
+      --white:   #1A1018;
+      --amber:   #C9758A;
+      --amber2:  #B5647A;
+      --green:   #16A34A;
+      --red:     #DC2626;
+      --gold:    #C9A86C;
+      --blue:    #6366F1;
+      --mono:    'JetBrains Mono', monospace;
+      --sans:    'DM Sans', sans-serif;
+      --accent:     var(--amber);
+      --accent-dim: rgba(201,117,138,0.08);
+      --elev:       var(--surface);
+      --text2:      var(--text);
+      --text3:      rgba(26,16,24,0.3);
+      --border2:    rgba(26,16,24,0.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: var(--sans); background: var(--black); color: var(--white); overflow: hidden; }
+
+    /* GATE */
+    #gate {
+      position: fixed; inset: 0; background: var(--black); z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gate-card {
+      background: var(--mid); border: 1px solid var(--border); border-radius: 16px;
+      padding: 48px 52px; width: 360px; text-align: center;
+    }
+    .gate-logo {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: #1A1018; display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: #E8B4C0; margin: 0 auto 20px;
+      font-family: 'Georgia', serif; letter-spacing: 0.02em;
+    }
+    .gate-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .gate-sub { font-size: 0.8rem; color: var(--text); margin-bottom: 28px; }
+    .gate-input {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); font-family: var(--sans); font-size: 0.9rem;
+      padding: 12px 16px; border-radius: 8px; outline: none;
+      text-align: center; letter-spacing: 0.1em; margin-bottom: 14px; transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: rgba(201,117,138,0.45); }
+    .gate-btn {
+      width: 100%; background: #1A1018; color: #E8B4C0;
+      font-weight: 700; font-size: 0.88rem; padding: 13px; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.18s;
+    }
+    .gate-btn:hover { background: #2C1A28; }
+    .gate-err { font-size: 0.75rem; color: var(--red); margin-top: 10px; height: 18px; }
+    .gate-demo { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--amber); margin-top: 18px; font-weight: 600; }
+
+    /* APP */
+    #app { display: none; height: 100vh; flex-direction: column; }
+    #app.visible { display: flex; }
+
+    .topbar {
+      height: 50px; background: var(--mid); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-logo {
+      width: 30px; height: 30px; background: #1A1018; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #E8B4C0;
+      font-family: Georgia, serif;
+    }
+    .topbar-name { font-weight: 700; font-size: 0.88rem; }
+    .topbar-version { font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-status { font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 6px; }
+    .topbar-status::before { content:''; width:6px; height:6px; background:var(--green); border-radius:50%; display:inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+    .topbar-date { font-family: var(--mono); font-size: 0.62rem; color: var(--text); }
+    .logout-btn { font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); background: transparent; border: 1px solid var(--border); padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .workspace { display: flex; flex: 1; overflow: hidden; }
+
+    .sidebar {
+      width: 200px; background: var(--mid); border-right: 1px solid var(--border);
+      flex-shrink: 0; display: flex; flex-direction: column; padding: 16px 0;
+    }
+    .sidebar-section { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); padding: 0 16px 8px; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px; padding: 9px 16px;
+      font-size: 0.81rem; cursor: pointer; color: var(--text); transition: all 0.15s; border-left: 2px solid transparent;
+    }
+    .sidebar-item:hover { color: var(--white); background: rgba(201,117,138,0.04); }
+    .sidebar-item.active { color: var(--white); background: rgba(201,117,138,0.08); border-left-color: var(--amber); }
+    .sidebar-icon { font-size: 0.9rem; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .sidebar-bottom { margin-top: auto; padding: 0 16px; }
+    .sidebar-footer-label { font-family: var(--mono); font-size: 0.51rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+
+    .main { flex: 1; overflow-y: auto; padding: 28px 32px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .panel-header { margin-bottom: 32px; padding-top: 4px; }
+    .panel-title { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
+    .panel-sub { font-size: 0.82rem; color: var(--text); margin-top: 4px; }
+    .panel-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .pabtn { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 14px; border-radius: 4px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text); transition: all 0.15s; }
+    .pabtn:hover { border-color: rgba(201,117,138,0.4); color: var(--amber); }
+    .pabtn.primary { background: var(--amber); color: #fff; border-color: var(--amber); }
+    .pabtn.primary:hover { background: var(--amber2); }
+
+    /* KPI */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .kpi-card { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+    .kpi-label { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 10px; }
+    .kpi-value { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em; }
+    .kpi-sub { font-size: 0.72rem; color: var(--text); margin-top: 4px; }
+    .kpi-up { color: var(--green); } .kpi-down { color: var(--red); } .kpi-rose { color: var(--amber); } .kpi-gold { color: var(--gold); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+
+    .widget { background: var(--mid); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .widget-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .widget-tag { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.81rem; }
+    .data-table th { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-align: left; padding: 0 14px 10px; border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 11px 14px; border-bottom: 1px solid rgba(26,16,24,0.05); color: var(--white); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(201,117,138,0.03); }
+
+    .badge { display: inline-block; font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+    .badge-green { background: rgba(22,163,74,0.1); color: var(--green); }
+    .badge-amber { background: rgba(201,117,138,0.1); color: var(--amber); }
+    .badge-blue  { background: rgba(99,102,241,0.1); color: var(--blue); }
+    .badge-red   { background: rgba(220,38,38,0.1); color: var(--red); }
+    .badge-grey  { background: rgba(26,16,24,0.07); color: var(--text); }
+    .badge-gold  { background: rgba(201,168,108,0.1); color: var(--gold); }
+
+    .sched-slot { display: flex; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(26,16,24,0.05); }
+    .sched-slot:last-child { border-bottom: none; }
+    .sched-time { font-family: var(--mono); font-size: 0.67rem; color: var(--text); width: 52px; flex-shrink: 0; }
+    .sched-patient { font-size: 0.82rem; font-weight: 600; }
+    .sched-service { font-size: 0.75rem; color: var(--text); }
+    .sched-stylist { font-size: 0.72rem; color: var(--amber); margin-top: 1px; }
+    .sched-right { margin-left: auto; }
+
+    .progress-wrap { margin: 10px 0; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 6px; }
+    .progress-label span:last-child { color: var(--text); }
+    .progress-bar { height: 6px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+    .chart-bar-container { display: flex; flex-direction: column; gap: 8px; }
+    .chart-bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; }
+    .chart-bar-label { width: 130px; flex-shrink: 0; color: var(--text); font-size: 0.73rem; }
+    .chart-bar-track { flex: 1; height: 10px; background: var(--surface); border-radius: 5px; overflow: hidden; }
+    .chart-bar-fill { height: 100%; border-radius: 5px; transition: width 0.7s ease; }
+    .chart-bar-val { width: 64px; text-align: right; font-family: var(--mono); font-size: 0.68rem; color: var(--text); flex-shrink: 0; }
+
+    .pl-section-header { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); padding: 10px 14px; background: var(--surface); border-radius: 6px; margin-bottom: 2px; margin-top: 10px; font-weight: 600; }
+    .pl-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; border-bottom: 1px solid rgba(26,16,24,0.04); font-size: 0.82rem; }
+    .pl-row:last-child { border-bottom: none; }
+    .pl-row.total { font-weight: 800; background: rgba(26,16,24,0.04); border-radius: 6px; margin-top: 6px; font-size: 0.88rem; }
+    .pl-row.gross { font-weight: 700; color: var(--green); }
+    .pl-row.net { font-weight: 800; color: var(--green); }
+    .pl-pct { font-family: var(--mono); font-size: 0.7rem; color: var(--text); width: 52px; text-align: right; }
+    .pl-amt { font-family: var(--mono); font-size: 0.82rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">S</div>
+    <div class="gate-title">Sinag Studio</div>
+    <div class="gate-sub">Operator Suite &mdash; Staff Access Only</div>
+    <input class="gate-input" type="password" id="gate-input" placeholder="Access code" onkeydown="if(event.key==='Enter')unlock()"/>
+    <button class="gate-btn" onclick="unlock()">Enter</button>
+    <div class="gate-err" id="gate-err"></div>
+    <div class="gate-demo">Demo access code: sinag2026</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">S</div>
+      <div>
+        <div class="topbar-name">Sinag Studio</div>
+        <div class="topbar-version">Operator Suite v1.0</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-status">Studio Open</div>
+      <div class="topbar-date" id="topbar-date"></div>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+  <div class="workspace">
+    <div class="sidebar">
+      <div class="sidebar-section">Main</div>
+      <div class="sidebar-item active" onclick="showPanel('dashboard',this)"><span class="sidebar-icon">&#9632;</span> Dashboard</div>
+      <div class="sidebar-item" onclick="showPanel('appointments',this)"><span class="sidebar-icon">&#128197;</span> Appointments</div>
+      <div class="sidebar-item" onclick="showPanel('clients',this)"><span class="sidebar-icon">&#128101;</span> Clients</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Studio</div>
+      <div class="sidebar-item" onclick="showPanel('stylists',this)"><span class="sidebar-icon">&#10024;</span> Stylists</div>
+      <div class="sidebar-item" onclick="showPanel('inventory',this)"><span class="sidebar-icon">&#128230;</span> Products</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Finance</div>
+      <div class="sidebar-item" onclick="showPanel('pl',this)"><span class="sidebar-icon">&#128200;</span> Profit &amp; Loss</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-item" onclick="showPanel('settings',this)"><span class="sidebar-icon">&#9881;</span> Settings</div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-footer-label">San Luis, Aurora &middot; 2026</div>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="panel-header">
+          <div class="panel-title">Good morning, Carla.</div>
+          <div class="panel-sub">Studio overview &mdash; June 19, 2026 (Thursday)</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Booking</button>
+            <button class="pabtn">Walk-In</button>
+            <button class="pabtn">Daily Report</button>
+          </div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Today's Appointments</div><div class="kpi-value">11</div><div class="kpi-sub">4 done &middot; 7 remaining</div></div>
+          <div class="kpi-card"><div class="kpi-label">Today's Revenue</div><div class="kpi-value">&#8369;8,650</div><div class="kpi-sub kpi-up">+18% vs last Thursday</div></div>
+          <div class="kpi-card"><div class="kpi-label">Active Chairs</div><div class="kpi-value">3 / 4</div><div class="kpi-sub">1 chair available now</div></div>
+          <div class="kpi-card"><div class="kpi-label">MTD Revenue</div><div class="kpi-value kpi-rose">&#8369;76,400</div><div class="kpi-sub">Target: &#8369;85,000</div></div>
+        </div>
+        <div class="grid-2">
+          <div class="widget">
+            <div class="widget-title">Today's Schedule<span class="widget-tag">Jun 19</span></div>
+            <div class="sched-slot">
+              <div class="sched-time">09:00</div>
+              <div><div class="sched-patient">Liza Flores</div><div class="sched-service">Cut + Blowdry</div><div class="sched-stylist">Carla</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">09:30</div>
+              <div><div class="sched-patient">Marian Dela Cruz</div><div class="sched-service">Keratin Treatment</div><div class="sched-stylist">Joy</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">10:00</div>
+              <div><div class="sched-patient">Pia Santos</div><div class="sched-service">Balayage</div><div class="sched-stylist">Carla</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">11:00</div>
+              <div><div class="sched-patient">Ana Reyes</div><div class="sched-service">Full Color + Blowdry</div><div class="sched-stylist">Joy</div></div>
+              <div class="sched-right"><span class="badge badge-green">Done</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">13:00</div>
+              <div><div class="sched-patient">Jennica Bautista</div><div class="sched-service">Rebonding</div><div class="sched-stylist">Joy</div></div>
+              <div class="sched-right"><span class="badge badge-amber">In Chair</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">13:30</div>
+              <div><div class="sched-patient">Rosa Mangosing</div><div class="sched-service">Hair Spa + Blowdry</div><div class="sched-stylist">Mark</div></div>
+              <div class="sched-right"><span class="badge badge-grey">Upcoming</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">14:00</div>
+              <div><div class="sched-patient">Carmelita Cruz</div><div class="sched-service">Highlights (partial)</div><div class="sched-stylist">Carla</div></div>
+              <div class="sched-right"><span class="badge badge-grey">Upcoming</span></div>
+            </div>
+            <div class="sched-slot">
+              <div class="sched-time">15:30</div>
+              <div><div class="sched-patient">Grace Tolentino</div><div class="sched-service">Bridal Trial</div><div class="sched-stylist">Rina</div></div>
+              <div class="sched-right"><span class="badge badge-gold">Bridal</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="widget" style="margin-bottom:18px;">
+              <div class="widget-title">MTD Revenue by Stream</div>
+              <div class="chart-bar-container">
+                <div class="chart-bar-row"><div class="chart-bar-label">Color &amp; Highlights</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;24,800</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Rebond / Keratin</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:74%;background:var(--blue)"></div></div><div class="chart-bar-val">&#8369;18,400</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Cuts &amp; Blowouts</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:52%;background:var(--green)"></div></div><div class="chart-bar-val">&#8369;12,900</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Treatments / Spa</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:36%;background:var(--gold)"></div></div><div class="chart-bar-val">&#8369;9,000</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Bridal Packages</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:28%;background:#EC4899"></div></div><div class="chart-bar-val">&#8369;7,000</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">Perming</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:18%;background:#8B5CF6"></div></div><div class="chart-bar-val">&#8369;4,300</div></div>
+              </div>
+            </div>
+            <div class="widget">
+              <div class="widget-title">MTD Target Progress</div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>June Revenue</span><span>&#8369;76,400 / &#8369;85,000</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:89.9%;background:var(--amber)"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>Carla (Creative Dir.)</span><span>&#8369;32,100</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--green)"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>Joy (Senior)</span><span>&#8369;28,400</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:88%;background:var(--blue)"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>Rina (Bridal)</span><span>&#8369;10,200</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:32%;background:#EC4899"></div></div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-label"><span>Mark (Junior)</span><span>&#8369;5,700</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:18%;background:var(--gold)"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPOINTMENTS -->
+      <div class="panel" id="panel-appointments">
+        <div class="panel-header">
+          <div class="panel-title">Appointments</div>
+          <div class="panel-sub">Bookings, walk-ins, and upcoming schedule</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Booking</button>
+            <button class="pabtn">Export</button>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Upcoming &mdash; This Week<span class="widget-tag">June 19&ndash;25</span></div>
+          <table class="data-table">
+            <thead><tr><th>Date / Time</th><th>Client</th><th>Service</th><th>Stylist</th><th>Est. Revenue</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Jun 19 &middot; 13:00</td><td>Jennica Bautista</td><td>Rebonding</td><td>Joy</td><td><span class="kpi-rose">&#8369;2,800</span></td><td><span class="badge badge-amber">In Chair</span></td></tr>
+              <tr><td>Jun 19 &middot; 13:30</td><td>Rosa Mangosing</td><td>Hair Spa + Blowdry</td><td>Mark</td><td><span class="kpi-rose">&#8369;750</span></td><td><span class="badge badge-grey">Upcoming</span></td></tr>
+              <tr><td>Jun 19 &middot; 14:00</td><td>Carmelita Cruz</td><td>Highlights (partial)</td><td>Carla</td><td><span class="kpi-rose">&#8369;1,800</span></td><td><span class="badge badge-grey">Upcoming</span></td></tr>
+              <tr><td>Jun 19 &middot; 15:30</td><td>Grace Tolentino</td><td>Bridal Trial</td><td>Rina</td><td><span class="kpi-rose">&#8369;1,200</span></td><td><span class="badge badge-gold">Bridal</span></td></tr>
+              <tr><td>Jun 20 &middot; 09:00</td><td>Patricia Lim</td><td>Balayage + Toning</td><td>Carla</td><td><span class="kpi-rose">&#8369;4,200</span></td><td><span class="badge badge-grey">Booked</span></td></tr>
+              <tr><td>Jun 20 &middot; 10:00</td><td>Maricel Buenaventura</td><td>Keratin Treatment</td><td>Joy</td><td><span class="kpi-rose">&#8369;3,500</span></td><td><span class="badge badge-grey">Booked</span></td></tr>
+              <tr><td>Jun 21 &middot; 09:00</td><td>Sofia Aquino</td><td>Bridal Hair (Aurora Pkg)</td><td>Rina</td><td><span class="kpi-rose">&#8369;7,500</span></td><td><span class="badge badge-gold">Bridal</span></td></tr>
+              <tr><td>Jun 21 &middot; 14:00</td><td>Nena Castillo</td><td>Perm + Blowdry</td><td>Joy</td><td><span class="kpi-rose">&#8369;2,200</span></td><td><span class="badge badge-grey">Booked</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CLIENTS -->
+      <div class="panel" id="panel-clients">
+        <div class="panel-header">
+          <div class="panel-title">Client Registry</div>
+          <div class="panel-sub">Returning clients and visit history</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ New Client</button>
+            <button class="pabtn">Export</button>
+          </div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total Clients</div><div class="kpi-value">418</div><div class="kpi-sub">Active records</div></div>
+          <div class="kpi-card"><div class="kpi-label">New This Month</div><div class="kpi-value kpi-up">34</div><div class="kpi-sub">+11 vs last month</div></div>
+          <div class="kpi-card"><div class="kpi-label">Returning Rate</div><div class="kpi-value kpi-rose">74%</div><div class="kpi-sub">Booked again within 90 days</div></div>
+          <div class="kpi-card"><div class="kpi-label">Avg Spend / Visit</div><div class="kpi-value kpi-gold">&#8369;1,840</div><div class="kpi-sub">MTD average</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Recent Clients<span class="widget-tag">Last 30 Days</span></div>
+          <table class="data-table">
+            <thead><tr><th>Client</th><th>Last Visit</th><th>Last Service</th><th>Stylist</th><th>Spend</th><th>Next Appt</th></tr></thead>
+            <tbody>
+              <tr><td>Liza Flores</td><td>Jun 19</td><td>Cut + Blowdry</td><td>Carla</td><td>&#8369;450</td><td>Sep 2026</td></tr>
+              <tr><td>Marian Dela Cruz</td><td>Jun 19</td><td>Keratin</td><td>Joy</td><td>&#8369;4,200</td><td>Dec 2026</td></tr>
+              <tr><td>Pia Santos</td><td>Jun 19</td><td>Balayage</td><td>Carla</td><td>&#8369;3,800</td><td>Aug 2026</td></tr>
+              <tr><td>Grace Tolentino</td><td>Jun 19</td><td>Bridal Trial</td><td>Rina</td><td>&#8369;1,200</td><td>Jul 5 (Wedding)</td></tr>
+              <tr><td>Sofia Aquino</td><td>Jun 14</td><td>Bridal Consult</td><td>Rina</td><td>&#8369;0</td><td>Jun 21 (Wedding Day)</td></tr>
+              <tr><td>Patricia Lim</td><td>Jun 8</td><td>Full Color</td><td>Carla</td><td>&#8369;2,200</td><td>Jun 20</td></tr>
+              <tr><td>Nena Castillo</td><td>May 28</td><td>Rebond</td><td>Joy</td><td>&#8369;3,000</td><td>Jun 21</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- STYLISTS -->
+      <div class="panel" id="panel-stylists">
+        <div class="panel-header">
+          <div class="panel-title">Stylist Performance</div>
+          <div class="panel-sub">Chair utilization and revenue contribution — June 2026 MTD</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Top Earner</div><div class="kpi-value kpi-rose">Carla</div><div class="kpi-sub">&#8369;32,100 MTD</div></div>
+          <div class="kpi-card"><div class="kpi-label">Avg Clients / Day</div><div class="kpi-value">8.4</div><div class="kpi-sub">Per stylist</div></div>
+          <div class="kpi-card"><div class="kpi-label">Chair Utilization</div><div class="kpi-value kpi-up">81%</div><div class="kpi-sub">Booked slots vs available</div></div>
+          <div class="kpi-card"><div class="kpi-label">Bridal Bookings</div><div class="kpi-value kpi-gold">4</div><div class="kpi-sub">June confirmed</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Stylist Revenue Breakdown<span class="widget-tag">June MTD</span></div>
+          <table class="data-table">
+            <thead><tr><th>Stylist</th><th>Role</th><th>Clients</th><th>Revenue</th><th>Avg Per Client</th><th>Top Service</th></tr></thead>
+            <tbody>
+              <tr><td>Carla Mendez</td><td><span class="badge badge-amber">Creative Dir.</span></td><td>68</td><td><strong>&#8369;32,100</strong></td><td>&#8369;2,472</td><td>Balayage / Color</td></tr>
+              <tr><td>Joy Reyes</td><td><span class="badge badge-blue">Senior Stylist</span></td><td>74</td><td><strong>&#8369;28,400</strong></td><td>&#8369;1,919</td><td>Keratin / Rebond</td></tr>
+              <tr><td>Rina Bautista</td><td><span class="badge badge-gold">Bridal Spec.</span></td><td>22</td><td><strong>&#8369;10,200</strong></td><td>&#8369;2,863</td><td>Bridal Packages</td></tr>
+              <tr><td>Mark Santos</td><td><span class="badge badge-grey">Junior</span></td><td>44</td><td><strong>&#8369;5,700</strong></td><td>&#8369;636</td><td>Cuts &amp; Blowouts</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INVENTORY -->
+      <div class="panel" id="panel-inventory">
+        <div class="panel-header">
+          <div class="panel-title">Product Inventory</div>
+          <div class="panel-sub">Color supplies, treatments, and retail products</div>
+          <div class="panel-actions">
+            <button class="pabtn primary">+ Restock Order</button>
+            <button class="pabtn">Export</button>
+          </div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total SKUs</div><div class="kpi-value">48</div><div class="kpi-sub">Active products</div></div>
+          <div class="kpi-card"><div class="kpi-label">Low Stock</div><div class="kpi-value kpi-down">6</div><div class="kpi-sub">Needs reorder this week</div></div>
+          <div class="kpi-card"><div class="kpi-label">Inventory Value</div><div class="kpi-value kpi-gold">&#8369;38,400</div><div class="kpi-sub">At cost</div></div>
+          <div class="kpi-card"><div class="kpi-label">Retail Sales MTD</div><div class="kpi-value kpi-up">&#8369;4,200</div><div class="kpi-sub">Take-home products</div></div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Inventory Status<span class="widget-tag">Current Stock</span></div>
+          <table class="data-table">
+            <thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Unit</th><th>Reorder At</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Schwarzkopf Color (Ash Blonde)</td><td>Color</td><td>8</td><td>tubes</td><td>5</td><td><span class="badge badge-green">OK</span></td></tr>
+              <tr><td>Schwarzkopf Color (Natural Black)</td><td>Color</td><td>3</td><td>tubes</td><td>5</td><td><span class="badge badge-red">Low</span></td></tr>
+              <tr><td>Brazilian Keratin (500ml)</td><td>Treatment</td><td>2</td><td>bottles</td><td>3</td><td><span class="badge badge-red">Low</span></td></tr>
+              <tr><td>Rebond Solution A + B</td><td>Treatment</td><td>5</td><td>sets</td><td>3</td><td><span class="badge badge-green">OK</span></td></tr>
+              <tr><td>Wella INVIGO Hair Mask</td><td>Treatment</td><td>4</td><td>tubs</td><td>3</td><td><span class="badge badge-amber">Watch</span></td></tr>
+              <tr><td>Loreal Serie Expert Shampoo</td><td>Retail</td><td>12</td><td>bottles</td><td>6</td><td><span class="badge badge-green">OK</span></td></tr>
+              <tr><td>Foils (500-sheet pack)</td><td>Supplies</td><td>1</td><td>packs</td><td>2</td><td><span class="badge badge-red">Low</span></td></tr>
+              <tr><td>Developer 20-vol (1L)</td><td>Color</td><td>2</td><td>bottles</td><td>3</td><td><span class="badge badge-red">Low</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- P&L -->
+      <div class="panel" id="panel-pl">
+        <div class="panel-header">
+          <div class="panel-title">Profit &amp; Loss</div>
+          <div class="panel-sub">Monthly financial summary &mdash; June 2026 (MTD projected)</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total Revenue</div><div class="kpi-value kpi-rose">&#8369;85,000</div><div class="kpi-sub">June 2026 projected</div></div>
+          <div class="kpi-card"><div class="kpi-label">Gross Profit</div><div class="kpi-value kpi-up">&#8369;64,200</div><div class="kpi-sub">75.5% gross margin</div></div>
+          <div class="kpi-card"><div class="kpi-label">Net Profit</div><div class="kpi-value kpi-up">&#8369;36,800</div><div class="kpi-sub">43.3% net margin</div></div>
+          <div class="kpi-card"><div class="kpi-label">Operating Expenses</div><div class="kpi-value kpi-down">&#8369;27,400</div><div class="kpi-sub">32.2% of revenue</div></div>
+        </div>
+        <div class="grid-2">
+          <div class="widget">
+            <div class="widget-title" style="margin-bottom:4px;">Income Statement<span class="widget-tag">June 2026</span></div>
+
+            <div class="pl-section-header">REVENUE</div>
+            <div class="pl-row"><span>Color &amp; Highlights</span><span class="pl-amt">&#8369;26,000</span><span class="pl-pct">30.6%</span></div>
+            <div class="pl-row"><span>Rebonding &amp; Keratin</span><span class="pl-amt">&#8369;20,000</span><span class="pl-pct">23.5%</span></div>
+            <div class="pl-row"><span>Cuts, Blowouts &amp; Styling</span><span class="pl-amt">&#8369;14,000</span><span class="pl-pct">16.5%</span></div>
+            <div class="pl-row"><span>Bridal Packages</span><span class="pl-amt">&#8369;12,500</span><span class="pl-pct">14.7%</span></div>
+            <div class="pl-row"><span>Hair Treatments &amp; Spa</span><span class="pl-amt">&#8369;8,300</span><span class="pl-pct">9.8%</span></div>
+            <div class="pl-row"><span>Retail Product Sales</span><span class="pl-amt">&#8369;4,200</span><span class="pl-pct">4.9%</span></div>
+            <div class="pl-row total"><span>TOTAL REVENUE</span><span class="pl-amt">&#8369;85,000</span><span class="pl-pct">100%</span></div>
+
+            <div class="pl-section-header">COST OF SERVICES</div>
+            <div class="pl-row"><span>Color &amp; chemical products</span><span class="pl-amt">&#8369;10,800</span><span class="pl-pct">12.7%</span></div>
+            <div class="pl-row"><span>Treatment &amp; keratin solutions</span><span class="pl-amt">&#8369;6,400</span><span class="pl-pct">7.5%</span></div>
+            <div class="pl-row"><span>Retail product COGS</span><span class="pl-amt">&#8369;3,600</span><span class="pl-pct">4.2%</span></div>
+            <div class="pl-row gross"><span>GROSS PROFIT</span><span class="pl-amt">&#8369;64,200</span><span class="pl-pct">75.5%</span></div>
+
+            <div class="pl-section-header">OPERATING EXPENSES</div>
+            <div class="pl-row"><span>Stylist salaries + commissions</span><span class="pl-amt">&#8369;18,000</span><span class="pl-pct">21.2%</span></div>
+            <div class="pl-row"><span>Salon rent</span><span class="pl-amt">&#8369;5,500</span><span class="pl-pct">6.5%</span></div>
+            <div class="pl-row"><span>Utilities (power, water)</span><span class="pl-amt">&#8369;2,200</span><span class="pl-pct">2.6%</span></div>
+            <div class="pl-row"><span>Equipment &amp; supplies</span><span class="pl-amt">&#8369;800</span><span class="pl-pct">0.9%</span></div>
+            <div class="pl-row"><span>Marketing (social + print)</span><span class="pl-amt">&#8369;600</span><span class="pl-pct">0.7%</span></div>
+            <div class="pl-row"><span>Miscellaneous</span><span class="pl-amt">&#8369;300</span><span class="pl-pct">0.4%</span></div>
+            <div class="pl-row net"><span>NET PROFIT</span><span class="pl-amt">&#8369;36,800</span><span class="pl-pct">43.3%</span></div>
+          </div>
+          <div>
+            <div class="widget" style="margin-bottom:18px;">
+              <div class="widget-title">Revenue by Stream</div>
+              <div class="chart-bar-container" id="pl-rev-chart"></div>
+            </div>
+            <div class="widget">
+              <div class="widget-title">Monthly Revenue Trend</div>
+              <div class="chart-bar-container">
+                <div class="chart-bar-row"><div class="chart-bar-label">January</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:52%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;44,200</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">February</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:58%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;49,300</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">March</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:66%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;56,100</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">April</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:74%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;62,800</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">May</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:84%;background:var(--amber)"></div></div><div class="chart-bar-val">&#8369;71,500</div></div>
+                <div class="chart-bar-row"><div class="chart-bar-label">June (proj.)</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%;background:var(--green)"></div></div><div class="chart-bar-val">&#8369;85,000</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="panel-header">
+          <div class="panel-title">Studio Settings</div>
+          <div class="panel-sub">Configuration and business information</div>
+        </div>
+        <div class="grid-2">
+          <div class="widget">
+            <div class="widget-title">Studio Information</div>
+            <table class="data-table">
+              <tbody>
+                <tr><td style="color:var(--text);width:38%">Studio Name</td><td>Sinag Studio</td></tr>
+                <tr><td style="color:var(--text)">Owner / Director</td><td>Carla Mendez</td></tr>
+                <tr><td style="color:var(--text)">Location</td><td>Quezon St., San Luis, Aurora 3209</td></tr>
+                <tr><td style="color:var(--text)">Contact</td><td>+63 917 XXX XXXX</td></tr>
+                <tr><td style="color:var(--text)">Hours</td><td>Tue&ndash;Sun 9AM&ndash;7PM (Closed Mon)</td></tr>
+                <tr><td style="color:var(--text)">Stylists</td><td>4 active (Carla, Joy, Rina, Mark)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="widget">
+            <div class="widget-title">Operator Suite Info</div>
+            <table class="data-table">
+              <tbody>
+                <tr><td style="color:var(--text);width:38%">Archetype</td><td>Hair Salon &mdash; Class A Showcase</td></tr>
+                <tr><td style="color:var(--text)">Built</td><td>Aurora Digital Foundry &middot; June 2026</td></tr>
+                <tr><td style="color:var(--text)">Gate Code</td><td><span style="font-family:var(--mono);font-size:0.8rem;">sinag2026</span></td></tr>
+                <tr><td style="color:var(--text)">Layers</td><td>All 5 layers active</td></tr>
+                <tr><td style="color:var(--text)">Brand Palette</td><td>Near-black &middot; Dusty Rose &middot; Cream</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /workspace -->
+</div><!-- /app -->
+
+<script>
+  const ACCESS = 'sinag2026';
+
+  function unlock() {
+    const val = document.getElementById('gate-input').value.trim();
+    if(val === ACCESS) {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      initDate(); renderPLCharts();
+    } else {
+      document.getElementById('gate-err').textContent = 'Incorrect access code.';
+      document.getElementById('gate-input').value = '';
+    }
+  }
+
+  function logout() {
+    document.getElementById('gate').style.display = 'flex';
+    document.getElementById('app').classList.remove('visible');
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-err').textContent = '';
+  }
+
+  function showPanel(id, el) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    el.classList.add('active');
+    if(id === 'pl') setTimeout(renderPLCharts, 50);
+  }
+
+  function initDate() {
+    const d = new Date();
+    document.getElementById('topbar-date').textContent =
+      d.toLocaleDateString('en-PH', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
+  }
+
+  function renderPLCharts() {
+    const data = [
+      { label: 'Color & Highlights', val: 26000, color: 'var(--amber)' },
+      { label: 'Rebond & Keratin', val: 20000, color: 'var(--blue)' },
+      { label: 'Cuts & Blowouts', val: 14000, color: 'var(--green)' },
+      { label: 'Bridal Packages', val: 12500, color: '#EC4899' },
+      { label: 'Treatments & Spa', val: 8300, color: 'var(--gold)' },
+      { label: 'Retail Products', val: 4200, color: '#8B5CF6' },
+    ];
+    const el = document.getElementById('pl-rev-chart');
+    if(!el) return;
+    const max = data[0].val;
+    el.innerHTML = data.map(r => `
+      <div class="chart-bar-row">
+        <div class="chart-bar-label">${r.label}</div>
+        <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${Math.round((r.val/max)*100)}%;background:${r.color}"></div></div>
+        <div class="chart-bar-val">&#8369;${r.val.toLocaleString()}</div>
+      </div>`).join('');
+  }
+</script>
+</body>
+</html>
