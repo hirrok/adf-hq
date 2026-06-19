@@ -10,9 +10,9 @@
 <meta property="og:description" content="Coaching-led fitness gym in Baler, Aurora Province. Dedicated coaches, structured programs, real results. Book a free body assessment today."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://hirrok.github.io/adf-hq/simulators/community-gym/"/>
-<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.9/babel.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@ textarea{resize:vertical;min-height:100px}
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel">
+<script type="text/babel" data-presets='[["react",{"runtime":"classic"}],"env"]'>
 const { useState, useEffect, useRef, useCallback } = React;
 
 const C = {
