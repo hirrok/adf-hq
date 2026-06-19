@@ -85,7 +85,7 @@ const h2s={fontSize:24,fontWeight:700,margin:'8px 0 20px'};
 const DISPLAY={fontFamily:"'Bebas Neue',sans-serif",letterSpacing:'1px'};
 
 const COACHES=[
-  {id:'JM',name:'Coach Jun Mendoza',title:'Head Coach — Strength & Conditioning',tags:['Powerlifting','Barbell Programming','Mobility','Injury Prevention'],members:23,utilization:96,retention:94,exp:'8 years',color:C.red,bio:'8 years training competitive athletes and everyday gym-goers. Builds sustainable strength through systematic barbell programming.',photo:'https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=120&h=120&q=80'},
+  {id:'JM',name:'Coach Jun Mendoza',title:'Head Coach: Strength & Conditioning',tags:['Powerlifting','Barbell Programming','Mobility','Injury Prevention'],members:23,utilization:96,retention:94,exp:'8 years',color:C.red,bio:'8 years training competitive athletes and everyday gym-goers. Builds sustainable strength through systematic barbell programming.',photo:'https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=120&h=120&q=80'},
   {id:'AR',name:'Coach Ana Reyes',title:'Nutrition & Body Composition Specialist',tags:['Nutrition Coaching','Body Recomp','Fat Loss','Assessment'],members:18,utilization:90,retention:92,exp:'5 years',color:C.purple,bio:'Evidence-based nutrition coaching. Specializes in body recomposition — achieving fat loss and muscle gain simultaneously.',photo:'https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=120&h=120&q=80'},
   {id:'PS',name:'Coach Paolo Santos',title:'Calisthenics & Athletic Performance',tags:['Calisthenics','Skills Training','Flexibility','Gymnastics Strength'],members:14,utilization:70,retention:98,exp:'6 years',color:C.green,bio:'Former competitive gymnast. Takes members from first pull-up to advanced skills through progressive, systematic training.',photo:'https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=120&h=120&q=80'},
   {id:'RL',name:'Coach Rica Lim',title:'Group Classes & Cardio Conditioning',tags:['Group Classes','HIIT','Cardio','Functional Fitness'],members:12,utilization:60,retention:88,exp:'4 years',color:C.gold,bio:'High-energy group class specialist. Her Evening HIIT consistently sells out — known for making hard work feel fun.',photo:'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=120&h=120&q=80'},
@@ -131,7 +131,7 @@ const METRICS={mtdRevenue:87500,target:100000,active:67,atRisk:5,leads:7,trials:
 const REVIEWS=[
   {name:'Maria Santos',rating:5,date:'Jun 5',text:'Coach Ana completely changed how I think about training. Down 6kg in 3 months and I actually understand why. The check-ins keep me accountable like nothing else has.',plan:'Regular Monthly',photo:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80'},
   {name:'Carlo Reyes',rating:5,date:'May 28',text:"Hit a 100kg squat for the first time yesterday. Coach Jun's programming is systematic and it works. This gym is the real deal.",plan:'Annual',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80'},
-  {name:'Jennica Aquino',rating:5,date:'Jun 1',text:"As a student I was worried about the cost but the student plan is worth every peso. The body scan every month shows the actual progress — not just the scale.",plan:'Student Monthly',photo:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80'},
+  {name:'Jennica Aquino',rating:5,date:'Jun 1',text:"As a student I was worried about the cost but the student plan is worth every peso. The body scan every month shows the actual progress, not just the scale.",plan:'Student Monthly',photo:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80'},
   {name:'Jason Bautista',rating:5,date:'Jun 3',text:"I've tried 3 gyms in Aurora Province. None of them had this level of structure and coaching. ForgeHaus is in a different category.",plan:'Annual',photo:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&h=80&q=80'},
   {name:'Liza Torres',rating:4,date:'May 20',text:"Coach Rica's HIIT class is unreal. I book 2 weeks in advance because it fills up so fast. Would recommend to anyone who wants to actually sweat.",plan:'Regular Monthly',photo:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=80&h=80&q=80'},
 ];
@@ -145,12 +145,12 @@ const CHALLENGES=[
 const FAQ_ITEMS=[
   {q:'What is included in the free body assessment?',a:'Full body composition scan (weight, BMI, muscle mass, body fat %), a 15-minute consultation with your assigned coach, a recommended program based on your goals, and a plan recommendation. No commitment required.'},
   {q:'How much does membership cost?',a:'Student Monthly: ₱799/month (valid student ID required). Regular Monthly: ₱999/month. Annual Regular: ₱8,000/year. Annual Student: ₱6,000/year. All plans include unlimited gym access, free body assessment, and twice-weekly coach check-ins.'},
-  {q:'What are your business hours?',a:"We're open Monday through Sunday, 8:00 AM to 10:00 PM daily. Holiday hours may vary — we'll post any changes on our Facebook and Instagram pages."},
+  {q:'What are your business hours?',a:"We're open Monday through Sunday, 8:00 AM to 10:00 PM daily. Holiday hours may vary; we'll post any changes on our Facebook and Instagram pages."},
   {q:'Can I freeze my membership?',a:'Yes. All plans allow you to freeze your membership up to 2 times per year, for a maximum of 1 month per freeze. Just notify us before your freeze period starts.'},
   {q:'Do I need to book classes in advance?',a:"We recommend booking in advance for popular classes, especially Coach Rica's Evening HIIT sessions, which regularly fill up. Regular and Annual members get priority booking."},
   {q:'Will I be assigned a personal coach?',a:'Yes. Every member is assigned a primary coach based on your goals and schedule at the time of assessment. Your coach conducts check-ins twice a week, reviews your progress, and adjusts your program as needed.'},
   {q:'What payment methods do you accept?',a:"We accept GCash, Maya, credit/debit card, and QR Ph. Cash is also accepted at the gym. Online checkout uses PayMongo's secure payment gateway."},
-  {q:"I'm a complete beginner. Is ForgeHaus for me?",a:'Absolutely. ForgeHaus was built for students and adults of all fitness levels. Your coach will design a program that starts where you are — not where someone else is.'},
+  {q:"I'm a complete beginner. Is ForgeHaus for me?",a:'Absolutely. ForgeHaus was built for students and adults of all fitness levels. Your coach will design a program that starts where you are, not where someone else is.'},
 ];
 
 const MARKETING_OUTPUTS={
@@ -266,8 +266,8 @@ function HomePage({goTo}){
         <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:14}}>
           {[['Strength & Conditioning','Barbell-based programming for real, measurable strength gains.','coaching','1517836357463-d25dfeac3438'],
             ['Nutrition & Body Comp','Evidence-based nutrition coaching paired with smart training.','coaching','1490645935967-10de6ba17061'],
-            ['Calisthenics & Skills','From first pull-up to advanced skills — progressive bodyweight mastery.','coaching','1526506118085-60ce8714f8c5'],
-            ['Group HIIT Classes',"High-energy group sessions — Coach Rica's HIIT consistently sells out.",'classes','1571019613454-1cb2f99b2d8b'],
+            ['Calisthenics & Skills','From first pull-up to advanced skills; progressive bodyweight mastery.','coaching','1526506118085-60ce8714f8c5'],
+            ['Group HIIT Classes',"High-energy group sessions. Coach Rica's HIIT consistently sells out.",'classes','1571019613454-1cb2f99b2d8b'],
           ].map(([title,desc,target,imgId])=>(
             <div key={title} style={{...card,cursor:'pointer',padding:0,overflow:'hidden'}} onClick={()=>goTo(target)}>
               <img src={`https://images.unsplash.com/photo-${imgId}?auto=format&fit=crop&w=600&q=80`} alt={title} loading="lazy" style={{width:'100%',height:160,objectFit:'cover',display:'block'}}/>
@@ -344,7 +344,7 @@ function CoachingPage({goTo}){
     <div style={sec}>
       <span style={lbl}>Our Team</span>
       <h1 style={h1s}>Expert Coaches</h1>
-      <p style={{color:C.text2,marginBottom:36,fontSize:14}}>Every member gets an assigned primary coach — your program designer, progress tracker, and accountability partner.</p>
+      <p style={{color:C.text2,marginBottom:36,fontSize:14}}>Every member gets an assigned primary coach; your program designer, progress tracker, and accountability partner.</p>
       <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:18}}>
         {COACHES.map(c=>(
           <div key={c.id} style={{...card,cursor:'pointer',border:`1px solid ${active===c.id?c.color:C.border}`}} onClick={()=>setActive(active===c.id?null:c.id)}>
@@ -384,7 +384,7 @@ function ClassesPage(){
     <div style={sec}>
       <span style={lbl}>Schedule</span>
       <h1 style={h1s}>Class Schedule</h1>
-      <p style={{color:C.text2,marginBottom:32,fontSize:14}}>Classes run Mon/Wed/Fri and Tue/Thu/Sat. Book in advance — Evening HIIT fills every week.</p>
+      <p style={{color:C.text2,marginBottom:32,fontSize:14}}>Classes run Mon/Wed/Fri and Tue/Thu/Sat. Book in advance. Evening HIIT fills every week.</p>
       <div style={{display:'flex',flexDirection:'column',gap:10}}>
         {CLASSES.map(cls=>{
           const full=cls.booked>=cls.cap;
@@ -419,7 +419,7 @@ function ClassesPage(){
       {modal&&(
         <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.75)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:200}} onClick={()=>setModal(null)}>
           <div style={{...card,maxWidth:360,width:'90%'}} onClick={e=>e.stopPropagation()}>
-            <div style={{fontWeight:700,marginBottom:8}}>{modal} — Waitlist</div>
+            <div style={{fontWeight:700,marginBottom:8}}>{modal}: Waitlist</div>
             <div style={{fontSize:13,color:C.text2,marginBottom:16}}>This class is full. Leave your name and we will notify you if a spot opens.</div>
             <input placeholder="Your name" style={{marginBottom:10}}/>
             <input placeholder="Phone number" style={{marginBottom:14}}/>
@@ -444,7 +444,7 @@ function TransformationsPage({goTo}){
     <div style={sec}>
       <span style={lbl}>Results</span>
       <h1 style={h1s}>Member Transformations</h1>
-      <p style={{color:C.text2,marginBottom:36,fontSize:14}}>Real members. Real coaches. Real results. No filters — just consistent training and accountability.</p>
+      <p style={{color:C.text2,marginBottom:36,fontSize:14}}>Real members. Real coaches. Real results. No filters; just consistent training and accountability.</p>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:14}}>
         {transforms.map(t=>(
           <div key={t.name} style={{...card,padding:0,overflow:'hidden'}}>
@@ -478,7 +478,7 @@ function AboutPage({goTo}){
       <h1 style={h1s}>About ForgeHaus</h1>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:28,marginBottom:36}}>
         <div>
-          <p style={{color:C.text2,fontSize:14,lineHeight:1.8,marginBottom:16}}>ForgeHaus Fitness was built for the people of Baler, Aurora Province. We saw a community full of people who wanted to train seriously — but had nowhere to go that took their goals as seriously as they did.</p>
+          <p style={{color:C.text2,fontSize:14,lineHeight:1.8,marginBottom:16}}>ForgeHaus Fitness was built for the people of Baler, Aurora Province. We saw a community full of people who wanted to train seriously, but had nowhere to go that took their goals as seriously as they did.</p>
           <p style={{color:C.text2,fontSize:14,lineHeight:1.8}}>So we built it. A coaching-led gym where every member gets a dedicated coach, a structured program, and a community that holds them accountable. No confusion. No guesswork. Just training that works.</p>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:14}}>
@@ -495,9 +495,9 @@ function AboutPage({goTo}){
         </div>
       </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:14,marginBottom:40}}>
-        {[['Coaching-First','Every member gets a dedicated coach from day one. Not a number — a person with a plan.'],
+        {[['Coaching-First','Every member gets a dedicated coach from day one. Not a number; a person with a plan.'],
           ['Evidence-Based','Programs built on what actually works. No fads. No guesswork. Progressive, systematic training.'],
-          ['Community','ForgeHaus members stay because of the community. 94% retention — well above industry average.'],
+          ['Community','ForgeHaus members stay because of the community. 94% retention; well above industry average.'],
         ].map(([title,desc])=>(
           <div key={title} style={card}>
             <div style={{fontWeight:700,marginBottom:8}}>{title}</div>
@@ -586,15 +586,15 @@ function JoinPage({goTo}){
       <div style={{...card,marginBottom:20}}>
         {step===0&&<div>
           <div style={{fontWeight:600,fontSize:15,marginBottom:14}}>How would you like to start?</div>
-          <R val="assessment" current={path} set={setPath}><div style={{fontWeight:600,fontSize:14}}>Free Body Assessment</div><div style={{fontSize:12,color:C.text2}}>Full body comp scan + coach consult — no commitment</div></R>
+          <R val="assessment" current={path} set={setPath}><div style={{fontWeight:600,fontSize:14}}>Free Body Assessment</div><div style={{fontSize:12,color:C.text2}}>Full body comp scan + coach consult; no commitment</div></R>
           <R val="monthly" current={path} set={setPath}><div style={{fontWeight:600,fontSize:14}}>Monthly Membership</div><div style={{fontSize:12,color:C.text2}}>Start training immediately with full gym access</div></R>
           <R val="annual" current={path} set={setPath}><div style={{fontWeight:600,fontSize:14}}>Annual Membership</div><div style={{fontSize:12,color:C.text2}}>Best value · Save 3,988 · Commit to your year</div></R>
         </div>}
         {step===1&&<div>
           <div style={{fontWeight:600,fontSize:15,marginBottom:14}}>Select your plan</div>
-          <R val="student" current={plan} set={setPlan}><div style={{fontWeight:600,fontSize:14}}>Student — ₱799/mo</div><div style={{fontSize:12,color:C.text2}}>Valid student ID required · All base benefits included</div></R>
-          <R val="regular" current={plan} set={setPlan}><div style={{fontWeight:600,fontSize:14}}>Regular — ₱999/mo</div><div style={{fontSize:12,color:C.text2}}>Most popular · Priority class booking included</div></R>
-          <R val="annual" current={plan} set={setPlan}><div style={{fontWeight:600,fontSize:14}}>Annual — ₱8,000/yr</div><div style={{fontSize:12,color:C.text2}}>Best value · 2x free body comp scans included</div></R>
+          <R val="student" current={plan} set={setPlan}><div style={{fontWeight:600,fontSize:14}}>Student: ₱799/mo</div><div style={{fontSize:12,color:C.text2}}>Valid student ID required · All base benefits included</div></R>
+          <R val="regular" current={plan} set={setPlan}><div style={{fontWeight:600,fontSize:14}}>Regular: ₱999/mo</div><div style={{fontSize:12,color:C.text2}}>Most popular · Priority class booking included</div></R>
+          <R val="annual" current={plan} set={setPlan}><div style={{fontWeight:600,fontSize:14}}>Annual: ₱8,000/yr</div><div style={{fontSize:12,color:C.text2}}>Best value · 2x free body comp scans included</div></R>
         </div>}
         {step===2&&<div>
           <div style={{fontWeight:600,fontSize:15,marginBottom:14}}>Optional add-ons</div>
@@ -623,7 +623,7 @@ function JoinPage({goTo}){
         {step===5&&<div>
           <div style={{fontWeight:600,fontSize:15,marginBottom:14}}>Review and confirm</div>
           <div style={{background:C.elev,borderRadius:8,padding:'14px 18px',marginBottom:14}}>
-            {[['Plan','Regular Monthly — ₱999/mo'],['Payment','GCash'],['Assessment','Free body comp scan · Day 1'],['Coach Assignment','Within 24 hours of signup'],['Start Date','Immediate access upon payment']].map(([k,v])=>(
+            {[['Plan','Regular Monthly ₱999/mo'],['Payment','GCash'],['Assessment','Free body comp scan · Day 1'],['Coach Assignment','Within 24 hours of signup'],['Start Date','Immediate access upon payment']].map(([k,v])=>(
               <div key={k} style={{display:'flex',justifyContent:'space-between',padding:'5px 0',fontSize:13}}><span style={{color:C.text2}}>{k}</span><span>{v}</span></div>
             ))}
           </div>
@@ -643,7 +643,7 @@ function StoriesPage({goTo}){
     <div style={sec}>
       <span style={lbl}>Community</span>
       <h1 style={h1s}>Success Stories</h1>
-      <p style={{color:C.text2,marginBottom:36,fontSize:14}}>Real results from real members. No supplements, no shortcuts — just consistent coaching and hard work.</p>
+      <p style={{color:C.text2,marginBottom:36,fontSize:14}}>Real results from real members. No supplements, no shortcuts; just consistent coaching and hard work.</p>
       <div style={{display:'flex',flexDirection:'column',gap:16}}>
         {REVIEWS.map(r=>(
           <div key={r.name} style={card}>
@@ -725,7 +725,7 @@ function AdminDashboard(){
         </div>
       </div>
       <div style={card}>
-        <div style={{fontWeight:600,marginBottom:14,fontSize:14}}>At-Risk Members — Needs Attention</div>
+        <div style={{fontWeight:600,marginBottom:14,fontSize:14}}>At-Risk Members: Needs Attention</div>
         {MEMBERS.filter(m=>m.status==='At Risk').map(m=>(
           <div key={m.name} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 0',borderBottom:`1px solid ${C.border}`,fontSize:13}}>
             <div><div style={{fontWeight:500}}>{m.name}</div><div style={{fontSize:11,color:C.text3}}>{m.coach} · {m.plan} · Last visit: {m.lastVisit}</div></div>
