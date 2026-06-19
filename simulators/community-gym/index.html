@@ -966,6 +966,63 @@ function AdminAIConsole(){
   );
 }
 
+function AdminPL(){
+  const C2={rev:'#10B981',cost:'#EF4444',gross:'#F59E0B',net:'#8B5CF6',total:'#94A3B8'};
+  const PL=[
+    {label:'Regular Monthly (32 × ₱999)',amt:'₱31,968',pct:'41.6%',cat:'rev'},
+    {label:'Student Monthly (25 × ₱399)',amt:'₱9,975',pct:'13.0%',cat:'rev'},
+    {label:'Annual Plan (10 × ₱900 equiv)',amt:'₱9,000',pct:'11.7%',cat:'rev'},
+    {label:'Trial & Assessment Fees',amt:'₱1,600',pct:'2.1%',cat:'rev'},
+    {label:'Merchandise & Supplements',amt:'₱4,257',pct:'5.5%',cat:'rev'},
+    {label:'TOTAL REVENUE',amt:'₱76,800',pct:'100%',cat:'total'},
+    {label:'Coach Allowances (4 coaches)',amt:'₱28,000',pct:'36.5%',cat:'cost'},
+    {label:'GROSS PROFIT',amt:'₱48,800',pct:'63.5%',cat:'gross'},
+    {label:'Rent & Utilities',amt:'₱14,000',pct:'18.2%',cat:'cost'},
+    {label:'Equipment Maintenance',amt:'₱4,200',pct:'5.5%',cat:'cost'},
+    {label:'Marketing & Social',amt:'₱3,500',pct:'4.6%',cat:'cost'},
+    {label:'Insurance & Admin',amt:'₱10,000',pct:'13.0%',cat:'cost'},
+    {label:'NET PROFIT',amt:'₱17,100',pct:'22.3%',cat:'net'},
+  ];
+  const kpis=[
+    {label:'MTD Revenue',val:'₱76,800',meta:'Jun MTD',col:'#F59E0B'},
+    {label:'Gross Profit',val:'₱48,800',meta:'63.5% margin',col:'#10B981'},
+    {label:'Net Profit',val:'₱17,100',meta:'22.3% margin',col:'#8B5CF6'},
+    {label:'vs May MTD',val:'+₱4,200',meta:'Revenue ₱72,600 prior',col:'#60A5FA'},
+  ];
+  const rowColor={rev:'rgba(16,185,129,0.07)',cost:'rgba(239,68,68,0.07)',gross:'rgba(245,158,11,0.12)',net:'rgba(139,92,246,0.15)',total:'rgba(148,163,184,0.08)'};
+  const rowFont={rev:'normal',cost:'normal',gross:'700',net:'700',total:'700'};
+  const rowCol={rev:'inherit',cost:'inherit',gross:C2.gross,net:C2.net,total:C2.total};
+  return(
+    <div>
+      <span style={lbl}>Financial Overview</span><h2 style={h2s}>Profit &amp; Loss</h2>
+      <p style={{color:C.text2,fontSize:'0.82rem',marginTop:4,marginBottom:20}}>June 2026 · Month-to-date gym financials</p>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:24}}>
+        {kpis.map(k=>(
+          <div key={k.label} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:'16px 20px'}}>
+            <div style={{fontSize:'0.65rem',letterSpacing:'0.1em',textTransform:'uppercase',color:C.text2,marginBottom:6}}>{k.label}</div>
+            <div style={{fontSize:'1.5rem',fontFamily:'Bebas Neue,sans-serif',color:k.col,letterSpacing:'0.04em'}}>{k.val}</div>
+            <div style={{fontSize:'0.72rem',color:C.text2,marginTop:4}}>{k.meta}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:20}}>
+        <div style={{fontSize:'0.65rem',letterSpacing:'0.1em',textTransform:'uppercase',color:C.text2,marginBottom:14}}>Income Statement</div>
+        <table style={{width:'100%',borderCollapse:'collapse',fontSize:'0.83rem'}}>
+          <thead><tr>{['Line Item','Amount','% of Revenue'].map(h=><th key={h} style={{textAlign:'left',fontFamily:'JetBrains Mono,monospace',fontSize:'0.6rem',letterSpacing:'0.1em',textTransform:'uppercase',color:C.text2,padding:'8px 12px',borderBottom:`1px solid ${C.border}`}}>{h}</th>)}</tr></thead>
+          <tbody>
+          {PL.map((r,i)=>(
+            <tr key={i} style={{background:rowColor[r.cat]||''}}>
+              <td style={{padding:'10px 12px',borderBottom:`1px solid ${C.border}`,fontWeight:rowFont[r.cat],color:rowCol[r.cat]}}>{r.label}</td>
+              <td style={{padding:'10px 12px',borderBottom:`1px solid ${C.border}`,fontWeight:rowFont[r.cat],color:rowCol[r.cat],fontFamily:'JetBrains Mono,monospace'}}>{r.amt}</td>
+              <td style={{padding:'10px 12px',borderBottom:`1px solid ${C.border}`,color:C.text2,fontFamily:'JetBrains Mono,monospace'}}>{r.pct}</td>
+            </tr>
+          ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 function AdminSettings(){
   return(
     <div>
@@ -984,93 +1041,6 @@ function AdminSettings(){
             <button style={{...btn(),marginTop:14,fontSize:13,padding:'8px 16px'}}>Save Changes</button>
           </div>
         ))}
-      </div>
-    </div>
-  );
-}
-
-
-function AdminPL(){
-  const PL_DATA=[
-    {label:'Regular Monthly (32 × ₱999)',amt:'₱31,968',pct:'41.6%',cat:'rev'},
-    {label:'Student Monthly (25 × ₱399)',amt:'₱9,975',pct:'13.0%',cat:'rev'},
-    {label:'Annual Plan (10 × ₱900 equiv)',amt:'₱9,000',pct:'11.7%',cat:'rev'},
-    {label:'Trial & Assessment Fees',amt:'₱1,600',pct:'2.1%',cat:'rev'},
-    {label:'Merchandise & Supplements',amt:'₱4,257',pct:'5.5%',cat:'rev'},
-    {label:'TOTAL REVENUE',amt:'₱76,800',pct:'100%',cat:'total'},
-    {label:'Coach Allowances (4 coaches)',amt:'₱28,000',pct:'36.5%',cat:'cost'},
-    {label:'GROSS PROFIT',amt:'₱48,800',pct:'63.5%',cat:'gross'},
-    {label:'Facility Rent',amt:'₱18,000',pct:'23.4%',cat:'opex'},
-    {label:'Electricity & Utilities',amt:'₱8,500',pct:'11.1%',cat:'opex'},
-    {label:'Equipment Maintenance',amt:'₱2,200',pct:'2.9%',cat:'opex'},
-    {label:'Marketing & Social Media',amt:'₱1,800',pct:'2.3%',cat:'opex'},
-    {label:'Admin & Supplies',amt:'₱1,200',pct:'1.6%',cat:'opex'},
-    {label:'NET PROFIT',amt:'₱17,100',pct:'22.3%',cat:'net'},
-  ];
-  const rowStyle=(cat)=>{
-    if(cat==='total') return {background:C.redDim,fontWeight:700};
-    if(cat==='gross') return {background:'rgba(245,158,11,0.08)',fontWeight:700};
-    if(cat==='net')   return {background:'rgba(16,185,129,0.1)',fontWeight:700};
-    if(cat==='cost')  return {};
-    if(cat==='opex')  return {};
-    return {};
-  };
-  const amtColor=(cat)=>{
-    if(cat==='total') return C.red;
-    if(cat==='gross') return '#F59E0B';
-    if(cat==='net')   return '#10B981';
-    return C.text;
-  };
-  return(
-    <div>
-      <div style={{marginBottom:22}}><span style={lbl}>Finance</span><h2 style={h2s}>Profit & Loss</h2><div style={{fontSize:12,color:C.text3}}>June 2026 · Month-to-date gym financials</div></div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:24}}>
-        {[['MTD Revenue','₱76,800',C.red,'vs ₱71,400 in May'],['Gross Profit','₱48,800','#F59E0B','63.5% gross margin'],['Net Profit','₱17,100','#10B981','22.3% net margin'],['vs May MTD','+₱5,400','#10B981','Revenue up ₱5,400']].map(([label,val,color,meta])=>(
-          <div key={label} style={{...card,padding:'16px 18px'}}>
-            <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:C.text2,marginBottom:8}}>{label}</div>
-            <div style={{fontSize:26,fontWeight:800,color,fontFamily:"'Bebas Neue',sans-serif",letterSpacing:1,lineHeight:1}}>{val}</div>
-            <div style={{fontSize:11,color:C.text2,marginTop:6}}>{meta}</div>
-          </div>
-        ))}
-      </div>
-      <div style={{...card,padding:0,overflow:'hidden',marginBottom:24}}>
-        <div style={{padding:'14px 18px',borderBottom:`1px solid ${C.border}`,fontFamily:"'Bebas Neue',sans-serif",fontSize:17,letterSpacing:1.5}}>Income Statement — June 2026</div>
-        <table style={{width:'100%',borderCollapse:'collapse',fontSize:13}}>
-          <thead><tr style={{borderBottom:`1px solid ${C.border}`}}>
-            <th style={{textAlign:'left',padding:'9px 14px',fontFamily:'monospace',fontSize:10,letterSpacing:'0.12em',textTransform:'uppercase',color:C.text2}}>Line Item</th>
-            <th style={{textAlign:'right',padding:'9px 14px',fontFamily:'monospace',fontSize:10,letterSpacing:'0.12em',textTransform:'uppercase',color:C.text2}}>Amount</th>
-            <th style={{textAlign:'right',padding:'9px 14px',fontFamily:'monospace',fontSize:10,letterSpacing:'0.12em',textTransform:'uppercase',color:C.text2}}>% of Rev</th>
-          </tr></thead>
-          <tbody>
-            {PL_DATA.map((r,i)=>(
-              <tr key={i} style={{...rowStyle(r.cat),borderBottom:`1px solid ${C.border}`}}>
-                <td style={{padding:'10px 14px',color:C.text}}>{r.cat==='rev'||r.cat==='cost'||r.cat==='opex'?<span style={{paddingLeft:r.cat==='opex'||r.cat==='cost'?12:0}}>{r.label}</span>:<strong>{r.label}</strong>}</td>
-                <td style={{padding:'10px 14px',textAlign:'right',fontFamily:'monospace',color:amtColor(r.cat),fontWeight:r.cat==='total'||r.cat==='gross'||r.cat==='net'?700:400}}>{r.amt}</td>
-                <td style={{padding:'10px 14px',textAlign:'right',fontFamily:'monospace',color:C.text2}}>{r.pct}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
-        <div style={card}>
-          <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:C.text2,marginBottom:14}}>Net Profit Trend (Monthly)</div>
-          {[['Jan',8400],['Feb',10200],['Mar',12800],['Apr',14100],['May',14800],['Jun MTD',17100]].map(([m,v])=>(
-            <div key={m} style={{marginBottom:10}}>
-              <div style={{display:'flex',justifyContent:'space-between',marginBottom:4,fontSize:12,color:C.text}}><span>{m}</span><span style={{fontFamily:'monospace',color:C.text2}}>₱{v.toLocaleString()}</span></div>
-              <div style={{height:5,background:C.border,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.round(v/17100*100)}%`,background:m==='Jun MTD'?C.gold:C.red,borderRadius:3}}/></div>
-            </div>
-          ))}
-        </div>
-        <div style={card}>
-          <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:C.text2,marginBottom:14}}>Revenue Mix</div>
-          {[['Regular Monthly',31968,C.red],['Student Monthly',9975,C.purple],['Annual Plan',9000,C.gold],['Merch & Other',5857,C.green]].map(([l,v,color])=>(
-            <div key={l} style={{marginBottom:10}}>
-              <div style={{display:'flex',justifyContent:'space-between',marginBottom:4,fontSize:12,color:C.text}}><span>{l}</span><span style={{fontFamily:'monospace',color:C.text2}}>₱{v.toLocaleString()}</span></div>
-              <div style={{height:5,background:C.border,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.round(v/31968*100)}%`,background:color,borderRadius:3}}/></div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -1150,4 +1120,4 @@ function App(){
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
