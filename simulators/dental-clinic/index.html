@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perlas Dental Clinic | San Luis, Aurora Province</title>
+  <meta name="description" content="Perlas Dental Clinic — professional dental care in San Luis, Aurora Province. PhilHealth YAKAP accredited. HMO accepted. Book your appointment today."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Perlas Dental Clinic",
+    "description": "Professional dental care in San Luis, Aurora Province. PhilHealth YAKAP accredited.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rizal Street",
+      "addressLocality": "San Luis",
+      "addressRegion": "Aurora",
+      "addressCountry": "PH"
+    },
+    "telephone": "+63-917-XXX-XXXX",
+    "openingHours": ["Mo-Sa 09:00-18:00"],
+    "priceRange": "PP"
+  }
+  </script>
+  <style>
+    :root {
+      --teal:    #0B4C6C;
+      --teal2:   #0D5E86;
+      --gold:    #C9922A;
+      --gold2:   #E5A83A;
+      --bg:      #F4F9FC;
+      --white:   #FFFFFF;
+      --ink:     #0D1F2D;
+      --ink2:    #3A5568;
+      --ink3:    #7A95A8;
+      --border:  rgba(11,76,108,0.12);
+      --surface: #EBF3F9;
+      --serif:   'DM Serif Display', Georgia, serif;
+      --sans:    'DM Sans', sans-serif;
+      --mono:    'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(244,249,252,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; }
+    .nav-logo {
+      width: 38px; height: 38px; background: var(--teal); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.3rem; color: #fff; font-weight: 400;
+    }
+    .nav-name { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+    .nav-tagline { font-size: 0.7rem; color: var(--ink3); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 0.85rem; color: var(--ink2); font-weight: 500; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      background: var(--teal); color: #fff; font-size: 0.82rem; font-weight: 600;
+      padding: 10px 20px; border-radius: 6px; transition: background 0.18s;
+    }
+    .nav-cta:hover { background: var(--teal2); color: #fff; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; padding-top: 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; max-width: 1200px; margin: 0 auto; padding: 100px 40px 80px;
+      gap: 60px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(11,76,108,0.08); border: 1px solid rgba(11,76,108,0.15);
+      color: var(--teal); font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px;
+      border-radius: 100px; margin-bottom: 28px;
+    }
+    .badge-dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: blink 2s infinite; display: inline-block; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+    .hero-title {
+      font-family: var(--serif); font-size: 3.4rem; line-height: 1.08;
+      color: var(--ink); letter-spacing: -0.01em; margin-bottom: 22px;
+    }
+    .hero-title em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--ink2); line-height: 1.7;
+      max-width: 480px; margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary {
+      background: var(--teal); color: #fff; font-weight: 600; font-size: 0.9rem;
+      padding: 14px 28px; border-radius: 8px; transition: background 0.18s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal2); }
+    .btn-outline {
+      background: transparent; color: var(--teal); font-weight: 600; font-size: 0.9rem;
+      padding: 14px 28px; border-radius: 8px; border: 1.5px solid var(--teal);
+      transition: all 0.18s; display: inline-block;
+    }
+    .btn-outline:hover { background: var(--teal); color: #fff; }
+    .hero-trust { display: flex; gap: 12px; flex-wrap: wrap; }
+    .trust-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 16px; font-size: 0.78rem; font-weight: 600;
+      color: var(--ink); box-shadow: 0 2px 8px rgba(11,76,108,0.06);
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      background: linear-gradient(135deg, #0B4C6C 0%, #0D5E86 55%, #0A3A52 100%);
+      border-radius: 20px; padding: 40px; position: relative; overflow: hidden;
+      min-height: 480px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .hero-visual::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px; background: rgba(255,255,255,0.04); border-radius: 50%;
+    }
+    .hero-visual::after {
+      content: ''; position: absolute; bottom: -60px; left: -60px;
+      width: 240px; height: 240px; background: rgba(201,146,42,0.08); border-radius: 50%;
+    }
+    .visual-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); position: relative; z-index:1;
+    }
+    .visual-services { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+    .visual-svc {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 11px 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; color: rgba(255,255,255,0.85);
+    }
+    .visual-svc-price { font-family: var(--mono); font-size: 0.75rem; color: #E5A83A; }
+    .visual-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; z-index: 1; }
+    .visual-stat {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 14px;
+    }
+    .visual-stat-num { font-family: var(--serif); font-size: 1.6rem; color: #E5A83A; margin-bottom: 3px; }
+    .visual-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.55); }
+
+    /* SECTION */
+    section { padding: 80px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 14px;
+    }
+    .section-title { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; color: var(--ink); margin-bottom: 16px; }
+    .section-sub { font-size: 1rem; color: var(--ink2); max-width: 560px; line-height: 1.7; }
+    .divider { height: 1px; background: var(--border); }
+
+    /* SERVICES */
+    #services { background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+    .service-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+      padding: 26px; transition: all 0.2s;
+    }
+    .service-card:hover { border-color: rgba(11,76,108,0.28); box-shadow: 0 8px 24px rgba(11,76,108,0.07); transform: translateY(-2px); }
+    .svc-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .svc-name { font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 8px; }
+    .svc-desc { font-size: 0.81rem; color: var(--ink2); line-height: 1.6; margin-bottom: 16px; }
+    .svc-price-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .svc-price { font-family: var(--mono); font-size: 0.78rem; color: var(--teal); font-weight: 600; }
+    .svc-ph { font-size: 0.67rem; color: var(--gold); font-weight: 600; background: rgba(201,146,42,0.1); padding: 3px 8px; border-radius: 4px; }
+
+    /* INSURANCE */
+    #insurance { background: var(--bg); }
+    .insurance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 48px; }
+    .insurance-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 34px; }
+    .insurance-card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .insurance-badge {
+      font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(11,76,108,0.1); color: var(--teal); padding: 4px 10px; border-radius: 4px;
+    }
+    .insurance-desc { font-size: 0.84rem; color: var(--ink2); line-height: 1.65; margin-bottom: 20px; }
+    .insurance-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .insurance-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--ink2); }
+    .insurance-list li::before { content: 'v'; color: var(--teal); font-weight: 900; flex-shrink: 0; font-size: 0.75rem; margin-top: 2px; }
+    .hmo-logos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .hmo-logo {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
+      padding: 7px 14px; font-size: 0.74rem; font-weight: 600; color: var(--ink2);
+    }
+
+    /* BOOKING */
+    #booking { background: var(--white); }
+    .booking-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; margin-top: 48px; align-items: start; }
+    .booking-info-item { display: flex; gap: 16px; margin-bottom: 26px; }
+    .booking-info-icon {
+      width: 42px; height: 42px; background: rgba(11,76,108,0.08); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .booking-info-text strong { display: block; font-weight: 700; font-size: 0.88rem; margin-bottom: 3px; }
+    .booking-info-text span { font-size: 0.81rem; color: var(--ink2); line-height: 1.6; }
+    .booking-form { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 34px; }
+    .form-title { font-weight: 700; font-size: 1rem; margin-bottom: 22px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.77rem; font-weight: 600; color: var(--ink2); }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--ink); font-family: var(--sans); font-size: 0.87rem;
+      padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: rgba(11,76,108,0.4); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-submit {
+      width: 100%; margin-top: 18px; background: var(--teal); color: #fff;
+      font-weight: 700; font-size: 0.9rem; padding: 13px; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.18s;
+    }
+    .form-submit:hover { background: var(--teal2); }
+    .form-note { font-size: 0.71rem; color: var(--ink3); margin-top: 12px; text-align: center; }
+
+    /* ABOUT */
+    #about { background: var(--bg); }
+    .about-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; margin-top: 48px; }
+    .about-visual {
+      background: linear-gradient(135deg, #0B4C6C 0%, #0A3A52 100%);
+      border-radius: 20px; padding: 44px 36px; text-align: center; color: #fff;
+    }
+    .about-avatar {
+      width: 90px; height: 90px; background: rgba(255,255,255,0.12);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; margin: 0 auto 18px;
+    }
+    .about-dr-name { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 5px; }
+    .about-dr-creds { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-bottom: 24px; text-transform: uppercase; }
+    .about-creds-list { display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .about-cred { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 11px 14px; font-size: 0.79rem; color: rgba(255,255,255,0.8); }
+    .about-content p { font-size: 0.91rem; color: var(--ink2); line-height: 1.75; margin-bottom: 16px; }
+    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+    .about-highlight { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+    .ah-num { font-family: var(--serif); font-size: 1.7rem; color: var(--teal); margin-bottom: 3px; }
+    .ah-label { font-size: 0.77rem; color: var(--ink2); }
+
+    /* LOCATION */
+    #location { background: var(--white); }
+    .location-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 48px; }
+    .map-placeholder {
+      background: linear-gradient(135deg, var(--surface) 0%, #D0E4EF 100%);
+      border-radius: 16px; border: 1px solid var(--border);
+      height: 320px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+    }
+    .map-icon { font-size: 2.8rem; }
+    .map-label { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+    .map-sub { font-size: 0.8rem; color: var(--ink3); }
+    .location-info { display: flex; flex-direction: column; gap: 20px; }
+    .loc-item { display: flex; gap: 16px; }
+    .loc-icon {
+      width: 40px; height: 40px; background: rgba(11,76,108,0.08); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .loc-text strong { display: block; font-weight: 700; font-size: 0.87rem; margin-bottom: 3px; }
+    .loc-text span { font-size: 0.81rem; color: var(--ink2); line-height: 1.6; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 48px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+    .footer-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .footer-logo {
+      width: 34px; height: 34px; background: var(--teal); border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1rem; color: #fff;
+    }
+    .footer-brand-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
+    .footer-desc { font-size: 0.79rem; color: rgba(255,255,255,0.45); max-width: 280px; line-height: 1.65; }
+    .footer-col h4 { font-size: 0.78rem; font-weight: 700; color: #fff; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.5); transition: color 0.15s; font-size: 0.81rem; }
+    .footer-col ul li a:hover { color: rgba(255,255,255,0.9); }
+    .footer-bottom { max-width: 1200px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+    .footer-note { font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.18); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media(max-width:900px){
+      #hero { grid-template-columns: 1fr; padding: 90px 20px 60px; }
+      .services-grid, .insurance-grid, .booking-wrap, .about-wrap, .location-wrap { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      section { padding: 60px 20px; }
+      .hero-title { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">P</div>
+    <div>
+      <div class="nav-name">Perlas Dental Clinic</div>
+      <div class="nav-tagline">San Luis, Aurora Province</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#insurance">Insurance</a>
+    <a href="#about">About</a>
+    <a href="#location">Location</a>
+    <a href="#booking" class="nav-cta">Book Appointment</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content reveal">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Now accepting PhilHealth YAKAP patients
+    </div>
+    <h1 class="hero-title">
+      Your smile,<br>
+      <em>perfected.</em>
+    </h1>
+    <p class="hero-sub">
+      Aurora Province's trusted dental clinic &mdash; professional care for the whole family, from routine cleaning to orthodontics. PhilHealth accredited, HMO accepted.
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn-outline">View Services &amp; Prices</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-badge">&#127973; PhilHealth YAKAP Accredited</div>
+      <div class="trust-badge">&#128737; HMO Accepted</div>
+      <div class="trust-badge">&#128205; San Luis, Aurora</div>
+    </div>
+  </div>
+  <div class="hero-visual reveal" style="transition-delay:0.15s">
+    <div class="visual-label">Services &amp; Pricing</div>
+    <div class="visual-services">
+      <div class="visual-svc"><span>Prophylaxis / Cleaning</span><span class="visual-svc-price">&#8369;800</span></div>
+      <div class="visual-svc"><span>Tooth Extraction</span><span class="visual-svc-price">from &#8369;600</span></div>
+      <div class="visual-svc"><span>Dental Braces</span><span class="visual-svc-price">from &#8369;28,000</span></div>
+      <div class="visual-svc"><span>Composite Filling</span><span class="visual-svc-price">&#8369;1,500</span></div>
+      <div class="visual-svc"><span>Teeth Whitening</span><span class="visual-svc-price">&#8369;3,500</span></div>
+    </div>
+    <div class="visual-stats">
+      <div class="visual-stat"><div class="visual-stat-num">500+</div><div class="visual-stat-label">Patients Served</div></div>
+      <div class="visual-stat"><div class="visual-stat-num">8 yrs</div><div class="visual-stat-label">Clinical Experience</div></div>
+      <div class="visual-stat"><div class="visual-stat-num">Mon&ndash;Sat</div><div class="visual-stat-label">9AM &ndash; 6PM</div></div>
+      <div class="visual-stat"><div class="visual-stat-num">6</div><div class="visual-stat-label">HMO Networks</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Our Services</div>
+      <h2 class="section-title">Complete dental care,<br>transparent pricing.</h2>
+      <p class="section-sub">Full range of dental services for all ages &mdash; from preventive care to orthodontics and cosmetic dentistry.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="svc-icon">&#129463;</div>
+        <div class="svc-name">Prophylaxis / Cleaning</div>
+        <div class="svc-desc">Professional cleaning and polishing. Removes plaque and tartar. Recommended every 6 months.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;800 &ndash; &#8369;1,200</span><span class="svc-ph">PhilHealth</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#128269;</div>
+        <div class="svc-name">Oral Exam &amp; Consultation</div>
+        <div class="svc-desc">Comprehensive examination, X-ray assessment, and personalized treatment planning.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;300 &ndash; &#8369;500</span><span class="svc-ph">PhilHealth</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#128137;</div>
+        <div class="svc-name">Tooth Extraction</div>
+        <div class="svc-desc">Simple to surgical extractions including impacted wisdom teeth. Comfortable and safe.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;600 &ndash; &#8369;8,000</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#11088;</div>
+        <div class="svc-name">Composite Filling</div>
+        <div class="svc-desc">Tooth-colored resin fillings that blend naturally. Durable and aesthetically pleasing.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;1,200 &ndash; &#8369;2,000</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#128513;</div>
+        <div class="svc-name">Dental Braces</div>
+        <div class="svc-desc">Traditional metal and ceramic braces. Installment plans available. Free monthly adjustments.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;28,000 &ndash; &#8369;65,000</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#10024;</div>
+        <div class="svc-name">Teeth Whitening</div>
+        <div class="svc-desc">Professional in-clinic bleaching with take-home maintenance kit. Noticeably brighter results.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;3,500 &ndash; &#8369;5,000</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#129518;</div>
+        <div class="svc-name">Dentures</div>
+        <div class="svc-desc">Complete and partial dentures, custom-fitted for comfort. Acrylic and flexible options.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;8,000 &ndash; &#8369;25,000</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#128737;</div>
+        <div class="svc-name">Fluoride &amp; Sealants</div>
+        <div class="svc-desc">Preventive treatments for children and adults. Enamel protection against cavities.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;400 &ndash; &#8369;800</span><span class="svc-ph">PhilHealth</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">&#128081;</div>
+        <div class="svc-name">Crowns &amp; Bridges</div>
+        <div class="svc-desc">Porcelain and ceramic crowns to restore damaged teeth. Natural-looking replacements.</div>
+        <div class="svc-price-row"><span class="svc-price">&#8369;5,000 &ndash; &#8369;18,000</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INSURANCE -->
+<section id="insurance">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Insurance &amp; Accreditation</div>
+      <h2 class="section-title">We accept PhilHealth<br>and major HMOs.</h2>
+      <p class="section-sub">Maximize your dental benefits. Accredited with PhilHealth YAKAP and major HMO networks &mdash; no surprises.</p>
+    </div>
+    <div class="insurance-grid">
+      <div class="insurance-card reveal">
+        <div class="insurance-card-title">
+          &#127973; PhilHealth YAKAP
+          <span class="insurance-badge">Accredited</span>
+        </div>
+        <p class="insurance-desc">YAKAP provides &#8369;1,000 per beneficiary per year for preventive oral health services. We file directly on your behalf &mdash; zero paperwork on your end.</p>
+        <ul class="insurance-list">
+          <li>Oral examination &amp; consultation &mdash; covered</li>
+          <li>Professional cleaning (prophylaxis) &mdash; covered</li>
+          <li>Fluoride application &mdash; covered</li>
+          <li>Dental sealant application &mdash; covered</li>
+          <li>Direct claim filing &mdash; we handle all paperwork</li>
+          <li>Valid for members and qualified dependents</li>
+        </ul>
+      </div>
+      <div class="insurance-card reveal">
+        <div class="insurance-card-title">&#128737; HMO Networks Accepted</div>
+        <p class="insurance-desc">Present your HMO card at reception. We verify benefits on the spot and process LOAs in-clinic for a seamless experience.</p>
+        <div class="hmo-logos">
+          <div class="hmo-logo">Maxicare</div>
+          <div class="hmo-logo">PhilCare</div>
+          <div class="hmo-logo">Medicard</div>
+          <div class="hmo-logo">Intellicare</div>
+          <div class="hmo-logo">Cocolife</div>
+          <div class="hmo-logo">Kaiser</div>
+        </div>
+        <ul class="insurance-list" style="margin-top:20px">
+          <li>Bring HMO card and valid ID</li>
+          <li>No pre-auth needed for basic services</li>
+          <li>LOA processed in-clinic</li>
+          <li>Transparent co-pay calculation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Book an Appointment</div>
+      <h2 class="section-title">Reserve your schedule<br>online, anytime.</h2>
+    </div>
+    <div class="booking-wrap">
+      <div class="reveal">
+        <div class="booking-info-item">
+          <div class="booking-info-icon">&#128197;</div>
+          <div class="booking-info-text">
+            <strong>Clinic Hours</strong>
+            <span>Monday &ndash; Saturday: 9:00 AM &ndash; 6:00 PM<br>Closed Sundays &amp; Holidays</span>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">&#128222;</div>
+          <div class="booking-info-text">
+            <strong>Call or Message</strong>
+            <span>+63 917 XXX XXXX (Viber / Messenger)</span>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">&#9203;</div>
+          <div class="booking-info-text">
+            <strong>Confirmation</strong>
+            <span>SMS confirmation within 2 hours of submission.</span>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">&#128203;</div>
+          <div class="booking-info-text">
+            <strong>What to Bring</strong>
+            <span>Valid ID, PhilHealth MDR (if applicable), HMO card.</span>
+          </div>
+        </div>
+      </div>
+      <div class="booking-form reveal">
+        <div class="form-title">Appointment Request Form</div>
+        <form id="booking-form" onsubmit="handleBooking(event)">
+          <div class="form-grid">
+            <div class="form-group"><label>First Name *</label><input type="text" required placeholder="Maria"/></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" required placeholder="Santos"/></div>
+            <div class="form-group"><label>Mobile Number *</label><input type="tel" required placeholder="09XX XXX XXXX"/></div>
+            <div class="form-group"><label>Preferred Date *</label><input type="date" id="f-date" required/></div>
+            <div class="form-group full">
+              <label>Service Needed *</label>
+              <select required>
+                <option value="">Select a service...</option>
+                <option>Oral Exam / Consultation</option>
+                <option>Prophylaxis / Cleaning</option>
+                <option>Tooth Extraction</option>
+                <option>Composite Filling</option>
+                <option>Dental Braces &mdash; Initial Consultation</option>
+                <option>Teeth Whitening</option>
+                <option>Dentures</option>
+                <option>Crowns &amp; Bridges</option>
+                <option>Fluoride / Sealants</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Insurance / Payment</label>
+              <select>
+                <option value="">Cash / Self-pay</option>
+                <option>PhilHealth YAKAP</option>
+                <option>Maxicare</option>
+                <option>PhilCare</option>
+                <option>Medicard</option>
+                <option>Intellicare</option>
+                <option>Other HMO</option>
+              </select>
+            </div>
+            <div class="form-group full"><label>Notes (optional)</label><textarea placeholder="Concerns, allergies, or special requests..."></textarea></div>
+          </div>
+          <button type="submit" class="form-submit">Submit Appointment Request</button>
+          <p class="form-note">&#128241; We'll confirm your slot via SMS within 2 hours.</p>
+        </form>
+        <div id="booking-success" style="display:none;text-align:center;padding:36px 0;">
+          <div style="font-size:2.5rem;margin-bottom:14px;">&#9989;</div>
+          <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">Request Sent!</div>
+          <div style="font-size:0.83rem;color:var(--ink2)">We'll confirm your slot within 2 hours via SMS.<br>See you at Perlas Dental Clinic!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">About Us</div>
+      <h2 class="section-title">Aurora's trusted<br>dental family.</h2>
+    </div>
+    <div class="about-wrap">
+      <div class="about-visual reveal">
+        <div class="about-avatar">&#129463;</div>
+        <div class="about-dr-name">Dr. Maricel R. Santos, DMD</div>
+        <div class="about-dr-creds">Doctor of Dental Medicine &middot; PDA Member</div>
+        <div class="about-creds-list">
+          <div class="about-cred">&#127891; DMD &mdash; University of the Philippines Manila</div>
+          <div class="about-cred">&#128220; PDA &mdash; Region II Chapter Member</div>
+          <div class="about-cred">&#127942; 8 years clinical experience</div>
+          <div class="about-cred">&#129463; Orthodontics certification &mdash; braces specialist</div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <p>Perlas Dental Clinic was founded with a single mission: to make professional dental care accessible to every family in Aurora Province. We believe a healthy smile is the foundation for confidence, health, and well-being &mdash; not a luxury.</p>
+        <p>Led by Dr. Maricel Santos, our clinic combines the warmth of provincial healthcare with evidence-based practice. We stay current with continuing education, modern equipment, and best-in-class materials &mdash; because your smile deserves nothing less.</p>
+        <p>We are proud to be among the very few clinics in Aurora Province accredited with PhilHealth YAKAP and major HMO networks, ensuring dental care is as accessible as possible.</p>
+        <div class="about-highlights">
+          <div class="about-highlight"><div class="ah-num">500+</div><div class="ah-label">Patients treated</div></div>
+          <div class="about-highlight"><div class="ah-num">8 yrs</div><div class="ah-label">Clinical experience</div></div>
+          <div class="about-highlight"><div class="ah-num">PDA</div><div class="ah-label">Licensed &amp; certified</div></div>
+          <div class="about-highlight"><div class="ah-num">6</div><div class="ah-label">HMO networks accepted</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Find Us</div>
+      <h2 class="section-title">Visit us in<br>San Luis, Aurora.</h2>
+    </div>
+    <div class="location-wrap">
+      <div class="map-placeholder reveal">
+        <div class="map-icon">&#128205;</div>
+        <div class="map-label">Perlas Dental Clinic</div>
+        <div class="map-sub">Rizal St., San Luis, Aurora Province</div>
+        <div style="margin-top:18px;"><a href="#" onclick="return false;" class="btn-primary" style="font-size:0.82rem;padding:10px 22px;">&#128205; Get Directions</a></div>
+      </div>
+      <div class="location-info reveal">
+        <div class="loc-item">
+          <div class="loc-icon">&#128205;</div>
+          <div class="loc-text"><strong>Address</strong><span>Rizal Street, San Luis<br>Aurora Province 3209</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">&#128345;</div>
+          <div class="loc-text"><strong>Clinic Hours</strong><span>Mon &ndash; Fri: 9:00 AM &ndash; 6:00 PM<br>Saturday: 9:00 AM &ndash; 4:00 PM<br>Closed Sundays &amp; Holidays</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">&#128222;</div>
+          <div class="loc-text"><strong>Contact</strong><span>+63 917 XXX XXXX (Viber / Messenger)</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-icon">&#128663;</div>
+          <div class="loc-text"><strong>Getting Here</strong><span>2 minutes from San Luis town center.<br>Accessible by tricycle and jeepney. Free parking.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo-row">
+        <div class="footer-logo">P</div>
+        <div class="footer-brand-name">Perlas Dental Clinic</div>
+      </div>
+      <p class="footer-desc">Professional dental care for the whole family in San Luis, Aurora Province. PhilHealth YAKAP accredited. HMO networks accepted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Cleaning &amp; Prophylaxis</a></li>
+        <li><a href="#services">Dental Braces</a></li>
+        <li><a href="#services">Tooth Extraction</a></li>
+        <li><a href="#services">Teeth Whitening</a></li>
+        <li><a href="#services">Crowns &amp; Bridges</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Clinic</h4>
+      <ul>
+        <li><a href="#about">About Dr. Santos</a></li>
+        <li><a href="#insurance">PhilHealth &amp; HMO</a></li>
+        <li><a href="#booking">Book Appointment</a></li>
+        <li><a href="#location">Find Us</a></li>
+        <li><a href="operator.html">Staff Login</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Perlas Dental Clinic. San Luis, Aurora Province.</span>
+    <span class="footer-note">ADF Simulator &middot; Dental Archetype &middot; perlas2026</span>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function handleBooking(e) {
+    e.preventDefault();
+    document.getElementById('booking-form').style.display = 'none';
+    document.getElementById('booking-success').style.display = 'block';
+  }
+
+  const fd = document.getElementById('f-date');
+  if(fd){
+    const t = new Date(); t.setDate(t.getDate()+1);
+    fd.min = t.toISOString().split('T')[0];
+  }
+</script>
+</body>
+</html>
