@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /adf-hq/store/
+Allow: /adf-hq/insights/
+
+Sitemap: https://hirrok.github.io/adf-hq/sitemap.xml
