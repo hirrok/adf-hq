@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Commissioning Sample — Website Conversion Audit</title>
+<style>
+body{margin:0;background:#07110f;color:#f2f7f5;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}.wrap{max-width:850px;margin:auto;padding:36px 20px 70px}.eyebrow{color:#27c7ad;font-weight:800;letter-spacing:.12em;font-size:.78rem}h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:1;letter-spacing:-.05em}h2{color:#27c7ad;margin-top:34px}.card{background:#0d1b18;border:1px solid #1f3732;border-radius:16px;padding:22px;margin:18px 0}.muted{color:#9ab0aa}.callout{border-left:4px solid #27c7ad;padding:10px 16px;background:#102722}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.item{background:#102722;border:1px solid #1f3732;padding:16px;border-radius:12px}a{color:#27c7ad}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style></head>
+<body><div class="wrap">
+<div class="eyebrow">INTERNAL COMMISSIONING SAMPLE — NOT A CUSTOMER ORDER</div>
+<h1>Website Conversion Audit</h1>
+<p class="muted">Target: Aurora Digital Foundry Revenue Store. This sample demonstrates the kind of output a buyer receives. It is based on storefront source review, not traffic analytics.</p>
+<div class="callout"><strong>Highest-leverage finding:</strong> the product is clear, but the original order flow separated intake from payment without a deterministic order key. The fix is to create the order reference first, then present PayPal.</div>
+<h2>What is already working</h2>
+<div class="grid"><div class="item"><strong>Clear offer</strong><br>One URL, USD 39, no meeting.</div><div class="item"><strong>Concrete output</strong><br>Hero, CTA, trust/friction diagnosis, priorities, 7-day plan.</div><div class="item"><strong>Low access risk</strong><br>No credentials; public-site review only.</div><div class="item"><strong>Payment truth</strong><br>Work begins only after independent verification.</div></div>
+<h2>Conversion leaks</h2>
+<div class="card"><strong>1. Intake/payment mismatch</strong><p>A customer could submit without paying or pay without a clean order reference. Use a generated order ID and show payment only after successful intake.</p>
+<strong>2. No proof sample</strong><p>The page explains the deliverable but does not show its quality. This page now serves as the first clearly labeled sample.</p>
+<strong>3. No turnaround expectation</strong><p>Do not invent an SLA. Time real production runs first, then publish an evidence-based delivery window.</p>
+<strong>4. Maya is an exception path</strong><p>Keep Maya available for Philippine buyers but route it through manual instructions until a safe merchant automation exists.</p></div>
+<h2>Recommended hero</h2>
+<div class="callout"><strong>Know what to fix on your website before you spend more on traffic.</strong><br><br>Send one public URL. Get a focused conversion teardown with a rewritten hero, stronger CTA direction, trust and friction fixes, and a priority-ranked 7-day action plan. No call. No login access. USD 39 one-time.</div>
+<h2>Recommended order architecture</h2>
+<p>Submit → create order ID → confirm → pay → verify → produce → deliver.</p>
+<h2>Commissioning verdict</h2>
+<p>The system is ready for controlled execution of intake, production and email delivery. A genuine external payment remains the final proof gate; until that occurs, status should be <strong>PROOF-READY</strong>, not revenue-proven.</p>
+<p><a href="./">← Back to the audit offer</a></p>
+</div></body></html>
