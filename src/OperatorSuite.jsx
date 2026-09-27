@@ -1669,7 +1669,7 @@ function Settings({ spineConnected, spineStatus, spineDetail }) {
           ["Domain",           "auroradigitalfoundry.com — PENDING",  true],
           ["Hosting",          "GitHub Pages — free tier",            false],
           ["Data Spine",       spineStatus==="PROJECTION" ? "PRIVATE REPO AUTHORITY / PUBLIC PROJECTION" : spineStatus==="FALLBACK" ? "PROJECTION READ FAILED" : "Loading…", spineStatus!=="PROJECTION"],
-          ["Payments",         "VEEM VERIFIED · PAYPAL FALLBACK",          false],
+          ["Payments",         "VEEM VERIFIED · PAYPAL VERIFIED",          false],
           ["Form Backend",     "Formspree — mjgzdlja",                false],
           ["GBP",              "NOT CREATED",                         true],
           ["Search Console",   "NOT SET UP",                          true],
