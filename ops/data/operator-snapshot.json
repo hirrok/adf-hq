@@ -58,28 +58,6 @@
   ],
   "PROTOTYPES": [
     {
-      "prototype_id": "proto-001",
-      "archetype_id": "arch-tide-surf-001",
-      "name": "Aliya Surf Camp Demo",
-      "template_family": "Tide",
-      "ownership": "FOUNDRY",
-      "live_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
-      "build_stage": "Live",
-      "page_count": 5,
-      "last_tested_at": 46183
-    },
-    {
-      "prototype_id": "proto-002",
-      "archetype_id": "",
-      "name": "Ecopetrol Aurora Demo",
-      "template_family": "Forge",
-      "ownership": "CLIENT",
-      "live_url": "https://hirrok.github.io/adf-ecopetrol-aurora/",
-      "build_stage": "Live",
-      "page_count": 8,
-      "last_tested_at": 46182
-    },
-    {
       "prototype_id": "proto-003",
       "archetype_id": "arch-tide-surf-001",
       "name": "Nalu Surf Camp Demo",
@@ -89,17 +67,6 @@
       "build_stage": "In Build",
       "page_count": 5,
       "last_tested_at": ""
-    },
-    {
-      "prototype_id": "proto-004",
-      "archetype_id": "arch-forge-fitness-001",
-      "name": "Iron Tribe Fitness Gym",
-      "template_family": "Forge",
-      "ownership": "CLIENT",
-      "live_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
-      "build_stage": "Live",
-      "page_count": 6,
-      "last_tested_at": 46182
     }
   ],
   "INFRASTRUCTURE_GALLERY": [
@@ -111,17 +78,6 @@
       "target_industry": "Tourism · Stay & Surf",
       "business_problem_demonstrated": "Surf lodges and beach camps lose bookings to Facebook-only operations with no direct inquiry flow, no package visibility, and no search presence.",
       "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
-      "published_status": "Published",
-      "cta": "Request a Prototype"
-    },
-    {
-      "gallery_item_id": "gal-003",
-      "archetype_id": "arch-forge-fitness-001",
-      "public_title": "Fitness Gym",
-      "template_family": "Forge",
-      "target_industry": "Fitness · Health",
-      "business_problem_demonstrated": "Gyms relying on Facebook-only presence lose inquiries, schedule visibility, and membership conversions to competitors with no owned digital channel.",
-      "frontend_demo_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
       "published_status": "Published",
       "cta": "Request a Prototype"
     }
