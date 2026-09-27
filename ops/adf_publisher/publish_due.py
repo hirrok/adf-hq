@@ -16,6 +16,7 @@ QUEUE_PATH = ROOT / "ops/adf_publisher/QUEUE.json"
 INDEX_TEMPLATE_PATH = ROOT / "ops/adf_publisher/templates/insights_index.html"
 INDEX_PATH = ROOT / "insights/index.html"
 FEED_PATH = ROOT / "insights/feed.xml"
+SITEMAP_PATH = ROOT / "sitemap.xml"
 CANONICAL_INSIGHTS = "https://hirrok.github.io/adf-hq/insights/"
 SOURCE_ROOT = (ROOT / "ops/adf_publisher/drafts").resolve()
 DEST_ROOT = (ROOT / "insights").resolve()
@@ -191,6 +192,36 @@ def rebuild_feed(published_items: list[dict], built_at: datetime) -> None:
     lines.extend(['</channel>', '</rss>', ''])
     FEED_PATH.write_text("\n".join(lines), encoding="utf-8")
 
+
+def rebuild_sitemap(published_items: list[dict], built_at: datetime) -> None:
+    site_date = built_at.date().isoformat()
+    entries = [
+        ("https://hirrok.github.io/adf-hq/", site_date, "weekly", "1.0"),
+        ("https://hirrok.github.io/adf-hq/insights/", site_date, "weekly", "0.9"),
+        ("https://hirrok.github.io/adf-hq/store/", "2026-09-26", "monthly", "0.8"),
+        ("https://hirrok.github.io/adf-hq/store/sample-audit.html", "2026-09-26", "monthly", "0.5"),
+    ]
+    for item in published_items:
+        published = parse_dt(item["published_at"] or item["publish_at"])
+        entries.append((item["canonical_url"], published.date().isoformat(), "monthly", "0.8"))
+
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    seen = set()
+    for url, lastmod, changefreq, priority in entries:
+        if url in seen:
+            continue
+        seen.add(url)
+        lines.extend([
+            "  <url>",
+            f"    <loc>{escape(url)}</loc>",
+            f"    <lastmod>{lastmod}</lastmod>",
+            f"    <changefreq>{changefreq}</changefreq>",
+            f"    <priority>{priority}</priority>",
+            "  </url>",
+        ])
+    lines.extend(["</urlset>", ""])
+    SITEMAP_PATH.write_text("\n".join(lines), encoding="utf-8")
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="validate queue without publishing")
@@ -232,6 +263,7 @@ def main() -> int:
 
     rebuild_index(published_items)
     rebuild_feed(published_items, now)
+    rebuild_sitemap(published_items, now)
     QUEUE_PATH.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print("published:", ", ".join(i["id"] for i in due))
