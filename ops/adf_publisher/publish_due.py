@@ -186,9 +186,10 @@ def rebuild_feed(published_items: list[dict], built_at: datetime) -> None:
         ])
         media_url = item.get("web_media_url") or item.get("media_url")
         media_type = item.get("media_type")
-        if media_url and media_type:
+        media_length = item.get("media_length")
+        if media_url and media_type and media_length:
             lines.append(
-                f'<enclosure url="{escape(media_url, quote=True)}" type="{escape(media_type, quote=True)}"/>'
+                f'<enclosure url="{escape(media_url, quote=True)}" length="{int(media_length)}" type="{escape(media_type, quote=True)}"/>'
             )
         lines.append('</item>')
     lines.extend(['</channel>', '</rss>', ''])
