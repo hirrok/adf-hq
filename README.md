@@ -13,6 +13,7 @@ Aurora Digital Foundry manufactures business infrastructure. This repository is 
 - `/store/` — commercial product surfaces
 - `/simulators/` — reusable public ADF simulator library
 - `/ops/` — non-indexed Foundry operations and operating standards
+- `/ops/FACTORY_REGISTRY.md` — sanitized current commercial product-state projection; private authority remains in `hirrok/adf-data-spine`
 - `/src/` — source for Foundry operational interfaces
 
 ## Private operational spine
