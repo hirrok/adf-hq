@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Commissioning Sample — Website Conversion Audit</title>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Commissioning Sample — Revenue Leak Audit</title>
 <style>
 body{margin:0;background:#07110f;color:#f2f7f5;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}.wrap{max-width:850px;margin:auto;padding:36px 20px 70px}.eyebrow{color:#27c7ad;font-weight:800;letter-spacing:.12em;font-size:.78rem}h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:1;letter-spacing:-.05em}h2{color:#27c7ad;margin-top:34px}.card{background:#0d1b18;border:1px solid #1f3732;border-radius:16px;padding:22px;margin:18px 0}.muted{color:#9ab0aa}.callout{border-left:4px solid #27c7ad;padding:10px 16px;background:#102722}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.item{background:#102722;border:1px solid #1f3732;padding:16px;border-radius:12px}a{color:#27c7ad}@media(max-width:700px){.grid{grid-template-columns:1fr}}
 </style></head>
 <body><div class="wrap">
 <div class="eyebrow">INTERNAL COMMISSIONING SAMPLE — NOT A CUSTOMER ORDER</div>
-<h1>Website Conversion Audit</h1>
+<h1>Revenue Leak Audit</h1>
 <p class="muted">Target: Aurora Digital Foundry Revenue Store. This sample demonstrates the kind of output a buyer receives. It is based on storefront source review, not traffic analytics.</p>
 <div class="callout"><strong>Highest-leverage finding:</strong> the product is clear, but the original order flow separated intake from payment without a deterministic order key. The fix is to create the order reference first, then present PayPal.</div>
 <h2>What is already working</h2>
