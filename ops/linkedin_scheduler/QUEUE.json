@@ -1,0 +1,31 @@
+{
+  "version": "2026.09-v0.1",
+  "timezone": "Asia/Manila",
+  "linkedin": {
+    "connector": "linkedin_organic",
+    "organization_name": "Aurora Digital Foundry"
+  },
+  "rules": {
+    "publish_only_if_approved": true,
+    "publish_only_if_status": "scheduled",
+    "require_canonical_url": true,
+    "require_link_title": true,
+    "mark_publishing_before_external_write": true
+  },
+  "items": [
+    {
+      "id": "adf-field-note-001-verification-tax",
+      "title": "The Verification Tax",
+      "canonical_url": "https://hirrok.github.io/adf-hq/insights/verification-tax/",
+      "commentary": "AI makes production cheap. That does not make mistakes cheap.\n\nAs generation accelerates, verification becomes the bottleneck.\n\nField Note 001 from Aurora Digital Foundry: The Verification Tax.",
+      "link_title": "The Verification Tax",
+      "link_description": "AI makes production cheap. Mistakes stay expensive. As output accelerates, verification becomes the bottleneck.",
+      "publish_at": "2026-09-27T12:48:00+08:00",
+      "approved": true,
+      "status": "published",
+      "linkedin_urn": "urn:li:share:7509836748735090688",
+      "published_at": "2026-09-27T12:48:00+08:00",
+      "error": null
+    }
+  ]
+}
