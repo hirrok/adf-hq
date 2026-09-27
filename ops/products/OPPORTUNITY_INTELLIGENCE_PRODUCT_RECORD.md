@@ -76,3 +76,27 @@ Phase 3: optional recurring reassessment / intelligence if recurrence is proven.
 
 ## Success event
 A buyer pays for the pilot, receives the brief, and can identify what to do next without purchasing implementation.
+
+
+## Launch instrumentation
+
+**Campaign ID:** `oi_pilot_launch_20260927`
+
+Track the validation funnel as distinct events:
+
+1. landing-page visit,
+2. order-form submission,
+3. independently verified payment,
+4. fulfilled brief,
+5. buyer usefulness confirmation.
+
+Order intake must retain:
+- `utm_source`
+- `utm_medium`
+- `utm_campaign`
+- browser referrer when available,
+- full landing URL.
+
+Do not count form submissions as revenue. Revenue proof begins only at independently verified payment.
+
+Primary launch channel: Aurora Digital Foundry LinkedIn Page using campaign-tagged links.
