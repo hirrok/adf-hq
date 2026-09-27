@@ -890,7 +890,7 @@
       var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
       el.innerHTML = data.map(function(d) {
         var pct = (d[1] / max * 100).toFixed(1);
-        var display = '\u20b1' + d[1].toLocaleString();
+        var display = ';
         return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
                '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
       }).join('');
@@ -924,6 +924,63 @@
       el.innerHTML = data.map(function(d) {
         var pct = (d[1] / max * 100).toFixed(1);
         var display = '\u20b1' + d[1].toLocaleString();
+        return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _renderBars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _renderBars('chart-pl-expense', PL_EXPENSE);
+  }
+
+</script>
+</body>
+</html>
+ + Math.round(d[1] * 0.0160393).toLocaleString('en-US');
+        return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _renderBars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _renderBars('chart-pl-expense', PL_EXPENSE);
+  }
+
+</script>
+</body>
+</html>
+ + Math.round(val*0.0160393).toLocaleString('en-US');
+      return `
+        <div class="bar-row">
+          <div class="bar-header"><span>${label}</span><span>${display}</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ── P&L Data ────────────────────────────────────────────────
+  var PL_TREND = [["Jan", 11200, "var(--ocean)"], ["Feb", 13400, "var(--ocean)"], ["Mar", 14800, "var(--ocean)"], ["Apr", 14200, "var(--ocean)"], ["May", 13340, "var(--ocean)"], ["Jun MTD", 17540, "var(--coral)"]];
+  var PL_EXPENSE = [["Labor", 23400, "var(--coral)"], ["Rent", 17600, "var(--ocean)"], ["Food/Ingredients", 24050, "var(--green)"], ["Packaging", 4810, "var(--gold)"], ["Utilities", 4700, "var(--text)"], ["Marketing", 2100, "var(--text)"]];
+
+  function renderPLCharts() {
+    function _renderBars(id, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
+      el.innerHTML = data.map(function(d) {
+        var pct = (d[1] / max * 100).toFixed(1);
+        var display = ';
+        return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
+               '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
+      }).join('');
+    }
+    if (typeof PL_TREND !== 'undefined') _renderBars('chart-pl-trend', PL_TREND);
+    if (typeof PL_EXPENSE !== 'undefined') _renderBars('chart-pl-expense', PL_EXPENSE);
+  }
+
+</script>
+</body>
+</html>
+ + Math.round(d[1] * 0.0160393).toLocaleString('en-US');
         return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
                '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
       }).join('');
