@@ -2072,219 +2072,132 @@
 
 <!-- ─── LAYER TABS SCRIPT ─────────────────────────────────────────────────────────── -->
 <script>
-  /* ─── AURORA SEASONAL ENGINE ──────────────────────────────────────────
-   * Philippine season calendar → CSS variable palette swap.
-   * Runs on page load. No server. No redeploy per season.
-   * Cockpit (cockpit.html) is unaffected - electric night stays.
-   * ─────────────────────────────────────────────────────────────────── */
-  (function() {
-    const PALETTES = {
-      habagat: {
-        name: 'Habagat Dawn', range: 'Jun–Sep',
-        black: '#0b0918', mid: '#150e2a', white: '#fdf4ec',
-        aurora: '#e8618c', aurora2: '#f5a623', gold: '#f5a623',
-        text: 'rgba(253,244,236,0.72)', nav: 'rgba(11,9,24,0.88)',
-        a1: '232,97,140', a2: '245,166,35', a3: '168,85,247',
-      },
-      veranum: {
-        name: 'Veranum Forge', range: 'Mar–May',
-        black: '#120800', mid: '#1f0f00', white: '#fff8f0',
-        aurora: '#ff6b35', aurora2: '#ffc020', gold: '#ffc020',
-        text: 'rgba(255,248,240,0.72)', nav: 'rgba(18,8,0,0.88)',
-        a1: '255,107,53', a2: '255,192,32', a3: '232,93,58',
-      },
-      bagyo: {
-        name: 'Bagyo Shift', range: 'Oct–Nov',
-        black: '#0d1117', mid: '#161c27', white: '#f8fafc',
-        aurora: '#e8743b', aurora2: '#94a3b8', gold: '#f5a623',
-        text: 'rgba(248,250,252,0.72)', nav: 'rgba(13,17,23,0.88)',
-        a1: '232,116,59', a2: '148,163,184', a3: '245,166,35',
-      },
-      amihan: {
-        name: 'Amihan Constellation', range: 'Dec–Feb',
-        black: '#050d1a', mid: '#0a1628', white: '#f0f8ff',
-        aurora: '#38bdf8', aurora2: '#7dd3fc', gold: '#e0f2fe',
-        text: 'rgba(240,248,255,0.72)', nav: 'rgba(5,13,26,0.88)',
-        a1: '56,189,248', a2: '125,211,252', a3: '186,230,253',
-      },
-    };
-    function getSeason(m) {
-      if (m >= 2 && m <= 4) return 'veranum';
-      if (m >= 5 && m <= 8) return 'habagat';
-      if (m >= 9 && m <= 10) return 'bagyo';
-      return 'amihan';
-    }
-    const p = PALETTES[getSeason(new Date().getMonth())];
-    const r = document.documentElement;
-    const s = r.style;
-    s.setProperty('--black',   p.black);
-    s.setProperty('--mid',     p.mid);
-    s.setProperty('--white',   p.white);
-    s.setProperty('--aurora',  p.aurora);
-    s.setProperty('--aurora2', p.aurora2);
-    s.setProperty('--gold',    p.gold);
-    s.setProperty('--text',    p.text);
-    s.setProperty('--nav-bg',  p.nav);
-    s.setProperty('--a1-rgb',  p.a1);
-    s.setProperty('--a2-rgb',  p.a2);
-    s.setProperty('--a3-rgb',  p.a3);
-    r.setAttribute('data-season', p.name);
-    r.setAttribute('data-season-range', p.range);
-    document.body.style.background = p.black;
-    document.addEventListener('DOMContentLoaded', function() {
-      const badge = document.getElementById('season-badge');
-      if (badge) badge.textContent = '◐ ' + p.name + ' · ' + p.range;
-    });
-  })();
+(function(){
+  const PALETTES={
+    habagat:{name:'Habagat Dawn',range:'Jun–Sep',black:'#0b0918',mid:'#150e2a',white:'#fdf4ec',aurora:'#e8618c',aurora2:'#f5a623',gold:'#f5a623',text:'rgba(253,244,236,0.72)',nav:'rgba(11,9,24,0.88)',a1:'232,97,140',a2:'245,166,35',a3:'168,85,247'},
+    veranum:{name:'Veranum Forge',range:'Mar–May',black:'#120800',mid:'#1f0f00',white:'#fff8f0',aurora:'#ff6b35',aurora2:'#ffc020',gold:'#ffc020',text:'rgba(255,248,240,0.72)',nav:'rgba(18,8,0,0.88)',a1:'255,107,53',a2:'255,192,32',a3:'232,93,58'},
+    bagyo:{name:'Bagyo Shift',range:'Oct–Nov',black:'#0d1117',mid:'#161c27',white:'#f8fafc',aurora:'#e8743b',aurora2:'#94a3b8',gold:'#f5a623',text:'rgba(248,250,252,0.72)',nav:'rgba(13,17,23,0.88)',a1:'232,116,59',a2:'148,163,184',a3:'245,166,35'},
+    amihan:{name:'Amihan Constellation',range:'Dec–Feb',black:'#050d1a',mid:'#0a1628',white:'#f0f8ff',aurora:'#38bdf8',aurora2:'#7dd3fc',gold:'#e0f2fe',text:'rgba(240,248,255,0.72)',nav:'rgba(5,13,26,0.88)',a1:'56,189,248',a2:'125,211,252',a3:'186,230,253'}
+  };
+  const month=new Date().getMonth();
+  const key=(month>=2&&month<=4)?'veranum':(month>=5&&month<=8)?'habagat':(month>=9&&month<=10)?'bagyo':'amihan';
+  const p=PALETTES[key], s=document.documentElement.style;
+  [['--black',p.black],['--mid',p.mid],['--white',p.white],['--aurora',p.aurora],['--aurora2',p.aurora2],['--gold',p.gold],['--text',p.text],['--nav-bg',p.nav],['--a1-rgb',p.a1],['--a2-rgb',p.a2],['--a3-rgb',p.a3]].forEach(([k,v])=>s.setProperty(k,v));
+  document.documentElement.dataset.season=p.name;
+  document.documentElement.dataset.seasonRange=p.range;
+  const badge=document.getElementById('season-badge');
+  if(badge) badge.textContent='◐ '+p.name+' · '+p.range;
 
-  function showLayer(index) {
-    const panels = document.querySelectorAll('.layer-panel');
-    const btns = document.querySelectorAll('#layerNav .layer-btn');
-    panels.forEach((p, i) => p.classList.toggle('active', i === index));
-    btns.forEach((b, i) => b.classList.toggle('active', i === index));
+  window.showLayer=function(index){
+    document.querySelectorAll('.layer-panel').forEach((el,i)=>el.classList.toggle('active',i===index));
+    document.querySelectorAll('#layerNav .layer-btn').forEach((el,i)=>el.classList.toggle('active',i===index));
+  };
+
+  if('IntersectionObserver' in window){
+    const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.style.opacity=1}),{threshold:.1});
+    document.querySelectorAll('.service-card,.portfolio-card,.proof-card').forEach(el=>{
+      el.style.opacity=0; el.style.transition='opacity .5s ease, transform .3s ease'; observer.observe(el);
+    });
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.style.opacity = 1;
+  const menu=document.querySelector('.nav-menu-toggle');
+  const nav=document.getElementById('primary-nav');
+  if(menu&&nav){
+    menu.addEventListener('click',()=>{
+      const open=nav.classList.toggle('open');
+      menu.setAttribute('aria-expanded',String(open));
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.service-card, .portfolio-card, .proof-card').forEach(el => {
-    el.style.opacity = 0;
-    el.style.transition = 'opacity 0.5s ease, transform 0.3s ease';
-    observer.observe(el);
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      nav.classList.remove('open'); menu.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  const STATES={
+    d0:{
+      caption:'Your system is online. First leads are arriving.',health:'AMBER',healthClass:'amber',
+      kpi:{leads:'3',rev:'₱0',jobs:'1',pipe:'₱45,000'},
+      activity:[['New inquiry — Maria Santos','2 min ago'],['System online — backend connected','Today']],
+      crm:[['Maria Santos','Walk-in','NEW','Today'],['Jun Reyes','Referral','WARM','Yesterday']],
+      rev:{setup:'₱40,000',setupSub:'1 client — PENDING',mrr:'₱0 / mo',mrrSub:'No active retainers yet',col:'₱0',colSub:'Awaiting first payment'},
+      bookings:[['First Client Inquiry','Jun 12','PENDING']]
+    },
+    d100:{
+      caption:'Systems compounding. Revenue, leads, and clients operating in sync.',health:'GREEN',healthClass:'green',
+      kpi:{leads:'24',rev:'₱148,500',jobs:'7',pipe:'₱312,000'},
+      activity:[['Booking confirmed — Sunset Lodge','1 hr ago'],['Lead converted — Jun Reyes','Yesterday'],['MRR collected — demo state','Jun 1'],['New lead — Len Navarro','Jun 9']],
+      crm:[['Maria Santos','Walk-in','CLIENT ✓','—'],['Jun Reyes','Referral','CLIENT ✓','—'],['Gina Cruz','Google','HOT','2 days ago'],['Rolly Manalo','Referral','HOT','1 day ago'],['Len Navarro','Facebook','COLD','14 days ago']],
+      rev:{setup:'₱160,000',setupSub:'4 clients — DEMO',mrr:'₱36,000 / mo',mrrSub:'Illustrative recurring revenue',col:'₱148,500',colSub:'Illustrative monthly revenue'},
+      bookings:[['Cafe Bravo','Jun 12','CONFIRMED'],['Sunset Lodge','Jun 15','CONFIRMED'],['Green Park Hotel','Jun 18','PENDING'],['Bayside Resort','Jun 22','CONFIRMED']]
+    }
+  };
+  const byId=id=>document.getElementById(id);
+  function setText(id,value){const el=byId(id); if(el) el.textContent=value}
+  function renderOps(key){
+    const d=STATES[key]; if(!d) return;
+    setText('ops-caption',d.caption);
+    const health=byId('ops-health'); if(health){health.textContent='● '+d.health;health.className='ops-health-badge '+d.healthClass}
+    Object.entries(d.kpi).forEach(([k,v])=>setText('kpi-'+k,v));
+    const activity=byId('ops-activity-feed');
+    if(activity) activity.innerHTML=d.activity.map(x=>'<div class="ops-activity-item"><b>'+x[0]+'</b> <span style="opacity:.35;font-size:.7em">'+x[1]+'</span></div>').join('');
+    const rows=byId('crm-rows');
+    if(rows) rows.innerHTML=d.crm.map(r=>'<tr><td>'+r[0]+'</td><td style="opacity:.55">'+r[1]+'</td><td><span class="ops-stage">'+r[2]+'</span></td><td style="opacity:.45;font-size:.78rem">'+r[3]+'</td></tr>').join('');
+    setText('crm-count',key==='d100'?'24 contacts':'2 contacts');
+    const rate=byId('crm-rate'); if(rate) rate.style.display=key==='d100'?'':'none';
+    const more=byId('crm-more'); if(more) more.style.display=key==='d100'?'':'none';
+    setText('rev-setup',d.rev.setup);setText('rev-setup-sub',d.rev.setupSub);setText('rev-mrr',d.rev.mrr);setText('rev-mrr-sub',d.rev.mrrSub);setText('rev-collected',d.rev.col);setText('rev-collected-sub',d.rev.colSub);
+    const chart=byId('ops-mini-chart');
+    if(chart){const heights=key==='d100'?[20,36,52,62]:[6,0,0,0];chart.innerHTML=heights.map((v,i)=>'<div class="ops-bar'+(key==='d100'?' filled':'')+'" style="height:'+v+'px"><span class="ops-bar-lbl">Mo '+(i+1)+'</span></div>').join('')}
+    setText('book-count',key==='d100'?'8 bookings':'1 inquiry');
+    const week=byId('book-week'); if(week) week.style.display=key==='d100'?'':'none';
+    const list=byId('booking-list');
+    if(list) list.innerHTML=d.bookings.map(b=>'<div class="ops-booking-item"><div><b>'+b[0]+'</b><div class="ops-booking-date">'+b[1]+'</div></div><span class="ops-booking-status">'+b[2]+'</span></div>').join('');
+    const cta=byId('ops-demo-cta'); if(cta) cta.style.display=key==='d100'?'':'none';
+  }
+  document.querySelectorAll('.ops-state-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.ops-state-btn').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderOps(btn.dataset.state);
+  }));
+  const tabUrls={hud:'aurora.ops / hud / overview',crm:'aurora.ops / crm / leads',rev:'aurora.ops / revenue / board',book:'aurora.ops / bookings / queue'};
+  function activateTab(tab){
+    document.querySelectorAll('.ops-tab-demo').forEach(x=>{const active=x.dataset.tab===tab;x.classList.toggle('active',active);x.setAttribute('aria-selected',String(active))});
+    document.querySelectorAll('.ops-panel').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));
+    setText('ops-url',tabUrls[tab]||'aurora.ops');
+  }
+  document.querySelectorAll('.ops-tab-demo').forEach(tab=>{
+    tab.setAttribute('role','tab');tab.setAttribute('tabindex','0');
+    tab.addEventListener('click',()=>activateTab(tab.dataset.tab));
+    tab.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activateTab(tab.dataset.tab)}});
   });
+  renderOps('d0');
 
-  /* ─── OPERATOR SUITE DEMO ──────────────────────────────────────────── */
-  (function(){
-    const STATES = {
-      d0: {
-        caption: 'Your system is online. First leads are arriving.',
-        health:'AMBER', healthClass:'amber',
-        kpi:{ leads:'3', rev:'₱0', jobs:'1', pipe:'₱45,000' },
-        kpiClass:{ leads:'amber', rev:'dim', jobs:'gold', pipe:'green' },
-        showDeltas: false,
-        activity:[
-          { html:'<b>New inquiry</b> - Maria Santos (Walk-in)', time:'2 min ago' },
-          { html:'<b>System online</b> - Backend connected', time:'Today' },
-        ],
-        conv:{ val:'-', color:'rgba(245,244,240,0.2)' },
-        crm:{ count:'2 contacts', rate:false, rows:[
-          { name:'Maria Santos', src:'Walk-in',  stage:'new',  label:'NEW',  when:'Today' },
-          { name:'Jun Reyes',    src:'Referral', stage:'warm', label:'WARM', when:'Yesterday' },
-        ], more:false },
-        rev:{ setup:'₱40,000', setupSub:'1 client - PENDING',
-              mrr:'₱0 / mo', mrrSub:'No active retainers yet',
-              col:'₱0', colSub:'Awaiting first payment', mrrGreen:false,
-              bars:[{h:6,f:false},{h:0,f:false},{h:0,f:false},{h:0,f:false}],
-              labels:['Mo 1','Mo 2','Mo 3','Mo 4'] },
-        book:{ count:'1 inquiry', week:false, items:[
-          { name:'First Client Inquiry', date:'Jun 12', cls:'pending', label:'PENDING' },
-        ]},
-      },
-      d100: {
-        caption: 'Systems compounding. Revenue, leads, and clients operating in sync.',
-        health:'GREEN', healthClass:'green',
-        kpi:{ leads:'24', rev:'₱148,500', jobs:'7', pipe:'₱312,000' },
-        kpiClass:{ leads:'green', rev:'green', jobs:'gold', pipe:'green' },
-        showDeltas: true,
-        deltas:{ leads:'+21', rev:'+₱148.5K', jobs:'+6', pipe:'+₱267K' },
-        activity:[
-          { html:'<b>Booking confirmed</b> - Sunset Lodge (Jun 15)', time:'1 hr ago' },
-          { html:'<b>Lead converted</b> - Jun Reyes → active client', time:'Yesterday' },
-          { html:'<b>MRR collected</b> - ₱9,000 × 4 retainers', time:'Jun 1' },
-          { html:'<b>New lead</b> - Len Navarro (Facebook)', time:'Jun 9' },
-        ],
-        conv:{ val:'68%', color:'rgba(var(--a1-rgb),0.88)' },
-        crm:{ count:'24 contacts', rate:true, rows:[
-          { name:'Maria Santos', src:'Walk-in',  stage:'client', label:'CLIENT ✓', when:'-' },
-          { name:'Jun Reyes',    src:'Referral', stage:'client', label:'CLIENT ✓', when:'-' },
-          { name:'Gina Cruz',    src:'Google',   stage:'hot',    label:'HOT',      when:'2 days ago' },
-          { name:'Rolly Manalo', src:'Referral', stage:'hot',    label:'HOT',      when:'1 day ago' },
-          { name:'Len Navarro',  src:'Facebook', stage:'cold',   label:'COLD',     when:'14 days ago' },
-        ], more:true },
-        rev:{ setup:'₱160,000', setupSub:'4 clients - PAID',
-              mrr:'₱36,000 / mo', mrrSub:'4 active retainers',
-              col:'₱148,500', colSub:'Revenue this month', mrrGreen:true,
-              bars:[{h:20,f:true},{h:36,f:true},{h:52,f:true},{h:62,f:true}],
-              labels:['Mo 1','Mo 2','Mo 3','Mo 4'] },
-        book:{ count:'8 bookings', week:true, items:[
-          { name:'Cafe Bravo',         date:'Jun 12', cls:'confirmed', label:'CONFIRMED' },
-          { name:'Sunset Lodge',       date:'Jun 15', cls:'confirmed', label:'CONFIRMED' },
-          { name:'Green Park Hotel',   date:'Jun 18', cls:'pending',   label:'PENDING' },
-          { name:'Bayside Resort',     date:'Jun 22', cls:'confirmed', label:'CONFIRMED' },
-        ]},
-      },
-    };
-
-    const tabURLs = {
-      hud:  'aurora.ops / hud / overview',
-      crm:  'aurora.ops / crm / leads',
-      rev:  'aurora.ops / revenue / board',
-      book: 'aurora.ops / bookings / queue',
-    };
-
-    function render(stateKey) {
-      const d = STATES[stateKey];
-
-      // caption + health
-      document.getElementById('ops-caption').textContent = d.caption;
-      const hb = document.getElementById('ops-health');
-      hb.textContent = '● ' + d.health;
-      hb.className = 'ops-health-badge ' + d.healthClass;
-
-      // KPIs
-      ['leads','rev','jobs','pipe'].forEach(k => {
-        const el = document.getElementById('kpi-' + k);
-        el.textContent = d.kpi[k];
-        el.className = 'ops-teaser-val ' + (d.kpiClass[k] || '');
-      });
-
-      // deltas
-      ['leads','rev','jobs','pipe'].forEach(k => {
-        const el = document.getElementById('delta-' + k);
-        if (!el) return;
-        el.classList.remove('visible');
-        if (d.showDeltas) {
-          el.textContent = d.deltas[k];
-          el.style.display = '';
-          requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
-        } else {
-          el.style.display = 'none';
-        }
-      });
-
-      // activity
-      document.getElementById('ops-activity-feed').innerHTML =
-        d.activity.map(a => `<div class="ops-activity-item">${a.html} <span style="opacity:0.35;font-size:0.7em">${a.time}</span></div>`).join('');
-
-      // conversion
-      const cv = document.getElementById('ops-conv');
-      cv.textContent = d.conv.val;
-      cv.style.color = d.conv.color;
-
-      // CRM
-      document.getElementById('crm-count').textContent = d.crm.count;
-      const rateEl = document.getElementById('crm-rate');
-      rateEl.style.display = d.crm.rate ? '' : 'none';
-      document.getElementById('crm-rows').innerHTML = d.crm.rows.map(r =>
-        `<tr><td>${r.name}</td><td style="opacity:0.55">${r.src}</td><td><span class="ops-stage ${r.stage}">${r.label}</span></td><td style="opacity:0.45;font-size:0.78rem">${r.when}</td></tr>`
-      ).join('');
-      document.getElementById('crm-more').style.display = d.crm.more ? '' : 'none';
-
-      // Revenue
-      document.getElementById('rev-setup').textContent    = d.rev.setup;
-      document.getElementById('rev-setup-sub').textContent = d.rev.setupSub;
-      const mrrEl = document.getElementById('rev-mrr');
-      mrrEl.textContent = d.rev.mrr;
-      mrrEl.className = 'ops-rev-val' + (d.rev.mrrGreen ? ' green' : '');
-      document.getElementById('rev-mrr-sub').textContent  = d.rev.mrrSub;
-      document.getElementById('rev-collected').textContent = d.rev.col;
-      document.getElementById('rev-collected-sub').textContent = d.rev.colSub;
-      document.getElementById('ops-mini-chart').innerHTML = d.rev.bars.map((b,i) =>
-        `<div class="ops-bar${b.f?' filled':''}" style="height:${b.h}px"><span class="ops-bar-lbl">${d.rev.labels[i]}</span></div>`
-      ).join('');
-
-      // Bookings
-      document.getElementById('book-count').textContent = d.book.count;
-      document.getElementById('b
+  const form=byId('reconForm');
+  if(form){
+    const status=byId('reconStatus'), success=byId('reconSuccess'), successId=byId('reconSuccessId');
+    const params=new URLSearchParams(location.search);
+    const bytes=new Uint8Array(3); crypto.getRandomValues(bytes);
+    const d=new Date(), stamp=d.getUTCFullYear()+String(d.getUTCMonth()+1).padStart(2,'0')+String(d.getUTCDate()).padStart(2,'0');
+    const rid='ADF-RECON-'+stamp+'-'+Array.from(bytes).map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();
+    setText('reconId',rid);
+    const idField=byId('reconId');if(idField)idField.value=rid;
+    const subject=byId('reconSubject');if(subject)subject.value='ADF Recon Request — '+rid;
+    const source=byId('reconSourceUrl');if(source)source.value=location.href;
+    const ref=byId('reconReferrer');if(ref)ref.value=document.referrer||'direct';
+    [['reconUtmSource','utm_source'],['reconUtmMedium','utm_medium'],['reconUtmCampaign','utm_campaign']].forEach(([id,key])=>{const el=byId(id);if(el)el.value=params.get(key)||''});
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const button=form.querySelector('button[type="submit"]');
+      button.disabled=true;button.textContent='Sending Recon Request…';
+      if(status){status.textContent='';status.classList.remove('error')}
+      try{
+        const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+        if(!response.ok) throw new Error('intake failed');
+        form.style.display='none';if(successId)successId.textContent=rid;if(success)success.classList.add('show');
+      }catch(err){
+        button.disabled=false;button.textContent='Submit Recon Request ↗';
+        if(status){status.textContent='The request could not be sent. Please try again or email revenue-engine@agentmail.to.';status.classList.add('error')}
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
