@@ -25,7 +25,7 @@ Crypto/stablecoin rails remain deferred until demand and a reliable regulated re
 
 ADF invoices, proposals, revenue records, payment requests, and Operator Suite commercial values default to **USD**.
 
-Existing demo/mock values formerly authored in PHP were normalized once using the 2026-09-27 reference rate **1 PHP = 0.0160393 USD**. New commercial amounts are authored directly in USD; do not apply the migration rate to live invoices.
+Existing demo/mock values formerly authored in Philippine pesos were normalized once using the 2026-09-27 reference rate **1 Philippine peso = 0.0160393 USD**. New commercial amounts are authored directly in USD; do not apply the migration rate to live invoices.
 
 ## Commercial state machine
 

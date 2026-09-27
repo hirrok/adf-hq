@@ -74,7 +74,7 @@ const adapter = {
 const uid     = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 const today   = () => new Date().toISOString().split("T")[0];
 const addDays = (s, n) => { const d = new Date(s); d.setDate(d.getDate() + n); return d.toISOString().split("T")[0]; };
-const fmt     = n => "₱" + Number(n).toLocaleString();
+const fmt     = n => "$" + Number(n).toLocaleString("en-US");
 
 // ── SEED DATA ─────────────────────────────────────────────────
 // ── FALLBACK SEED DATA ────────────────────────────────────────

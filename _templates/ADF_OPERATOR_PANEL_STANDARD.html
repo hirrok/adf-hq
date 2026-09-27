@@ -301,7 +301,7 @@
 
       <!--[SWAP: CHART_LEFT + CHART_RIGHT]
           Both charts defined in <script> as CHART_LEFT and CHART_RIGHT objects.
-          CHART_LEFT uses absolute ₱ values → bar widths are relative to max value.
+          CHART_LEFT uses absolute USD values → bar widths are relative to max value.
           CHART_RIGHT uses percentage values (0–100) → bar widths are direct.
           Examples:
             Gym left:    Revenue by Coach | Gym right:  Membership Plan Mix
@@ -360,7 +360,7 @@ const KPI_DATA = [
 ];
 
 // ── [SWAP: CHART_LEFT] ─────────────────────────────────────────────────
-// Revenue by category — uses ₱ values, bars are relative to max.
+// Revenue by category — uses USD values, bars are relative to max.
 // Examples: by coach roster / by service type / by branch / by package
 const CHART_LEFT = {
   title: 'Revenue by Category',
@@ -610,7 +610,40 @@ function renderChart(containerId, titleId, def, mode) {
   const maxVal = mode === 'value' ? Math.max(...def.data.map(d => d.value)) : 100;
   container.innerHTML = def.data.map(row => {
     const pct  = mode === 'value' ? Math.round((row.value / maxVal) * 100) : row.pct;
-    const disp = mode === 'value' ? `₱${row.value.toLocaleString()}` : `${row.pct}%`;
+    const disp = mode === 'value' ? '
+    return `
+      <div class="bar-row">
+        <div class="bar-header"><span>${row.label}</span><span>${disp}</span></div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:0%;background:${row.color}"
+               data-width="${pct}"></div>
+        </div>
+      </div>`;
+  }).join('');
+  // Animate bars on next tick
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width + '%';
+    });
+  });
+}
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', () => {
+  // Apply accent color
+  document.documentElement.style.setProperty('--accent', ACCENT);
+  // Compute accent-dim as 12% opacity version
+  const hex = ACCENT.replace('#','');
+  const r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
+  document.documentElement.style.setProperty('--accent-dim', `rgba(${r},${g},${b},0.12)`);
+  renderKPI();
+  renderChart('chart-left',  'chart-left-title',  CHART_LEFT,  'value');
+  renderChart('chart-right', 'chart-right-title', CHART_RIGHT, 'pct');
+});
+</script>
+</body>
+</html>
+ + Math.round(row.value * 0.0160393).toLocaleString('en-US') : `${row.pct}%`;
     return `
       <div class="bar-row">
         <div class="bar-header"><span>${row.label}</span><span>${disp}</span></div>
