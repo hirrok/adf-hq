@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurora Digital Foundry - Business Infrastructure for Philippine SMEs (Aurora Province & Nationwide)</title>
-  <meta name="description" content="Aurora Digital Foundry builds revenue-generating business infrastructure - websites, lead capture, ops dashboards, and growth systems - for Philippine SMEs in trades, hospitality, fitness, fuel & retail. Based in San Luis, Aurora, serving clients nationwide. See your future business as a working prototype before you commit." />
+  <title>Aurora Digital Foundry — Business Infrastructure for Philippine SMEs</title>
+  <meta name="theme-color" content="#07110f" />
+  <meta name="description" content="Aurora Digital Foundry builds websites, lead capture, operations dashboards, and AI-enabled business systems for Philippine SMEs. Based in San Luis, Aurora." />
   <meta name="keywords" content="business infrastructure Philippines, website developer Aurora Province, web design San Luis Aurora, SME digital systems Philippines, business automation Aurora province, lead capture systems Philippines, CRM and booking systems for small business Philippines" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Aurora Digital Foundry" />
@@ -1130,6 +1131,21 @@
     .ops-demo-cta a { color:var(--aurora); opacity:1; text-decoration:none; }
     .ops-demo-cta a:hover { text-decoration:underline; }
 
+  
+    .nav-menu-toggle{display:none;border:1px solid var(--border);background:var(--mid);color:var(--white);font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:10px 13px;border-radius:6px;cursor:pointer}
+    .ops-disclosure{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--text);opacity:.72;margin:0 0 16px}
+    .form-status{min-height:1.4em;margin-top:12px;font-size:.8rem;color:var(--text)}
+    .form-status.error{color:#ff9b9b}
+    .recon-success{display:none;padding:28px;background:var(--mid);border:1px solid rgba(var(--a1-rgb),.28);border-radius:8px}
+    .recon-success.show{display:block}
+    @media(max-width:900px){
+      .nav-inner{position:relative}
+      .nav-menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+      .nav-links{display:none;position:absolute;top:54px;left:0;right:0;z-index:20;flex-direction:column;gap:0;padding:10px;background:var(--nav-bg);border:1px solid var(--border);border-radius:8px;backdrop-filter:blur(16px)}
+      .nav-links.open{display:flex}
+      .nav-links li a{display:block;padding:12px 10px}
+    }
+
   </style>
 </head>
 <body>
@@ -1142,7 +1158,7 @@
         <div class="nav-logo-mark">ADF</div>
         <div class="nav-logo-name">Aurora <span>Digital</span> Foundry</div>
       </a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="primary-nav">
         <li><a href="#services">Services</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#layers">Infrastructure</a></li>
@@ -1152,6 +1168,7 @@
         <li><a href="store/">Website Audit</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button type="button" class="nav-menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
       <a href="#contact" class="btn btn-primary nav-cta">Start Recon</a>
     </div>
   </div>
@@ -1165,7 +1182,7 @@
   <div class="container">
     <div class="hero-content">
       <div class="hero-eyebrow">Business Infrastructure Foundry</div>
-      <h1>We don't build websites.<br><span class="aurora-text">We build business capability.</span></h1>
+      <h1>We don't stop at websites.<br><span class="aurora-text">We build business capability.</span></h1>
       <p class="hero-sub">Websites are interfaces. Infrastructure is the product. We manufacture future-state business systems that increase revenue, reduce friction, and compound over time.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Request Recon ↗</a>
@@ -1458,9 +1475,9 @@
     <div class="portfolio-header">
       <div>
         <div class="tag">Portfolio</div>
-        <h2 class="section-title">Built. Shipped. Compounding.</h2>
+        <h2 class="section-title">Built. Working. Ready to inspect.</h2>
       </div>
-      <p style="color:var(--text); max-width:360px; font-size:0.875rem; line-height:1.7;">Each Operator Suite Demo is a fully functional business infrastructure sample, built from ground-level experience across the Philippines and ready to tailor for your business.</p>
+      <p style="color:var(--text); max-width:360px; font-size:0.875rem; line-height:1.7;">Each Operator Suite Demo is a working business-infrastructure prototype built to make systems, handoffs, and operating assumptions inspectable before implementation.</p>
     </div>
     <div class="portfolio-grid">
 
@@ -1760,10 +1777,11 @@
     <div style="margin-bottom:40px;">
       <span class="tag">Aurora Operator Suite</span>
       <h2 class="section-title">Your ops stack,<br>built in.</h2>
-      <p class="section-sub">Every Aurora build ships with a live Operator Suite - dashboards, lead tracking, and revenue intelligence wired directly to your backend. This is what running on systems looks like.</p>
+      <p class="section-sub">ADF prototypes can include an Operator Suite - dashboards, lead tracking, and revenue intelligence designed around the operating layer behind the public site.</p>
     </div>
 
     <!-- Day toggle -->
+    <p class="ops-disclosure">Illustrative operating-state simulation. Figures below are demo data, not client performance results.</p>
     <div class="ops-state-row">
       <div class="ops-state-toggle">
         <button class="ops-state-btn active" data-state="d0">Day 0 - Launch</button>
@@ -1895,20 +1913,20 @@
   <div class="container">
     <div class="proof-grid">
       <div class="proof-card">
+        <div class="proof-num aurora-text">14</div>
+        <div class="proof-label">Working Operator Suite demo archetypes available to inspect</div>
+      </div>
+      <div class="proof-card">
         <div class="proof-num aurora-text">5</div>
-        <div class="proof-label">Infrastructure layers evaluated on every project</div>
+        <div class="proof-label">Infrastructure layers mapped in the Foundry model</div>
       </div>
       <div class="proof-card">
-        <div class="proof-num aurora-text">3</div>
-        <div class="proof-label">Client classifications - Showcase, Revenue, Strategic</div>
+        <div class="proof-num aurora-text">1</div>
+        <div class="proof-label">Prototype-first decision loop before implementation</div>
       </div>
       <div class="proof-card">
-        <div class="proof-num aurora-text">100%</div>
-        <div class="proof-label">Prototype delivered before the sales conversation</div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-num aurora-text">∞</div>
-        <div class="proof-label">Compounding value across every project built</div>
+        <div class="proof-num aurora-text">PH</div>
+        <div class="proof-label">Aurora-based, with nationwide remote delivery</div>
       </div>
     </div>
   </div>
@@ -1936,30 +1954,37 @@
     <div class="tag">Start the Lifecycle</div>
     <h2 class="section-title" style="margin-bottom:56px;">Request Recon.</h2>
     <div class="contact-grid">
-      <form class="contact-form" onsubmit="return false;">
+      <form class="contact-form" id="reconForm" action="https://formspree.io/f/mjgzdlja" method="POST">
+        <input type="hidden" id="reconSubject" name="_subject" value="ADF Recon Request">
+        <input type="hidden" id="reconId" name="request_id" value="">
+        <input type="hidden" id="reconSourceUrl" name="source_url" value="">
+        <input type="hidden" id="reconReferrer" name="referrer" value="">
+        <input type="hidden" id="reconUtmSource" name="utm_source" value="">
+        <input type="hidden" id="reconUtmMedium" name="utm_medium" value="">
+        <input type="hidden" id="reconUtmCampaign" name="utm_campaign" value="">
         <div class="form-row">
           <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" placeholder="Your name" />
+            <label for="reconName">Your Name</label>
+            <input id="reconName" name="name" type="text" autocomplete="name" placeholder="Your name" required />
           </div>
           <div class="form-group">
-            <label>Business Name</label>
-            <input type="text" placeholder="Your business name" />
+            <label for="reconBusiness">Business Name</label>
+            <input id="reconBusiness" name="business" type="text" autocomplete="organization" placeholder="Your business name" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="your@email.com" />
+            <label for="reconEmail">Email</label>
+            <input id="reconEmail" name="email" type="email" autocomplete="email" placeholder="your@email.com" required />
           </div>
           <div class="form-group">
-            <label>Phone</label>
-            <input type="tel" placeholder="+63 xxx xxx xxxx" />
+            <label for="reconPhone">Phone</label>
+            <input id="reconPhone" name="phone" type="tel" autocomplete="tel" placeholder="+63 xxx xxx xxxx" />
           </div>
         </div>
         <div class="form-group">
-          <label>Industry</label>
-          <select>
+          <label for="reconIndustry">Industry</label>
+          <select id="reconIndustry" name="industry" required>
             <option value="" disabled selected>Select your industry</option>
             <option>Trades &amp; Contractors</option>
             <option>Hospitality &amp; Tourism</option>
@@ -1971,17 +1996,23 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Current Website (if any)</label>
-          <input type="url" placeholder="https://yourbusiness.com" />
+          <label for="reconWebsite">Current Website (if any)</label>
+          <input id="reconWebsite" name="website" type="url" autocomplete="url" placeholder="https://yourbusiness.com" />
         </div>
         <div class="form-group">
-          <label>Biggest Business Challenge</label>
-          <textarea rows="4" placeholder="Describe what's holding your business back - leads, operations, visibility, all of the above..."></textarea>
+          <label for="reconChallenge">Biggest Business Challenge</label>
+          <textarea id="reconChallenge" name="challenge" rows="4" placeholder="Describe what's holding your business back - leads, operations, visibility, all of the above..." required></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:0.95rem; padding:16px;">
           Submit Recon Request ↗
         </button>
+        <p class="form-status" id="reconStatus" role="status" aria-live="polite"></p>
       </form>
+      <div class="recon-success" id="reconSuccess" role="status" aria-live="polite">
+        <div class="tag">Recon Received</div>
+        <h3>Request captured.</h3>
+        <p>Your reference is <strong id="reconSuccessId"></strong>. We will review the operating context you sent and reply by email.</p>
+      </div>
 
       <div class="contact-info">
         <h3 style="font-size:1.4rem; font-weight:700; margin-bottom:16px;">What happens next.</h3>
@@ -2029,11 +2060,11 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="insights/conversion-audit-example/">Insights</a></li>
+        <li><a href="insights/">Insights</a></li>
         <li><a href="store/">Website Audit</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="footer-badge">Infrastructure · Not Websites</div>
+      <div class="footer-badge">Infrastructure · Beyond Websites</div>
       <div class="footer-badge" style="margin-top:8px;opacity:0.5" id="season-badge"></div>
     </div>
   </div>
