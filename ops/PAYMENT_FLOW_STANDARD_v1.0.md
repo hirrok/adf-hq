@@ -21,6 +21,12 @@ Close the commercial loop from accepted proposal to received cash without exposi
 
 Crypto/stablecoin rails remain deferred until demand and a reliable regulated receive/settlement route are proven.
 
+## Currency standard
+
+ADF invoices, proposals, revenue records, payment requests, and Operator Suite commercial values default to **USD**.
+
+Existing demo/mock values formerly authored in Philippine pesos were normalized once using the 2026-09-27 reference rate **1 Philippine peso = 0.0160393 USD**. New commercial amounts are authored directly in USD; do not apply the migration rate to live invoices.
+
 ## Commercial state machine
 
 `PROPOSAL_ACCEPTED → INVOICE_SENT → PAYMENT_PENDING → PAID → DELIVERY → CLOSED`

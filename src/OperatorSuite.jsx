@@ -74,7 +74,7 @@ const adapter = {
 const uid     = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 const today   = () => new Date().toISOString().split("T")[0];
 const addDays = (s, n) => { const d = new Date(s); d.setDate(d.getDate() + n); return d.toISOString().split("T")[0]; };
-const fmt     = n => "₱" + Number(n).toLocaleString();
+const fmt     = n => "$" + Number(n).toLocaleString("en-US");
 
 // ── SEED DATA ─────────────────────────────────────────────────
 // ── FALLBACK SEED DATA ────────────────────────────────────────
@@ -434,11 +434,11 @@ Current manufacturing snapshot:
 - Gallery items published: ${galleryPublished}
 - Active prospects: ${leads.filter(l => l.recordState === "ACTIVE").length}
 - Overdue follow-ups: ${overdue.length}
-- Weighted pipeline: PHP ${weighted.toLocaleString()}
-- 8-week targets: PHP 100,000 setup · PHP 25,000 MRR
+- Weighted pipeline: USD ${weighted.toLocaleString()}
+- 8-week targets: USD 1,600 setup · USD 400 MRR
 - Week 1 of 8. Zero closes.
 
-Be direct, operator-grade, zero filler. Use PHP for currency.`;
+Be direct, operator-grade, zero filler. Use USD for currency.`;
 };
 
 // ── MARK SIMULATOR LIVE ──────────────────────────────────────
@@ -763,12 +763,12 @@ function Snapshot({ leads, assets, nav, setArchetypes, setPrototypes, setGallery
         { l:"Active Prospects", v:active.length },
         { l:"Weighted Pipeline",     v:fmt(weighted), sm:true },
         { l:"Overdue",          v:overdue.length, alert:overdue.length > 0 },
-        { l:"MRR",              v:"₱0", sm:true },
+        { l:"MRR",              v:"$0", sm:true },
       ]} />
 
       <Card>
         <SLabel>Revenue Targets — Week 1 / 8</SLabel>
-        {[["Setup Revenue", "₱0 / ₱100,000"], ["MRR", "₱0 / ₱25,000"]].map(([l, s]) => (
+        {[["Setup Revenue", "$0 / $1,604"], ["MRR", "$0 / $401"]].map(([l, s]) => (
           <div key={l} style={{ marginBottom:10 }}>
             <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
               <span style={{ fontSize:12, color:B.dim }}>{l}</span>
@@ -841,7 +841,7 @@ function Leads({ leads, setLeads, ai }) {
     setWonId(id);
     setWonForm({
       setupFee:        lead.setupFee || lead.fee || 0,
-      monthlyRetainer: lead.monthlyRetainer || 1500,
+      monthlyRetainer: lead.monthlyRetainer || 24,
       templateFamily:  lead.templateFamily || "",
       contactName:     lead.contact || "",
       depositPaid:     false,
@@ -889,7 +889,7 @@ function Leads({ leads, setLeads, ai }) {
       live_url:         "PENDING",
       backend_url:      "PENDING",
       maintenance_tier: payload.maintenanceTier || "Keep Alive",
-      monthly_retainer: Number(payload.monthlyRetainer) || 1500,
+      monthly_retainer: Number(payload.monthlyRetainer) || 24,
       health_band:      "GREEN",
       last_review_date: "",
       next_review_date: "",
@@ -938,7 +938,7 @@ function Leads({ leads, setLeads, ai }) {
       entry_type:  "Conversion",
       entity_type: "Client",
       entity_id:   clientId,
-      summary:     `CONVERSION: ${lead.name || wonId} → Client. Setup: PHP ${payload.setupFee} | MRR: PHP ${payload.monthlyRetainer} | ID: ${clientId}`,
+      summary:     `CONVERSION: ${lead.name || wonId} → Client. Setup: USD ${payload.setupFee} | MRR: USD ${payload.monthlyRetainer} | ID: ${clientId}`,
       operator:    "hirrok",
     });
 
@@ -1015,8 +1015,8 @@ function Leads({ leads, setLeads, ai }) {
             ) : (
               <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
                 {[
-                  ["Setup Fee (PHP)", "setupFee", "number", "24000"],
-                  ["Monthly Retainer (PHP)", "monthlyRetainer", "number", "1500"],
+                  ["Setup Fee (USD)", "setupFee", "number", "385"],
+                  ["Monthly Retainer (USD)", "monthlyRetainer", "number", "24"],
                   ["Contact Name", "contactName", "text", ""],
                   ["Domain (if known)", "domain", "text", "PENDING"],
                   ["Target Launch Date", "launchDate", "date", ""],
@@ -1076,7 +1076,7 @@ function Leads({ leads, setLeads, ai }) {
           <Inp ph="Location"                  val={form.location}  onChange={e => setForm(p => ({ ...p, location:e.target.value }))} />
           <Inp ph="Opportunity Forge ID (optional)" val={form.opportunityId} onChange={e => setForm(p => ({ ...p, opportunityId:e.target.value }))} />
           <Inp ph="Observable value leak"      val={form.valueLeak} onChange={e => setForm(p => ({ ...p, valueLeak:e.target.value }))} />
-          <Inp ph="Est. fee (PHP)"             val={form.fee}    onChange={e => setForm(p => ({ ...p, fee:e.target.value }))} />
+          <Inp ph="Est. fee (USD)"             val={form.fee}    onChange={e => setForm(p => ({ ...p, fee:e.target.value }))} />
           <Inp ph="Next action"                val={form.action} onChange={e => setForm(p => ({ ...p, action:e.target.value }))} />
           <SaveBtn label="Save to Spine" onClick={submit} />
         </Card>
@@ -1675,8 +1675,8 @@ function Settings({ spineConnected, spineStatus, spineDetail }) {
           ["Search Console",   "NOT SET UP",                          true],
           ["Analytics",        "NOT INSTALLED",                       true],
           ["Campaign Week",    "1 / 8",                               false],
-          ["Setup Rev Target", "PHP 100,000 / 8 weeks",              false],
-          ["MRR Target",       "PHP 25,000 / 8 weeks",               false],
+          ["Setup Rev Target", "USD 1,600 / 8 weeks",              false],
+          ["MRR Target",       "USD 400 / 8 weeks",               false],
           ["Suite Status",     "STATE C — CANDIDATE",                 false],
           ["Weekly Review 1",  "June 8, 2026",                        false],
         ].map(([k, v, warn]) => (
