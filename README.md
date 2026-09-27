@@ -15,6 +15,14 @@ Aurora Digital Foundry manufactures business infrastructure. This repository is 
 - `/ops/` — non-indexed Foundry operations and operating standards
 - `/src/` — source for Foundry operational interfaces
 
+## Private operational spine
+
+ADF operational truth is moving to the private companion repository `hirrok/adf-data-spine`.
+
+`adf-hq` may contain public schemas and sanitized projections, but never canonical private prospect, client, revenue, contact, or activity records.
+
+See `ops/DATA_SPINE_STANDARD_v3.0.md`.
+
 ## Prospect and client builds
 
 Bespoke prospect demonstrations and client-specific builds do **not** live inside the reusable simulator library by default.
