@@ -75,15 +75,20 @@ The publisher replaces these tokens in scheduled article HTML:
 
 ## LinkedIn
 
-ADF Publisher intentionally does **not** store LinkedIn credentials in the repo.
+ADF uses a **link-first distribution doctrine**.
 
-Connect this RSS feed to the Aurora Digital Foundry LinkedIn Page once:
+The canonical Insight is the complete publication unit: article, embedded Field Note video when present, transcript, metadata, and CTA. LinkedIn is used to distribute the canonical Insight URL rather than requiring a separate native-video upload.
 
-`https://hirrok.github.io/adf-hq/insights/feed.xml`
+Default LinkedIn package:
 
-When LinkedIn automatic RSS sharing is available for the Page, new canonical releases can propagate automatically. If the Page only offers review-before-share, ADF Publisher still handles the complete site schedule and LinkedIn presents the new feed item for review.
+- short thesis-led post text
+- canonical Insight URL
+- Open Graph cover from the Insight
+- no native video requirement
 
-Field-note videos remain optional native LinkedIn assets; the canonical Insight page is published independently.
+This keeps publication momentum high and avoids paid scheduler dependencies or a manual video-upload bottleneck.
+
+Field Note video masters remain preserved in the repository for the canonical page and future reuse. Native LinkedIn video is an optional exception, never a release requirement.
 
 ## Manual run
 
