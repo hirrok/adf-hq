@@ -1,0 +1,220 @@
+{
+  "_meta": {
+    "mode": "SANITIZED_PUBLIC_PROJECTION",
+    "authority": "hirrok/adf-data-spine (private; canonical after migration verification)",
+    "generated_from": "ADF DATA SPINE V1.1",
+    "generated_at": "2026-09-27",
+    "privacy": "No prospect, client, revenue, contact, or private activity records."
+  },
+  "ARCHETYPES": [
+    {
+      "archetype_id": "arch-tide-surf-001",
+      "name": "Surf Stay & Surf School",
+      "template_family": "Tide",
+      "target_industry": "Tourism · Stay & Surf",
+      "target_market": "Baler/Aurora · Philippines",
+      "total_score": 39,
+      "classification": "Production Queue",
+      "lifecycle_state": "Deployed",
+      "priority": "HIGH",
+      "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
+      "notes": "Derived from Aliya + Nalu builds. Two live prototypes."
+    },
+    {
+      "archetype_id": "arch-ember-restaurant-001",
+      "name": "Heritage Restaurant",
+      "template_family": "Ember",
+      "target_industry": "Food · Restaurant",
+      "target_market": "Lucena/Quezon · Philippines",
+      "total_score": 34,
+      "classification": "Production Queue",
+      "lifecycle_state": "Candidate",
+      "priority": "HIGH",
+      "frontend_demo_url": "PENDING",
+      "notes": "High density target. Catalino's + Brothers = adjacent demand."
+    },
+    {
+      "archetype_id": "arch-forge-fuel-001",
+      "name": "Energy Retail Station",
+      "template_family": "Forge",
+      "target_industry": "Energy · Fuel Retail",
+      "target_market": "Provincial Philippines",
+      "total_score": 40,
+      "classification": "Immediate",
+      "lifecycle_state": "Deployed",
+      "priority": "HIGH",
+      "frontend_demo_url": "https://hirrok.github.io/adf-ecopetrol-aurora/",
+      "notes": "Class B reference build. Multi-branch fuel retail with admin portal, GAS price management, fleet inquiry, status board. Derived from Ecopetrol Aurora (Maria Aurora). Full loop validated 2026-06-09."
+    },
+    {
+      "archetype_id": "arch-forge-fitness-001",
+      "name": "Fitness Gym",
+      "template_family": "Forge",
+      "target_industry": "Fitness · Health",
+      "target_market": "Provincial Philippines",
+      "total_score": 37,
+      "classification": "Production Queue",
+      "lifecycle_state": "Deployed",
+      "priority": "HIGH",
+      "frontend_demo_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
+      "notes": "Class A reference build. React CDN SPA — single HTML file, no build step. Dark industrial aesthetic. ADF_CLASS_A_TEMPLATE.html extracted from this build. Referral deal (Malvar, Batangas). Layer 2 pending."
+    }
+  ],
+  "PROTOTYPES": [
+    {
+      "prototype_id": "proto-001",
+      "archetype_id": "arch-tide-surf-001",
+      "name": "Aliya Surf Camp Demo",
+      "template_family": "Tide",
+      "ownership": "FOUNDRY",
+      "repo_path": "aurora-digital-foundry/clients/aliya-surf-camp",
+      "live_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
+      "build_stage": "Live",
+      "page_count": 5,
+      "last_tested_at": 46183,
+      "issues": "",
+      "notes": "Standard package. 5 pages. Live."
+    },
+    {
+      "prototype_id": "proto-002",
+      "archetype_id": "",
+      "name": "Ecopetrol Aurora Demo",
+      "template_family": "Forge",
+      "ownership": "CLIENT",
+      "repo_path": "adf-ecopetrol-aurora",
+      "live_url": "https://hirrok.github.io/adf-ecopetrol-aurora/",
+      "build_stage": "Live",
+      "page_count": 8,
+      "last_tested_at": 46182,
+      "issues": "",
+      "notes": "Class B Pro build. 8 pages. Forge family — industrial/energy. GAS + Sheets backend live. Full loop validated 2026-06-09."
+    },
+    {
+      "prototype_id": "proto-003",
+      "archetype_id": "arch-tide-surf-001",
+      "name": "Nalu Surf Camp Demo",
+      "template_family": "Tide",
+      "ownership": "FOUNDRY",
+      "repo_path": "aurora-digital-foundry/clients/nalu-surf-camp",
+      "live_url": "PENDING",
+      "build_stage": "In Build",
+      "page_count": 5,
+      "last_tested_at": "",
+      "issues": "BaseLayout bleed fix pending",
+      "notes": "Standard package. In build."
+    },
+    {
+      "prototype_id": "proto-004",
+      "archetype_id": "arch-forge-fitness-001",
+      "name": "Iron Tribe Fitness Gym",
+      "template_family": "Forge",
+      "ownership": "CLIENT",
+      "repo_path": "iron-tribe-fitness-simulator",
+      "live_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
+      "build_stage": "Live",
+      "page_count": 6,
+      "last_tested_at": 46182,
+      "issues": "",
+      "notes": "Class A React CDN SPA. Single HTML file, no build step. Dark industrial aesthetic — Bebas Neue + Inter, accent #EF4444. GAS Layer 2 pending client approval. Template extracted to ADF_CLASS_A_TEMPLATE.html."
+    }
+  ],
+  "INFRASTRUCTURE_GALLERY": [
+    {
+      "gallery_item_id": "gal-001",
+      "archetype_id": "arch-tide-surf-001",
+      "public_title": "Surf Stay & Surf School",
+      "template_family": "Tide",
+      "target_industry": "Tourism · Stay & Surf",
+      "business_problem_demonstrated": "Surf lodges and beach camps lose bookings to Facebook-only operations with no direct inquiry flow, no package visibility, and no search presence.",
+      "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
+      "published_status": "Published",
+      "cta": "Request a Prototype"
+    },
+    {
+      "gallery_item_id": "gal-002",
+      "archetype_id": "arch-ember-restaurant-001",
+      "public_title": "Heritage Restaurant",
+      "template_family": "Ember",
+      "target_industry": "Food · Restaurant",
+      "business_problem_demonstrated": "Landmark restaurants with no web presence lose walk-in and reservation traffic to OTA-indexed competitors with no owned channel.",
+      "frontend_demo_url": "PENDING",
+      "published_status": "Draft",
+      "cta": "Request a Prototype"
+    },
+    {
+      "gallery_item_id": "gal-003",
+      "archetype_id": "arch-forge-fitness-001",
+      "public_title": "Fitness Gym",
+      "template_family": "Forge",
+      "target_industry": "Fitness · Health",
+      "business_problem_demonstrated": "Gyms relying on Facebook-only presence lose inquiries, schedule visibility, and membership conversions to competitors with no owned digital channel.",
+      "frontend_demo_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
+      "published_status": "Published",
+      "cta": "Request a Prototype"
+    }
+  ],
+  "SEO_CLUSTERS": [
+    {
+      "seo_cluster_id": "seo-baler-surf-001",
+      "archetype_id": "arch-tide-surf-001",
+      "vertical": "Tourism · Surf",
+      "territory": "Baler/Aurora",
+      "primary_keyword": "surf camp Baler",
+      "search_intent": "Transactional",
+      "status": "Active",
+      "last_recon_date": 46163
+    },
+    {
+      "seo_cluster_id": "seo-lucena-food-001",
+      "archetype_id": "arch-ember-restaurant-001",
+      "vertical": "Food · Restaurant",
+      "territory": "Lucena/Quezon",
+      "primary_keyword": "restaurant Lucena City",
+      "search_intent": "Transactional",
+      "status": "Research",
+      "last_recon_date": 46173
+    }
+  ],
+  "PATTERN_LIBRARY": [
+    {
+      "pattern_id": "pat-001",
+      "name": "Surf Inquiry Form Flow",
+      "pattern_family": "Lead Capture",
+      "template_family": "Tide",
+      "origin_archetype_id": "arch-tide-surf-001",
+      "pattern_type": "Component",
+      "reusable_module": "Multi-field inquiry form with package selector, dates, and WhatsApp CTA",
+      "reuse_count": 2,
+      "promotion_status": "Validated",
+      "status": "Active"
+    },
+    {
+      "pattern_id": "pat-002",
+      "name": "Dual-Audience Homepage Router",
+      "pattern_family": "Lead Capture",
+      "template_family": "Tide",
+      "origin_archetype_id": "arch-tide-surf-001",
+      "pattern_type": "Page Structure",
+      "reusable_module": "Homepage with B2C (guests) and B2B (fleet/bulk) routing to separate inquiry flows",
+      "reuse_count": 1,
+      "promotion_status": "Observed",
+      "status": "Active"
+    },
+    {
+      "pattern_id": "pat-003",
+      "name": "Sierra Teal Brand System",
+      "pattern_family": "Public Presence",
+      "template_family": "Tide",
+      "origin_archetype_id": "arch-tide-surf-001",
+      "pattern_type": "Component",
+      "reusable_module": "Full brand token system: bg #F4F8F7, surface #FFFFFF, teal #0D9E8A, Bebas Neue + DM Mono + Barlow",
+      "reuse_count": 3,
+      "promotion_status": "Promoted",
+      "status": "Active"
+    }
+  ],
+  "PROSPECTS": [],
+  "CLIENTS": [],
+  "REVENUE": [],
+  "ACTIVITY_LOG": []
+}
