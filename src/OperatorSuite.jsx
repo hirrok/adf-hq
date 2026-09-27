@@ -42,48 +42,31 @@ const F = {
   body: "'Barlow', system-ui, sans-serif",
 };
 
-// ── SPINE ADAPTER ─────────────────────────────────────────────
-// Patch v1.1 — 2026-06-03
-// READ:  GET ?sheet=TAB_NAME               → returns { ok, data[] }
-// WRITE: GET ?sheet=TAB_NAME&payload={...} → returns { ok, action }
-//
-// Why GET for writes: Apps Script POST from browser triggers a Google auth
-// redirect that drops the POST body silently. GET requests have no redirect.
-// Payload is JSON-encoded in the query string — Apps Script doGet reads it
-// from e.parameter.payload. Safe for this data scale and operator-only access.
+// ── SPINE ADAPTER — PUBLIC PROJECTION ────────────────────────
+// Repo-native Data Spine v3.0.
+// Canonical operational state belongs in private hirrok/adf-data-spine.
+// This public GitHub Pages surface consumes a sanitized projection only.
+// Browser mutations are simulations and NEVER write canonical state.
 
-const SPINE_URL = "https://script.google.com/macros/s/AKfycbwtD_9fIe483qD-8_czsigAdBhf3UGbJRUoyDcIFMLqeqdYIPmV-GfdjQyCyTMdvNwC/exec";
+const PUBLIC_SNAPSHOT_URL = "./data/operator-snapshot.json";
+let publicSnapshotCache = null;
 
 const adapter = {
-  async read(sheet) {
+  async read(ledger) {
     try {
-      const r = await fetch(`${SPINE_URL}?sheet=${encodeURIComponent(sheet)}`);
-      const d = await r.json();
-      return d.data || null;
+      if (!publicSnapshotCache) {
+        const r = await fetch(PUBLIC_SNAPSHOT_URL, { cache:"no-store" });
+        if (!r.ok) return null;
+        publicSnapshotCache = await r.json();
+      }
+      return publicSnapshotCache?.[ledger] || null;
     } catch { return null; }
   },
-  async append(sheet, row) {
-    // Tab name map — internal name → actual sheet tab name
-    // Tab name map — live sheet uses uppercase tab names post-migration
-    const TAB_MAP = {
-      "CLIENTS":      "CLIENTS",
-      "REVENUE":      "REVENUE",
-      "ACTIVITY_LOG": "ACTIVITY_LOG",
-      "PROSPECTS":    "PROSPECTS",
-    };
-    const tabName = TAB_MAP[sheet] || sheet;
-    try {
-      const payload = encodeURIComponent(JSON.stringify({ action: "append", row }));
-      const r = await fetch(`${SPINE_URL}?sheet=${encodeURIComponent(tabName)}&payload=${payload}`);
-      return await r.json();
-    } catch (e) { return { ok: false, error: e.message }; }
+  async append() {
+    return { ok:false, readOnly:true, simulated:true, error:"Public Operator Suite is a sanitized read-only projection." };
   },
-  async update(sheet, id, data) {
-    try {
-      const payload = encodeURIComponent(JSON.stringify({ action: "update", id, data }));
-      const r = await fetch(`${SPINE_URL}?sheet=${encodeURIComponent(sheet)}&payload=${payload}`);
-      return await r.json();
-    } catch (e) { return { ok: false, error: e.message }; }
+  async update() {
+    return { ok:false, readOnly:true, simulated:true, error:"Public Operator Suite is a sanitized read-only projection." };
   },
 };
 
@@ -1685,7 +1668,7 @@ function Settings({ spineConnected, spineStatus, spineDetail }) {
           ["GitHub",           "hirrok/adf-hq",                      false],
           ["Domain",           "auroradigitalfoundry.com — PENDING",  true],
           ["Hosting",          "GitHub Pages — free tier",            false],
-          ["Data Spine",       spineStatus==="LIVE" ? `PROSPECTS — LIVE` : spineStatus==="FALLBACK" ? "FALLBACK — READ FAILED" : "Connecting…", spineStatus!=="LIVE"],
+          ["Data Spine",       spineStatus==="PROJECTION" ? "PRIVATE REPO AUTHORITY / PUBLIC PROJECTION" : spineStatus==="FALLBACK" ? "PROJECTION READ FAILED" : "Loading…", spineStatus!=="PROJECTION"],
           ["Form Backend",     "Formspree — mjgzdlja",                false],
           ["GBP",              "NOT CREATED",                         true],
           ["Search Console",   "NOT SET UP",                          true],
@@ -1761,32 +1744,25 @@ export default function FoundryOps() {
     !["Conversion","Production","Maintenance","Lost","Archived"].includes(l.status)
   ).length;
 
-  // ── SPINE HYDRATION v2.0 ─────────────────────────────────────
-  // Pattern: Sheet → adapter.read(tab) → mapper(row) → state
-  // PART 4 — Badge reflects: spine reachable AND expected tab readable
+  // ── PUBLIC PROJECTION HYDRATION — Data Spine v3.0 ────────────
+  // Real prospect/client/revenue records never hydrate into public Pages.
+  // Sales modules retain demo/fallback records for simulation.
   useEffect(() => {
     (async () => {
-      // Step 1: Reconnect PROSPECTS (secondary — required for daily ops)
-      const prospectsOk = await hydrateTab("PROSPECTS", mapProspect, (rows) => {
-        const active = rows.filter(r => r.recordState === "ACTIVE" || !r.recordState);
-        setLeads(active.length > 0 ? active : rows); // show all if no ACTIVE filter match
-      });
+      const archetypesOk = await hydrateTab("ARCHETYPES", mapArchetype, setArchetypes);
+      await hydrateTab("PROTOTYPES", mapPrototype, setPrototypes);
+      await hydrateTab("INFRASTRUCTURE_GALLERY", mapGalleryItem, setGallery);
+      await hydrateTab("SEO_CLUSTERS", mapSEOCluster, setSeoClusters);
+      await hydrateTab("PATTERN_LIBRARY", mapPattern, setPatterns);
 
-      if (prospectsOk) {
-        setLive(true);
-        setSpineStatus("LIVE");
-        setSpineDetail("PROSPECTS");
+      setLive(archetypesOk);
+      if (archetypesOk) {
+        setSpineStatus("PROJECTION");
+        setSpineDetail("SANITIZED REPO SNAPSHOT");
       } else {
         setSpineStatus("FALLBACK");
-        setSpineDetail("PROSPECTS READ FAILED");
+        setSpineDetail("PUBLIC SNAPSHOT READ FAILED");
       }
-
-      // Step 2: Hydrate primary asset ledgers (non-blocking — fail gracefully)
-      await hydrateTab("ARCHETYPES",           mapArchetype,   setArchetypes);
-      await hydrateTab("PROTOTYPES",           mapPrototype,   setPrototypes);
-      await hydrateTab("INFRASTRUCTURE_GALLERY", mapGalleryItem, setGallery);
-      await hydrateTab("SEO_CLUSTERS",         mapSEOCluster,  setSeoClusters);
-      await hydrateTab("PATTERN_LIBRARY",      mapPattern,     setPatterns);
     })();
   }, []);
 
@@ -1903,7 +1879,15 @@ export default function FoundryOps() {
           .ops-content{ flex:1; overflow-y:auto; padding:14px; }
         }
       `}</style>
-    <div className="ops-shell">
+    <div style={{
+      position:"fixed", top:0, left:0, right:0, zIndex:500,
+      background:B.goldbg, borderBottom:`1px solid rgba(217,119,6,.25)`,
+      color:B.gold, fontFamily:F.mono, fontSize:9, letterSpacing:".08em",
+      padding:"5px 10px", textAlign:"center"
+    }}>
+      PUBLIC SANITIZED PROJECTION · BROWSER CHANGES ARE SIMULATIONS · PRIVATE REPO IS CANONICAL
+    </div>
+    <div className="ops-shell" style={{ paddingTop:24 }}>
 
       {/* DESKTOP SIDEBAR — hidden on mobile via CSS */}
       <div className="ops-sidebar">
@@ -1925,7 +1909,7 @@ export default function FoundryOps() {
             color: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal }}>
             <div style={{ width:5, height:5, borderRadius:"50%",
               background: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal }} />
-            {spineStatus==="LIVE" ? "LIVE" : spineStatus==="FALLBACK" ? "FALLBACK" : "…"}
+            {spineStatus==="PROJECTION" ? "PROJECTION" : spineStatus==="FALLBACK" ? "FALLBACK" : "…"}
           </div>
           {overdue > 0 && (
             <div style={{ display:"inline-flex", alignItems:"center", gap:4, padding:"3px 8px", borderRadius:99,
@@ -1976,7 +1960,7 @@ export default function FoundryOps() {
             color: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal,
           }}>
             <div style={{ width:5, height:5, borderRadius:"50%", background: spineStatus==="LIVE" ? B.green : spineStatus==="FALLBACK" ? B.red : B.teal }} />
-            {spineStatus==="LIVE" ? "LIVE" : spineStatus==="FALLBACK" ? "FALLBACK" : "…"}
+            {spineStatus==="PROJECTION" ? "PROJECTION" : spineStatus==="FALLBACK" ? "FALLBACK" : "…"}
           </div>
           {overdue > 0 && (
             <button onClick={() => nav("followups")} style={{ display:"inline-flex", alignItems:"center", gap:4,
