@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /adf-hq/
 Disallow: /adf-hq/ops/
+Disallow: /adf-hq/pay/
 
 Sitemap: https://hirrok.github.io/adf-hq/sitemap.xml
