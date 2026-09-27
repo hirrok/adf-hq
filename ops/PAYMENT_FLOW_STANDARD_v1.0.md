@@ -14,10 +14,10 @@ Close the commercial loop from accepted proposal to received cash without exposi
 1. **Veem — PRIMARY_INTERNATIONAL_B2B — VERIFIED**
    - Historical successful payment route confirmed by the operator.
    - Public ADF payment page routes an issued invoice/payment request to Veem.
-2. **PayPal — FALLBACK — AVAILABLE**
+2. **PayPal — FALLBACK — VERIFIED**
    - Public payment URL: https://www.paypal.com/paypalme/hirro
    - Use when Veem is inconvenient or unavailable to the payer.
-   - Status remains AVAILABLE until an ADF receive/settlement event is independently confirmed.
+   - Verification basis: repeated successful receipts via Upwork payouts and direct freelance podcast clients.
 
 Crypto/stablecoin rails remain deferred until demand and a reliable regulated receive/settlement route are proven.
 
