@@ -99,25 +99,60 @@ def relative_href(item: dict) -> str:
     tail = item["canonical_url"][len(CANONICAL_INSIGHTS):]
     return tail or "./"
 
-def render_cards(items: list[dict]) -> str:
-    cards = []
+def render_card(item: dict) -> str:
+    published = parse_dt(item["published_at"] or item["publish_at"])
+    date_label = published.strftime("%d %b %Y").upper()
+    if item.get("season"):
+        episode = int(item.get("episode", 0))
+        kicker = f'{item["season"].split(" — ", 1)[0]} · Episode {episode:02d} · {item["series"]}'
+    else:
+        kicker = item["series"]
+    return (
+        f'<a class="card" href="{escape(relative_href(item), quote=True)}">\n'
+        f'  <div class="kicker">{escape(kicker)}</div>\n'
+        f'  <h2>{escape(item["title"])}</h2>\n'
+        f'  <p>{escape(item["description"])}</p>\n'
+        f'  <div class="meta">{date_label} · {escape(item["topic"])}</div>\n'
+        f'</a>'
+    )
+
+def render_season_sections(items: list[dict]) -> str:
+    groups: dict[str, list[dict]] = {}
     for item in items:
-        published = parse_dt(item["published_at"] or item["publish_at"])
-        date_label = published.strftime("%d %b %Y").upper()
-        cards.append(
-            f'<a class="card" href="{escape(relative_href(item), quote=True)}">\n'
-            f'  <div class="kicker">{escape(item["series"])}</div>\n'
-            f'  <h2>{escape(item["title"])}</h2>\n'
-            f'  <p>{escape(item["description"])}</p>\n'
-            f'  <div class="meta">{date_label} · {escape(item["topic"])}</div>\n'
-            f'</a>'
+        season = item.get("season")
+        if season:
+            groups.setdefault(season, []).append(item)
+    ordered = sorted(
+        groups.items(),
+        key=lambda pair: max(parse_dt(i["published_at"] or i["publish_at"]) for i in pair[1]),
+        reverse=True,
+    )
+    sections = []
+    for season, season_items in ordered:
+        season_items.sort(key=lambda i: int(i.get("episode", 0)), reverse=True)
+        title = season.split(" — ", 1)
+        season_label = title[0]
+        season_name = title[1] if len(title) > 1 else season
+        sections.append(
+            '<section class="section">\n'
+            f'  <div class="season-tag">{escape(season_label)} · {escape(season_name)}</div>\n'
+            '  <div class="section-head">\n'
+            '    <h2 class="section-title">Editorial Series</h2>\n'
+            '    <p class="section-copy">Sequential operating arguments from the Foundry. Read each season as a connected system, not isolated posts.</p>\n'
+            '  </div>\n'
+            '  <div class="grid">\n'
+            + "\n".join(render_card(i) for i in season_items)
+            + '\n  </div>\n</section>'
         )
-    return "\n".join(cards)
+    return "\n".join(sections)
 
 def rebuild_index(published_items: list[dict]) -> None:
     template = INDEX_TEMPLATE_PATH.read_text(encoding="utf-8")
+    evergreen = [i for i in published_items if not i.get("season")]
     INDEX_PATH.write_text(
-        template.replace("{{CARDS}}", render_cards(published_items)),
+        template
+        .replace("{{SEASON_SECTIONS}}", render_season_sections(published_items))
+        .replace("{{EVERGREEN_CARDS}}", "\n".join(render_card(i) for i in evergreen)),
         encoding="utf-8",
     )
 
@@ -142,6 +177,15 @@ def rebuild_feed(published_items: list[dict], built_at: datetime) -> None:
             f'<guid isPermaLink="true">{escape(item["canonical_url"])}</guid>',
             f'<pubDate>{format_datetime(published)}</pubDate>',
             f'<description>{escape(item["description"])}</description>',
+        ])
+        web_media = item.get("web_media_url")
+        if web_media:
+            length = int(item.get("web_media_bytes") or 0)
+            media_type = item.get("media_type") or "video/mp4"
+            lines.append(
+                f'<enclosure url="{escape(web_media)}" length="{length}" type="{escape(media_type)}"/>'
+            )
+        lines.extend([
             '</item>',
         ])
     lines.extend(['</channel>', '</rss>', ''])
