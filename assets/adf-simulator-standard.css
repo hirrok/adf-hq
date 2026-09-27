@@ -1,0 +1,15 @@
+/* ADF Simulator Standard v1.0 — shared truth/accessibility layer */
+:root{--adf-demo-bg:#07110f;--adf-demo-panel:#0d1b18;--adf-demo-text:#f2f7f5;--adf-demo-muted:#9ab0aa;--adf-demo-accent:#27c7ad;--adf-demo-border:rgba(39,199,173,.28)}
+.adf-sim-badge{position:fixed;top:12px;right:12px;z-index:2147483000;display:flex;align-items:center;gap:10px;max-width:min(560px,calc(100vw - 24px));padding:9px 11px;border:1px solid var(--adf-demo-border);border-radius:9px;background:rgba(7,17,15,.94);color:var(--adf-demo-text);box-shadow:0 10px 32px rgba(0,0,0,.28);backdrop-filter:blur(12px);font:600 11px/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.04em}
+.adf-sim-badge strong{color:var(--adf-demo-accent);font-weight:900;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.adf-sim-badge span{color:var(--adf-demo-muted)}
+.adf-sim-badge a{color:var(--adf-demo-text)!important;text-decoration:none!important;border-bottom:1px solid rgba(242,247,245,.28);white-space:nowrap}
+.adf-sim-badge a:hover{border-bottom-color:var(--adf-demo-accent)}
+.adf-demo-form-note{margin-top:12px;padding:10px 12px;border:1px solid var(--adf-demo-border);border-radius:7px;background:rgba(39,199,173,.08);color:inherit;font:600 12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+:focus-visible{outline:2px solid var(--adf-demo-accent)!important;outline-offset:3px!important}
+[data-adf-keyboard-button="true"]{cursor:pointer}
+@media(max-width:640px){
+  .adf-sim-badge{left:8px;right:8px;top:8px;max-width:none;gap:7px;padding:8px 9px;font-size:9px}
+  .adf-sim-badge span{display:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
