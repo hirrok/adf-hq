@@ -158,7 +158,7 @@
       "rail_id": "payrail-paypal-001",
       "provider": "PayPal",
       "role": "FALLBACK",
-      "status": "AVAILABLE",
+      "status": "VERIFIED",
       "public_payment_page": "https://hirrok.github.io/adf-hq/pay/"
     }
   ]
