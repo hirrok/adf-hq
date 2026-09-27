@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Client Payment · Aurora Digital Foundry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#F4F8F7;--surface:#FFFFFF;--raised:#EBF3F1;--border:#D0E4E0;--teal:#0D9E8A;--teal-dark:#0A7A6A;--ink:#0E1C1A;--dim:#4A6A68;--muted:#8AACAA}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Barlow,system-ui,sans-serif}
+    main{min-height:100vh;display:grid;place-items:center;padding:28px 16px}
+    .shell{width:min(680px,100%);background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 18px 50px rgba(14,28,26,.08);overflow:hidden}
+    .top{padding:28px 28px 20px;border-bottom:1px solid var(--border)}
+    .kicker{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--teal-dark);text-transform:uppercase}
+    h1{font-family:"Bebas Neue",Impact,sans-serif;font-size:46px;letter-spacing:.035em;margin:8px 0 4px}
+    .sub{color:var(--dim);line-height:1.55;margin:0}
+    .body{padding:24px 28px 28px}
+    .notice{background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:14px 16px;color:var(--dim);font-size:14px;line-height:1.5;margin-bottom:20px}
+    .rail{border:1px solid var(--border);border-radius:14px;padding:18px;margin-top:12px}
+    .rail-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .rail h2{font-size:18px;margin:0}.badge{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--teal-dark);background:rgba(13,158,138,.09);border:1px solid rgba(13,158,138,.25);border-radius:999px;padding:5px 8px;white-space:nowrap}
+    .rail p{color:var(--dim);line-height:1.55;margin:10px 0 0;font-size:14px}
+    .cta{display:inline-flex;align-items:center;justify-content:center;width:100%;margin-top:16px;padding:13px 16px;background:var(--teal);color:white;text-decoration:none;border-radius:10px;font-weight:600}.cta:hover{background:var(--teal-dark)}
+    .foot{font-family:"DM Mono",monospace;color:var(--muted);font-size:10px;line-height:1.6;margin-top:20px}
+    @media(max-width:520px){.top,.body{padding-left:20px;padding-right:20px}h1{font-size:39px}.rail-head{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+<main>
+  <section class="shell" aria-labelledby="title">
+    <header class="top">
+      <div class="kicker">Aurora Digital Foundry · Client Payment</div>
+      <h1 id="title">Settle an ADF invoice</h1>
+      <p class="sub">Use this page only after you have received an Aurora Digital Foundry invoice or payment request.</p>
+    </header>
+    <div class="body">
+      <div class="notice"><strong>Before paying:</strong> confirm the amount, currency, and invoice/reference ID on your ADF invoice. Payment confirms receipt of funds; the agreed scope and delivery terms remain the governing project terms.</div>
+      <article class="rail">
+        <div class="rail-head"><h2>Veem</h2><span class="badge">PREFERRED · VERIFIED</span></div>
+        <p>Primary rail for international business payments. Add your invoice/reference ID to the payment note when Veem provides a reference field.</p>
+        <a class="cta" href="https://www.veem.com/pay/refcode-5b5a4YjEv" target="_blank" rel="noopener noreferrer">Continue to Veem</a>
+      </article>
+      <article class="rail">
+        <div class="rail-head"><h2>PayPal</h2><span class="badge">FALLBACK</span></div>
+        <p>PayPal is available when Veem is not convenient. Use the PayPal instructions supplied with your invoice or request them from ADF.</p>
+      </article>
+      <p class="foot">ADF does not request passwords, recovery phrases, OTPs, or private wallet keys. Do not send payment to any address or account that is not shown on your invoice or this controlled ADF payment page.</p>
+    </div>
+  </section>
+</main>
+</body>
+</html>
