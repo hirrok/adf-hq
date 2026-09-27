@@ -17,7 +17,7 @@ Aurora Digital Foundry manufactures business infrastructure. This repository is 
 
 ## Private operational spine
 
-ADF operational truth is moving to the private companion repository `hirrok/adf-data-spine`.
+ADF operational truth lives in the private companion repository `hirrok/adf-data-spine`.
 
 `adf-hq` may contain public schemas and sanitized projections, but never canonical private prospect, client, revenue, contact, or activity records.
 
