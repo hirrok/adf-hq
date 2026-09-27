@@ -90,6 +90,7 @@ def render_article(source: Path, item: dict, published_at: datetime) -> str:
         "{{CANONICAL_URL}}": item["canonical_url"],
         "{{TITLE}}": item["title"],
         "{{DESCRIPTION}}": item["description"],
+        "{{PUBLISHED_LABEL}}": published_at.strftime("%d %b %Y").upper(),
     }
     for token, value in replacements.items():
         text = text.replace(token, value)
@@ -99,25 +100,65 @@ def relative_href(item: dict) -> str:
     tail = item["canonical_url"][len(CANONICAL_INSIGHTS):]
     return tail or "./"
 
-def render_cards(items: list[dict]) -> str:
-    cards = []
+def render_card(item: dict) -> str:
+    published = parse_dt(item["published_at"] or item["publish_at"])
+    date_label = published.strftime("%d %b %Y").upper()
+    kicker = item["series"]
+    if item.get("season") and item.get("episode"):
+        season_label = item["season"].split(" — ", 1)[0]
+        kicker = f'{season_label} · Episode {int(item["episode"]):02d} · {item["series"]}'
+    return (
+        f'<a class="card" href="{escape(relative_href(item), quote=True)}">\n'
+        f'  <div class="kicker">{escape(kicker)}</div>\n'
+        f'  <h2>{escape(item["title"])}</h2>\n'
+        f'  <p>{escape(item["description"])}</p>\n'
+        f'  <div class="meta">{date_label} · {escape(item["topic"])}</div>\n'
+        f'</a>'
+    )
+
+def render_sections(items: list[dict]) -> str:
+    sections = []
+    seasons = []
+    seen = set()
     for item in items:
-        published = parse_dt(item["published_at"] or item["publish_at"])
-        date_label = published.strftime("%d %b %Y").upper()
-        cards.append(
-            f'<a class="card" href="{escape(relative_href(item), quote=True)}">\n'
-            f'  <div class="kicker">{escape(item["series"])}</div>\n'
-            f'  <h2>{escape(item["title"])}</h2>\n'
-            f'  <p>{escape(item["description"])}</p>\n'
-            f'  <div class="meta">{date_label} · {escape(item["topic"])}</div>\n'
-            f'</a>'
+        season = item.get("season")
+        if season and season not in seen:
+            seen.add(season)
+            seasons.append(season)
+
+    for season in seasons:
+        cards = "\n".join(render_card(i) for i in items if i.get("season") == season)
+        tag = escape(season.replace(" — ", " · "))
+        sections.append(
+            '<section class="section">\n'
+            f'  <div class="season-tag">{tag}</div>\n'
+            '  <div class="section-head">\n'
+            '    <h2 class="section-title">Editorial Series</h2>\n'
+            '    <p class="section-copy">A sequential argument about operating systems, verification, infrastructure, and execution.</p>\n'
+            '  </div>\n'
+            f'  <div class="grid">\n{cards}\n  </div>\n'
+            '</section>'
         )
-    return "\n".join(cards)
+
+    evergreen = [i for i in items if i.get("lane") == "evergreen" or not i.get("season")]
+    if evergreen:
+        cards = "\n".join(render_card(i) for i in evergreen)
+        sections.append(
+            '<section class="section">\n'
+            '  <div class="season-tag">Evergreen · Diagnostic Notes</div>\n'
+            '  <div class="section-head">\n'
+            '    <h2 class="section-title">Commercial Diagnostics</h2>\n'
+            '    <p class="section-copy">Standalone practical notes for diagnosing conversion friction, operating leaks, and business-system failures.</p>\n'
+            '  </div>\n'
+            f'  <div class="grid">\n{cards}\n  </div>\n'
+            '</section>'
+        )
+    return "\n\n".join(sections)
 
 def rebuild_index(published_items: list[dict]) -> None:
     template = INDEX_TEMPLATE_PATH.read_text(encoding="utf-8")
     INDEX_PATH.write_text(
-        template.replace("{{CARDS}}", render_cards(published_items)),
+        template.replace("{{SECTIONS}}", render_sections(published_items)),
         encoding="utf-8",
     )
 
@@ -142,8 +183,14 @@ def rebuild_feed(published_items: list[dict], built_at: datetime) -> None:
             f'<guid isPermaLink="true">{escape(item["canonical_url"])}</guid>',
             f'<pubDate>{format_datetime(published)}</pubDate>',
             f'<description>{escape(item["description"])}</description>',
-            '</item>',
         ])
+        media_url = item.get("web_media_url") or item.get("media_url")
+        media_type = item.get("media_type")
+        if media_url and media_type:
+            lines.append(
+                f'<enclosure url="{escape(media_url, quote=True)}" type="{escape(media_type, quote=True)}"/>'
+            )
+        lines.append('</item>')
     lines.extend(['</channel>', '</rss>', ''])
     FEED_PATH.write_text("\n".join(lines), encoding="utf-8")
 
