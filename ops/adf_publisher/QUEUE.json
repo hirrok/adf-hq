@@ -1,5 +1,5 @@
 {
-  "version": "2026.09-v0.3",
+  "version": "2026.09-v0.4",
   "timezone": "Asia/Manila",
   "site_base_url": "https://hirrok.github.io/adf-hq",
   "rules": {
@@ -39,7 +39,11 @@
       "approved": true,
       "status": "published",
       "published_at": "2026-09-27T12:48:00+08:00",
-      "linkedin_urn": "urn:li:share:7509836748735090688"
+      "linkedin_urn": "urn:li:share:7509836748735090688",
+      "media_url": "https://hirrok.github.io/adf-hq/media/field-notes/verification-tax-v1.mp4",
+      "media_type": "video/mp4",
+      "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/verification-tax-v1-poster.jpg",
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/field-notes/verification-tax-v1-og.jpg"
     },
     {
       "id": "doctrine-001-interface-not-infrastructure",
