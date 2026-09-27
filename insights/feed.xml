@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Aurora Digital Foundry Insights</title>
+<link>https://hirrok.github.io/adf-hq/insights/</link>
+<description>Field notes, build notes, recon notes, and operating doctrine from Aurora Digital Foundry.</description>
+<language>en-PH</language>
+<lastBuildDate>Sun, 27 Sep 2026 12:00:00 +0800</lastBuildDate>
+<atom:link href="https://hirrok.github.io/adf-hq/insights/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>The Verification Tax</title>
+<link>https://hirrok.github.io/adf-hq/insights/verification-tax/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/verification-tax/</guid>
+<pubDate>Sun, 27 Sep 2026 12:00:00 +0800</pubDate>
+<description>AI makes production cheap. Mistakes stay expensive. As generation accelerates, verification becomes the bottleneck.</description>
+</item>
+<item>
+<title>What a website conversion audit actually looks for</title>
+<link>https://hirrok.github.io/adf-hq/insights/conversion-audit-example/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/conversion-audit-example/</guid>
+<pubDate>Sat, 26 Sep 2026 12:00:00 +0800</pubDate>
+<description>A practical diagnostic lens for homepage clarity, CTA friction, trust, and conversion leaks.</description>
+</item>
+</channel>
+</rss>
