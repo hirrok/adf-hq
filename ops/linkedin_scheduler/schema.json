@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ADF LinkedIn Scheduler Queue",
+  "type": "object",
+  "required": ["version", "timezone", "linkedin", "rules", "items"],
+  "properties": {
+    "version": {"type": "string"},
+    "timezone": {"const": "Asia/Manila"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id","title","canonical_url","commentary","link_title","publish_at","approved","status"],
+        "properties": {
+          "id": {"type":"string"},
+          "title": {"type":"string"},
+          "canonical_url": {"type":"string","format":"uri"},
+          "commentary": {"type":"string","maxLength":3000},
+          "link_title": {"type":"string"},
+          "link_description": {"type":["string","null"]},
+          "publish_at": {"type":"string","format":"date-time"},
+          "approved": {"type":"boolean"},
+          "status": {"enum":["draft","scheduled","publishing","published","error"]},
+          "linkedin_urn": {"type":["string","null"]},
+          "published_at": {"type":["string","null"]},
+          "error": {"type":["string","null"]}
+        }
+      }
+    }
+  }
+}
