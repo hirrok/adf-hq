@@ -1,9 +1,9 @@
 # ADF Repo-Native Data Spine Standard v3.0
 
 Version: 2026.09-v3.0  
-Status: CUTOVER CANDIDATE  
+Status: CANONICAL — ACTIVE  
 Effective: 2026-09-27  
-Target authority: `hirrok/adf-data-spine` (PRIVATE)
+Canonical authority: `hirrok/adf-data-spine` (PRIVATE)
 
 ## Mission
 
@@ -195,9 +195,11 @@ It must exclude real prospect, client, revenue, contact, and private activity re
 
 ## Google migration
 
-Google Sheets is the source for the initial v3.0 migration only.
+Google Sheets was the source for the initial v3.0 migration only.
 
-Cutover sequence:
+Cutover completed after count/ID verification passed for all canonical ledgers.
+
+Completed sequence:
 
 1. snapshot every source tab without mutation,
 2. transform structured tabs to canonical repo ledgers,
