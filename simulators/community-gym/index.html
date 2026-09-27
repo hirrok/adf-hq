@@ -729,7 +729,7 @@ function AdminDashboard(){
           <div style={{fontWeight:600,marginBottom:14,fontSize:14}}>June Revenue Progress</div>
           <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:C.text2,marginBottom:6}}><span>{usd(METRICS.mtdRevenue.toLocaleString())} / {usd(METRICS.target.toLocaleString())}</span><span style={{color:C.green}}>{pct}%</span></div>
           <div style={{height:8,background:C.elev,borderRadius:4,marginBottom:8}}><div style={{height:'100%',background:C.green,borderRadius:4,width:`${pct}%`}}/></div>
-          <div style={{fontSize:12,color:C.text3}}>Gap: ₱{(METRICS.target-METRICS.mtdRevenue).toLocaleString()} · 21 days remaining</div>
+          <div style={{fontSize:12,color:C.text3}}>Gap: {usd(METRICS.target-METRICS.mtdRevenue)} · 21 days remaining</div>
         </div>
         <div style={card}>
           <div style={{fontWeight:600,marginBottom:14,fontSize:14}}>Today's Attendance</div>
@@ -931,7 +931,7 @@ function AdminIntelligence(){
             const maxRev=Math.max(...COACHES.map(x=>x.members*999));
             return(
               <div key={c.id} style={{marginBottom:10}}>
-                <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:C.text2,marginBottom:4}}><span>{c.name.split(' ')[1]}</span><span>₱{rev.toLocaleString()}</span></div>
+                <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:C.text2,marginBottom:4}}><span>{c.name.split(' ')[1]}</span><span>{usd(rev)}</span></div>
                 <div style={{height:3,background:C.elev,borderRadius:2}}><div style={{height:'100%',background:c.color,borderRadius:2,width:`${Math.round((rev/maxRev)*100)}%`}}/></div>
               </div>
             );
@@ -1725,7 +1725,7 @@ function AdminDashboard(){
           <div style={{fontWeight:600,marginBottom:14,fontSize:14}}>June Revenue Progress</div>
           <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:C.text2,marginBottom:6}}><span>{usd(METRICS.mtdRevenue.toLocaleString())} / {usd(METRICS.target.toLocaleString())}</span><span style={{color:C.green}}>{pct}%</span></div>
           <div style={{height:8,background:C.elev,borderRadius:4,marginBottom:8}}><div style={{height:'100%',background:C.green,borderRadius:4,width:`${pct}%`}}/></div>
-          <div style={{fontSize:12,color:C.text3}}>Gap: ₱{(METRICS.target-METRICS.mtdRevenue).toLocaleString()} · 21 days remaining</div>
+          <div style={{fontSize:12,color:C.text3}}>Gap: {usd(METRICS.target-METRICS.mtdRevenue)} · 21 days remaining</div>
         </div>
         <div style={card}>
           <div style={{fontWeight:600,marginBottom:14,fontSize:14}}>Today's Attendance</div>
@@ -1927,7 +1927,7 @@ function AdminIntelligence(){
             const maxRev=Math.max(...COACHES.map(x=>x.members*999));
             return(
               <div key={c.id} style={{marginBottom:10}}>
-                <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:C.text2,marginBottom:4}}><span>{c.name.split(' ')[1]}</span><span>₱{rev.toLocaleString()}</span></div>
+                <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:C.text2,marginBottom:4}}><span>{c.name.split(' ')[1]}</span><span>{usd(rev)}</span></div>
                 <div style={{height:3,background:C.elev,borderRadius:2}}><div style={{height:'100%',background:c.color,borderRadius:2,width:`${Math.round((rev/maxRev)*100)}%`}}/></div>
               </div>
             );
