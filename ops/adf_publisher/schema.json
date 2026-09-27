@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ADF Publisher Queue",
+  "type": "object",
+  "required": ["version", "timezone", "site_base_url", "rules", "items"],
+  "properties": {
+    "version": {"type": "string"},
+    "timezone": {"const": "Asia/Manila"},
+    "site_base_url": {"const": "https://hirrok.github.io/adf-hq"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id","slug","series","topic","title","description","canonical_url",
+          "destination_path","publish_at","approved","status"
+        ],
+        "properties": {
+          "id": {"type":"string","minLength":1},
+          "slug": {"type":"string","pattern":"^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "series": {"type":"string"},
+          "topic": {"type":"string"},
+          "title": {"type":"string"},
+          "description": {"type":"string"},
+          "canonical_url": {"type":"string","format":"uri"},
+          "source_path": {"type":["string","null"]},
+          "destination_path": {"type":"string"},
+          "publish_at": {"type":"string","format":"date-time"},
+          "approved": {"type":"boolean"},
+          "status": {"enum":["draft","scheduled","published"]},
+          "published_at": {"type":["string","null"]},
+          "linkedin_urn": {"type":["string","null"]}
+        }
+      }
+    }
+  }
+}
