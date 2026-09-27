@@ -131,10 +131,14 @@ const SEED_ASSETS = {
 const TAG_COLOR = {
   // Legacy status values kept for backward compat
   DEMO:"teal", PITCH:"green", QUEUED:"blue", PROSPECT:"dim", STRATEGIC:"dim",
-  // Spine v2.0 canonical stage values
-  "New Lead":"dim", "Qualified":"blue", "Prototype":"teal",
-  "Presentation":"teal", "Proposal":"green", "Conversion":"green",
-  "Production":"green", "Maintenance":"teal", "Lost":"red", "Parked":"dim", "Archived":"dim",
+  // Opportunity-to-Asset canonical stage values
+  "New Lead":"dim", "Recon":"blue", "Assessment":"blue", "Qualified":"blue",
+  "Contacted":"teal", "Interested":"teal", "Blueprint":"teal", "Prototype":"teal",
+  "Demo Sent":"teal", "Presentation":"teal", "Proposal":"green", "Conversion":"green",
+  "Production":"green", "Maintenance":"teal", "Lost":"red", "Parked":"dim",
+  "Harvested":"gold", "Archived":"dim",
+  // Legacy stage values kept visible for historical records
+  "Pre-Outreach":"dim", "Concept":"dim",
   // Shared
   "Not Sent":"dim", Sent:"teal", Received:"green",
   "Closed Won":"green", "Closed Lost":"red",
@@ -278,6 +282,8 @@ function mapProspect(row) {
         template_family: row[11], setup_fee: row[12], monthly_retainer: row[13],
         probability_pct: row[14], next_action: row[15], follow_up_date: row[16],
         follow_up_cadence: row[17], notes: row[18], created_at: row[19], updated_at: row[20],
+        opportunity_id: row[21], opportunity_score: row[22], value_leak: row[23],
+        demo_repo: row[24], demo_url: row[25],
       }
     : row;
 
@@ -310,9 +316,13 @@ function mapProspect(row) {
     due:            r.follow_up_date     || "",
     cadence:        r.follow_up_cadence  || "NONE",
     notes:          r.notes              || "",
+    opportunityId:  r.opportunity_id     || "",
+    opportunityScore:Number(r.opportunity_score) || 0,
+    valueLeak:      r.value_leak         || "",
+    demoRepo:       r.demo_repo          || "",
     contact:        "",                                    // not in v2.0 PROSPECTS schema
     reconStatus:    "",
-    prototypeUrl:   "",
+    prototypeUrl:   r.demo_url           || "",
   };
 }
 
@@ -837,7 +847,7 @@ function Leads({ leads, setLeads, ai }) {
   const [wonForm,  setWonForm]  = useState({});
   const [wonSaving,setWonSaving]= useState(false);
   const [wonDone,  setWonDone]  = useState(false);
-  const [form, setForm] = useState({ name:"", vertical:"", location:"", fee:"", action:"" });
+  const [form, setForm] = useState({ name:"", vertical:"", location:"", fee:"", action:"", opportunityId:"", valueLeak:"" });
 
   const f = p => k => e => setForm(prev => ({ ...prev, [k]:e.target.value }));
   const visible = filter === "ALL" ? leads : leads.filter(l => l.status === filter);
@@ -958,16 +968,39 @@ function Leads({ leads, setLeads, ai }) {
 
   const submit = async () => {
     if (!form.name.trim()) return;
+    const now = new Date().toISOString();
     const row = {
-      id: "P-" + uid(), name:form.name, vertical:form.vertical, location:form.location,
-      status:"PROSPECT", priority:"MEDIUM", contact:"TODO",
-      fee:Number(form.fee) || 0, action:form.action || "Follow up",
-      due:addDays(today(), 2), notes:"", created:today(),
+      prospect_id: "pros-" + uid(),
+      business_name: form.name,
+      industry: form.vertical,
+      location: form.location,
+      territory: "",
+      source: form.opportunityId ? "Opportunity Forge" : "Manual",
+      linked_archetype_id: "",
+      linked_gallery_item_id: "",
+      stage: "New Lead",
+      record_state: "ACTIVE",
+      priority: "MEDIUM",
+      template_family: "",
+      setup_fee: Number(form.fee) || 0,
+      monthly_retainer: 0,
+      probability_pct: 0,
+      next_action: form.action || "Run Recon",
+      follow_up_date: addDays(today(), 2),
+      follow_up_cadence: "MANUAL",
+      notes: "",
+      created_at: now,
+      updated_at: now,
+      opportunity_id: form.opportunityId || "",
+      opportunity_score: "",
+      value_leak: form.valueLeak || "",
+      demo_repo: "",
+      demo_url: "",
     };
-    setLeads(p => [...p, row]);
+    setLeads(p => [...p, mapProspect(row)]);
     setAdding(false);
-    setForm({ name:"", vertical:"", location:"", fee:"", action:"" });
-    await adapter.append("Leads", row);
+    setForm({ name:"", vertical:"", location:"", fee:"", action:"", opportunityId:"", valueLeak:"" });
+    await adapter.append("PROSPECTS", row);
   };
 
   return (
@@ -1055,14 +1088,16 @@ function Leads({ leads, setLeads, ai }) {
           <Inp ph="Business name *"           val={form.name}   onChange={e => setForm(p => ({ ...p, name:e.target.value }))} />
           <Inp ph="Vertical (Tourism·Surf)"   val={form.vertical}  onChange={e => setForm(p => ({ ...p, vertical:e.target.value }))} />
           <Inp ph="Location"                  val={form.location}  onChange={e => setForm(p => ({ ...p, location:e.target.value }))} />
-          <Inp ph="Est. fee (PHP)"            val={form.fee}    onChange={e => setForm(p => ({ ...p, fee:e.target.value }))} />
-          <Inp ph="Next action"               val={form.action} onChange={e => setForm(p => ({ ...p, action:e.target.value }))} />
+          <Inp ph="Opportunity Forge ID (optional)" val={form.opportunityId} onChange={e => setForm(p => ({ ...p, opportunityId:e.target.value }))} />
+          <Inp ph="Observable value leak"      val={form.valueLeak} onChange={e => setForm(p => ({ ...p, valueLeak:e.target.value }))} />
+          <Inp ph="Est. fee (PHP)"             val={form.fee}    onChange={e => setForm(p => ({ ...p, fee:e.target.value }))} />
+          <Inp ph="Next action"                val={form.action} onChange={e => setForm(p => ({ ...p, action:e.target.value }))} />
           <SaveBtn label="Save to Spine" onClick={submit} />
         </Card>
       )}
 
       <div style={{ display:"flex", gap:4, overflowX:"auto", paddingBottom:4 }}>
-        {["ALL","Proposal","Prototype","New Lead","Qualified","Parked"].map(x => (
+        {["ALL","New Lead","Recon","Assessment","Qualified","Contacted","Interested","Blueprint","Prototype","Demo Sent","Presentation","Proposal","Conversion","Lost","Parked","Harvested"].map(x => (
           <GBtn key={x} label={x} onClick={() => setFilter(x)} on={filter === x} />
         ))}
       </div>
@@ -1093,7 +1128,7 @@ function Leads({ leads, setLeads, ai }) {
             {expanded === l.id && (
               <div style={{ marginTop:10, paddingTop:10, borderTop:`1px solid ${B.border}` }}>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6, marginBottom:10 }}>
-                  {[["Follow-up",l.due||"—"],["Priority",l.priority||"—"],["Source",l.source||"—"],["Recon",l.reconStatus||"—"],["Notes",l.notes||"—"]].map(([k,v]) => (
+                  {[["Follow-up",l.due||"—"],["Priority",l.priority||"—"],["Source",l.source||"—"],["Opportunity",l.opportunityId||"—"],["Opportunity score",l.opportunityScore||"—"],["Value leak",l.valueLeak||"—"],["Demo repo",l.demoRepo||"—"],["Recon",l.reconStatus||"—"],["Notes",l.notes||"—"]].map(([k,v]) => (
                     <div key={k}>
                       <p style={{ fontFamily:F.mono, fontSize:9, color:B.muted, marginBottom:2 }}>{k}</p>
                       <p style={{ fontSize:12, color:B.ink }}>{v}</p>
