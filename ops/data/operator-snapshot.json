@@ -4,7 +4,7 @@
     "authority": "hirrok/adf-data-spine (private; canonical after migration verification)",
     "generated_from": "ADF DATA SPINE V1.1",
     "generated_at": "2026-09-27",
-    "privacy": "No prospect, client, revenue, contact, or private activity records."
+    "privacy": "No prospect, client, revenue, contact, private activity, prospect-derived prototype, or private notes."
   },
   "ARCHETYPES": [
     {
@@ -17,8 +17,7 @@
       "classification": "Production Queue",
       "lifecycle_state": "Deployed",
       "priority": "HIGH",
-      "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
-      "notes": "Derived from Aliya + Nalu builds. Two live prototypes."
+      "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/"
     },
     {
       "archetype_id": "arch-ember-restaurant-001",
@@ -30,8 +29,7 @@
       "classification": "Production Queue",
       "lifecycle_state": "Candidate",
       "priority": "HIGH",
-      "frontend_demo_url": "PENDING",
-      "notes": "High density target. Catalino's + Brothers = adjacent demand."
+      "frontend_demo_url": "PENDING"
     },
     {
       "archetype_id": "arch-forge-fuel-001",
@@ -43,8 +41,7 @@
       "classification": "Immediate",
       "lifecycle_state": "Deployed",
       "priority": "HIGH",
-      "frontend_demo_url": "https://hirrok.github.io/adf-ecopetrol-aurora/",
-      "notes": "Class B reference build. Multi-branch fuel retail with admin portal, GAS price management, fleet inquiry, status board. Derived from Ecopetrol Aurora (Maria Aurora). Full loop validated 2026-06-09."
+      "frontend_demo_url": "https://hirrok.github.io/adf-ecopetrol-aurora/"
     },
     {
       "archetype_id": "arch-forge-fitness-001",
@@ -56,8 +53,7 @@
       "classification": "Production Queue",
       "lifecycle_state": "Deployed",
       "priority": "HIGH",
-      "frontend_demo_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
-      "notes": "Class A reference build. React CDN SPA — single HTML file, no build step. Dark industrial aesthetic. ADF_CLASS_A_TEMPLATE.html extracted from this build. Referral deal (Malvar, Batangas). Layer 2 pending."
+      "frontend_demo_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/"
     }
   ],
   "PROTOTYPES": [
@@ -67,13 +63,10 @@
       "name": "Aliya Surf Camp Demo",
       "template_family": "Tide",
       "ownership": "FOUNDRY",
-      "repo_path": "aurora-digital-foundry/clients/aliya-surf-camp",
       "live_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
       "build_stage": "Live",
       "page_count": 5,
-      "last_tested_at": 46183,
-      "issues": "",
-      "notes": "Standard package. 5 pages. Live."
+      "last_tested_at": 46183
     },
     {
       "prototype_id": "proto-002",
@@ -81,13 +74,10 @@
       "name": "Ecopetrol Aurora Demo",
       "template_family": "Forge",
       "ownership": "CLIENT",
-      "repo_path": "adf-ecopetrol-aurora",
       "live_url": "https://hirrok.github.io/adf-ecopetrol-aurora/",
       "build_stage": "Live",
       "page_count": 8,
-      "last_tested_at": 46182,
-      "issues": "",
-      "notes": "Class B Pro build. 8 pages. Forge family — industrial/energy. GAS + Sheets backend live. Full loop validated 2026-06-09."
+      "last_tested_at": 46182
     },
     {
       "prototype_id": "proto-003",
@@ -95,13 +85,10 @@
       "name": "Nalu Surf Camp Demo",
       "template_family": "Tide",
       "ownership": "FOUNDRY",
-      "repo_path": "aurora-digital-foundry/clients/nalu-surf-camp",
       "live_url": "PENDING",
       "build_stage": "In Build",
       "page_count": 5,
-      "last_tested_at": "",
-      "issues": "BaseLayout bleed fix pending",
-      "notes": "Standard package. In build."
+      "last_tested_at": ""
     },
     {
       "prototype_id": "proto-004",
@@ -109,13 +96,10 @@
       "name": "Iron Tribe Fitness Gym",
       "template_family": "Forge",
       "ownership": "CLIENT",
-      "repo_path": "iron-tribe-fitness-simulator",
       "live_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/",
       "build_stage": "Live",
       "page_count": 6,
-      "last_tested_at": 46182,
-      "issues": "",
-      "notes": "Class A React CDN SPA. Single HTML file, no build step. Dark industrial aesthetic — Bebas Neue + Inter, accent #EF4444. GAS Layer 2 pending client approval. Template extracted to ADF_CLASS_A_TEMPLATE.html."
+      "last_tested_at": 46182
     }
   ],
   "INFRASTRUCTURE_GALLERY": [
@@ -128,17 +112,6 @@
       "business_problem_demonstrated": "Surf lodges and beach camps lose bookings to Facebook-only operations with no direct inquiry flow, no package visibility, and no search presence.",
       "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
       "published_status": "Published",
-      "cta": "Request a Prototype"
-    },
-    {
-      "gallery_item_id": "gal-002",
-      "archetype_id": "arch-ember-restaurant-001",
-      "public_title": "Heritage Restaurant",
-      "template_family": "Ember",
-      "target_industry": "Food · Restaurant",
-      "business_problem_demonstrated": "Landmark restaurants with no web presence lose walk-in and reservation traffic to OTA-indexed competitors with no owned channel.",
-      "frontend_demo_url": "PENDING",
-      "published_status": "Draft",
       "cta": "Request a Prototype"
     },
     {
