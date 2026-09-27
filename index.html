@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aurora Digital Foundry — Business Infrastructure for Philippine SMEs</title>
   <meta name="theme-color" content="#07110f" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2307110f'/%3E%3Cpath d='M12 46 27 16h10l15 30H41l-3-7H26l-3 7Zm18-16h4l-2-5Zm13-14h9v30h-9Z' fill='%2327c7ad'/%3E%3C/svg%3E" />
   <meta name="description" content="Aurora Digital Foundry builds websites, lead capture, operations dashboards, and AI-enabled business systems for Philippine SMEs. Based in San Luis, Aurora." />
   <meta name="keywords" content="business infrastructure Philippines, website developer Aurora Province, web design San Luis Aurora, SME digital systems Philippines, business automation Aurora province, lead capture systems Philippines, CRM and booking systems for small business Philippines" />
   <meta name="robots" content="index, follow" />
@@ -27,7 +28,7 @@
   <meta property="og:locale" content="en_PH" />
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Aurora Digital Foundry - Business Infrastructure for Philippine SMEs" />
   <meta name="twitter:description" content="We don't build websites. We build business capability. See your future business as a working prototype before you commit." />
 
@@ -47,23 +48,29 @@
       "postalCode": "3201",
       "addressCountry": "PH"
     },
-    "email": "mailto:revenue-engine@agentmail.to"
+    "email": "revenue-engine@agentmail.to",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "revenue-engine@agentmail.to",
+      "availableLanguage": ["en", "fil"]
+    }
   }
   </script>
   <style>
     /* ─── TOKENS ─────────────────────────────────────────── */
     :root {
       /* Seasonal defaults - Habagat Dawn (Jun–Sep) */
-      --black:   #0b0918;
-      --white:   #fdf4ec;
-      --aurora:  #e8618c;
+      --black:   #07110f;
+      --white:   #f2f7f5;
+      --aurora:  #27c7ad;
       --aurora2: #f5a623;
       --gold:    #f5a623;
-      --mid:     #150e2a;
-      --border:  rgba(255,255,255,0.08);
-      --text:    rgba(253,244,236,0.72);
-      --nav-bg:  rgba(11,9,24,0.88);
-      --a1-rgb:  232,97,140;
+      --mid:     #0d1b18;
+      --border:  rgba(242,247,245,0.10);
+      --text:    rgba(200,215,211,0.82);
+      --nav-bg:  rgba(7,17,15,0.90);
+      --a1-rgb:  39,199,173;
       --a2-rgb:  245,166,35;
       --a3-rgb:  168,85,247;
       --ff:      'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -2082,7 +2089,7 @@
   const month=new Date().getMonth();
   const key=(month>=2&&month<=4)?'veranum':(month>=5&&month<=8)?'habagat':(month>=9&&month<=10)?'bagyo':'amihan';
   const p=PALETTES[key], s=document.documentElement.style;
-  [['--black',p.black],['--mid',p.mid],['--white',p.white],['--aurora',p.aurora],['--aurora2',p.aurora2],['--gold',p.gold],['--text',p.text],['--nav-bg',p.nav],['--a1-rgb',p.a1],['--a2-rgb',p.a2],['--a3-rgb',p.a3]].forEach(([k,v])=>s.setProperty(k,v));
+  [['--aurora2',p.aurora2],['--gold',p.gold],['--a2-rgb',p.a2],['--a3-rgb',p.a3]].forEach(([k,v])=>s.setProperty(k,v));
   document.documentElement.dataset.season=p.name;
   document.documentElement.dataset.seasonRange=p.range;
   const badge=document.getElementById('season-badge');
