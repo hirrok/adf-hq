@@ -1,6 +1,6 @@
 # ADF Publisher
 
-Version: 2026.09-v0.2  
+Version: 2026.09-v1.0  
 Status: ACTIVE — REPO-NATIVE SCHEDULER  
 Clock: GitHub Actions  
 Timezone: Asia/Manila
@@ -20,8 +20,10 @@ governed release PR
     ↓
 ADF Insights + RSS
     ↓
-LinkedIn RSS distribution
+link-first social distribution
 ```
+
+The publisher preserves seasonal editorial lanes and evergreen diagnostic notes on the public Insights hub. Social delivery is downstream of the canonical release and is not allowed to block site publication.
 
 The website remains the source of truth. Social platforms are distribution surfaces.
 
