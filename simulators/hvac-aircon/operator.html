@@ -1454,7 +1454,7 @@ To hit target: Convert 1 more lead (Reyes Hardware or Baler Polytechnic).`,
       var max = Math.max.apply(null, data.map(function(d){ return d[1]; }));
       el.innerHTML = data.map(function(d) {
         var pct = (d[1] / max * 100).toFixed(1);
-        var display = '\u20b1' + d[1].toLocaleString();
+        var display = '$' + Math.round(d[1] * 0.0160393).toLocaleString('en-US');
         return '<div class="bar-row"><div class="bar-header"><span>' + d[0] + '</span><span>' + display + '</span></div>' +
                '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + d[2] + '"></div></div></div>';
       }).join('');
