@@ -1,5 +1,5 @@
 {
-  "version": "2026.09-v0.9",
+  "version": "2026.09-v0.10",
   "timezone": "Asia/Manila",
   "site_base_url": "https://hirrok.github.io/adf-hq",
   "rules": {
@@ -51,7 +51,8 @@
       "media_role": "embedded_on_canonical_insight",
       "linkedin_published_at": "2026-09-27T13:56:00+08:00",
       "season": "Season 1 — Verification & Operating Reality",
-      "episode": 1
+      "episode": 1,
+      "web_media_bytes": 268238
     },
     {
       "id": "doctrine-001-interface-not-infrastructure",
@@ -103,7 +104,8 @@
       "web_media_url": "https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-web.mp4",
       "media_url": "https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-master.mp4",
       "media_type": "video/mp4",
-      "poster_url": "https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-poster.jpg"
+      "poster_url": "https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-poster.jpg",
+      "web_media_bytes": 310037
     },
     {
       "id": "build-note-001-prototype-before-proposal",
@@ -155,7 +157,8 @@
       "web_media_url": "https://hirrok.github.io/adf-hq/media/season-1/automation-debt-web.mp4",
       "media_url": "https://hirrok.github.io/adf-hq/media/season-1/automation-debt-master.mp4",
       "media_type": "video/mp4",
-      "poster_url": "https://hirrok.github.io/adf-hq/media/season-1/automation-debt-poster.jpg"
+      "poster_url": "https://hirrok.github.io/adf-hq/media/season-1/automation-debt-poster.jpg",
+      "web_media_bytes": 309100
     },
     {
       "id": "recon-note-001-where-leads-die",
@@ -207,7 +210,8 @@
       "web_media_url": "https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-web.mp4",
       "media_url": "https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-master.mp4",
       "media_type": "video/mp4",
-      "poster_url": "https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-poster.jpg"
+      "poster_url": "https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-poster.jpg",
+      "web_media_bytes": 342700
     },
     {
       "id": "operator-note-001-maintainable-tools",
