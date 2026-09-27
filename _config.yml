@@ -1,0 +1,12 @@
+# GitHub Pages public-boundary controls.
+# Internal operating material stays in the repository but is not part of the Pages artifact.
+exclude:
+  - .github
+  - _templates
+  - ops
+  - queue
+  - src
+  - README.md
+  - SIMULATOR_STATUS.md
+  - site.html
+  - cockpit.html
