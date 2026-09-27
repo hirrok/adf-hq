@@ -1,5 +1,5 @@
 {
-  "version": "2026.09-v0.8",
+  "version": "2026.09-v1.0",
   "timezone": "Asia/Manila",
   "site_base_url": "https://hirrok.github.io/adf-hq",
   "rules": {
@@ -23,7 +23,8 @@
       "approved": true,
       "status": "published",
       "published_at": "2026-09-26T12:00:00+08:00",
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "lane": "evergreen"
     },
     {
       "id": "field-note-001-verification-tax",
@@ -49,7 +50,9 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "media_role": "embedded_on_canonical_insight",
-      "linkedin_published_at": "2026-09-27T13:56:00+08:00"
+      "linkedin_published_at": "2026-09-27T13:56:00+08:00",
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 1
     },
     {
       "id": "doctrine-001-interface-not-infrastructure",
@@ -62,10 +65,16 @@
       "source_path": "ops/adf_publisher/drafts/interface-not-infrastructure/index.html",
       "destination_path": "insights/interface-not-infrastructure/index.html",
       "publish_at": "2026-09-29T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 2,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/interface-not-infrastructure.jpg",
+      "linkedin_copy": "A polished interface can hide a weak operating system. The screen makes the promise. The infrastructure has to keep it.\\n\\nSeason 1 · Episode 02 — The Interface Is Not the Infrastructure."
     },
     {
       "id": "field-note-002-automate-stable-processes",
@@ -78,10 +87,21 @@
       "source_path": "ops/adf_publisher/drafts/automate-stable-processes/index.html",
       "destination_path": "insights/automate-stable-processes/index.html",
       "publish_at": "2026-10-02T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 3,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/automate-stable-processes.jpg",
+      "media_url": "https://hirrok.github.io/adf-hq/media/field-notes/automate-stable-processes-v1.mp4",
+      "web_media_url": "https://hirrok.github.io/adf-hq/media/field-notes/automate-stable-processes-v1.mp4",
+      "media_type": "video/mp4",
+      "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/automate-stable-processes-v1-poster.jpg",
+      "media_role": "embedded_on_canonical_insight",
+      "linkedin_copy": "Automation amplifies whatever process it inherits. A clean process becomes leverage. A confused process becomes faster confusion.\\n\\nSeason 1 · Episode 03 — Automate Stable Processes, Not Confusion."
     },
     {
       "id": "build-note-001-prototype-before-proposal",
@@ -94,10 +114,16 @@
       "source_path": "ops/adf_publisher/drafts/prototype-before-proposal/index.html",
       "destination_path": "insights/prototype-before-proposal/index.html",
       "publish_at": "2026-10-06T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 4,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/prototype-before-proposal.jpg",
+      "linkedin_copy": "A proposal asks someone to imagine the future. A prototype gives them something small enough to inspect.\\n\\nSeason 1 · Episode 04 — Prototype Before Proposal."
     },
     {
       "id": "field-note-003-automation-debt",
@@ -110,10 +136,21 @@
       "source_path": "ops/adf_publisher/drafts/automation-debt/index.html",
       "destination_path": "insights/automation-debt/index.html",
       "publish_at": "2026-10-09T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 5,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/automation-debt.jpg",
+      "media_url": "https://hirrok.github.io/adf-hq/media/field-notes/automation-debt-v1.mp4",
+      "web_media_url": "https://hirrok.github.io/adf-hq/media/field-notes/automation-debt-v1.mp4",
+      "media_type": "video/mp4",
+      "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/automation-debt-v1-poster.jpg",
+      "media_role": "embedded_on_canonical_insight",
+      "linkedin_copy": "Automation removes repetition, but every automation creates an obligation: someone still has to understand the map.\\n\\nSeason 1 · Episode 05 — Automation Debt."
     },
     {
       "id": "recon-note-001-where-leads-die",
@@ -126,10 +163,16 @@
       "source_path": "ops/adf_publisher/drafts/where-leads-die-after-the-form/index.html",
       "destination_path": "insights/where-leads-die-after-the-form/index.html",
       "publish_at": "2026-10-13T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 6,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/where-leads-die-after-the-form.jpg",
+      "linkedin_copy": "A functioning contact form proves that data moved. It does not prove that a lead entered a functioning sales process.\\n\\nSeason 1 · Episode 06 — Where Leads Die After the Form."
     },
     {
       "id": "field-note-004-dashboards-not-decisions",
@@ -142,10 +185,21 @@
       "source_path": "ops/adf_publisher/drafts/dashboards-not-decisions/index.html",
       "destination_path": "insights/dashboards-not-decisions/index.html",
       "publish_at": "2026-10-16T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 7,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/dashboards-not-decisions.jpg",
+      "media_url": "https://hirrok.github.io/adf-hq/media/field-notes/dashboards-not-decisions-v1.mp4",
+      "web_media_url": "https://hirrok.github.io/adf-hq/media/field-notes/dashboards-not-decisions-v1.mp4",
+      "media_type": "video/mp4",
+      "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/dashboards-not-decisions-v1-poster.jpg",
+      "media_role": "embedded_on_canonical_insight",
+      "linkedin_copy": "A dashboard can make a business more informed without making it more responsive. Measurement becomes useful when it connects signals to action.\\n\\nSeason 1 · Episode 07 — Dashboards Are Not Decisions."
     },
     {
       "id": "operator-note-001-maintainable-tools",
@@ -158,10 +212,16 @@
       "source_path": "ops/adf_publisher/drafts/cheapest-tool-team-can-maintain/index.html",
       "destination_path": "insights/cheapest-tool-team-can-maintain/index.html",
       "publish_at": "2026-10-20T18:00:00+08:00",
-      "approved": false,
-      "status": "draft",
+      "approved": true,
+      "status": "scheduled",
       "published_at": null,
-      "linkedin_urn": null
+      "linkedin_urn": null,
+      "season": "Season 1 — Verification & Operating Reality",
+      "episode": 8,
+      "linkedin_distribution": "canonical_link",
+      "linkedin_native_video": false,
+      "og_image_url": "https://hirrok.github.io/adf-hq/media/og/cheapest-tool-team-can-maintain.jpg",
+      "linkedin_copy": "Subscription price is only one cost. Complexity, fragility, training, recovery time, and dependency are part of the real operating cost.\\n\\nSeason 1 · Episode 08 — The Cheapest Tool Is the One Your Team Can Maintain."
     },
     {
       "id": "field-note-s2-001-handoff-tax",
