@@ -159,7 +159,7 @@
       "provider": "PayPal",
       "role": "FALLBACK",
       "status": "AVAILABLE",
-      "public_payment_page": "INVOICE_SPECIFIC"
+      "public_payment_page": "https://hirrok.github.io/adf-hq/pay/"
     }
   ]
 }

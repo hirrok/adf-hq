@@ -15,8 +15,9 @@ Close the commercial loop from accepted proposal to received cash without exposi
    - Historical successful payment route confirmed by the operator.
    - Public ADF payment page routes an issued invoice/payment request to Veem.
 2. **PayPal — FALLBACK — AVAILABLE**
+   - Public payment URL: https://www.paypal.com/paypalme/hirro
    - Use when Veem is inconvenient or unavailable to the payer.
-   - Payment details remain invoice-specific until an ADF-specific link is recorded.
+   - Status remains AVAILABLE until an ADF receive/settlement event is independently confirmed.
 
 Crypto/stablecoin rails remain deferred until demand and a reliable regulated receive/settlement route are proven.
 
@@ -60,7 +61,7 @@ Public ADF must never expose client identity, invoice amount, revenue totals, tr
 
 > **Preferred payment:** Veem  
 > **Payment page:** https://hirrok.github.io/adf-hq/pay/  
-> **Fallback:** PayPal available on request.  
+> **Fallback:** PayPal — https://www.paypal.com/paypalme/hirro  
 > Include the invoice/reference ID with the payment when the rail permits.
 
 ## Reconciliation rule
