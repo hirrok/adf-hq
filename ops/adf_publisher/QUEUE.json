@@ -1,0 +1,45 @@
+{
+  "version": "2026.09-v0.2",
+  "timezone": "Asia/Manila",
+  "site_base_url": "https://hirrok.github.io/adf-hq",
+  "rules": {
+    "publish_only_if_approved": true,
+    "publish_only_if_status": "scheduled",
+    "source_root": "ops/adf_publisher/drafts",
+    "destination_root": "insights"
+  },
+  "items": [
+    {
+      "id": "conversion-notes-001",
+      "slug": "conversion-audit-example",
+      "series": "Conversion Notes / 001",
+      "topic": "CONVERSION",
+      "title": "What a website conversion audit actually looks for",
+      "description": "A practical diagnostic lens for homepage clarity, CTA friction, trust, and conversion leaks.",
+      "canonical_url": "https://hirrok.github.io/adf-hq/insights/conversion-audit-example/",
+      "source_path": null,
+      "destination_path": "insights/conversion-audit-example/index.html",
+      "publish_at": "2026-09-26T12:00:00+08:00",
+      "approved": true,
+      "status": "published",
+      "published_at": "2026-09-26T12:00:00+08:00",
+      "linkedin_urn": null
+    },
+    {
+      "id": "field-note-001-verification-tax",
+      "slug": "verification-tax",
+      "series": "Field Note / 001",
+      "topic": "AI OPERATIONS",
+      "title": "The Verification Tax",
+      "description": "AI makes production cheap. Mistakes stay expensive. As generation accelerates, verification becomes the bottleneck.",
+      "canonical_url": "https://hirrok.github.io/adf-hq/insights/verification-tax/",
+      "source_path": null,
+      "destination_path": "insights/verification-tax/index.html",
+      "publish_at": "2026-09-27T12:48:00+08:00",
+      "approved": true,
+      "status": "published",
+      "published_at": "2026-09-27T12:48:00+08:00",
+      "linkedin_urn": "urn:li:share:7509836748735090688"
+    }
+  ]
+}
