@@ -4,7 +4,7 @@
     "authority": "hirrok/adf-data-spine (private; canonical after migration verification)",
     "generated_from": "ADF DATA SPINE V1.1",
     "generated_at": "2026-09-27",
-    "privacy": "No prospect, client, revenue, contact, private activity, prospect-derived prototype, or private notes."
+    "privacy": "No prospect, client, revenue, contact, private activity, prospect-derived prototype, or private notes. Payment rail projection contains capability/status only."
   },
   "ARCHETYPES": [
     {
@@ -145,5 +145,21 @@
   "PROSPECTS": [],
   "CLIENTS": [],
   "REVENUE": [],
-  "ACTIVITY_LOG": []
+  "ACTIVITY_LOG": [],
+  "PAYMENT_RAILS": [
+    {
+      "rail_id": "payrail-veem-001",
+      "provider": "Veem",
+      "role": "PRIMARY_INTERNATIONAL_B2B",
+      "status": "VERIFIED",
+      "public_payment_page": "https://hirrok.github.io/adf-hq/pay/"
+    },
+    {
+      "rail_id": "payrail-paypal-001",
+      "provider": "PayPal",
+      "role": "FALLBACK",
+      "status": "AVAILABLE",
+      "public_payment_page": "INVOICE_SPECIFIC"
+    }
+  ]
 }
