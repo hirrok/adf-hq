@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "mode": "SANITIZED_PUBLIC_PROJECTION",
+    "authority": "hirrok/adf-data-spine (private; canonical after migration verification)",
+    "generated_from": "ADF DATA SPINE V1.1",
+    "generated_at": "2026-09-27",
+    "privacy": "No prospect, client, revenue, contact, private activity, prospect-derived prototype, or private notes."
+  },
+  "ARCHETYPES": [
+    {
+      "archetype_id": "arch-tide-surf-001",
+      "name": "Surf Stay & Surf School",
+      "template_family": "Tide",
+      "target_industry": "Tourism · Stay & Surf",
+      "target_market": "Baler/Aurora · Philippines",
+      "total_score": 39,
+      "classification": "Production Queue",
+      "lifecycle_state": "Deployed",
+      "priority": "HIGH",
+      "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/"
+    },
+    {
+      "archetype_id": "arch-ember-restaurant-001",
+      "name": "Heritage Restaurant",
+      "template_family": "Ember",
+      "target_industry": "Food · Restaurant",
+      "target_market": "Lucena/Quezon · Philippines",
+      "total_score": 34,
+      "classification": "Production Queue",
+      "lifecycle_state": "Candidate",
+      "priority": "HIGH",
+      "frontend_demo_url": "PENDING"
+    },
+    {
+      "archetype_id": "arch-forge-fuel-001",
+      "name": "Energy Retail Station",
+      "template_family": "Forge",
+      "target_industry": "Energy · Fuel Retail",
+      "target_market": "Provincial Philippines",
+      "total_score": 40,
+      "classification": "Immediate",
+      "lifecycle_state": "Deployed",
+      "priority": "HIGH",
+      "frontend_demo_url": "https://hirrok.github.io/adf-ecopetrol-aurora/"
+    },
+    {
+      "archetype_id": "arch-forge-fitness-001",
+      "name": "Fitness Gym",
+      "template_family": "Forge",
+      "target_industry": "Fitness · Health",
+      "target_market": "Provincial Philippines",
+      "total_score": 37,
+      "classification": "Production Queue",
+      "lifecycle_state": "Deployed",
+      "priority": "HIGH",
+      "frontend_demo_url": "https://hirrok.github.io/iron-tribe-fitness-simulator/"
+    }
+  ],
+  "PROTOTYPES": [
+    {
+      "prototype_id": "proto-003",
+      "archetype_id": "arch-tide-surf-001",
+      "name": "Nalu Surf Camp Demo",
+      "template_family": "Tide",
+      "ownership": "FOUNDRY",
+      "live_url": "PENDING",
+      "build_stage": "In Build",
+      "page_count": 5,
+      "last_tested_at": ""
+    }
+  ],
+  "INFRASTRUCTURE_GALLERY": [
+    {
+      "gallery_item_id": "gal-001",
+      "archetype_id": "arch-tide-surf-001",
+      "public_title": "Surf Stay & Surf School",
+      "template_family": "Tide",
+      "target_industry": "Tourism · Stay & Surf",
+      "business_problem_demonstrated": "Surf lodges and beach camps lose bookings to Facebook-only operations with no direct inquiry flow, no package visibility, and no search presence.",
+      "frontend_demo_url": "https://hirrok.github.io/aurora-digital-foundry/clients/aliya-surf-camp/",
+      "published_status": "Published",
+      "cta": "Request a Prototype"
+    }
+  ],
+  "SEO_CLUSTERS": [
+    {
+      "seo_cluster_id": "seo-baler-surf-001",
+      "archetype_id": "arch-tide-surf-001",
+      "vertical": "Tourism · Surf",
+      "territory": "Baler/Aurora",
+      "primary_keyword": "surf camp Baler",
+      "search_intent": "Transactional",
+      "status": "Active",
+      "last_recon_date": 46163
+    },
+    {
+      "seo_cluster_id": "seo-lucena-food-001",
+      "archetype_id": "arch-ember-restaurant-001",
+      "vertical": "Food · Restaurant",
+      "territory": "Lucena/Quezon",
+      "primary_keyword": "restaurant Lucena City",
+      "search_intent": "Transactional",
+      "status": "Research",
+      "last_recon_date": 46173
+    }
+  ],
+  "PATTERN_LIBRARY": [
+    {
+      "pattern_id": "pat-001",
+      "name": "Surf Inquiry Form Flow",
+      "pattern_family": "Lead Capture",
+      "template_family": "Tide",
+      "origin_archetype_id": "arch-tide-surf-001",
+      "pattern_type": "Component",
+      "reusable_module": "Multi-field inquiry form with package selector, dates, and WhatsApp CTA",
+      "reuse_count": 2,
+      "promotion_status": "Validated",
+      "status": "Active"
+    },
+    {
+      "pattern_id": "pat-002",
+      "name": "Dual-Audience Homepage Router",
+      "pattern_family": "Lead Capture",
+      "template_family": "Tide",
+      "origin_archetype_id": "arch-tide-surf-001",
+      "pattern_type": "Page Structure",
+      "reusable_module": "Homepage with B2C (guests) and B2B (fleet/bulk) routing to separate inquiry flows",
+      "reuse_count": 1,
+      "promotion_status": "Observed",
+      "status": "Active"
+    },
+    {
+      "pattern_id": "pat-003",
+      "name": "Sierra Teal Brand System",
+      "pattern_family": "Public Presence",
+      "template_family": "Tide",
+      "origin_archetype_id": "arch-tide-surf-001",
+      "pattern_type": "Component",
+      "reusable_module": "Full brand token system: bg #F4F8F7, surface #FFFFFF, teal #0D9E8A, Bebas Neue + DM Mono + Barlow",
+      "reuse_count": 3,
+      "promotion_status": "Promoted",
+      "status": "Active"
+    }
+  ],
+  "PROSPECTS": [],
+  "CLIENTS": [],
+  "REVENUE": [],
+  "ACTIVITY_LOG": []
+}
