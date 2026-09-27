@@ -5,7 +5,7 @@ Status: ACTIVE — REPO-NATIVE SCHEDULER
 Clock: GitHub Actions  
 Timezone: Asia/Manila
 
-ADF Publisher schedules **canonical Insight releases** without Metricool or ChatGPT task slots.
+ADF Publisher schedules **canonical Insight releases** without depending on a paid social scheduler or ChatGPT task slots.
 
 Architecture:
 
