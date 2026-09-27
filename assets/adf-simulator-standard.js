@@ -45,21 +45,34 @@
   },true);
 
   if(operator){
-    const gate=document.getElementById('gate');
-    if(gate){gate.setAttribute('aria-hidden','true');gate.style.display='none';}
-    const app=document.getElementById('app')||document.getElementById('cockpit');
-    if(app){
-      app.removeAttribute('hidden');
-      app.classList.add('visible','active');
-      if(getComputedStyle(app).display==='none') app.style.display='block';
-    }
-    try{
-      if(typeof window.enterApp==='function') window.enterApp();
-      else{
-        if(typeof window.startClock==='function') window.startClock();
-        if(typeof window.initDate==='function') window.initDate();
+    let activated=false;
+    function openOperatorDemo(){
+      const gate=document.getElementById('gate');
+      if(gate){gate.setAttribute('aria-hidden','true');gate.style.display='none';}
+      const app=document.getElementById('app')||document.getElementById('cockpit');
+      if(app){
+        app.removeAttribute('hidden');
+        app.classList.add('visible','active');
+        if(getComputedStyle(app).display==='none') app.style.display='block';
       }
-    }catch(_e){}
+      if(!activated){
+        activated=true;
+        try{
+          if(typeof window.enterApp==='function') window.enterApp();
+          else{
+            if(typeof window.startClock==='function') window.startClock();
+            if(typeof window.initDate==='function') window.initDate();
+          }
+        }catch(_e){}
+      }
+    }
+    openOperatorDemo();
+    window.addEventListener('load',function(){
+      const gate=document.getElementById('gate');
+      if(gate){gate.setAttribute('aria-hidden','true');gate.style.display='none';}
+      const app=document.getElementById('app')||document.getElementById('cockpit');
+      if(app){app.classList.add('visible','active');if(getComputedStyle(app).display==='none')app.style.display='block';}
+    });
 
     document.querySelectorAll('button,a').forEach(function(el){
       if(!/^(sign out|log out|logout)$/i.test((el.textContent||'').trim())) return;
