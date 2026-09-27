@@ -176,7 +176,9 @@ No orphan repositories.
 
 ## Data Spine extension
 
-The canonical PROSPECTS record retains its existing fields and adds:
+Canonical ADF operational records live in the private repo-native Data Spine defined by `DATA_SPINE_STANDARD_v3.0.md`.
+
+The canonical prospect record retains its existing fields and adds:
 
 - `opportunity_id`
 - `opportunity_score`
@@ -186,7 +188,9 @@ The canonical PROSPECTS record retains its existing fields and adds:
 
 These fields connect discovery evidence to the sales and manufacturing loop without creating a new ledger.
 
-The live Sheet migration is additive only. Existing rows remain valid.
+The Google Sheet is migration evidence after verified cutover; it is not continuing authority.
+
+Public `adf-hq` Operator surfaces receive sanitized projections only.
 
 ## Minimum operating metrics
 
