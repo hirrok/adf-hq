@@ -31,7 +31,10 @@ if(isOperator){
         input.type='hidden';
         input.setAttribute('aria-hidden','true');
         const button=gate.querySelector('button');
-        if(button)button.textContent='Launch Operator Simulation';
+        if(button){
+          button.textContent='Launch Operator Simulation';
+          button.addEventListener('click',()=>{input.value=match[1];},true);
+        }
         gate.querySelectorAll('.gate-sub').forEach(el=>el.textContent='Interactive operations prototype · simulated data');
         gate.querySelectorAll('.gate-hint,.gate-sim,.gate-sim-note').forEach(el=>el.textContent='ADF Simulator · sample data only · no private system access');
         const note=document.createElement('div');
