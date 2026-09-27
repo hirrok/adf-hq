@@ -52,7 +52,8 @@
       "media_role": "embedded_on_canonical_insight",
       "linkedin_published_at": "2026-09-27T13:56:00+08:00",
       "season": "Season 1 — Verification & Operating Reality",
-      "episode": 1
+      "episode": 1,
+      "media_length": 268238
     },
     {
       "id": "doctrine-001-interface-not-infrastructure",
@@ -101,7 +102,8 @@
       "media_type": "video/mp4",
       "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/automate-stable-processes-v1-poster.jpg",
       "media_role": "embedded_on_canonical_insight",
-      "linkedin_copy": "Automation amplifies whatever process it inherits. A clean process becomes leverage. A confused process becomes faster confusion.\\n\\nSeason 1 · Episode 03 — Automate Stable Processes, Not Confusion."
+      "linkedin_copy": "Automation amplifies whatever process it inherits. A clean process becomes leverage. A confused process becomes faster confusion.\\n\\nSeason 1 · Episode 03 — Automate Stable Processes, Not Confusion.",
+      "media_length": 169115
     },
     {
       "id": "build-note-001-prototype-before-proposal",
@@ -150,7 +152,8 @@
       "media_type": "video/mp4",
       "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/automation-debt-v1-poster.jpg",
       "media_role": "embedded_on_canonical_insight",
-      "linkedin_copy": "Automation removes repetition, but every automation creates an obligation: someone still has to understand the map.\\n\\nSeason 1 · Episode 05 — Automation Debt."
+      "linkedin_copy": "Automation removes repetition, but every automation creates an obligation: someone still has to understand the map.\\n\\nSeason 1 · Episode 05 — Automation Debt.",
+      "media_length": 165771
     },
     {
       "id": "recon-note-001-where-leads-die",
@@ -199,7 +202,8 @@
       "media_type": "video/mp4",
       "poster_url": "https://hirrok.github.io/adf-hq/media/field-notes/dashboards-not-decisions-v1-poster.jpg",
       "media_role": "embedded_on_canonical_insight",
-      "linkedin_copy": "A dashboard can make a business more informed without making it more responsive. Measurement becomes useful when it connects signals to action.\\n\\nSeason 1 · Episode 07 — Dashboards Are Not Decisions."
+      "linkedin_copy": "A dashboard can make a business more informed without making it more responsive. Measurement becomes useful when it connects signals to action.\\n\\nSeason 1 · Episode 07 — Dashboards Are Not Decisions.",
+      "media_length": 167420
     },
     {
       "id": "operator-note-001-maintainable-tools",
