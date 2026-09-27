@@ -10,3 +10,5 @@ exclude:
   - SIMULATOR_STATUS.md
   - site.html
   - cockpit.html
+
+  - simulators/crumbly-crust-cafe

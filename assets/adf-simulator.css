@@ -1,0 +1,8 @@
+#adf-simulator-provenance{position:fixed;right:12px;bottom:12px;z-index:2147483000;display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid rgba(39,199,173,.32);border-radius:999px;background:rgba(7,17,15,.92);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.24);font:700 10px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:#b9cbc6}
+#adf-simulator-provenance .adf-dot{width:7px;height:7px;border-radius:50%;background:#27c7ad;box-shadow:0 0 0 3px rgba(39,199,173,.12)}
+#adf-simulator-provenance a{color:#f2f7f5!important;text-decoration:none!important}
+#adf-simulator-provenance .adf-mode{color:#27c7ad}
+.adf-demo-form-note{margin:.55rem 0 0!important;font:600 11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace!important;letter-spacing:.04em!important;color:inherit!important;opacity:.68!important}
+.adf-sim-launch-note{margin-top:12px!important;font:600 11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace!important;letter-spacing:.04em!important;opacity:.72!important}
+@media(max-width:640px){#adf-simulator-provenance{left:10px;right:10px;bottom:10px;justify-content:center;font-size:9px}}
+@media(prefers-reduced-motion:reduce){#adf-simulator-provenance{backdrop-filter:none}}
