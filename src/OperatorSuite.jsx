@@ -988,7 +988,10 @@ function Leads({ leads, setLeads, ai }) {
       next_action: form.action || "Run Recon",
       follow_up_date: addDays(today(), 2),
       follow_up_cadence: "MANUAL",
-      notes: "",
+      notes: [
+        form.opportunityId ? "Opportunity: " + form.opportunityId : "",
+        form.valueLeak ? "Value leak: " + form.valueLeak : "",
+      ].filter(Boolean).join(" | "),
       created_at: now,
       updated_at: now,
       opportunity_id: form.opportunityId || "",
