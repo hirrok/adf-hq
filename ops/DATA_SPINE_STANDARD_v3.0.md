@@ -159,6 +159,12 @@ Airtable **Revenue Engine / Outbound Queue** is a non-canonical execution projec
 
 Commercial outreach must not be scheduled when the canonical prospect write is unresolved.
 
+## Revenue Engine order projection
+
+Airtable **Revenue Engine / Orders** is the operational order-processing surface for storefront intake, payment matching, production, and delivery workflow. It is not the canonical ADF revenue ledger.
+
+After independent payment verification, revenue must be reconciled into `hirrok/adf-data-spine/data/revenue.json` under `schema/revenue-record.schema.json`. The Airtable order then carries its stable canonical revenue ID. If canonical reconciliation fails, preserve recoverable reconciliation debt rather than claiming the private spine is current.
+
 ## Opportunity-to-Asset extension
 
 Prospect records include:
