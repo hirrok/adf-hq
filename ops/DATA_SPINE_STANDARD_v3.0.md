@@ -151,6 +151,14 @@ New records use stable, human-inspectable prefixes already present in ADF where 
 
 Never recycle an ID after deletion or archival.
 
+## Opportunity Forge execution projection
+
+Opportunity Forge direct-commercial discovery writes canonical ADF prospect truth to `hirrok/adf-data-spine/data/prospects.json`.
+
+Airtable **Revenue Engine / Outbound Queue** is a non-canonical execution projection for drafting, AgentMail scheduling, delivery evidence, and follow-up mechanics. Projected rows should carry the stable canonical prospect ID. A projection must never overwrite or silently supersede private Data Spine prospect state.
+
+Commercial outreach must not be scheduled when the canonical prospect write is unresolved.
+
 ## Opportunity-to-Asset extension
 
 Prospect records include:
