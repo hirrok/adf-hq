@@ -1,26 +1,91 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Commissioning Sample — Revenue Leak Audit</title>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A real anonymized sample Revenue Leak Audit for a UK service business, showing observed conversion leaks, a rewritten hero, priority fixes, and a 7-day repair plan.">
+<title>Sample Revenue Leak Audit — Aurora Digital Foundry</title>
 <style>
-body{margin:0;background:#07110f;color:#f2f7f5;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}.wrap{max-width:850px;margin:auto;padding:36px 20px 70px}.eyebrow{color:#27c7ad;font-weight:800;letter-spacing:.12em;font-size:.78rem}h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:1;letter-spacing:-.05em}h2{color:#27c7ad;margin-top:34px}.card{background:#0d1b18;border:1px solid #1f3732;border-radius:16px;padding:22px;margin:18px 0}.muted{color:#9ab0aa}.callout{border-left:4px solid #27c7ad;padding:10px 16px;background:#102722}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.item{background:#102722;border:1px solid #1f3732;padding:16px;border-radius:12px}a{color:#27c7ad}@media(max-width:700px){.grid{grid-template-columns:1fr}}
-</style></head>
-<body><div class="wrap">
-<div class="eyebrow">INTERNAL COMMISSIONING SAMPLE — NOT A CUSTOMER ORDER</div>
+:root{--bg:#07110f;--panel:#0d1b18;--ink:#f2f7f5;--muted:#9ab0aa;--teal:#27c7ad;--line:#1f3732;--soft:#102722}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:900px;margin:auto;padding:34px 20px 76px}.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:46px}.brand{font-weight:800;letter-spacing:.08em;font-size:.85rem;text-decoration:none;color:inherit}.brand b{color:var(--teal)}
+.eyebrow{color:var(--teal);font-weight:800;letter-spacing:.12em;font-size:.78rem}h1{font-size:clamp(2.5rem,7vw,5.2rem);line-height:.95;letter-spacing:-.05em;margin:12px 0 18px}h2{font-size:1.8rem;letter-spacing:-.025em;margin:44px 0 16px}h3{margin:.15rem 0 .45rem;font-size:1.08rem}
+.lead{font-size:1.08rem;color:#c8d7d3;max-width:760px}.muted{color:var(--muted)}.card{background:linear-gradient(180deg,var(--panel),#0a1614);border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0}.callout{border-left:4px solid var(--teal);padding:16px 18px;background:var(--soft);border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.item{background:var(--soft);border:1px solid var(--line);padding:18px;border-radius:13px}.num{color:var(--teal);font-weight:900;font-size:.76rem;letter-spacing:.08em}.quote{font-size:1.2rem;line-height:1.5}.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.button{display:inline-block;text-decoration:none;border-radius:10px;background:var(--teal);color:#03100d;font-weight:900;padding:12px 16px}.button.secondary{background:transparent;color:var(--teal);border:1px solid var(--teal)}ol{padding-left:1.3rem}li{margin:.65rem 0}.footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);font-size:.84rem;color:var(--muted)}a{color:var(--teal)}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.nav{align-items:flex-start;gap:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="nav"><a class="brand" href="../">AURORA <b>DIGITAL FOUNDRY</b></a><a href="./">Revenue Leak Audit</a></nav>
+
+<div class="eyebrow">REAL ANONYMIZED SAMPLE</div>
 <h1>Revenue Leak Audit</h1>
-<p class="muted">Target: Aurora Digital Foundry Revenue Store. This sample demonstrates the kind of output a buyer receives. It is based on storefront source review, not traffic analytics.</p>
-<div class="callout"><strong>Highest-leverage finding:</strong> the product is clear, but the original order flow separated intake from payment without a deterministic order key. The fix is to create the order reference first, then present PayPal.</div>
-<h2>What is already working</h2>
-<div class="grid"><div class="item"><strong>Clear offer</strong><br>One URL, USD 39, no meeting.</div><div class="item"><strong>Concrete output</strong><br>Hero, CTA, trust/friction diagnosis, priorities, 7-day plan.</div><div class="item"><strong>Low access risk</strong><br>No credentials; public-site review only.</div><div class="item"><strong>Payment truth</strong><br>Work begins only after independent verification.</div></div>
-<h2>Conversion leaks</h2>
-<div class="card"><strong>1. Intake/payment mismatch</strong><p>A customer could submit without paying or pay without a clean order reference. Use a generated order ID and show payment only after successful intake.</p>
-<strong>2. No proof sample</strong><p>The page explains the deliverable but does not show its quality. This page now serves as the first clearly labeled sample.</p>
-<strong>3. No turnaround expectation</strong><p>Do not invent an SLA. Time real production runs first, then publish an evidence-based delivery window.</p>
-<strong>4. Maya is an exception path</strong><p>Keep Maya available for Philippine buyers but route it through manual instructions until a safe merchant automation exists.</p></div>
-<h2>Recommended hero</h2>
-<div class="callout"><strong>Know what to fix on your website before you spend more on traffic.</strong><br><br>Send one public URL. Get a focused conversion teardown with a rewritten hero, stronger CTA direction, trust and friction fixes, and a priority-ranked 7-day action plan. No call. No login access. USD 39 one-time.</div>
-<h2>Recommended order architecture</h2>
-<p>Submit → create order ID → confirm → pay → verify → produce → deliver.</p>
-<h2>Commissioning verdict</h2>
-<p>The system is ready for controlled execution of intake, production and email delivery. A genuine external payment remains the final proof gate; until that occurs, status should be <strong>PROOF-READY</strong>, not revenue-proven.</p>
-<p><a href="./">← Back to the audit offer</a></p>
-</div></body></html>
+<p class="lead">Example target: a UK cleaning company serving commercial and residential customers. This review uses only the public homepage as it appeared in September 2026. The company name and URL are withheld; no analytics, credentials, or private customer data were used.</p>
+
+<div class="callout"><strong>Highest-leverage finding:</strong> the homepage makes visitors learn about the company before helping them choose the right buying path. Commercial and residential customers enter through the same generic opening, so the first decision is slower than it needs to be.</div>
+
+<h2>What the visitor sees now</h2>
+<div class="grid">
+  <div class="item"><div class="num">FIRST SCREEN</div><h3>Company-first opening</h3><p class="muted">The page opens with a welcome message, a broad “commercial & domestic cleaning” label, and a paragraph describing the company and its range of services.</p></div>
+  <div class="item"><div class="num">SERVICES</div><h3>Many offers at once</h3><p class="muted">Construction, hotel, office, commercial, domestic, and residential services appear before the visitor has been clearly segmented.</p></div>
+  <div class="item"><div class="num">PROOF</div><h3>Useful trust exists</h3><p class="muted">Testimonials, UK coverage, multiple offices, flexibility, and service claims give the business material to build confidence.</p></div>
+  <div class="item"><div class="num">ACTION</div><h3>Quote path arrives late</h3><p class="muted">A phone number and quote form exist, but the homepage does not turn the first screen into a clean commercial-vs-residential decision.</p></div>
+</div>
+
+<h2>Revenue leak map</h2>
+<div class="card">
+  <h3>01 — Clarity: mixed audiences</h3>
+  <p>Commercial facilities buyers and residential customers have different needs, proof thresholds, and buying cycles. Treating them as one audience forces both to filter the page for relevance.</p>
+  <h3>02 — Action: no dominant first decision</h3>
+  <p>The visitor can eventually call or request a quote, but the opening should answer a simpler question first: <em>Which service path are you here for?</em></p>
+  <h3>03 — Trust: proof is present but underused</h3>
+  <p>The site already has testimonials and geographic coverage. Moving one strong proof signal close to the primary CTA would reduce uncertainty earlier.</p>
+  <h3>04 — Friction: service breadth becomes decision load</h3>
+  <p>A long list of capabilities proves range, but breadth before segmentation makes scanning harder. Route first; expand services second.</p>
+  <h3>05 — Follow-through: unknown from the public site</h3>
+  <p>The homepage cannot prove how quickly quote requests are answered, who owns the lead, or what happens after submission. Those are operational questions to verify internally, not assumptions to invent.</p>
+</div>
+
+<h2>Recommended first screen</h2>
+<div class="callout">
+  <div class="eyebrow">REWRITE</div>
+  <p class="quote"><strong>Professional cleaning for workplaces and homes across the UK.</strong></p>
+  <p>Choose the service you need, request a no-obligation quote, and get routed to the right cleaning team without hunting through the site.</p>
+  <div class="cta-row"><span class="button">Get a commercial cleaning quote</span><span class="button secondary">I need home cleaning</span></div>
+  <p class="muted">Supporting proof line: UK coverage · Flexible service plans · Commercial & residential teams</p>
+</div>
+
+<h2>Priority fixes</h2>
+<ol>
+  <li><strong>Split the first decision.</strong> Give commercial and residential visitors distinct paths above the fold.</li>
+  <li><strong>Make one CTA dominant.</strong> If commercial contracts are the higher-value objective, make the commercial quote the primary action and residential the secondary route.</li>
+  <li><strong>Move proof upward.</strong> Place one testimonial or coverage/trust statement directly beneath the CTA.</li>
+  <li><strong>Reduce service-list noise.</strong> Show service categories after segmentation rather than asking every visitor to process the full catalog.</li>
+  <li><strong>Define the quote handoff.</strong> Tell buyers what happens after submission: response window, next step, and whether a site survey is required.</li>
+</ol>
+
+<h2>7-day repair sequence</h2>
+<div class="grid">
+  <div class="item"><div class="num">DAY 1</div><strong>Choose the primary buyer.</strong><p class="muted">Confirm whether commercial contracts, residential jobs, or both equally drive the business.</p></div>
+  <div class="item"><div class="num">DAY 2</div><strong>Replace the hero.</strong><p class="muted">Install the segmented opening and one primary CTA.</p></div>
+  <div class="item"><div class="num">DAY 3</div><strong>Route service paths.</strong><p class="muted">Give each audience its own relevant services and proof.</p></div>
+  <div class="item"><div class="num">DAY 4</div><strong>Lift trust signals.</strong><p class="muted">Move the strongest testimonial, coverage statement, and legitimacy cues higher.</p></div>
+  <div class="item"><div class="num">DAY 5</div><strong>Tighten the quote form.</strong><p class="muted">Keep only fields needed to qualify and respond to the lead.</p></div>
+  <div class="item"><div class="num">DAY 6</div><strong>Mobile QA.</strong><p class="muted">Check the first screen, CTA visibility, phone action, form usability, and service routing on a small screen.</p></div>
+  <div class="item"><div class="num">DAY 7</div><strong>Measure the handoff.</strong><p class="muted">Track quote submissions and phone clicks, then compare performance after the changes.</p></div>
+</div>
+
+<h2>What this audit does not claim</h2>
+<div class="card"><p>Without analytics we cannot claim the current conversion rate, traffic quality, abandonment rate, or revenue impact of any single change. The audit identifies observable buyer-journey friction and gives a prioritized repair plan; measured results require implementation and tracking.</p></div>
+
+<div class="card">
+  <div class="eyebrow">YOUR SITE, NEXT</div>
+  <h2 style="margin-top:8px">Find where buyers are leaking.</h2>
+  <p class="muted">Send one public URL. Get the same kind of focused diagnosis, rewrite, priorities, and 7-day repair sequence for your own site.</p>
+  <a class="button" href="./#order">Start the $39 audit →</a>
+</div>
+
+<div class="footer">Sample based on a real public service-business website. Identity withheld. Observations are evidence-based; unknowns remain unknown.</div>
+</div>
+</body>
+</html>
