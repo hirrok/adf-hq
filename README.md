@@ -4,7 +4,7 @@
 **Repository:** `hirrok/adf-hq`  
 **Public site:** https://hirrok.github.io/adf-hq/
 
-Aurora Digital Foundry manufactures business infrastructure. This repository is the active headquarters and public system of record for ADF website development, acquisition surfaces, Insights, Field Notes, publishing automation, simulator registry, store surfaces, Foundry Ops, and reusable infrastructure assets.
+Aurora Digital Foundry manufactures business infrastructure and reusable digital products. This repository is the active public headquarters and system of record for ADF website development, acquisition surfaces, Insights, Field Notes, publishing automation, simulator registry, public store/product surfaces, Foundry Ops, and sanitized reusable infrastructure assets.
 
 ## Repository roles
 
@@ -23,6 +23,14 @@ ADF operational truth lives in the private companion repository `hirrok/adf-data
 `adf-hq` may contain public schemas and sanitized projections, but never canonical private prospect, client, revenue, contact, or activity records.
 
 See `ops/DATA_SPINE_STANDARD_v3.0.md`.
+
+## Private product lab
+
+Reusable software/product discovery, experiments, entitlement/runtime prototypes, and technical QA live in the private companion repository `hirrok/adf-product-lab`.
+
+Product Lab is not a separate public brand and does not own canonical client or revenue truth.
+
+A Product Lab candidate becomes a live ADF commercial product only after it is approved, registered in `adf-data-spine`, and given an approved public surface here (or another explicitly approved ADF product surface).
 
 ## Prospect and client builds
 
