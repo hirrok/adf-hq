@@ -1,5 +1,5 @@
 {
-  "version": "2026.09-v0.10",
+  "version": "2026.09-v0.11",
   "timezone": "Asia/Manila",
   "site_base_url": "https://hirrok.github.io/adf-hq",
   "rules": {
@@ -52,7 +52,8 @@
       "linkedin_published_at": "2026-09-27T13:56:00+08:00",
       "season": "Season 1 — Verification & Operating Reality",
       "episode": 1,
-      "web_media_bytes": 268238
+      "web_media_bytes": 268238,
+      "linkedin_status": "published"
     },
     {
       "id": "doctrine-001-interface-not-infrastructure",
@@ -75,7 +76,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "A website is the visible layer. The business system underneath determines whether attention turns into action, follow-up, and revenue.\n\nSeason 1 · Episode 02 — The Interface Is Not the Infrastructure.",
-      "linkedin_status": "prepared_not_scheduled"
+      "linkedin_status": "awaiting_canonical_release"
     },
     {
       "id": "field-note-002-automate-stable-processes",
@@ -98,7 +99,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "Automation amplifies whatever process it inherits. Stabilize the logic before you scale the repetition.\n\nSeason 1 · Episode 03 — Automate Stable Processes, Not Confusion.",
-      "linkedin_status": "prepared_not_scheduled",
+      "linkedin_status": "awaiting_canonical_release",
       "media_role": "embedded_on_canonical_insight",
       "master_media_url": "https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-master.mp4",
       "web_media_url": "https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-web.mp4",
@@ -128,7 +129,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "A prototype turns “we could” into “here is what it does.” Build enough of the future state to test the risky assumption.\n\nSeason 1 · Episode 04 — Prototype Before Proposal.",
-      "linkedin_status": "prepared_not_scheduled"
+      "linkedin_status": "awaiting_canonical_release"
     },
     {
       "id": "field-note-003-automation-debt",
@@ -151,7 +152,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "Automation removes repetition, but assumptions age and exceptions accumulate. Someone still has to keep the map.\n\nSeason 1 · Episode 05 — Automation Debt.",
-      "linkedin_status": "prepared_not_scheduled",
+      "linkedin_status": "awaiting_canonical_release",
       "media_role": "embedded_on_canonical_insight",
       "master_media_url": "https://hirrok.github.io/adf-hq/media/season-1/automation-debt-master.mp4",
       "web_media_url": "https://hirrok.github.io/adf-hq/media/season-1/automation-debt-web.mp4",
@@ -181,7 +182,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "A form submission is not a conversion. It is a handoff request. Revenue often leaks between capture and the next move.\n\nSeason 1 · Episode 06 — Where Leads Die After the Form.",
-      "linkedin_status": "prepared_not_scheduled"
+      "linkedin_status": "awaiting_canonical_release"
     },
     {
       "id": "field-note-004-dashboards-not-decisions",
@@ -204,7 +205,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "Dashboards show signals. Signals are not decisions. Useful measurement connects a change to an owner and a next action.\n\nSeason 1 · Episode 07 — Dashboards Are Not Decisions.",
-      "linkedin_status": "prepared_not_scheduled",
+      "linkedin_status": "awaiting_canonical_release",
       "media_role": "embedded_on_canonical_insight",
       "master_media_url": "https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-master.mp4",
       "web_media_url": "https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-web.mp4",
@@ -234,7 +235,7 @@
       "linkedin_distribution": "canonical_link",
       "linkedin_native_video": false,
       "linkedin_commentary": "The cheapest tool is not the one with the lowest price. It is the one your team can understand, recover, and maintain.\n\nSeason 1 · Episode 08 — The Cheapest Tool Is the One Your Team Can Maintain.",
-      "linkedin_status": "prepared_not_scheduled"
+      "linkedin_status": "awaiting_canonical_release"
     },
     {
       "id": "field-note-s2-001-handoff-tax",

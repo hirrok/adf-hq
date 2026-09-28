@@ -1,6 +1,6 @@
 # ADF Publisher
 
-Version: 2026.09-v0.2  
+Version: 2026.09-v0.3  
 Status: ACTIVE — REPO-NATIVE SCHEDULER  
 Clock: GitHub Actions  
 Timezone: Asia/Manila
@@ -20,7 +20,11 @@ governed release PR
     ↓
 ADF Insights + RSS
     ↓
-LinkedIn RSS distribution
+QUEUE.json LinkedIn package becomes ready
+    ↓
+Hourly Opportunity Forge distribution module
+    ↓
+Windsor.ai → LinkedIn Organic → Aurora Digital Foundry page
 ```
 
 The website remains the source of truth. Social platforms are distribution surfaces.
@@ -87,6 +91,10 @@ Default LinkedIn package:
 - no native video requirement
 
 This keeps publication momentum high and avoids paid scheduler dependencies or a manual video-upload bottleneck.
+
+Execution is governed by the same queue. A LinkedIn post is eligible only after the canonical Insight is actually published, the item has approved `linkedin_commentary`, `linkedin_distribution` is `canonical_link`, and `linkedin_urn` is still null. The hourly Opportunity Forge distribution module may publish at most one eligible ADF item per run through the connected Windsor.ai `linkedin_organic` account named **Aurora Digital Foundry**.
+
+After a successful LinkedIn write, the queue must record the returned LinkedIn URN, set `linkedin_status` to `published`, and record `linkedin_published_at`. Failed or unavailable distribution must never be reported as published.
 
 Field Note video masters remain preserved in the repository for the canonical page and future reuse. Native LinkedIn video is an optional exception, never a release requirement.
 
