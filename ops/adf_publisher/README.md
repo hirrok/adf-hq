@@ -92,9 +92,9 @@ Default LinkedIn package:
 
 This keeps publication momentum high and avoids paid scheduler dependencies or a manual video-upload bottleneck.
 
-Execution is governed by the same queue. A LinkedIn post is eligible only after the canonical Insight is actually published, the item has approved `linkedin_commentary`, `linkedin_distribution` is `canonical_link`, and `linkedin_urn` is still null. The hourly Opportunity Forge distribution module may publish at most one eligible ADF item per run through the connected Windsor.ai `linkedin_organic` account named **Aurora Digital Foundry**.
+Execution is governed by the same queue. A LinkedIn post is eligible only after the canonical Insight is actually published, the item has approved `linkedin_commentary`, `linkedin_distribution` is `canonical_link`, `linkedin_urn` is still null, and `linkedin_status` is `ready` or absent. Reverify that the canonical URL is live before posting. The hourly Opportunity Forge distribution module may publish at most one eligible ADF item per run through the connected Windsor.ai `linkedin_organic` account named **Aurora Digital Foundry**.
 
-After a successful LinkedIn write, the queue must record the returned LinkedIn URN, set `linkedin_status` to `published`, and record `linkedin_published_at`. Failed or unavailable distribution must never be reported as published.
+Use the queue's approved `linkedin_commentary` and canonical link package unchanged; do not add new claims, hashtags, CTAs, or alternate identity copy during distribution. After a successful LinkedIn write, the queue must record the returned LinkedIn URN, set `linkedin_status` to `published`, and record `linkedin_published_at`. If LinkedIn publishes but queue reconciliation fails, preserve the exact publication evidence as reconciliation debt and do not repost. Failed or unavailable distribution must never be reported as published, and the module must never fall back to a personal LinkedIn identity or another channel.
 
 Field Note video masters remain preserved in the repository for the canonical page and future reuse. Native LinkedIn video is an optional exception, never a release requirement.
 
