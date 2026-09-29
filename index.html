@@ -364,6 +364,9 @@
       padding: 120px 0;
       background: var(--mid);
     }
+    #sprints { padding: 120px 0; }
+    .sprint-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
+    .sprint-note { color:var(--text); font-size:.9rem; line-height:1.75; margin-top:28px; max-width:760px; }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -926,7 +929,7 @@
       .manifesto-grid,
       .contact-grid,
       .layers-grid { grid-template-columns: 1fr; gap: 40px; }
-      .services-grid { grid-template-columns: 1fr; }
+      .services-grid, .sprint-grid { grid-template-columns: 1fr; }
       .portfolio-grid { grid-template-columns: 1fr 1fr; }
       .proof-grid { grid-template-columns: 1fr 1fr; }
       .process-timeline {
@@ -1373,6 +1376,43 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ─── FAST-START SPRINTS ─────────────────────────────── -->
+<section id="sprints">
+  <div class="container">
+    <div class="tag">Fast-Start Engagements</div>
+    <h2 class="section-title">Fix one bottleneck.<br>Ship the repair.</h2>
+    <p class="section-sub">For teams that need a concrete result before a full infrastructure program. Each sprint is bounded around one observable operating problem.</p>
+    <div class="sprint-grid">
+      <div class="service-card">
+        <div class="service-layer">Fast Start 01</div>
+        <div class="service-title">Website Conversion Repair</div>
+        <div class="service-desc">Identify and repair one high-friction point on the public website or inquiry path. Ship the updated surface, QA it, and hand it over cleanly.</div>
+        <div class="service-tags"><span class="service-tag">Conversion Path</span><span class="service-tag">Page Repair</span><span class="service-tag">QA</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-layer">Fast Start 02</div>
+        <div class="service-title">Lead Follow-up System Setup</div>
+        <div class="service-desc">Turn scattered inquiries into a visible operating queue with source, status, owner, next action, and follow-up discipline.</div>
+        <div class="service-tags"><span class="service-tag">Lead Ledger</span><span class="service-tag">Follow-up</span><span class="service-tag">Handoff</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-layer">Fast Start 03</div>
+        <div class="service-title">Content Operations Setup</div>
+        <div class="service-desc">Build one repeatable research-to-publish workflow with clear QA, approval, publishing, and measurement steps.</div>
+        <div class="service-tags"><span class="service-tag">Workflow</span><span class="service-tag">QA</span><span class="service-tag">Measurement</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-layer">Fast Start 04</div>
+        <div class="service-title">Digital Operations Cleanup</div>
+        <div class="service-desc">Take one scattered manual workflow and turn it into a simpler, visible operating system using tools the business can actually maintain.</div>
+        <div class="service-tags"><span class="service-tag">Process Cleanup</span><span class="service-tag">Visibility</span><span class="service-tag">Low Overhead</span></div>
+      </div>
+    </div>
+    <p class="sprint-note">Each sprint starts with a bounded scope and fixed quote. Implementation begins after an agreed deposit. We reuse existing infrastructure where practical and do not add paid tooling without approval.</p>
+    <div style="margin-top:28px;"><a href="#contact" class="btn btn-primary">Request a Fast-Start Sprint ↗</a></div>
   </div>
 </section>
 
@@ -2113,6 +2153,17 @@
             <option>Retail &amp; Suppliers</option>
             <option>Association / Community</option>
             <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reconEngagement">What would you like to improve first?</label>
+          <select id="reconEngagement" name="engagement">
+            <option value="" selected>Not sure yet / full Recon</option>
+            <option>Website Conversion Repair</option>
+            <option>Lead Follow-up System Setup</option>
+            <option>Content Operations Setup</option>
+            <option>Digital Operations Cleanup</option>
+            <option>Broader Infrastructure Program</option>
           </select>
         </div>
         <div class="form-group">
