@@ -13,8 +13,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
-  pages: write
 
 concurrency:
   group: adf-publisher
@@ -51,10 +49,8 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Open and merge governed release PR
+      - name: Stage governed release branch
         if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
@@ -68,49 +64,6 @@ jobs:
           git commit -m "Release scheduled ADF Insights"
           git push --force-with-lease origin "$BRANCH"
 
-          PR_NUMBER="$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number // empty')"
-          if [ -z "$PR_NUMBER" ]; then
-            PR_URL="$(gh pr create               --base main               --head "$BRANCH"               --title "Release scheduled ADF Insights"               --body "Automated canonical release from the ADF Publisher queue.")"
-            PR_NUMBER="$(gh pr view "$PR_URL" --json number --jq '.number')"
-          fi
-
-          MERGED=false
-          for attempt in 1 2 3 4 5 6; do
-            if gh pr merge "$PR_NUMBER" --squash --delete-branch; then
-              MERGED=true
-              break
-            fi
-            echo "Merge not ready yet (attempt $attempt/6)."
-            sleep 10
-          done
-
-          if [ "$MERGED" != "true" ]; then
-            echo "ADF Publisher created PR #$PR_NUMBER but could not merge it automatically."
-            echo "Repository rules remain authoritative; inspect the PR for the blocking requirement."
-            exit 1
-          fi
-
-      - name: Trigger and verify GitHub Pages build
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          BUILD_URL="$(gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds" --jq '.url')"
-          BUILD_ID="${BUILD_URL##*/}"
-          echo "Requested Pages build #$BUILD_ID"
-
-          for attempt in $(seq 1 36); do
-            STATUS="$(gh api "repos/${GITHUB_REPOSITORY}/pages/builds/$BUILD_ID" --jq '.status')"
-            echo "Pages build status: $STATUS"
-            case "$STATUS" in
-              built) exit 0 ;;
-              errored|canceled) exit 1 ;;
-            esac
-            sleep 10
-          done
-
-          echo "Timed out waiting for Pages build #$BUILD_ID"
-          exit 1
+          echo "Staged governed release on $BRANCH."
+          echo "Repository policy blocks GitHub Actions from creating pull requests."
+          echo "Media Command is the authorized promotion executor for PR creation, merge, and Pages verification."
