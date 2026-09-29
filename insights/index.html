@@ -22,6 +22,7 @@
 .card:hover{transform:translateY(-3px);border-color:var(--teal)}.kicker{font:800 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;color:var(--teal);text-transform:uppercase}
 .card h2{font-size:1.45rem;line-height:1.15;margin:10px 0 12px;color:var(--ink)}.card p{color:#b8cac5;margin:0}.meta{font:600 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin-top:18px}
 footer{margin-top:64px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.85rem}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.section-head{display:block}.section-copy{margin-top:10px}}
 </style>
 </head>
 <body><div class="wrap">
@@ -30,18 +31,24 @@ footer{margin-top:64px;border-top:1px solid var(--line);padding-top:22px;color:v
 <h1>Build fast.<br>Understand what you built.</h1>
 <p class="lead">Field notes, build notes, recon notes, and operating doctrine from the Foundry. The site is the canonical source; social channels are distribution.</p>
 <section class="section">
-  <div class="season-tag">Season 1 · Verification & Operating Reality</div>
+  <div class="season-tag">Season 1 · Verification &amp; Operating Reality</div>
   <div class="section-head">
     <h2 class="section-title">Editorial Series</h2>
-    <p class="section-copy">A sequential argument about AI operations, verification, infrastructure, maintainability, and the systems beneath visible interfaces.</p>
+    <p class="section-copy">Sequential operating arguments from the Foundry. Read each season as a connected system, not isolated posts.</p>
   </div>
   <div class="grid">
-    <a class="card" href="verification-tax/">
-      <div class="kicker">Season 1 · Episode 01 · Field Note / 001</div>
-      <h2>The Verification Tax</h2>
-      <p>AI makes production cheap. Mistakes stay expensive. As generation accelerates, verification becomes the bottleneck.</p>
-      <div class="meta">27 SEP 2026 · AI OPERATIONS</div>
-    </a>
+<a class="card" href="interface-not-infrastructure/">
+  <div class="kicker">Season 1 · Episode 02 · Doctrine / 001</div>
+  <h2>The Interface Is Not the Infrastructure</h2>
+  <p>A website is the visible layer. The business system underneath determines whether attention turns into action, follow-up, and revenue.</p>
+  <div class="meta">29 SEP 2026 · BUSINESS INFRASTRUCTURE</div>
+</a>
+<a class="card" href="verification-tax/">
+  <div class="kicker">Season 1 · Episode 01 · Field Note / 001</div>
+  <h2>The Verification Tax</h2>
+  <p>AI makes production cheap. Mistakes stay expensive. As generation accelerates, verification becomes the bottleneck.</p>
+  <div class="meta">27 SEP 2026 · AI OPERATIONS</div>
+</a>
   </div>
 </section>
 
@@ -52,12 +59,12 @@ footer{margin-top:64px;border-top:1px solid var(--line);padding-top:22px;color:v
     <p class="section-copy">Standalone practical notes for diagnosing conversion friction, operating leaks, and business-system failures. These do not belong to the seasonal sequence.</p>
   </div>
   <div class="grid">
-    <a class="card" href="conversion-audit-example/">
-      <div class="kicker">Conversion Notes / 001</div>
-      <h2>What a website conversion audit actually looks for</h2>
-      <p>A practical diagnostic lens for clarity, CTA friction, trust, and conversion leaks.</p>
-      <div class="meta">26 SEP 2026 · CONVERSION</div>
-    </a>
+<a class="card" href="conversion-audit-example/">
+  <div class="kicker">Conversion Notes / 001</div>
+  <h2>What a website conversion audit actually looks for</h2>
+  <p>A practical diagnostic lens for homepage clarity, CTA friction, trust, and conversion leaks.</p>
+  <div class="meta">26 SEP 2026 · CONVERSION</div>
+</a>
   </div>
 </section>
 <footer><a href="feed.xml">RSS feed</a> · Aurora Digital Foundry, San Luis, Aurora, Philippines.</footer>
