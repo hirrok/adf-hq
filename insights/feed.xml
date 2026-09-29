@@ -5,13 +5,20 @@
 <link>https://hirrok.github.io/adf-hq/insights/</link>
 <description>Field notes, build notes, recon notes, and operating doctrine from Aurora Digital Foundry.</description>
 <language>en-PH</language>
-<lastBuildDate>Sun, 27 Sep 2026 12:00:00 +0800</lastBuildDate>
+<lastBuildDate>Tue, 29 Sep 2026 12:45:56 +0000</lastBuildDate>
 <atom:link href="https://hirrok.github.io/adf-hq/insights/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>The Interface Is Not the Infrastructure</title>
+<link>https://hirrok.github.io/adf-hq/insights/interface-not-infrastructure/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/interface-not-infrastructure/</guid>
+<pubDate>Tue, 29 Sep 2026 20:45:56 +0800</pubDate>
+<description>A website is the visible layer. The business system underneath determines whether attention turns into action, follow-up, and revenue.</description>
+</item>
 <item>
 <title>The Verification Tax</title>
 <link>https://hirrok.github.io/adf-hq/insights/verification-tax/</link>
 <guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/verification-tax/</guid>
-<pubDate>Sun, 27 Sep 2026 12:00:00 +0800</pubDate>
+<pubDate>Sun, 27 Sep 2026 12:48:00 +0800</pubDate>
 <description>AI makes production cheap. Mistakes stay expensive. As generation accelerates, verification becomes the bottleneck.</description>
 <enclosure url="https://hirrok.github.io/adf-hq/media/field-notes/verification-tax-v1.mp4" length="268238" type="video/mp4"/>
 </item>
