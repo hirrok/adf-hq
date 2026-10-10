@@ -22,7 +22,7 @@ ADF Insights + RSS
     ↓
 QUEUE.json LinkedIn package becomes ready
     ↓
-Hourly Opportunity Forge distribution module
+Sole authorized ADF organic LinkedIn distribution executor
     ↓
 Windsor.ai → LinkedIn Organic → Aurora Digital Foundry page
 ```
@@ -92,7 +92,7 @@ Default LinkedIn package:
 
 This keeps publication momentum high and avoids paid scheduler dependencies or a manual video-upload bottleneck.
 
-Execution is governed by the same queue. A LinkedIn post is eligible only after the canonical Insight is actually published, the item has approved `linkedin_commentary`, `linkedin_distribution` is `canonical_link`, `linkedin_urn` is still null, and `linkedin_status` is `ready` or absent. Reverify that the canonical URL is live before posting. The hourly Opportunity Forge distribution module may publish at most one eligible ADF item per run through the connected Windsor.ai `linkedin_organic` account named **Aurora Digital Foundry**.
+Execution is governed by the same queue. A LinkedIn post is eligible only after the canonical Insight is actually published, the item has approved `linkedin_commentary`, `linkedin_distribution` is `canonical_link`, `linkedin_urn` is still null, and `linkedin_status` is `ready` or absent. Reverify that the canonical URL is live before posting. The sole active authorized ADF organic LinkedIn distribution executor may publish at most one eligible ADF item per run through the connected Windsor.ai `linkedin_organic` account named **Aurora Digital Foundry**.
 
 Use the queue's approved `linkedin_commentary` and canonical link package unchanged; do not add new claims, hashtags, CTAs, or alternate identity copy during distribution. After a successful LinkedIn write, the queue must record the returned LinkedIn URN, set `linkedin_status` to `published`, and record `linkedin_published_at`. If LinkedIn publishes but queue reconciliation fails, preserve the exact publication evidence as reconciliation debt and do not repost. Failed or unavailable distribution must never be reported as published, and the module must never fall back to a personal LinkedIn identity or another channel.
 
@@ -103,3 +103,14 @@ Field Note video masters remain preserved in the repository for the canonical pa
 GitHub → Actions → **ADF Publisher** → Run workflow.
 
 A manual run uses the exact same due-time and approval rules.
+
+
+## 2026-10-10 organic-media failover during commercial outreach freeze
+
+Fresh Sovereign command resumes ADF Insights and LinkedIn organic publishing while all commercial opportunity outreach remains on HOLD.
+
+- Media Command is the **sole active ADF LinkedIn organic distribution executor only while Opportunity Forge is disabled**. Do not restart Opportunity Forge, harvest leads, create hiring drafts, send or schedule cold emails, solicit individual prospects, or create a competing publisher.
+- Preserve the existing QUEUE.json approval, status, exact approved commentary, independent live canonical URL verification, LinkedIn-URN reconciliation, and no-repost rules above. Use Windsor.ai `linkedin_organic` account `143923481` exclusively. Continue the current ADF LinkedIn cadence subject to existing editorial/QA and no-spend gates.
+- A QUEUE item marked `awaiting_canonical_release` cannot distribute until the canonical page is independently verified live and the queue is safely reconciled to `ready`. PR merge alone is not public availability. The ADF Publisher GitHub Actions release/PR process remains unchanged.
+- Do not use this publishing handoff to conduct outbound acquisition, LinkedIn DMs, new commercial offers/pricing, paid promotion, personal-profile fallback, or cross-brand distribution.
+- If Opportunity Forge is ever explicitly resumed, establish a single publisher owner and stop Media Command outbound LinkedIn publication until deconflicted. The commercial hold remains in force unless explicitly lifted by Hirro.
