@@ -5,8 +5,31 @@
 <link>https://hirrok.github.io/adf-hq/insights/</link>
 <description>Field notes, build notes, recon notes, and operating doctrine from Aurora Digital Foundry.</description>
 <language>en-PH</language>
-<lastBuildDate>Tue, 29 Sep 2026 12:45:56 +0000</lastBuildDate>
+<lastBuildDate>Sat, 10 Oct 2026 07:01:25 +0000</lastBuildDate>
 <atom:link href="https://hirrok.github.io/adf-hq/insights/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>Automate Stable Processes, Not Confusion</title>
+<link>https://hirrok.github.io/adf-hq/insights/automate-stable-processes/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/automate-stable-processes/</guid>
+<pubDate>Sat, 10 Oct 2026 15:01:25 +0800</pubDate>
+<description>Automation amplifies whatever process it inherits. If the underlying logic is unclear, automation can make disorder faster and harder to see.</description>
+<enclosure url="https://hirrok.github.io/adf-hq/media/season-1/automate-stable-processes-web.mp4" length="310037" type="video/mp4"/>
+</item>
+<item>
+<title>Prototype Before Proposal</title>
+<link>https://hirrok.github.io/adf-hq/insights/prototype-before-proposal/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/prototype-before-proposal/</guid>
+<pubDate>Sat, 10 Oct 2026 15:01:25 +0800</pubDate>
+<description>A working future-state prototype changes the sales conversation from promises about capability to evidence of capability.</description>
+</item>
+<item>
+<title>Automation Debt</title>
+<link>https://hirrok.github.io/adf-hq/insights/automation-debt/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/automation-debt/</guid>
+<pubDate>Sat, 10 Oct 2026 15:01:25 +0800</pubDate>
+<description>Every automated workflow creates maintenance, exceptions, and hidden assumptions. The gain is real only if somebody can still understand the map.</description>
+<enclosure url="https://hirrok.github.io/adf-hq/media/season-1/automation-debt-web.mp4" length="309100" type="video/mp4"/>
+</item>
 <item>
 <title>The Interface Is Not the Infrastructure</title>
 <link>https://hirrok.github.io/adf-hq/insights/interface-not-infrastructure/</link>
