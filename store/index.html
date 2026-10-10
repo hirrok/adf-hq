@@ -55,6 +55,12 @@ textarea{min-height:120px;resize:vertical}.btn{appearance:none;border:0;border-r
 <input id="subjectInput" type="hidden" name="_subject" value="Revenue Engine — Revenue Leak Audit">
 <input type="hidden" name="offer" value="Revenue Leak Audit — USD 39">
 <input id="orderIdInput" type="hidden" name="order_id" value="">
+<input id="utmSourceInput" type="hidden" name="utm_source" value="">
+<input id="utmMediumInput" type="hidden" name="utm_medium" value="">
+<input id="utmCampaignInput" type="hidden" name="utm_campaign" value="">
+<input id="utmContentInput" type="hidden" name="utm_content" value="">
+<input id="referrerInput" type="hidden" name="referrer" value="">
+<input id="landingUrlInput" type="hidden" name="landing_url" value="">
 <div class="grid"><label>Your name<input name="name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" required></label></div>
 <label>Website URL<input type="url" name="website" placeholder="https://example.com" required></label>
 <label>Preferred payment rail<select name="payment_rail" required><option value="PayPal">PayPal</option><option value="Maya">Maya — Philippines</option></select></label>
@@ -85,6 +91,12 @@ textarea{min-height:120px;resize:vertical}.btn{appearance:none;border:0;border-r
   }
   const orderId=makeOrderId();
   idField.value=orderId;
+  const qs=new URLSearchParams(location.search);
+  for(const [parameter,fieldId] of [['utm_source','utmSourceInput'],['utm_medium','utmMediumInput'],['utm_campaign','utmCampaignInput'],['utm_content','utmContentInput']]){
+    document.getElementById(fieldId).value=qs.get(parameter)||'';
+  }
+  document.getElementById('referrerInput').value=document.referrer||'';
+  document.getElementById('landingUrlInput').value=location.href;
   subject.value='Revenue Engine — Revenue Leak Audit — '+orderId;
   form.addEventListener('submit', async function(e){
     e.preventDefault();
