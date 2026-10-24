@@ -5,8 +5,30 @@
 <link>https://hirrok.github.io/adf-hq/insights/</link>
 <description>Field notes, build notes, recon notes, and operating doctrine from Aurora Digital Foundry.</description>
 <language>en-PH</language>
-<lastBuildDate>Sat, 10 Oct 2026 07:01:25 +0000</lastBuildDate>
+<lastBuildDate>Sat, 24 Oct 2026 20:43:07 +0000</lastBuildDate>
 <atom:link href="https://hirrok.github.io/adf-hq/insights/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>Where Leads Die After the Form</title>
+<link>https://hirrok.github.io/adf-hq/insights/where-leads-die-after-the-form/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/where-leads-die-after-the-form/</guid>
+<pubDate>Sun, 25 Oct 2026 04:43:07 +0800</pubDate>
+<description>Lead capture is only the first handoff. Response time, routing, ownership, and follow-up determine whether the inquiry becomes revenue.</description>
+</item>
+<item>
+<title>Dashboards Are Not Decisions</title>
+<link>https://hirrok.github.io/adf-hq/insights/dashboards-not-decisions/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/dashboards-not-decisions/</guid>
+<pubDate>Sun, 25 Oct 2026 04:43:07 +0800</pubDate>
+<description>Measurement without an operating response is decoration. A useful dashboard connects signals to action.</description>
+<enclosure url="https://hirrok.github.io/adf-hq/media/season-1/dashboards-not-decisions-web.mp4" length="342700" type="video/mp4"/>
+</item>
+<item>
+<title>The Cheapest Tool Is the One Your Team Can Maintain</title>
+<link>https://hirrok.github.io/adf-hq/insights/cheapest-tool-team-can-maintain/</link>
+<guid isPermaLink="true">https://hirrok.github.io/adf-hq/insights/cheapest-tool-team-can-maintain/</guid>
+<pubDate>Sun, 25 Oct 2026 04:43:07 +0800</pubDate>
+<description>Subscription price is only one cost. Complexity, fragility, training, and recovery time are part of the real operating cost.</description>
+</item>
 <item>
 <title>Automate Stable Processes, Not Confusion</title>
 <link>https://hirrok.github.io/adf-hq/insights/automate-stable-processes/</link>
